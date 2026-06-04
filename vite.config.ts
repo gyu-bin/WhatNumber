@@ -11,9 +11,9 @@ export default defineConfig({
       manifest: {
         name: '몇번이야 — 몰라서 못 쓴 번호들',
         short_name: '몇번이야',
-        description: '갑자기 쓸 일 생기는 번호 35개 모음',
-        theme_color: '#FAFAF9',
-        background_color: '#FAFAF9',
+        description: '갑자기 쓸 일 생기는 공공 전화번호 모음',
+        theme_color: '#111110',
+        background_color: '#111110',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',

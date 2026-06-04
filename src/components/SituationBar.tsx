@@ -27,34 +27,36 @@ export function SituationBar({ active, onSelect, disabled }: SituationBarProps) 
 
   return (
     <section className={`${styles.bar} ${disabled ? styles.disabled : ''}`}>
-      <p className={styles.label}>지금 어떤 상황이에요?</p>
-      <div className={styles.grid}>
-        {SITUATIONS.map((s) => {
-          const isActive = active === s.id;
-          const accent = SITUATION_ACCENT[s.id];
-          return (
-            <button
-              key={s.id}
-              type="button"
-              className={styles.btn}
-              data-active={isActive || undefined}
-              style={
-                isActive
-                  ? ({
-                      '--situation-accent': accent,
-                    } as CSSProperties)
-                  : undefined
-              }
-              onClick={() => handleClick(s.id)}
-              disabled={disabled}
-            >
-              <span className={styles.btnIcon}>{s.icon}</span>
-              <span className={styles.btnLabel}>{s.label}</span>
-            </button>
-          );
-        })}
+      <div className={styles.inner}>
+        <p className={styles.label}>지금 어떤 상황이에요?</p>
+        <div className={styles.grid}>
+          {SITUATIONS.map((s) => {
+            const isActive = active === s.id;
+            const accent = SITUATION_ACCENT[s.id];
+            return (
+              <button
+                key={s.id}
+                type="button"
+                className={styles.btn}
+                data-active={isActive || undefined}
+                style={
+                  isActive
+                    ? ({
+                        '--situation-accent': accent,
+                      } as CSSProperties)
+                    : undefined
+                }
+                onClick={() => handleClick(s.id)}
+                disabled={disabled}
+              >
+                <span className={styles.btnIcon}>{s.icon}</span>
+                <span className={styles.btnLabel}>{s.label}</span>
+              </button>
+            );
+          })}
+        </div>
+        {active && <TipBanner situation={active} />}
       </div>
-      {active && <TipBanner situation={active} />}
     </section>
   );
 }

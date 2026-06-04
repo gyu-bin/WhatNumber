@@ -6,27 +6,38 @@ interface NumberCardProps {
   item: NumberItem;
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
-  isLast?: boolean;
+  onOpen: (id: string) => void;
 }
 
 export function NumberCard({
   item,
   isFavorite,
   onToggleFavorite,
-  isLast,
+  onOpen,
 }: NumberCardProps) {
-  const href = telHref(item.num);
-
   const handleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
     onToggleFavorite(item.id);
   };
 
+  const handleCall = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onOpen(item.id);
+    }
+  };
+
   return (
-    <a
-      href={href}
-      className={`${styles.card} ${isLast ? styles.last : ''}`}
+    <div
+      className={styles.card}
+      role="button"
+      tabIndex={0}
+      onClick={() => onOpen(item.id)}
+      onKeyDown={handleKeyDown}
     >
       <div
         className={styles.iconWrap}
@@ -49,8 +60,15 @@ export function NumberCard({
         >
           {isFavorite ? '★' : '☆'}
         </button>
-        <span className={styles.num}>{item.num}</span>
+        <a
+          href={telHref(item.num)}
+          className={styles.num}
+          onClick={handleCall}
+          aria-label={`${item.num} 전화`}
+        >
+          {item.num}
+        </a>
       </div>
-    </a>
+    </div>
   );
 }

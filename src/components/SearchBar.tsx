@@ -16,7 +16,7 @@ export function SearchBar({ query, onChange, disabled }: SearchBarProps) {
         <input
           type="search"
           className={styles.input}
-          placeholder="번호 이름이나 상황을 검색하세요"
+          placeholder="번호, 상황(사고·이사), 카테고리 검색"
           value={query}
           onChange={(e) => onChange(e.target.value)}
           disabled={disabled}

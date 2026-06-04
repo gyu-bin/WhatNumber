@@ -2,13 +2,28 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 0;
-  border-bottom: 0.5px solid var(--border);
+  padding: 14px 12px;
+  box-sizing: border-box;
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
   -webkit-tap-highlight-color: transparent;
+  background: transparent;
+  transition: background var(--transition-slow);
+  cursor: pointer;
 }
 
-.card.last {
-  border-bottom: none;
+@media (min-width: 768px) {
+  .card {
+    grid-column: span 1;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background: var(--card-hover);
+  }
 }
 
 .iconWrap {
@@ -62,10 +77,18 @@
   line-height: 1;
   color: var(--text-tertiary);
   padding: 2px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition-slow);
 }
 
 .favorite[data-active] {
   color: var(--favorite);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .favorite:hover {
+    background: var(--card-hover);
+  }
 }
 
 .num {
@@ -73,4 +96,13 @@
   font-weight: 700;
   color: var(--accent-red);
   text-align: right;
+  padding: 2px 0;
+  position: relative;
+  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .num:hover {
+    text-decoration: underline;
+  }
 }

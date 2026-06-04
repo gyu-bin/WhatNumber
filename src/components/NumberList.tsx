@@ -8,6 +8,8 @@ interface NumberListProps {
   groupByCategory: boolean;
   isFavorite: (id: string) => boolean;
   onToggleFavorite: (id: string) => void;
+  onOpen: (id: string) => void;
+  mode?: 'default' | 'favorites';
 }
 
 const CATEGORY_ORDER: Category[] = [
@@ -20,13 +22,54 @@ const CATEGORY_ORDER: Category[] = [
   '민원/행정',
 ];
 
+function CardGrid({
+  items,
+  isFavorite,
+  onToggleFavorite,
+  onOpen,
+}: {
+  items: NumberItem[];
+  isFavorite: (id: string) => boolean;
+  onToggleFavorite: (id: string) => void;
+  onOpen: (id: string) => void;
+}) {
+  return (
+    <div className={styles.cardGrid}>
+      {items.map((item) => (
+        <NumberCard
+          key={item.id}
+          item={item}
+          isFavorite={isFavorite(item.id)}
+          onToggleFavorite={onToggleFavorite}
+          onOpen={onOpen}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function NumberList({
   items,
   groupByCategory,
   isFavorite,
   onToggleFavorite,
+  onOpen,
+  mode = 'default',
 }: NumberListProps) {
   if (items.length === 0) {
+    if (mode === 'favorites') {
+      return (
+        <div className={styles.empty}>
+          <p className={styles.emptyIcon} aria-hidden>
+            ☆
+          </p>
+          <p className={styles.emptyTitle}>아직 즐겨찾기가 없어요</p>
+          <p className={styles.emptyHint}>
+            자주 쓰는 번호 카드에서 ☆를 눌러 모아두세요
+          </p>
+        </div>
+      );
+    }
     return (
       <div className={styles.empty}>
         <p>해당하는 번호가 없어요</p>
@@ -37,16 +80,21 @@ export function NumberList({
   if (!groupByCategory) {
     return (
       <section className={styles.section}>
-        <div className={styles.cardWrap}>
-          {items.map((item, i) => (
-            <NumberCard
-              key={item.id}
-              item={item}
-              isFavorite={isFavorite(item.id)}
-              onToggleFavorite={onToggleFavorite}
-              isLast={i === items.length - 1}
-            />
-          ))}
+        <div className={styles.panel}>
+          {mode === 'favorites' && (
+            <h2 className={styles.favHeader}>
+              <span className={styles.favHeaderStar} aria-hidden>
+                ★
+              </span>
+              내 즐겨찾기 · {items.length}개
+            </h2>
+          )}
+          <CardGrid
+            items={items}
+            isFavorite={isFavorite}
+            onToggleFavorite={onToggleFavorite}
+            onOpen={onOpen}
+          />
         </div>
       </section>
     );
@@ -61,22 +109,19 @@ export function NumberList({
     <>
       {grouped.map(({ cat, items: groupItems }) => (
         <section key={cat} className={styles.section}>
-          <div className={styles.cardWrap}>
+          <div className={styles.panel}>
             <h2
               className={styles.catHeader}
               style={{ color: CAT_COLOR[cat] }}
             >
               {cat}
             </h2>
-            {groupItems.map((item, i) => (
-              <NumberCard
-                key={item.id}
-                item={item}
-                isFavorite={isFavorite(item.id)}
-                onToggleFavorite={onToggleFavorite}
-                isLast={i === groupItems.length - 1}
-              />
-            ))}
+            <CardGrid
+              items={groupItems}
+              isFavorite={isFavorite}
+              onToggleFavorite={onToggleFavorite}
+              onOpen={onOpen}
+            />
           </div>
         </section>
       ))}
