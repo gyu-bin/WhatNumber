@@ -10,7 +10,9 @@
 </p>
 
 <p align="center">
-  <a href="https://myeonbeoniya.kr">myeonbeoniya.kr</a>
+  <a href="https://whatnumber-mu.vercel.app"><strong>whatnumber-mu.vercel.app</strong></a>
+  ·
+  <a href="https://myeonbeoniya.kr">myeonbeoniya.kr</a> (커스텀 도메인 연결 예정)
 </p>
 
 ---
