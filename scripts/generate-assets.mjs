@@ -1,4 +1,5 @@
 import { writeFileSync, mkdirSync } from 'fs';
+import { execSync } from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { deflateSync } from 'zlib';
@@ -53,6 +54,34 @@ function createPng(width, height, draw) {
   ihdr.writeUInt32BE(height, 4);
   ihdr[8] = 8;
   ihdr[9] = 6;
+  const idat = deflateSync(raw, { level: 9 });
+  return Buffer.concat([
+    Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+    chunk('IHDR', ihdr),
+    chunk('IDAT', idat),
+    chunk('IEND', Buffer.alloc(0)),
+  ]);
+}
+
+/** 카카오·SNS 스크래퍼용 — 알파 채널 없는 RGB PNG */
+function createPngRgb(width, height, draw) {
+  const rowSize = 1 + width * 3;
+  const raw = Buffer.alloc(rowSize * height);
+  for (let y = 0; y < height; y++) {
+    raw[y * rowSize] = 0;
+    for (let x = 0; x < width; x++) {
+      const [r, g, b] = draw(x, y);
+      const i = y * rowSize + 1 + x * 3;
+      raw[i] = r;
+      raw[i + 1] = g;
+      raw[i + 2] = b;
+    }
+  }
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(width, 0);
+  ihdr.writeUInt32BE(height, 4);
+  ihdr[8] = 8;
+  ihdr[9] = 2;
   const idat = deflateSync(raw, { level: 9 });
   return Buffer.concat([
     Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
@@ -124,85 +153,88 @@ function iconPng(size, radius, qScale) {
   return png;
 }
 
+function drawQuestionMarkRgb(x, y, cx, cy, r, thick) {
+  const dx = x - cx;
+  const dy = y - cy;
+  const dotY = cy + r * 0.55;
+  if (Math.abs(x - cx) < thick && y > cy - r * 0.2 && y < dotY) {
+    return [255, 255, 255];
+  }
+  if (Math.abs(Math.hypot(dx, dy) - r) < thick * 0.55) {
+    return [255, 255, 255];
+  }
+  if (Math.hypot(x - cx, y - dotY) < thick * 0.9) {
+    return [255, 255, 255];
+  }
+  return null;
+}
+
 function ogPng() {
   const w = 1200;
   const h = 630;
-  const pad = 80;
-  const iconSize = 140;
+  const topH = 268;
+  const pad = 72;
+  const iconSize = 168;
   const ix = pad;
-  const iy = Math.floor((h - iconSize) / 2) - 24;
+  const iy = Math.floor((topH - iconSize) / 2) + 8;
 
-  return createPng(w, h, (x, y) => {
-    let color = [...BG, 255];
-
-    const accent = Math.hypot(x - (w - 100), y - (h - 80));
-    if (accent < 200) {
-      const a = Math.floor(28 * (1 - accent / 200));
-      return [...RED, a];
-    }
-
-    const icon = roundedRect(ix, iy, iconSize, iconSize, 32, [...RED, 255], 0, 0, w, h);
-    if (icon) {
-      const cx = ix + iconSize / 2;
-      const cy = iy + iconSize / 2 + 8;
-      const r = iconSize * 0.22;
-      const thick = 12;
-      const dx = x - cx;
-      const dy = y - cy;
-      if (Math.hypot(dx, dy - r * 0.55) < thick && y > cy - r && y < cy + r * 0.85) {
-        return [255, 255, 255, 255];
+  return createPngRgb(w, h, (x, y) => {
+    if (y < topH) {
+      const icon = roundedRect(ix, iy, iconSize, iconSize, 36, [...RED, 255], 0, 0, w, h);
+      if (icon) {
+        const cx = ix + iconSize / 2;
+        const cy = iy + iconSize / 2 + 10;
+        const mark = drawQuestionMarkRgb(x, y, cx, cy, iconSize * 0.22, 14);
+        if (mark) return mark;
+        return RED;
       }
-      if (Math.abs(Math.hypot(dx, dy) - r) < thick * 0.55) {
-        return [255, 255, 255, 255];
+      const tx = ix + iconSize + 56;
+      const titleY = iy + 12;
+      if (y >= titleY && y < titleY + 72 && x >= tx && x < w - pad) {
+        return [255, 255, 255];
       }
-      if (Math.hypot(x - cx, y - (cy + r * 0.55)) < thick) {
-        return [255, 255, 255, 255];
+      const subY = titleY + 88;
+      if (y >= subY && y < subY + 48 && x >= tx && x < w - pad - 80) {
+        return [255, 230, 226];
       }
-      return icon;
+      return RED;
     }
 
-    const tx = ix + iconSize + 48;
-    const titleY = iy + 8;
-    const titleH = 64;
-    const titleW = w - tx - pad;
-    if (y >= titleY && y < titleY + titleH && x >= tx && x < tx + titleW) {
-      return [...TEXT, 255];
+    const bodyY = topH + pad;
+    const titleBarH = 56;
+    if (y >= bodyY && y < bodyY + titleBarH && x >= pad && x < w - pad) {
+      return TEXT;
     }
 
-    const subY = titleY + titleH + 20;
-    const subH = 44;
-    if (y >= subY && y < subY + subH && x >= tx && x < tx + titleW - 40) {
-      return [...SUB, 255];
+    const subY = bodyY + titleBarH + 28;
+    const subH = 40;
+    if (y >= subY && y < subY + subH && x >= pad && x < w - pad - 120) {
+      return SUB;
     }
 
-    const tagY = subY + subH + 28;
-    const tagH = 40;
-    if (y >= tagY && y < tagY + tagH && x >= tx && x < tx + 520) {
-      return [...RED, 255];
+    const tagY = subY + subH + 36;
+    const tagH = 48;
+    if (y >= tagY && y < tagY + tagH && x >= pad && x < pad + 560) {
+      return RED;
     }
 
-    const numY = tagY + tagH + 24;
-    const nums = 5;
-    const chipW = 100;
-    const chipH = 36;
-    const gap = 14;
-    const startX = tx;
-    for (let i = 0; i < nums; i++) {
-      const sx = startX + i * (chipW + gap);
-      if (x >= sx && x < sx + chipW && y >= numY && y < numY + chipH) {
-        return [255, 255, 255, 255];
-      }
-      if (
-        x >= sx + 4 &&
-        x < sx + chipW - 4 &&
-        y >= numY + 10 &&
-        y < numY + chipH - 10
-      ) {
-        return [...RED, 255];
+    const chipY = tagY + tagH + 32;
+    const chipW = 108;
+    const chipH = 44;
+    const gap = 16;
+    for (let i = 0; i < 6; i++) {
+      const sx = pad + i * (chipW + gap);
+      if (x >= sx && x < sx + chipW && y >= chipY && y < chipY + chipH) {
+        const inner =
+          x >= sx + 6 &&
+          x < sx + chipW - 6 &&
+          y >= chipY + 8 &&
+          y < chipY + chipH - 8;
+        return inner ? RED : [255, 255, 255];
       }
     }
 
-    return color;
+    return BG;
   });
 }
 
@@ -211,6 +243,18 @@ writeFileSync(join(iconsDir, 'icon-512.png'), iconPng(512, 115, 1));
 writeFileSync(join(publicDir, 'apple-touch-icon.png'), iconPng(180, 40, 1));
 writeFileSync(join(publicDir, 'favicon.ico'), iconPng(32, 7, 0.85));
 writeFileSync(join(iconsDir, 'favicon-32.png'), iconPng(32, 7, 0.85));
-writeFileSync(join(publicDir, 'og-image.png'), ogPng());
+const ogPath = join(publicDir, 'og-image.png');
+writeFileSync(ogPath, ogPng());
+
+const ogJpgPath = join(publicDir, 'og-image.jpg');
+try {
+  if (process.platform === 'darwin') {
+    execSync(`sips -s format jpeg -s formatOptions 92 "${ogPath}" --out "${ogJpgPath}"`, {
+      stdio: 'ignore',
+    });
+  }
+} catch {
+  /* JPEG는 macOS 로컬에서만 생성 — 배포 OG는 RGB PNG */
+}
 
 console.log('Generated public assets');
