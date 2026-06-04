@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "generate-assets": "node scripts/generate-assets.mjs",
-    "prebuild": "npm run generate-assets",
+    "generate-ads-txt": "node scripts/generate-ads-txt.mjs",
+    "prebuild": "npm run generate-assets && npm run generate-ads-txt",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

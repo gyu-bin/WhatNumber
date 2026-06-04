@@ -89,6 +89,27 @@ vercel --prod
 
 `vercel.json`에 SPA rewrite가 설정되어 있습니다.
 
+### AdSense `ads.txt`
+
+1. [AdSense](https://www.google.com/adsense/) → **사이트** → `whatnumber-mu.vercel.app` → **ads.txt**에서 한 줄 복사  
+   (또는 **계정 → 계정 정보**의 게시자 ID `pub-`… 사용)
+2. 프로젝트 루트에 `.env` 작성:
+
+   ```env
+   VITE_ADSENSE_PUBLISHER_ID=pub-여기16자리
+   ```
+
+3. 생성 후 배포:
+
+   ```bash
+   npm run generate-ads-txt
+   npm run build
+   vercel --prod
+   ```
+
+4. `https://whatnumber-mu.vercel.app/ads.txt` 에서 `google.com, pub-…` 한 줄이 보이면 성공입니다.  
+   Vercel 프로덕션에는 `VITE_ADSENSE_PUBLISHER_ID` 환경 변수를 등록해 두면 빌드 시 자동 생성됩니다.
+
 ---
 
 ## 프로젝트 구조
@@ -106,9 +127,11 @@ src/
 public/
 ├── icons/               # PWA 아이콘
 ├── og-image.png         # 카카오·SNS 미리보기
+├── ads.txt              # AdSense (generate-ads-txt로 생성)
 └── apple-touch-icon.png
 
 scripts/generate-assets.mjs  # 아이콘·OG 이미지 생성
+scripts/generate-ads-txt.mjs # ads.txt 생성
 ```
 
 ---
