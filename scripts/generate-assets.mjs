@@ -127,29 +127,32 @@ function iconPng(size, radius, qScale) {
 function ogPng() {
   const w = 1200;
   const h = 630;
+  const pad = 80;
+  const iconSize = 140;
+  const ix = pad;
+  const iy = Math.floor((h - iconSize) / 2) - 24;
+
   return createPng(w, h, (x, y) => {
-    const dist = Math.hypot(x - w * 0.92, y - h * 0.88);
-    if (dist < 180) {
-      const a = Math.floor(20 * (1 - dist / 180));
-      return [...RED, a];
-    }
     let color = [...BG, 255];
 
-    const iconSize = 120;
-    const ix = Math.floor(w / 2 - iconSize - 80);
-    const iy = Math.floor(h * 0.28);
-    const icon = roundedRect(ix, iy, iconSize, iconSize, 28, [...RED, 255], 0, 0, w, h);
+    const accent = Math.hypot(x - (w - 100), y - (h - 80));
+    if (accent < 200) {
+      const a = Math.floor(28 * (1 - accent / 200));
+      return [...RED, a];
+    }
+
+    const icon = roundedRect(ix, iy, iconSize, iconSize, 32, [...RED, 255], 0, 0, w, h);
     if (icon) {
       const cx = ix + iconSize / 2;
-      const cy = iy + iconSize / 2 + 6;
+      const cy = iy + iconSize / 2 + 8;
       const r = iconSize * 0.22;
-      const thick = 10;
+      const thick = 12;
       const dx = x - cx;
       const dy = y - cy;
-      if (Math.hypot(dx, dy - r * 0.55) < thick * 0.8 && y > cy - r && y < cy + r * 0.8) {
+      if (Math.hypot(dx, dy - r * 0.55) < thick && y > cy - r && y < cy + r * 0.85) {
         return [255, 255, 255, 255];
       }
-      if (Math.abs(Math.hypot(dx, dy) - r) < thick * 0.5) {
+      if (Math.abs(Math.hypot(dx, dy) - r) < thick * 0.55) {
         return [255, 255, 255, 255];
       }
       if (Math.hypot(x - cx, y - (cy + r * 0.55)) < thick) {
@@ -158,33 +161,46 @@ function ogPng() {
       return icon;
     }
 
-    const titleY = iy + 20;
-    const titleH = 72;
-    const titleX = ix + iconSize + 28;
-    const titleW = 520;
-    if (y >= titleY && y < titleY + titleH && x >= titleX && x < titleX + titleW) {
+    const tx = ix + iconSize + 48;
+    const titleY = iy + 8;
+    const titleH = 64;
+    const titleW = w - tx - pad;
+    if (y >= titleY && y < titleY + titleH && x >= tx && x < tx + titleW) {
       return [...TEXT, 255];
     }
 
-    const subY = titleY + titleH + 16;
-    const subH = 36;
-    if (y >= subY && y < subY + subH && x >= titleX && x < titleX + 400) {
+    const subY = titleY + titleH + 20;
+    const subH = 44;
+    if (y >= subY && y < subY + subH && x >= tx && x < tx + titleW - 40) {
       return [...SUB, 255];
     }
 
-    const tagY = h * 0.62;
-    if (y >= tagY && y < tagY + 40 && x >= w / 2 - 280 && x < w / 2 + 280) {
-      return [...SUB, 255];
+    const tagY = subY + subH + 28;
+    const tagH = 40;
+    if (y >= tagY && y < tagY + tagH && x >= tx && x < tx + 520) {
+      return [...RED, 255];
     }
 
-    const samples = ['129', '119', '1588-2504', '132', '1398'];
-    const startX = w / 2 - 220;
-    samples.forEach((_, i) => {
-      const sx = startX + i * 88;
-      if (y >= tagY + 56 && y < tagY + 88 && x >= sx && x < sx + 76) {
+    const numY = tagY + tagH + 24;
+    const nums = 5;
+    const chipW = 100;
+    const chipH = 36;
+    const gap = 14;
+    const startX = tx;
+    for (let i = 0; i < nums; i++) {
+      const sx = startX + i * (chipW + gap);
+      if (x >= sx && x < sx + chipW && y >= numY && y < numY + chipH) {
+        return [255, 255, 255, 255];
+      }
+      if (
+        x >= sx + 4 &&
+        x < sx + chipW - 4 &&
+        y >= numY + 10 &&
+        y < numY + chipH - 10
+      ) {
         return [...RED, 255];
       }
-    });
+    }
 
     return color;
   });

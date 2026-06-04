@@ -10,3 +10,8 @@
   color: var(--text-tertiary);
   line-height: 1.5;
 }
+
+.note {
+  margin-top: 8px !important;
+  font-size: 11px !important;
+}

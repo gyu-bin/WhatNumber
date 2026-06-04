@@ -2,9 +2,24 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
+const SITE_URL = (process.env.VITE_SITE_URL || 'https://whatnumber-mu.vercel.app').replace(
+  /\/$/,
+  '',
+);
+
+function siteUrlHtmlPlugin() {
+  return {
+    name: 'site-url-html',
+    transformIndexHtml(html: string) {
+      return html.replaceAll('__SITE_URL__', SITE_URL);
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     react(),
+    siteUrlHtmlPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
