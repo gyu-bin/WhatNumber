@@ -1,0 +1,53 @@
+.bar {
+  background: var(--surface);
+  border-bottom: 0.5px solid var(--border);
+  padding: 14px 20px;
+}
+
+.bar.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.label {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: left;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.btn[data-active] {
+  border-color: var(--situation-accent, var(--accent-red));
+  background: color-mix(in srgb, var(--situation-accent, var(--accent-red)) 10%, transparent);
+}
+
+.btnIcon {
+  font-size: 15px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.btnLabel {
+  line-height: 1.3;
+}

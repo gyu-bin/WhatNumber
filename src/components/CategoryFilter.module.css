@@ -1,0 +1,36 @@
+.wrap {
+  border-bottom: 0.5px solid var(--border);
+  background: var(--surface);
+}
+
+.wrap.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.scroll {
+  display: flex;
+  gap: 6px;
+  padding: 12px 20px;
+  overflow-x: auto;
+}
+
+.chip {
+  flex-shrink: 0;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 99px;
+  border: 0.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.chip[data-active] {
+  background: var(--text-primary);
+  color: var(--surface);
+  border-color: transparent;
+}

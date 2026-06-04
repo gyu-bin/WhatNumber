@@ -1,0 +1,18 @@
+.banner {
+  margin: 8px 0 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #92400e;
+  background: #fffbeb;
+  border: 0.5px solid #fde68a;
+  border-radius: 10px;
+  line-height: 1.45;
+}
+
+@media (prefers-color-scheme: dark) {
+  .banner {
+    background: rgba(255, 251, 235, 0.08);
+    border-color: rgba(253, 230, 138, 0.35);
+    color: #fbbf24;
+  }
+}
