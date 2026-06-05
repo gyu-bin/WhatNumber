@@ -14,6 +14,7 @@ import { NumberList } from './components/NumberList';
 import { NumberDetail } from './components/NumberDetail';
 import { Footer } from './components/Footer';
 import { Toast } from './components/Toast';
+import { VercelAnalytics } from './components/VercelAnalytics';
 
 function App() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -148,6 +149,7 @@ function App() {
         />
       )}
       <Toast message={toast} />
+      <VercelAnalytics />
     </div>
   );
 }
