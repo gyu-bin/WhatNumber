@@ -7,11 +7,31 @@ const SITE_URL = (process.env.VITE_SITE_URL || 'https://whatnumber-mu.vercel.app
   '',
 );
 
+function getAdSenseClientId(): string | undefined {
+  const explicit = process.env.VITE_ADSENSE_CLIENT_ID?.trim();
+  if (explicit) return explicit;
+
+  const publisher = process.env.VITE_ADSENSE_PUBLISHER_ID?.trim();
+  if (!publisher) return undefined;
+  if (publisher.startsWith('ca-pub-')) return publisher;
+  if (publisher.startsWith('pub-')) return `ca-${publisher}`;
+  return undefined;
+}
+
+const ADSENSE_CLIENT_ID = getAdSenseClientId();
+
 function siteUrlHtmlPlugin() {
   return {
     name: 'site-url-html',
     transformIndexHtml(html: string) {
-      return html.replaceAll('__SITE_URL__', SITE_URL);
+      let out = html.replaceAll('__SITE_URL__', SITE_URL);
+
+      const adsense =
+        ADSENSE_CLIENT_ID && process.env.NODE_ENV === 'production'
+          ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}" crossorigin="anonymous"></script>`
+          : '';
+
+      return out.replace('<!-- __ADSENSE__ -->', adsense);
     },
   };
 }
