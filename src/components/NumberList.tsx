@@ -1,5 +1,5 @@
-import type { Category, NumberItem } from '../data/numbers';
-import { CAT_COLOR } from '../data/numbers';
+import type { Category, NumberItem } from '@whatnumber/shared';
+import { CAT_COLOR } from '@whatnumber/shared';
 import { NumberCard } from './NumberCard';
 import styles from './NumberList.module.css';
 

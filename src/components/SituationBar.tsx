@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
-import type { Situation } from '../data/numbers';
-import { SITUATION_ACCENT } from '../data/numbers';
+import type { Situation } from '@whatnumber/shared';
+import { SITUATION_ACCENT } from '@whatnumber/shared';
 import { TipBanner } from './TipBanner';
 import styles from './SituationBar.module.css';
 

@@ -1,6 +1,6 @@
 .wrap {
   padding: 12px var(--page-padding-x) 0;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   background: var(--bg);
   width: 100%;
 }

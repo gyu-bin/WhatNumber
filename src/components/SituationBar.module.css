@@ -42,13 +42,19 @@
   border-radius: 10px;
   font-size: 13px;
   text-align: left;
-  transition: border-color var(--transition), background var(--transition),
-    transform var(--transition), box-shadow var(--transition);
+  transition: border-color var(--transition), background var(--transition-slow),
+    transform var(--transition-spring), box-shadow var(--transition);
 }
 
 .btn[data-active] {
   border-color: var(--situation-accent, var(--accent-red));
   background: color-mix(in srgb, var(--situation-accent, var(--accent-red)) 10%, transparent);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--situation-accent, var(--accent-red)) 12%, transparent);
+  transform: translateY(-1.5px);
+}
+
+.btn:active {
+  transform: scale(0.96);
 }
 
 .btnIcon {
@@ -77,10 +83,11 @@
   .btn:not([data-active]):hover {
     border-color: var(--border-strong);
     background: var(--hover-surface);
-    transform: translateY(-1px);
+    transform: translateY(-1.5px);
   }
 
   .btn[data-active]:hover {
-    box-shadow: 0 2px 10px color-mix(in srgb, var(--situation-accent, var(--accent-red)) 25%, transparent);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--situation-accent, var(--accent-red)) 20%, transparent);
+    transform: translateY(-2px);
   }
 }

@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import type { NumberItem } from '../data/numbers';
+import type { NumberItem } from '@whatnumber/shared';
 import {
   CAT_COLOR,
   SITUATION_LABELS,
   iconBgColor,
   telHref,
-} from '../data/numbers';
+} from '@whatnumber/shared';
+import { getNumberArticle } from '../content/numberArticles';
 import { copyNumberShare, copyText } from '../utils/share';
 import styles from './NumberDetail.module.css';
 
@@ -46,6 +47,8 @@ export function NumberDetail({
     const ok = await copyText(item.num);
     onCopied(ok ? '전화번호가 복사됐어요' : '복사에 실패했어요');
   };
+
+  const article = getNumberArticle(item.id);
 
   return (
     <div className={styles.overlay} onClick={onClose} role="presentation">
@@ -92,6 +95,14 @@ export function NumberDetail({
         {item.tip && (
           <div className={styles.tip} role="note">
             💡 {item.tip}
+          </div>
+        )}
+
+        {article && (
+          <div className={styles.article}>
+            {article.map((paragraph) => (
+              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+            ))}
           </div>
         )}
 

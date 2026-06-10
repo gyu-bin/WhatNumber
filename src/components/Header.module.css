@@ -12,10 +12,9 @@
 
 .topRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 12px;
 }
 
 .actions {
@@ -37,7 +36,7 @@
   border: 0.5px solid var(--border);
   background: var(--surface);
   color: var(--text-secondary);
-  transition: transform var(--transition), background var(--transition-slow),
+  transition: transform var(--transition-spring), background var(--transition-slow),
     border-color var(--transition), color var(--transition);
 }
 
@@ -46,33 +45,14 @@
     background: var(--card-hover);
     border-color: var(--border-strong);
     color: var(--text-primary);
-    transform: translateY(-1px);
+    transform: translateY(-1.5px);
   }
 
   .shareBtn:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(0.95);
   }
 }
 
-.badge {
-  display: inline-block;
-  font-size: 11px;
-  background: var(--badge-bg);
-  color: var(--badge-color);
-  border-radius: 99px;
-  padding: 2px 8px;
-  margin-bottom: 8px;
-}
-
-.title {
-  margin: 0 0 4px;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-.subtitle {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-secondary);
+.shareBtn:active {
+  transform: scale(0.95);
 }

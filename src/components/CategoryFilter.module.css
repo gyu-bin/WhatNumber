@@ -46,33 +46,40 @@
   background: var(--bg);
   color: var(--text-primary);
   white-space: nowrap;
-  transition: background var(--transition), color var(--transition),
-    border-color var(--transition), transform var(--transition);
+  transition: background var(--transition-slow), color var(--transition-slow),
+    border-color var(--transition), transform var(--transition-spring);
 }
 
 .chip[data-active] {
   background: var(--text-primary);
   color: var(--surface);
   border-color: transparent;
+  transform: translateY(-1px);
 }
 
 .chip[data-favorites][data-active] {
   background: var(--favorite);
   color: #fff;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--favorite) 20%, transparent);
 }
 
 .chip[data-favorites]:not([data-active]) {
-  border-color: color-mix(in srgb, var(--favorite) 35%, var(--border));
+  border-color: color-mix(in srgb, var(--favorite) 45%, var(--border));
+}
+
+.chip:active {
+  transform: scale(0.95);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .chip:not([data-active]):hover {
     border-color: var(--border-strong);
     background: var(--hover-surface);
-    transform: translateY(-1px);
+    transform: translateY(-1.5px);
   }
 
   .chip[data-active]:hover {
     opacity: 0.9;
+    transform: translateY(-1.5px);
   }
 }

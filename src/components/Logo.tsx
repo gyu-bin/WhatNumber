@@ -2,9 +2,10 @@ import styles from './Logo.module.css';
 
 interface LogoProps {
   size?: 'full' | 'compact';
+  showSubtitle?: boolean;
 }
 
-export function Logo({ size = 'full' }: LogoProps) {
+export function Logo({ size = 'full', showSubtitle = false }: LogoProps) {
   const isFull = size === 'full';
 
   return (
@@ -14,7 +15,7 @@ export function Logo({ size = 'full' }: LogoProps) {
       </div>
       <div className={styles.text}>
         <span className={styles.wordmark}>몇번이야</span>
-        {isFull && (
+        {(isFull || showSubtitle) && (
           <span className={styles.sub}>진짜 쓸 일 생기는 번호 모음</span>
         )}
       </div>

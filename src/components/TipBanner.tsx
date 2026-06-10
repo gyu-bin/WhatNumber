@@ -1,5 +1,5 @@
-import type { Situation } from '../data/numbers';
-import { SITUATION_TIPS } from '../data/numbers';
+import type { Situation } from '@whatnumber/shared';
+import { SITUATION_TIPS } from '@whatnumber/shared';
 import styles from './TipBanner.module.css';
 
 interface TipBannerProps {

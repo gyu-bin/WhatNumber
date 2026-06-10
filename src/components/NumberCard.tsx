@@ -1,5 +1,5 @@
-import type { NumberItem } from '../data/numbers';
-import { iconBgColor, telHref } from '../data/numbers';
+import type { NumberItem } from '@whatnumber/shared';
+import { iconBgColor, telHref } from '@whatnumber/shared';
 import styles from './NumberCard.module.css';
 
 interface NumberCardProps {

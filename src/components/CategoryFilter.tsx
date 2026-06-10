@@ -1,10 +1,11 @@
-import { CATEGORIES } from '../data/numbers';
+import { CATEGORIES } from '@whatnumber/shared';
 import styles from './CategoryFilter.module.css';
 
 interface CategoryFilterProps {
   active: string;
   onSelect: (id: string) => void;
   disabled?: boolean;
+  situationActive?: boolean;
   favoritesCount?: number;
 }
 
@@ -18,6 +19,7 @@ export function CategoryFilter({
   active,
   onSelect,
   disabled,
+  situationActive = false,
   favoritesCount = 0,
 }: CategoryFilterProps) {
   return (
@@ -28,31 +30,32 @@ export function CategoryFilter({
           role="tablist"
           aria-label="카테고리"
         >
-        {CHIPS.map((chip) => {
-          const isFavChip = chip.id === 'favorites';
-          const label = isFavChip
-            ? favoritesCount > 0
-              ? `⭐ ${favoritesCount}`
-              : '⭐'
-            : chip.label;
+          {CHIPS.map((chip) => {
+            const isFavChip = chip.id === 'favorites';
+            const isActive = active === chip.id && !situationActive;
+            const label = isFavChip
+              ? favoritesCount > 0
+                ? `⭐ ${favoritesCount}`
+                : '⭐'
+              : chip.label;
 
-          return (
-            <button
-              key={chip.id}
-              type="button"
-              role="tab"
-              aria-selected={active === chip.id}
-              className={styles.chip}
-              data-active={active === chip.id || undefined}
-              data-favorites={isFavChip || undefined}
-              onClick={() => !disabled && onSelect(chip.id)}
-              disabled={disabled}
-              aria-label={isFavChip ? `즐겨찾기 ${favoritesCount}개` : chip.label}
-            >
-              {label}
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={chip.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                className={styles.chip}
+                data-active={isActive || undefined}
+                data-favorites={isFavChip || undefined}
+                onClick={() => !disabled && onSelect(chip.id)}
+                disabled={disabled}
+                aria-label={isFavChip ? `즐겨찾기 ${favoritesCount}개` : chip.label}
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
 import type { Theme } from '../utils/theme';
@@ -13,7 +14,9 @@ export function Header({ theme, onToggleTheme, onCopyLink }: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.topRow}>
-        <Logo size="compact" />
+        <Link to="/" aria-label="몇번이야 홈">
+          <Logo size="compact" showSubtitle />
+        </Link>
         <div className={styles.actions}>
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <button
@@ -32,11 +35,6 @@ export function Header({ theme, onToggleTheme, onCopyLink }: HeaderProps) {
           </button>
         </div>
       </div>
-      <span className={styles.badge}>생활 꿀팁</span>
-      <h1 className={styles.title}>몰라서 못 쓴 번호들</h1>
-      <p className={styles.subtitle}>
-        카드 탭하면 상세 · 번호 탭하면 전화 연결
-      </p>
     </header>
   );
 }

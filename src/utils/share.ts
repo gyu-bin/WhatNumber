@@ -1,4 +1,4 @@
-import type { NumberItem } from '../data/numbers';
+import type { NumberItem } from '@whatnumber/shared';
 
 export function getShareUrl(numberId?: string): string {
   const origin =

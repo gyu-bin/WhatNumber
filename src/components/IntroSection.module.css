@@ -1,0 +1,36 @@
+.intro {
+  margin: 0 var(--page-padding-x) 16px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 0.5px solid var(--border);
+  background: var(--surface);
+}
+
+.heading {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.text {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.text:last-child {
+  margin-bottom: 0;
+}
+
+.text strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.link {
+  color: var(--accent-blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

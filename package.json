@@ -1,19 +1,28 @@
 {
-  "name": "myeonbeoniya",
+  "name": "whatnumber",
   "private": true,
   "version": "1.0.0",
   "description": "몇번이야 — 진짜 쓸 일 생기는 공공 전화번호 모음",
   "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
     "generate-assets": "node scripts/generate-assets.mjs",
     "generate-ads-txt": "node scripts/generate-ads-txt.mjs",
-    "prebuild": "npm run generate-assets && npm run generate-ads-txt",
+    "generate-sitemap": "node scripts/generate-sitemap.mjs",
+    "prebuild": "npm run generate-assets && npm run generate-ads-txt && npm run generate-sitemap",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mobile": "npm run start --workspace=mobile",
+    "mobile:ios": "npm run ios --workspace=mobile",
+    "mobile:android": "npm run android --workspace=mobile"
   },
   "dependencies": {
+    "@whatnumber/shared": "*",
     "@vercel/analytics": "^2.0.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
