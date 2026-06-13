@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { usePageSeo } from '../hooks/usePageSeo';
 import { Footer } from '../components/Footer';
 import { PageTopBar } from '../components/PageTopBar';
 import styles from '../styles/contentPage.module.css';
 
 export function PrivacyPage() {
-  useDocumentTitle('개인정보처리방침');
+  usePageSeo({
+    title: '개인정보처리방침',
+    description: '몇번이야 서비스의 개인정보 처리 방침과 데이터 보관 안내입니다.',
+    path: '/privacy',
+  });
 
   return (
     <div className="app">

@@ -6,15 +6,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const outPath = join(root, 'public', 'sitemap.xml');
 
-const GUIDE_SLUGS = [
-  'emergency',
-  'car-accident',
-  'housing',
-  'legal-finance',
-  'civil-admin',
-  'family-welfare',
-];
-
 function loadDotEnv() {
   const path = join(root, '.env');
   if (!existsSync(path)) return {};
@@ -37,31 +28,52 @@ function loadDotEnv() {
   return env;
 }
 
+function extractIds(filePath, field) {
+  const src = readFileSync(join(root, filePath), 'utf8');
+  const re = new RegExp(`${field}: '([^']+)'`, 'g');
+  return [...src.matchAll(re)].map((m) => m[1]);
+}
+
 const env = { ...loadDotEnv(), ...process.env };
 const siteUrl = (env.VITE_SITE_URL || 'https://whatnumber-mu.vercel.app').replace(
   /\/$/,
   '',
 );
 
-const paths = [
-  '/',
-  '/about',
-  '/privacy',
-  '/guide',
-  ...GUIDE_SLUGS.map((s) => `/guide/${s}`),
+const numberIds = extractIds('packages/shared/src/numbers.ts', 'id');
+const guideSlugs = extractIds('src/content/guides.ts', 'slug');
+
+const staticPaths = [
+  { path: '/', priority: '1.0', changefreq: 'daily' },
+  { path: '/about', priority: '0.6', changefreq: 'monthly' },
+  { path: '/privacy', priority: '0.5', changefreq: 'monthly' },
+  { path: '/guide', priority: '0.75', changefreq: 'weekly' },
 ];
 
+const guidePaths = guideSlugs.map((slug) => ({
+  path: `/guide/${slug}`,
+  priority: '0.8',
+  changefreq: 'weekly',
+}));
+
+const numberPaths = numberIds.map((id) => ({
+  path: `/n/${id}`,
+  priority: '0.9',
+  changefreq: 'monthly',
+}));
+
+const allPaths = [...staticPaths, ...guidePaths, ...numberPaths];
 const lastmod = new Date().toISOString().slice(0, 10);
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${paths
+${allPaths
   .map(
-    (path) => `  <url>
-    <loc>${siteUrl}${path}</loc>
+    (entry) => `  <url>
+    <loc>${siteUrl}${entry.path}</loc>
     <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${path === '/' ? '1.0' : path.startsWith('/guide/') ? '0.8' : '0.7'}</priority>
+    <changefreq>${entry.changefreq}</changefreq>
+    <priority>${entry.priority}</priority>
   </url>`,
   )
   .join('\n')}
@@ -74,4 +86,6 @@ writeFileSync(
   `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
   'utf8',
 );
-console.log(`Wrote ${outPath} and robots.txt (${siteUrl})`);
+console.log(
+  `Wrote ${outPath} and robots.txt (${siteUrl}) — ${allPaths.length} URLs (${numberIds.length} numbers)`,
+);

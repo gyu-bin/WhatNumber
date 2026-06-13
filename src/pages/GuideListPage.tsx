@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
 import { GUIDES } from '../content/guides';
-import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { usePageSeo } from '../hooks/usePageSeo';
 import { Footer } from '../components/Footer';
 import { PageTopBar } from '../components/PageTopBar';
 import styles from '../styles/contentPage.module.css';
 
 export function GuideListPage() {
-  useDocumentTitle('상황별 가이드');
+  usePageSeo({
+    title: '상황별 가이드',
+    description:
+      '응급·교통사고·전세·보이스피싱 등 상황별로 어떤 번호를 어떤 순서로 연락해야 하는지 정리한 가이드입니다.',
+    path: '/guide',
+  });
 
   return (
     <div className="app">

@@ -1,16 +1,27 @@
 import { Link, useParams } from 'react-router-dom';
 import { getGuideBySlug } from '../content/guides';
 import { getNumberById } from '@whatnumber/shared';
-import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { JsonLd } from '../components/JsonLd';
 import { Footer } from '../components/Footer';
 import { PageTopBar } from '../components/PageTopBar';
+import { usePageSeo } from '../hooks/usePageSeo';
+import { buildArticleJsonLd, guidePageDescription, numberPath } from '../utils/seo';
 import styles from '../styles/contentPage.module.css';
 
 export function GuideDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const guide = slug ? getGuideBySlug(slug) : undefined;
 
-  useDocumentTitle(guide?.title ?? '가이드');
+  usePageSeo(
+    guide
+      ? {
+          title: guide.title,
+          description: guidePageDescription(guide.summary),
+          path: `/guide/${guide.slug}`,
+          type: 'article',
+        }
+      : { title: '가이드를 찾을 수 없음', noIndex: true },
+  );
 
   if (!guide) {
     return (
@@ -27,8 +38,15 @@ export function GuideDetailPage() {
     );
   }
 
+  const articleJsonLd = buildArticleJsonLd({
+    title: guide.title,
+    description: guide.summary,
+    path: `/guide/${guide.slug}`,
+  });
+
   return (
     <div className="app">
+      <JsonLd id="guide-article" data={articleJsonLd} />
       <PageTopBar title="상황별 가이드" />
       <main className={styles.page}>
         <Link to="/guide" className={styles.back}>
@@ -64,7 +82,7 @@ export function GuideDetailPage() {
               if (!item) return null;
               return (
                 <li key={id}>
-                  <Link to={`/?n=${id}`} className={styles.relatedLink}>
+                  <Link to={numberPath(id)} className={styles.relatedLink}>
                     {item.title} ({item.num})
                   </Link>
                 </li>

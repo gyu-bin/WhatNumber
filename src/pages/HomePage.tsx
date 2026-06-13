@@ -8,8 +8,17 @@ import {
 } from '@whatnumber/shared';
 import { useFavorites } from '../hooks/useFavorites';
 import { useTheme } from '../hooks/useTheme';
-import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { usePageSeo } from '../hooks/usePageSeo';
 import { copySiteLink } from '../utils/share';
+import { JsonLd } from '../components/JsonLd';
+import {
+  buildFaqJsonLd,
+  buildItemListJsonLd,
+  buildWebsiteJsonLd,
+  numberPageDescription,
+  numberPageTitle,
+  numberPath,
+} from '../utils/seo';
 import { NumberRequest } from '../components/NumberRequest';
 import { Header } from '../components/Header';
 import { IntroSection } from '../components/IntroSection';
@@ -23,7 +32,6 @@ import { Toast } from '../components/Toast';
 import { VercelAnalytics } from '../components/VercelAnalytics';
 
 export function HomePage() {
-  useDocumentTitle();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState('');
   const [activeSituation, setActiveSituation] = useState<Situation | null>(null);
@@ -34,6 +42,38 @@ export function HomePage() {
 
   const selectedId = searchParams.get('n');
   const selectedItem = selectedId ? getNumberById(selectedId) : undefined;
+
+  usePageSeo(
+    selectedItem
+      ? {
+          title: numberPageTitle(selectedItem),
+          description: numberPageDescription(selectedItem),
+          path: numberPath(selectedItem.id),
+        }
+      : { path: '/' },
+  );
+
+  const websiteJsonLd = useMemo(() => buildWebsiteJsonLd(), []);
+  const itemListJsonLd = useMemo(() => buildItemListJsonLd(), []);
+  const faqJsonLd = useMemo(
+    () =>
+      buildFaqJsonLd([
+        {
+          question: '응급실 비용이 없을 때 어디에 전화하나요?',
+          answer:
+            '129(응급의료지원센터)에 연락하면 국가가 먼저 치료비를 지원하는 절차를 안내받을 수 있습니다.',
+        },
+        {
+          question: '고속도로에서 사고가 났을 때 무료 견인은?',
+          answer: '1588-2504(고속도로 공공렉카) 또는 1588-2100(긴급견인)을 먼저 연락하세요.',
+        },
+        {
+          question: '간첩·방첩 신고 번호는?',
+          answer: '111(국가정보원), 113(경찰 방첩신고)로 신고할 수 있습니다.',
+        },
+      ]),
+    [],
+  );
 
   const showToast = useCallback((message: string) => {
     setToast(message);
@@ -105,6 +145,9 @@ export function HomePage() {
 
   return (
     <div className="app">
+      <JsonLd id="website" data={websiteJsonLd} />
+      <JsonLd id="itemlist" data={itemListJsonLd} />
+      <JsonLd id="faq" data={faqJsonLd} />
       <Header
         theme={theme}
         onToggleTheme={toggleTheme}

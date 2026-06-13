@@ -1,13 +1,7 @@
-import { useEffect } from 'react';
+import { usePageSeo, type PageSeoOptions } from './usePageSeo';
 
-const BASE = '몇번이야';
-
+/** @deprecated usePageSeo 사용 */
 export function useDocumentTitle(title?: string) {
-  useEffect(() => {
-    const prev = document.title;
-    document.title = title ? `${title} | ${BASE}` : `${BASE} — 몰라서 못 쓴 번호들`;
-    return () => {
-      document.title = prev;
-    };
-  }, [title]);
+  const options: PageSeoOptions = title ? { title, path: window.location.pathname } : {};
+  usePageSeo(options);
 }

@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
-import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { usePageSeo } from '../hooks/usePageSeo';
 import { Footer } from '../components/Footer';
 import { PageTopBar } from '../components/PageTopBar';
 import styles from '../styles/contentPage.module.css';
 
 export function AboutPage() {
-  useDocumentTitle('서비스 소개');
+  usePageSeo({
+    title: '서비스 소개',
+    description:
+      '몇번이야는 긴급·생활 상황에 필요한 공공 전화번호를 상황별로 정리해 제공하는 무료 웹 서비스입니다.',
+    path: '/about',
+  });
 
   return (
     <div className="app">

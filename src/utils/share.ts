@@ -1,13 +1,11 @@
 import type { NumberItem } from '@whatnumber/shared';
+import { absoluteUrl, numberPath } from './seo';
 
 export function getShareUrl(numberId?: string): string {
-  const origin =
-    typeof window !== 'undefined'
-      ? `${window.location.origin}${window.location.pathname}`
-      : import.meta.env.VITE_SITE_URL || 'https://whatnumber-mu.vercel.app';
-
-  const base = origin.replace(/\/$/, '');
-  return numberId ? `${base}?n=${encodeURIComponent(numberId)}` : base;
+  if (numberId) {
+    return absoluteUrl(numberPath(numberId));
+  }
+  return absoluteUrl('/');
 }
 
 export function formatShareMessage(item: NumberItem): string {

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import type { NumberItem } from '@whatnumber/shared';
 import {
@@ -8,6 +9,7 @@ import {
 } from '@whatnumber/shared';
 import { getNumberArticle } from '../content/numberArticles';
 import { copyNumberShare, copyText } from '../utils/share';
+import { numberPath } from '../utils/seo';
 import styles from './NumberDetail.module.css';
 
 interface NumberDetailProps {
@@ -119,6 +121,10 @@ export function NumberDetail({
         <a href={telHref(item.num)} className={styles.callBtn}>
           {item.num} 전화하기
         </a>
+
+        <Link to={numberPath(item.id)} className={styles.permalink}>
+          상세 페이지 보기
+        </Link>
 
         <div className={styles.actions}>
           <button type="button" className={styles.actionBtn} onClick={handleShare}>
