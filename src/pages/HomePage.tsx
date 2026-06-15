@@ -1,5 +1,5 @@
-import { useMemo, useState, useCallback, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useMemo, useState, useCallback } from 'react';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import {
   NUMBERS,
   getNumberById,
@@ -15,24 +15,25 @@ import {
   buildFaqJsonLd,
   buildItemListJsonLd,
   buildWebsiteJsonLd,
-  numberPageDescription,
-  numberPageTitle,
   numberPath,
 } from '../utils/seo';
 import { NumberRequest } from '../components/NumberRequest';
 import { Header } from '../components/Header';
 import { IntroSection } from '../components/IntroSection';
+import { PopularNumbersSection } from '../components/PopularNumbersSection';
 import { SearchBar } from '../components/SearchBar';
 import { SituationBar } from '../components/SituationBar';
 import { CategoryFilter } from '../components/CategoryFilter';
 import { NumberList } from '../components/NumberList';
-import { NumberDetail } from '../components/NumberDetail';
 import { Footer } from '../components/Footer';
 import { Toast } from '../components/Toast';
 import { VercelAnalytics } from '../components/VercelAnalytics';
 
 export function HomePage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const legacyId = searchParams.get('n');
+  const legacyItem = legacyId ? getNumberById(legacyId) : undefined;
+
   const [query, setQuery] = useState('');
   const [activeSituation, setActiveSituation] = useState<Situation | null>(null);
   const [activeCategory, setActiveCategory] = useState('all');
@@ -40,18 +41,7 @@ export function HomePage() {
   const { favorites, toggle, isFavorite } = useFavorites();
   const { theme, toggle: toggleTheme } = useTheme();
 
-  const selectedId = searchParams.get('n');
-  const selectedItem = selectedId ? getNumberById(selectedId) : undefined;
-
-  usePageSeo(
-    selectedItem
-      ? {
-          title: numberPageTitle(selectedItem),
-          description: numberPageDescription(selectedItem),
-          path: numberPath(selectedItem.id),
-        }
-      : { path: '/' },
-  );
+  usePageSeo({ path: '/' });
 
   const websiteJsonLd = useMemo(() => buildWebsiteJsonLd(), []);
   const itemListJsonLd = useMemo(() => buildItemListJsonLd(), []);
@@ -80,27 +70,14 @@ export function HomePage() {
     window.setTimeout(() => setToast(null), 2200);
   }, []);
 
-  const openDetail = useCallback(
-    (id: string) => {
-      setSearchParams({ n: id }, { replace: false });
-    },
-    [setSearchParams],
-  );
-
-  const closeDetail = useCallback(() => {
-    setSearchParams({}, { replace: true });
-  }, [setSearchParams]);
-
   const handleCopySite = useCallback(async () => {
     const ok = await copySiteLink();
     showToast(ok ? '웹 주소가 복사됐어요' : '복사에 실패했어요');
   }, [showToast]);
 
-  useEffect(() => {
-    if (selectedId && !selectedItem) {
-      setSearchParams({}, { replace: true });
-    }
-  }, [selectedId, selectedItem, setSearchParams]);
+  if (legacyItem) {
+    return <Navigate to={numberPath(legacyItem.id)} replace />;
+  }
 
   const isSearching = query.trim().length > 0;
 
@@ -154,6 +131,9 @@ export function HomePage() {
         onCopyLink={handleCopySite}
       />
       <main className="main">
+        <h1 className="sr-only">
+          몇번이야 — 응급·교통·주거·법률 상황별 공공 전화번호 안내
+        </h1>
         <NumberRequest />
         <SearchBar query={query} onChange={setQuery} />
         {!isSearching && (
@@ -175,22 +155,12 @@ export function HomePage() {
           groupByCategory={groupByCategory}
           isFavorite={isFavorite}
           onToggleFavorite={toggle}
-          onOpen={openDetail}
           mode={isFavoritesView ? 'favorites' : 'default'}
         />
+        <PopularNumbersSection />
         <IntroSection />
       </main>
       <Footer />
-
-      {selectedItem && (
-        <NumberDetail
-          item={selectedItem}
-          isFavorite={isFavorite(selectedItem.id)}
-          onClose={closeDetail}
-          onToggleFavorite={toggle}
-          onCopied={showToast}
-        />
-      )}
       <Toast message={toast} />
       <VercelAnalytics />
     </div>

@@ -5,7 +5,7 @@ import { JsonLd } from '../components/JsonLd';
 import { Footer } from '../components/Footer';
 import { PageTopBar } from '../components/PageTopBar';
 import { usePageSeo } from '../hooks/usePageSeo';
-import { buildArticleJsonLd, guidePageDescription, numberPath } from '../utils/seo';
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, guidePageDescription, numberPath } from '../utils/seo';
 import styles from '../styles/contentPage.module.css';
 
 export function GuideDetailPage() {
@@ -43,10 +43,16 @@ export function GuideDetailPage() {
     description: guide.summary,
     path: `/guide/${guide.slug}`,
   });
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: '홈', path: '/' },
+    { name: '상황별 가이드', path: '/guide' },
+    { name: guide.title, path: `/guide/${guide.slug}` },
+  ]);
 
   return (
     <div className="app">
       <JsonLd id="guide-article" data={articleJsonLd} />
+      <JsonLd id="guide-breadcrumb" data={breadcrumbJsonLd} />
       <PageTopBar title="상황별 가이드" />
       <main className={styles.page}>
         <Link to="/guide" className={styles.back}>

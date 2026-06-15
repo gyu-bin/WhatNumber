@@ -8,7 +8,6 @@ interface NumberListProps {
   groupByCategory: boolean;
   isFavorite: (id: string) => boolean;
   onToggleFavorite: (id: string) => void;
-  onOpen: (id: string) => void;
   mode?: 'default' | 'favorites';
 }
 
@@ -26,12 +25,10 @@ function CardGrid({
   items,
   isFavorite,
   onToggleFavorite,
-  onOpen,
 }: {
   items: NumberItem[];
   isFavorite: (id: string) => boolean;
   onToggleFavorite: (id: string) => void;
-  onOpen: (id: string) => void;
 }) {
   return (
     <div className={styles.cardGrid}>
@@ -41,7 +38,6 @@ function CardGrid({
           item={item}
           isFavorite={isFavorite(item.id)}
           onToggleFavorite={onToggleFavorite}
-          onOpen={onOpen}
         />
       ))}
     </div>
@@ -53,7 +49,6 @@ export function NumberList({
   groupByCategory,
   isFavorite,
   onToggleFavorite,
-  onOpen,
   mode = 'default',
 }: NumberListProps) {
   if (items.length === 0) {
@@ -93,7 +88,6 @@ export function NumberList({
             items={items}
             isFavorite={isFavorite}
             onToggleFavorite={onToggleFavorite}
-            onOpen={onOpen}
           />
         </div>
       </section>
@@ -120,7 +114,6 @@ export function NumberList({
               items={groupItems}
               isFavorite={isFavorite}
               onToggleFavorite={onToggleFavorite}
-              onOpen={onOpen}
             />
           </div>
         </section>

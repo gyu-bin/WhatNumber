@@ -1,21 +1,22 @@
+import { Link } from 'react-router-dom';
 import type { NumberItem } from '@whatnumber/shared';
 import { iconBgColor, telHref } from '@whatnumber/shared';
+import { numberPath } from '../utils/seo';
 import styles from './NumberCard.module.css';
 
 interface NumberCardProps {
   item: NumberItem;
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
-  onOpen: (id: string) => void;
 }
 
 export function NumberCard({
   item,
   isFavorite,
   onToggleFavorite,
-  onOpen,
 }: NumberCardProps) {
   const handleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     onToggleFavorite(item.id);
   };
@@ -24,20 +25,11 @@ export function NumberCard({
     e.stopPropagation();
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onOpen(item.id);
-    }
-  };
-
   return (
-    <div
+    <Link
+      to={numberPath(item.id)}
       className={styles.card}
-      role="button"
-      tabIndex={0}
-      onClick={() => onOpen(item.id)}
-      onKeyDown={handleKeyDown}
+      aria-label={`${item.title} ${item.num} 안내 보기`}
     >
       <div
         className={styles.iconWrap}
@@ -69,6 +61,6 @@ export function NumberCard({
           {item.num}
         </a>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -45,6 +45,7 @@ export function buildWebsiteJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: SITE_NAME,
+    alternateName: '몇번이야 공공전화번호',
     url,
     description: DEFAULT_DESCRIPTION,
     inLanguage: 'ko-KR',
