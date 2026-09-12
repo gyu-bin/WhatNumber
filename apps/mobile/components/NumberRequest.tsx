@@ -25,7 +25,9 @@ const EMPTY_FORM: NumberRequestForm = {
   note: '',
 };
 
-interface NumberRequestProps {
+interface NumberRequestModalProps {
+  visible: boolean;
+  onClose: () => void;
   styles: AppStyles;
   colors: ThemeColors;
 }
@@ -52,13 +54,17 @@ function Field({
   );
 }
 
-export function NumberRequest({ styles, colors }: NumberRequestProps) {
-  const [open, setOpen] = useState(false);
+export function NumberRequestModal({
+  visible,
+  onClose,
+  styles,
+  colors,
+}: NumberRequestModalProps) {
   const [form, setForm] = useState<NumberRequestForm>(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
 
   const close = () => {
-    setOpen(false);
+    onClose();
     setError(null);
   };
 
@@ -86,103 +92,87 @@ export function NumberRequest({ styles, colors }: NumberRequestProps) {
   };
 
   return (
-    <>
-      <Pressable
-        style={({ pressed }) => [styles.requestTrigger, pressed && styles.requestTriggerPressed]}
-        onPress={() => setOpen(true)}
+    <Modal visible={visible} animationType="slide" transparent onRequestClose={close}>
+      <KeyboardAvoidingView
+        style={styles.requestOverlay}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <View style={styles.requestTriggerIcon}>
-          <Text style={styles.requestTriggerIconText}>+</Text>
-        </View>
-        <View style={styles.requestTriggerBody}>
-          <Text style={styles.requestTriggerLabel}>빠진 번호 있나요?</Text>
-          <Text style={styles.requestTriggerSub}>추가 요청 보내기</Text>
-        </View>
-        <Text style={styles.requestTriggerChevron}>›</Text>
-      </Pressable>
+        <Pressable style={styles.requestBackdrop} onPress={close} />
+        <View style={styles.requestSheet}>
+          <View style={styles.handle} />
+          <Text style={styles.requestTitle}>번호 추가 요청</Text>
+          <Text style={styles.requestDesc}>
+            검토 후 반영할게요. 메일 앱에서 보내기만 누르면 됩니다.
+          </Text>
 
-      <Modal visible={open} animationType="slide" transparent onRequestClose={close}>
-        <KeyboardAvoidingView
-          style={styles.requestOverlay}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        >
-          <Pressable style={styles.requestBackdrop} onPress={close} />
-          <View style={styles.requestSheet}>
-            <View style={styles.handle} />
-            <Text style={styles.requestTitle}>번호 추가 요청</Text>
-            <Text style={styles.requestDesc}>
-              검토 후 반영할게요. 메일 앱에서 보내기만 누르면 됩니다.
-            </Text>
+          <ScrollView
+            style={styles.requestScroll}
+            contentContainerStyle={styles.requestScrollContent}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <Field label="번호 이름" styles={styles}>
+              <TextInput
+                style={styles.requestInput}
+                value={form.title}
+                onChangeText={(v) => update('title', v)}
+                placeholder="예: 방첩신고, 전세사기 상담"
+                placeholderTextColor={colors.textTertiary}
+              />
+            </Field>
 
-            <ScrollView
-              style={styles.requestScroll}
-              contentContainerStyle={styles.requestScrollContent}
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}
+            <Field label="전화번호" styles={styles}>
+              <TextInput
+                style={styles.requestInput}
+                value={form.number}
+                onChangeText={(v) => update('number', v)}
+                placeholder="예: 113, 1588-0000"
+                placeholderTextColor={colors.textTertiary}
+                keyboardType="phone-pad"
+              />
+            </Field>
+
+            <Field label="설명 · 언제 쓰는지" styles={styles}>
+              <TextInput
+                style={[styles.requestInput, styles.requestTextarea]}
+                value={form.description}
+                onChangeText={(v) => update('description', v)}
+                placeholder="어떤 상황에서 필요한 번호인지"
+                placeholderTextColor={colors.textTertiary}
+                multiline
+                textAlignVertical="top"
+              />
+            </Field>
+
+            <Field label="기타" optional styles={styles}>
+              <TextInput
+                style={styles.requestInput}
+                value={form.note}
+                onChangeText={(v) => update('note', v)}
+                placeholder="출처, 참고 링크 등"
+                placeholderTextColor={colors.textTertiary}
+              />
+            </Field>
+
+            {error ? <Text style={styles.requestError}>{error}</Text> : null}
+          </ScrollView>
+
+          <View style={styles.requestFooter}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.requestSubmitBtn,
+                pressed && styles.requestSubmitBtnPressed,
+              ]}
+              onPress={() => void handleSubmit()}
             >
-              <Field label="번호 이름" styles={styles}>
-                <TextInput
-                  style={styles.requestInput}
-                  value={form.title}
-                  onChangeText={(v) => update('title', v)}
-                  placeholder="예: 방첩신고, 전세사기 상담"
-                  placeholderTextColor={colors.textTertiary}
-                />
-              </Field>
-
-              <Field label="전화번호" styles={styles}>
-                <TextInput
-                  style={styles.requestInput}
-                  value={form.number}
-                  onChangeText={(v) => update('number', v)}
-                  placeholder="예: 113, 1588-0000"
-                  placeholderTextColor={colors.textTertiary}
-                  keyboardType="phone-pad"
-                />
-              </Field>
-
-              <Field label="설명 · 언제 쓰는지" styles={styles}>
-                <TextInput
-                  style={[styles.requestInput, styles.requestTextarea]}
-                  value={form.description}
-                  onChangeText={(v) => update('description', v)}
-                  placeholder="어떤 상황에서 필요한 번호인지"
-                  placeholderTextColor={colors.textTertiary}
-                  multiline
-                  textAlignVertical="top"
-                />
-              </Field>
-
-              <Field label="기타" optional styles={styles}>
-                <TextInput
-                  style={styles.requestInput}
-                  value={form.note}
-                  onChangeText={(v) => update('note', v)}
-                  placeholder="출처, 참고 링크 등"
-                  placeholderTextColor={colors.textTertiary}
-                />
-              </Field>
-
-              {error ? <Text style={styles.requestError}>{error}</Text> : null}
-            </ScrollView>
-
-            <View style={styles.requestFooter}>
-              <Pressable
-                style={({ pressed }) => [
-                  styles.requestSubmitBtn,
-                  pressed && styles.requestSubmitBtnPressed,
-                ]}
-                onPress={() => void handleSubmit()}
-              >
-                <Text style={styles.requestSubmitText}>메일 보내기</Text>
-              </Pressable>
-              <Pressable style={styles.requestCancelLink} onPress={close}>
-                <Text style={styles.requestCancelText}>취소</Text>
-              </Pressable>
-            </View>
+              <Text style={styles.requestSubmitText}>메일 보내기</Text>
+            </Pressable>
+            <Pressable style={styles.requestCancelLink} onPress={close}>
+              <Text style={styles.requestCancelText}>취소</Text>
+            </Pressable>
           </View>
-        </KeyboardAvoidingView>
-      </Modal>
-    </>
+        </View>
+      </KeyboardAvoidingView>
+    </Modal>
   );
 }

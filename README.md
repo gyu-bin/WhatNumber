@@ -12,7 +12,7 @@
 <p align="center">
   <a href="https://whatnumber-mu.vercel.app"><strong>whatnumber-mu.vercel.app</strong></a>
   ·
-  <a href="https://myeonbeoniya.kr">myeonbeoniya.kr</a> (커스텀 도메인 연결 예정)
+  <a href="https://whatnumber.kr">whatnumber.kr</a> (커스텀 도메인 연결 예정)
 </p>
 
 ---
@@ -68,7 +68,7 @@ cp .env.example .env
 | 변수 | 설명 |
 |------|------|
 | `VITE_KAKAO_APP_KEY` | [카카오 개발자 콘솔](https://developers.kakao.com) JavaScript 앱 키 |
-| `VITE_SITE_URL` | 배포 URL (기본: `https://myeonbeoniya.kr`) |
+| `VITE_SITE_URL` | 배포 URL (기본: `https://whatnumber-mu.vercel.app`) |
 
 카카오 공유를 쓰려면 **플랫폼 → Web → 사이트 도메인**에 배포 URL을 등록해야 합니다.
 
@@ -124,6 +124,9 @@ src/
 ├── App.tsx
 └── main.tsx
 
+apps/mobile/             # Expo 네이티브 앱 (EAS Build / OTA)
+packages/shared/         # 웹·앱 공용 번호/검색 로직
+
 public/
 ├── icons/               # PWA 아이콘
 ├── og-image.png         # 카카오·SNS 미리보기
@@ -134,6 +137,7 @@ scripts/generate-assets.mjs  # 아이콘·OG 이미지 생성
 scripts/generate-ads-txt.mjs # ads.txt 생성
 ```
 
+네이티브 앱 빌드·OTA는 [`apps/mobile/README.md`](apps/mobile/README.md)를 참고하세요.
 ---
 
 ## 번호 데이터 수정

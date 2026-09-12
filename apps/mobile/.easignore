@@ -1,0 +1,27 @@
+# Root web app — not needed for native builds
+/src
+/public
+/scripts
+/index.html
+/vite.config.ts
+/vite.config.js
+/vercel.json
+/eslint.config.js
+/tsconfig.json
+/tsconfig.app.json
+/tsconfig.node.json
+/.env
+/.env.*
+/dist
+
+# Tooling / caches
+**/.expo
+**/.git
+**/coverage
+**/.vercel
+**/web-build
+**/dist
+**/node_modules
+**/.DS_Store
+**/npm-debug.*
+**/yarn-error.*

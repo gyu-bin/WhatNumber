@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import type { NumberItem } from '@whatnumber/shared';
 import {
   CAT_COLOR,
   SITUATION_LABELS,
+  getNumberDetail,
   iconBgColor,
   telHref,
 } from '@whatnumber/shared';
-import { getNumberArticle } from '../content/numberArticles';
+import type { NumberItem } from '@whatnumber/shared';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { copyNumberShare, copyText } from '../utils/share';
 import { numberPath } from '../utils/seo';
 import styles from './NumberDetail.module.css';
@@ -50,7 +50,7 @@ export function NumberDetail({
     onCopied(ok ? '전화번호가 복사됐어요' : '복사에 실패했어요');
   };
 
-  const article = getNumberArticle(item.id);
+  const detail = getNumberDetail(item.id);
 
   return (
     <div className={styles.overlay} onClick={onClose} role="presentation">
@@ -94,17 +94,17 @@ export function NumberDetail({
 
         <p className={styles.desc}>{item.desc}</p>
 
-        {item.tip && (
-          <div className={styles.tip} role="note">
-            💡 {item.tip}
+        {detail.length > 0 && (
+          <div className={styles.article}>
+            {detail.map((paragraph) => (
+              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+            ))}
           </div>
         )}
 
-        {article && (
-          <div className={styles.article}>
-            {article.map((paragraph) => (
-              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
-            ))}
+        {item.tip && (
+          <div className={styles.tip} role="note">
+            💡 {item.tip}
           </div>
         )}
 

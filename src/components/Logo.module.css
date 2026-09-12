@@ -12,11 +12,10 @@
 }
 
 .icon {
-  background: #d94f3d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   flex-shrink: 0;
+  object-fit: cover;
+  background: transparent;
 }
 
 .full .icon {
@@ -25,26 +24,10 @@
   border-radius: 14px;
 }
 
-.full .icon span {
-  color: #fff;
-  font-size: 34px;
-  font-weight: 900;
-  line-height: 1;
-  margin-top: 2px;
-}
-
 .compact .icon {
   width: 34px;
   height: 34px;
   border-radius: 8px;
-}
-
-.compact .icon span {
-  color: #fff;
-  font-size: 20px;
-  font-weight: 900;
-  line-height: 1;
-  margin-top: 1px;
 }
 
 .text {

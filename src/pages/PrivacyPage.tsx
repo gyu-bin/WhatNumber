@@ -30,32 +30,43 @@ export function PrivacyPage() {
         <section className={styles.section}>
           <h2>1. 수집하는 정보</h2>
           <p>
-            서비스는 회원가입 없이 이용할 수 있으며, 이름·이메일·전화번호 등
+            서비스(웹·모바일 앱)는 회원가입 없이 이용할 수 있으며, 이름·이메일·전화번호 등
             개인을 직접 식별하는 정보를 서버에 저장하지 않습니다.
           </p>
           <ul>
             <li>
-              <strong>즐겨찾기</strong>: 선택한 번호 ID 목록을 이용자 기기의
-              브라우저 localStorage에만 저장합니다. 서버로 전송되지 않습니다.
+              <strong>즐겨찾기</strong>: 선택한 번호 ID 목록을 이용자 기기에만
+              저장합니다. 웹은 브라우저 localStorage, 모바일 앱은 AsyncStorage를
+              사용하며 서버로 전송되지 않습니다.
             </li>
             <li>
-              <strong>테마 설정</strong>: 라이트/다크 모드 선택을 localStorage에
+              <strong>테마 설정</strong>: 라이트/다크 모드 선택을 기기 로컬 저장소에
               저장합니다.
             </li>
             <li>
-              <strong>접속·이용 통계</strong>: Vercel Analytics를 통해
+              <strong>번호 추가 요청</strong>: 이용자가 메일 앱을 통해 요청을
+              보낼 때만 해당 메일 내용이 운영자 이메일로 전달됩니다.
+            </li>
+            <li>
+              <strong>접속·이용 통계(웹)</strong>: Vercel Analytics를 통해
               익명화된 페이지 방문 통계(국가, 기기 유형, 참조 경로 등)가
               수집될 수 있습니다.
+            </li>
+            <li>
+              <strong>앱 업데이트(모바일)</strong>: Expo EAS Update를 통해
+              앱 기능·화면 개선용 JavaScript 번들을 내려받을 수 있습니다.
+              이 과정에서 개인을 식별하는 정보는 수집하지 않습니다.
             </li>
           </ul>
         </section>
 
         <section className={styles.section}>
-          <h2>2. 광고(Google AdSense)</h2>
+          <h2>2. 광고(Google AdSense · 웹)</h2>
           <p>
-            서비스는 Google AdSense를 통해 광고를 게재할 수 있습니다. Google
+            웹 서비스는 Google AdSense를 통해 광고를 게재할 수 있습니다. Google
             및 제휴 파트너는 쿠키, 광고 ID 등을 사용해 이용자의 관심사에 맞는
-            광고를 표시하고, 광고 성과를 측정할 수 있습니다.
+            광고를 표시하고, 광고 성과를 측정할 수 있습니다. 현재 모바일 앱에는
+            광고 SDK를 포함하지 않습니다.
           </p>
           <ul>
             <li>
@@ -84,7 +95,7 @@ export function PrivacyPage() {
         <section className={styles.section}>
           <h2>3. 쿠키</h2>
           <p>
-            서비스와 제3자(Google 등)는 기능 제공·통계·광고 목적으로 쿠키 및
+            웹 서비스와 제3자(Google 등)는 기능 제공·통계·광고 목적으로 쿠키 및
             유사 기술을 사용할 수 있습니다. 브라우저 설정에서 쿠키 저장을
             거부하거나 삭제할 수 있으나, 일부 기능이 제한될 수 있습니다.
           </p>
@@ -93,7 +104,7 @@ export function PrivacyPage() {
         <section className={styles.section}>
           <h2>4. 정보의 보관·파기</h2>
           <p>
-            localStorage에 저장된 즐겨찾기·테마 설정은 이용자가 브라우저 데이터를
+            기기에 저장된 즐겨찾기·테마 설정은 이용자가 앱/브라우저 데이터를
             삭제하거나 직접 초기화할 때까지 기기에 남습니다. 서비스 운영자는
             해당 데이터에 접근하지 않습니다.
           </p>
@@ -102,8 +113,8 @@ export function PrivacyPage() {
         <section className={styles.section}>
           <h2>5. 이용자의 권리</h2>
           <p>
-            즐겨찾기·테마는 브라우저 설정 또는 서비스 내 즐겨찾기 해제로
-            언제든 삭제할 수 있습니다. AdSense·Analytics 관련 문의는 Google
+            즐겨찾기·테마는 서비스 내 즐겨찾기 해제 또는 기기/브라우저 데이터
+            삭제로 언제든 지울 수 있습니다. AdSense·Analytics 관련 문의는 Google
             정책 페이지를 참고해 주세요.
           </p>
         </section>
@@ -114,7 +125,7 @@ export function PrivacyPage() {
             본 방침이 변경되면 이 페이지에 게시합니다. 중요한 변경 시 서비스
             내 안내를 추가할 수 있습니다.
           </p>
-          <p className={styles.updated}>시행일: 2026년 6월 10일</p>
+          <p className={styles.updated}>시행일: 2026년 6월 10일 · 앱 반영 개정: 2026년 9월 12일</p>
         </section>
       </main>
       <Footer />

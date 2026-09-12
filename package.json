@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "generate-assets": "node scripts/generate-assets.mjs",
+    "generate-mobile-assets": "node scripts/generate-mobile-assets.mjs",
     "generate-ads-txt": "node scripts/generate-ads-txt.mjs",
     "generate-sitemap": "node scripts/generate-sitemap.mjs",
     "prebuild": "npm run generate-assets && npm run generate-ads-txt && npm run generate-sitemap",
@@ -18,14 +19,22 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "mobile": "npm run start --workspace=mobile",
+    "mobile:go": "npm run start:go --workspace=mobile",
     "mobile:ios": "npm run ios --workspace=mobile",
-    "mobile:android": "npm run android --workspace=mobile"
+    "mobile:android": "npm run android --workspace=mobile",
+    "mobile:build:dev": "npm run eas:build:dev --workspace=mobile",
+    "mobile:build:preview": "npm run eas:build:preview --workspace=mobile",
+    "mobile:build:prod": "npm run eas:build:prod --workspace=mobile",
+    "mobile:update:preview": "npm run eas:update:preview --workspace=mobile",
+    "mobile:update:prod": "npm run eas:update:prod --workspace=mobile",
+    "mobile:submit": "npm run eas:submit --workspace=mobile",
+    "expo": "npm run mobile"
   },
   "dependencies": {
-    "@whatnumber/shared": "*",
     "@vercel/analytics": "^2.0.1",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "@whatnumber/shared": "*",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-router-dom": "^7.16.0"
   },
   "devDependencies": {
@@ -38,9 +47,14 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "sharp": "^0.35.4",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12",
     "vite-plugin-pwa": "^1.3.0"
+  },
+  "overrides": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   }
 }

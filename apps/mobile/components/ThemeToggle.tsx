@@ -1,37 +1,54 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { Theme, ThemeColors } from '../theme';
 
 interface ThemeToggleProps {
   theme: Theme;
   colors: ThemeColors;
-  onToggle: () => void;
+  onChange: (theme: Theme) => void;
 }
 
-export function ThemeToggle({ theme, colors, onToggle }: ThemeToggleProps) {
-  const isDark = theme === 'dark';
-
+export function ThemeToggle({ theme, colors, onChange }: ThemeToggleProps) {
   return (
-    <Pressable
-      style={[styles.btn, { backgroundColor: colors.surface, borderColor: colors.border }]}
-      onPress={onToggle}
-      accessibilityLabel={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
-      accessibilityRole="button"
-    >
-      <Text style={[styles.icon, { color: colors.textPrimary }]}>{isDark ? '☀️' : '🌙'}</Text>
-    </Pressable>
+    <View style={[styles.wrap, { backgroundColor: colors.bg, borderColor: colors.border }]} accessibilityRole="tablist">
+      {(['light', 'dark'] as const).map((option) => {
+        const selected = theme === option;
+        return (
+          <Pressable
+            key={option}
+            style={[styles.btn, selected && { backgroundColor: colors.accentMuted }]}
+            onPress={() => onChange(option)}
+            accessibilityLabel={`${option === 'light' ? '라이트' : '다크'} 모드`}
+            accessibilityRole="tab"
+            accessibilityState={{ selected }}
+          >
+            <Text style={[styles.label, { color: selected ? colors.accent : colors.textTertiary }]}>
+              {option === 'light' ? '라이트' : '다크'}
+            </Text>
+          </Pressable>
+        );
+      })}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  wrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 2,
+    borderRadius: 12,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
   btn: {
-    width: 36,
-    height: 36,
+    minWidth: 58,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderRadius: 10,
-    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  icon: {
-    fontSize: 16,
+  label: {
+    fontSize: 13,
+    fontWeight: '600',
   },
 });

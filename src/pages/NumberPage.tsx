@@ -3,10 +3,10 @@ import {
   CAT_COLOR,
   SITUATION_LABELS,
   getNumberById,
+  getNumberDetail,
   iconBgColor,
   telHref,
 } from '@whatnumber/shared';
-import { getNumberArticle } from '../content/numberArticles';
 import { JsonLd } from '../components/JsonLd';
 import { Footer } from '../components/Footer';
 import { PageTopBar } from '../components/PageTopBar';
@@ -54,7 +54,7 @@ export function NumberPage() {
     );
   }
 
-  const article = getNumberArticle(item.id);
+  const detail = getNumberDetail(item.id);
   const breadcrumb = buildBreadcrumbJsonLd([
     { name: '홈', path: '/' },
     { name: item.cat, path: '/' },
@@ -90,6 +90,15 @@ export function NumberPage() {
           </a>
         </header>
 
+        {detail.length > 0 && (
+          <section className={styles.section}>
+            <h2>자세히 알아보기</h2>
+            {detail.map((paragraph) => (
+              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+            ))}
+          </section>
+        )}
+
         {item.situation.length > 0 && (
           <section className={styles.section}>
             <h2>이런 상황에 쓰세요</h2>
@@ -105,15 +114,6 @@ export function NumberPage() {
           <section className={styles.section}>
             <h2>꿀팁</h2>
             <p>{item.tip}</p>
-          </section>
-        )}
-
-        {article && (
-          <section className={styles.section}>
-            <h2>자세히 알아보기</h2>
-            {article.map((paragraph) => (
-              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
-            ))}
           </section>
         )}
 

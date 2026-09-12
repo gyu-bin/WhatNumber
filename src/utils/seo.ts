@@ -1,4 +1,4 @@
-import { NUMBERS, type NumberItem } from '@whatnumber/shared';
+import { NUMBERS, getNumberDetail, type NumberItem } from '@whatnumber/shared';
 
 export const SITE_NAME = '몇번이야';
 export const DEFAULT_TITLE = `${SITE_NAME} — 몰라서 못 쓴 번호들`;
@@ -32,7 +32,9 @@ export function numberPageTitle(item: NumberItem): string {
 }
 
 export function numberPageDescription(item: NumberItem): string {
-  return `${item.desc} · 전화 ${item.num}. ${item.tip ?? '몇번이야에서 상황별 공공 전화번호를 확인하세요.'}`;
+  const detail = getNumberDetail(item.id)[0];
+  const extra = detail ?? item.tip ?? '몇번이야에서 상황별 공공 전화번호를 확인하세요.';
+  return `${item.desc} · 전화 ${item.num}. ${extra}`;
 }
 
 export function guidePageDescription(summary: string): string {
