@@ -80,6 +80,10 @@ export function PrivacyScreen({ styles, colors, onBack }: PrivacyScreenProps) {
           />
           <Bullet
             styles={styles}
+            text="내 주변 응급실: 응급실 찾기 화면에서 조회를 시작할 때만 현재 위치 권한을 요청합니다. 위치는 가까운 응급실을 조회하기 위해서만 사용하며, 앱은 위치 이력을 저장하거나 백그라운드에서 위치를 수집하지 않습니다."
+          />
+          <Bullet
+            styles={styles}
             text="번호 추가 요청: 이용자가 메일 앱을 통해 요청을 보낼 때만 해당 메일 내용이 운영자 이메일로 전달됩니다."
           />
           <Bullet
@@ -92,12 +96,12 @@ export function PrivacyScreen({ styles, colors, onBack }: PrivacyScreenProps) {
           />
         </Section>
 
-        <Section title="2. 광고(Google AdSense · 웹)" styles={styles}>
+        <Section title="2. 광고(Google AdSense · AdMob)" styles={styles}>
           <Text style={styles.privacyBody}>
-            웹 서비스는 Google AdSense를 통해 광고를 게재할 수 있습니다. Google 및
-            제휴 파트너는 쿠키, 광고 ID 등을 사용해 이용자의 관심사에 맞는 광고를
-            표시하고, 광고 성과를 측정할 수 있습니다. 현재 모바일 앱에는 광고 SDK를
-            포함하지 않습니다.
+            웹 서비스는 Google AdSense를, 모바일 앱은 Google AdMob을 통해 광고를
+            게재할 수 있습니다. Google 및 제휴 파트너는 쿠키, 광고 ID 등을 사용해
+            이용자의 관심사에 맞는 광고를 표시하고, 광고 성과를 측정할 수 있습니다.
+            모바일 앱의 광고는 화면 하단 배너 형태로 표시될 수 있습니다.
           </Text>
           <Pressable onPress={() => void Linking.openURL(ADS_SETTINGS_URL)}>
             <Text style={styles.privacyLink}>Google 광고 설정 →</Text>

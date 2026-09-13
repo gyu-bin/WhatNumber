@@ -8,6 +8,11 @@ const EAS_PROJECT_ID = '890993d6-97dd-477a-833c-05a7531eb8c0';
 /** 로컬 Expo Go에서는 OTA/코드사이닝을 꺼 rename ENOENT를 피합니다. EAS 빌드에서는 그대로 켭니다. */
 const updatesEnabled = process.env.EXPO_NO_UPDATES !== '1';
 
+const ADMOB_ANDROID_APP_ID =
+  process.env.ADMOB_ANDROID_APP_ID?.trim() || 'ca-app-pub-2202662035854210~2403134140';
+const ADMOB_IOS_APP_ID =
+  process.env.ADMOB_IOS_APP_ID?.trim() || 'ca-app-pub-2202662035854210~3472673239';
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: '몇번이야',
@@ -56,12 +61,15 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       monochromeImage: './assets/android-icon-monochrome.png',
     },
     predictiveBackGestureEnabled: false,
-    permissions: [],
+    // 기본 전화/연락처 권한은 막고, 응급실 조회용 위치만 명시합니다.
+    permissions: [
+      'android.permission.ACCESS_COARSE_LOCATION',
+      'android.permission.ACCESS_FINE_LOCATION',
+      'com.google.android.gms.permission.AD_ID',
+    ],
     blockedPermissions: [
       'android.permission.READ_PHONE_STATE',
       'android.permission.READ_CONTACTS',
-      'android.permission.ACCESS_FINE_LOCATION',
-      'android.permission.ACCESS_COARSE_LOCATION',
     ],
   },
   web: {
@@ -76,6 +84,22 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         imageWidth: 1,
         resizeMode: 'contain',
         backgroundColor: '#FCFBFA',
+      },
+    ],
+    [
+      'expo-location',
+      {
+        locationWhenInUsePermission:
+          '현재 위치 주변의 응급실을 찾을 때만 위치를 사용합니다.',
+      },
+    ],
+    [
+      'react-native-google-mobile-ads',
+      {
+        androidAppId: ADMOB_ANDROID_APP_ID,
+        iosAppId: ADMOB_IOS_APP_ID,
+        userTrackingUsageDescription:
+          '맞춤형 광고 제공을 위해 기기 식별자를 사용할 수 있습니다.',
       },
     ],
   ],

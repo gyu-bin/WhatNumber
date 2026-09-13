@@ -89,11 +89,12 @@ vercel --prod
 
 `vercel.json`에 SPA rewrite가 설정되어 있습니다.
 
-### AdSense `ads.txt`
+### AdSense `ads.txt` / AdMob `app-ads.txt`
 
-1. [AdSense](https://www.google.com/adsense/) → **사이트** → `whatnumber-mu.vercel.app` → **ads.txt**에서 한 줄 복사  
-   (또는 **계정 → 계정 정보**의 게시자 ID `pub-`… 사용)
-2. 프로젝트 루트에 `.env` 작성:
+웹은 `ads.txt`, 앱(AdMob)은 `app-ads.txt`가 필요합니다. 둘 다 같은 게시자 한 줄입니다.
+
+1. [AdSense](https://www.google.com/adsense/) / [AdMob](https://admob.google.com) → 계정 설정의 게시자 ID `pub-`… 확인  
+2. 프로젝트 루트 `.env`:
 
    ```env
    VITE_ADSENSE_PUBLISHER_ID=pub-여기16자리
@@ -103,12 +104,16 @@ vercel --prod
 
    ```bash
    npm run generate-ads-txt
-   npm run build
    vercel --prod
    ```
 
-4. `https://whatnumber-mu.vercel.app/ads.txt` 에서 `google.com, pub-…` 한 줄이 보이면 성공입니다.  
-   Vercel 프로덕션에는 `VITE_ADSENSE_PUBLISHER_ID` 환경 변수를 등록해 두면 빌드 시 자동 생성됩니다.
+4. 확인:
+   - `https://whatnumber-mu.vercel.app/ads.txt`
+   - `https://whatnumber-mu.vercel.app/app-ads.txt`
+
+5. 스토어에 개발자 웹사이트 URL을 **정확히 그 도메인**으로 넣어야 AdMob이 크롤합니다.
+   - Play Console → 스토어 설정 → 연락처 웹사이트
+   - App Store Connect → 마케팅 URL / 개발자 웹사이트
 
 ---
 

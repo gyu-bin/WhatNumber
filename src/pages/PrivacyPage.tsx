@@ -61,12 +61,12 @@ export function PrivacyPage() {
         </section>
 
         <section className={styles.section}>
-          <h2>2. 광고(Google AdSense · 웹)</h2>
+          <h2>2. 광고(Google AdSense · AdMob)</h2>
           <p>
-            웹 서비스는 Google AdSense를 통해 광고를 게재할 수 있습니다. Google
-            및 제휴 파트너는 쿠키, 광고 ID 등을 사용해 이용자의 관심사에 맞는
-            광고를 표시하고, 광고 성과를 측정할 수 있습니다. 현재 모바일 앱에는
-            광고 SDK를 포함하지 않습니다.
+            웹 서비스는 Google AdSense를, 모바일 앱은 Google AdMob을 통해 광고를
+            게재할 수 있습니다. Google 및 제휴 파트너는 쿠키, 광고 ID 등을 사용해
+            이용자의 관심사에 맞는 광고를 표시하고, 광고 성과를 측정할 수 있습니다.
+            모바일 앱의 광고는 화면 하단 배너 형태로 표시될 수 있습니다.
           </p>
           <ul>
             <li>

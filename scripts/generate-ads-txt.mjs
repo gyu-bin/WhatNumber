@@ -4,7 +4,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
-const outPath = join(root, 'public', 'ads.txt');
+const adsTxtPath = join(root, 'public', 'ads.txt');
+const appAdsTxtPath = join(root, 'public', 'app-ads.txt');
 const CERT_ID = 'f08c47fec0942fa0';
 
 function loadDotEnv() {
@@ -33,10 +34,14 @@ function isValidPubId(id) {
   return typeof id === 'string' && /^pub-\d{16}$/.test(id);
 }
 
-function writeAdsTxt(publisherId) {
+function writeAuthorizedSellers(publisherId) {
   const line = `google.com, ${publisherId}, DIRECT, ${CERT_ID}\n`;
-  writeFileSync(outPath, line, 'utf8');
-  console.log(`Wrote ${outPath}`);
+  // 웹 AdSense
+  writeFileSync(adsTxtPath, line, 'utf8');
+  // 앱 AdMob (스토어 개발자 웹사이트 루트에서 크롤)
+  writeFileSync(appAdsTxtPath, line, 'utf8');
+  console.log(`Wrote ${adsTxtPath}`);
+  console.log(`Wrote ${appAdsTxtPath}`);
 }
 
 const env = { ...loadDotEnv(), ...process.env };
@@ -45,22 +50,22 @@ const publisherId =
   fromCli || env.VITE_ADSENSE_PUBLISHER_ID || env.ADSENSE_PUBLISHER_ID;
 
 if (isValidPubId(publisherId)) {
-  writeAdsTxt(publisherId);
+  writeAuthorizedSellers(publisherId);
   process.exit(0);
 }
 
-if (existsSync(outPath)) {
-  const existing = readFileSync(outPath, 'utf8').trim();
+if (existsSync(adsTxtPath)) {
+  const existing = readFileSync(adsTxtPath, 'utf8').trim();
   const match = existing.match(/^google\.com, (pub-\d{16}), DIRECT/);
   if (match && isValidPubId(match[1])) {
-    console.log('ads.txt already valid');
+    writeAuthorizedSellers(match[1]);
     process.exit(0);
   }
 }
 
 console.warn(
-  '[ads.txt] Skipped — set publisher ID first:\n' +
-    '  AdSense → 사이트 → ads.txt (또는 계정 → 게시자 ID)\n' +
+  '[ads.txt / app-ads.txt] Skipped — set publisher ID first:\n' +
+    '  AdSense/AdMob → 계정 설정 → 게시자 ID\n' +
     '  VITE_ADSENSE_PUBLISHER_ID=pub-... npm run generate-ads-txt',
 );
 process.exit(0);

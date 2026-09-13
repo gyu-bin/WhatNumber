@@ -20,25 +20,32 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import {
-  NUMBERS,
+  ALL_NUMBERS,
   SITUATION_TIPS,
   getNumberDetail,
   type Category,
   type NumberItem,
   type Situation,
   iconBgColor,
-  matchesSearch,
+  searchNumbers,
   telHref,
 } from '@whatnumber/shared';
 import { NumberRequestModal } from './components/NumberRequest';
+import { AdBanner } from './components/AdBanner';
+import { CategoryBrowse } from './components/CategoryBrowse';
+import { EmergencyFinderCard } from './components/EmergencyFinderCard';
+import { NumberGridCard, NumberRow } from './components/NumberCards';
 import { SplashAnimation } from './components/SplashAnimation';
 import { ViewModeToggle } from './components/ViewModeToggle';
+import { useAdMobInit } from './hooks/useAdMobInit';
 import { useFavorites } from './hooks/useFavorites';
 import { useOTAUpdates } from './hooks/useOTAUpdates';
 import { useTheme } from './hooks/useTheme';
 import { useViewMode } from './hooks/useViewMode';
+import { CategoryScreen } from './screens/CategoryScreen';
 import { MoreScreen } from './screens/MoreScreen';
 import { PrivacyScreen } from './screens/PrivacyScreen';
+import { EmergencyFinderScreen } from './screens/EmergencyFinderScreen';
 import { createStyles, type AppStyles } from './styles';
 import { getThemeColors, type ThemeColors } from './theme';
 import { Ionicons } from '@expo/vector-icons';
@@ -52,6 +59,7 @@ const SPLASH_BG_DARK = '#171717';
 
 type TabId = 'home' | 'settings';
 type SettingsView = 'main' | 'privacy';
+type HomeView = 'numbers' | 'emergency-finder' | 'category';
 
 const SITUATIONS: { id: Situation; icon: string; label: string }[] = [
   { id: 'emergency', icon: '🚑', label: '갑자기 아파요' },
@@ -116,98 +124,6 @@ function chunkToRows(items: NumberItem[]): CardRow[] {
     });
   }
   return rows;
-}
-
-function NumberRow({
-  item,
-  isFavorite,
-  onToggleFavorite,
-  onOpen,
-  styles,
-}: {
-  item: NumberItem;
-  isFavorite: boolean;
-  onToggleFavorite: (id: string) => void;
-  onOpen: (item: NumberItem) => void;
-  styles: AppStyles;
-}) {
-  return (
-    <Pressable style={styles.card} onPress={() => onOpen(item)}>
-      <View style={[styles.iconWrap, { backgroundColor: iconBgColor(item.cat) }]}>
-        <Text style={styles.icon}>{item.icon}</Text>
-      </View>
-      <View style={styles.cardBody}>
-        <Text style={styles.cardTitle}>{item.title}</Text>
-        <Text style={styles.cardDesc} numberOfLines={1}>
-          {item.desc}
-        </Text>
-      </View>
-      <View style={styles.cardActions}>
-        <Pressable
-          onPress={() => onToggleFavorite(item.id)}
-          hitSlop={8}
-          accessibilityLabel={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-        >
-          <Text style={[styles.favorite, isFavorite && styles.favoriteActive]}>
-            {isFavorite ? '★' : '☆'}
-          </Text>
-        </Pressable>
-      <Pressable
-        onPress={() => void Linking.openURL(telHref(item.num))}
-        style={styles.callBtn}
-      >
-        <Ionicons name="call" size={13} color={styles.callText.color} />
-        <Text style={styles.callText}>{item.num}</Text>
-        </Pressable>
-      </View>
-    </Pressable>
-  );
-}
-
-function NumberGridCard({
-  item,
-  isFavorite,
-  onToggleFavorite,
-  onOpen,
-  styles,
-}: {
-  item: NumberItem;
-  isFavorite: boolean;
-  onToggleFavorite: (id: string) => void;
-  onOpen: (item: NumberItem) => void;
-  styles: AppStyles;
-}) {
-  return (
-    <Pressable style={styles.gridCard} onPress={() => onOpen(item)}>
-      <View style={styles.gridCardTop}>
-        <View style={[styles.gridIconWrap, { backgroundColor: iconBgColor(item.cat) }]}>
-          <Text style={styles.gridIcon}>{item.icon}</Text>
-        </View>
-        <Pressable
-          onPress={() => onToggleFavorite(item.id)}
-          hitSlop={8}
-          accessibilityLabel={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-        >
-          <Text style={[styles.favorite, isFavorite && styles.favoriteActive]}>
-            {isFavorite ? '★' : '☆'}
-          </Text>
-        </Pressable>
-      </View>
-      <Text style={styles.gridCardTitle} numberOfLines={2}>
-        {item.title}
-      </Text>
-      <Text style={styles.gridCardDesc} numberOfLines={1}>
-        {item.desc}
-      </Text>
-      <Pressable
-        onPress={() => void Linking.openURL(telHref(item.num))}
-        style={styles.gridCallBtn}
-      >
-        <Ionicons name="call" size={15} color={styles.gridCallText.color} />
-        <Text style={styles.gridCallText}>{item.num}</Text>
-      </Pressable>
-    </Pressable>
-  );
 }
 
 function DetailSheet({
@@ -399,8 +315,11 @@ function TabBar({
 
 export default function App() {
   useOTAUpdates();
+  useAdMobInit();
   const [tab, setTab] = useState<TabId>('home');
   const [settingsView, setSettingsView] = useState<SettingsView>('main');
+  const [homeView, setHomeView] = useState<HomeView>('numbers');
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [query, setQuery] = useState('');
   const [showFavorites, setShowFavorites] = useState(false);
   const [activeSituation, setActiveSituation] = useState<Situation | null>(null);
@@ -469,43 +388,39 @@ export default function App() {
 
   const filtered = useMemo(() => {
     if (isSearching) {
-      return NUMBERS.filter((n) => matchesSearch(n, query));
+      return searchNumbers(ALL_NUMBERS, query);
     }
     if (activeSituation) {
-      return NUMBERS.filter((n) => n.situation.includes(activeSituation));
+      return ALL_NUMBERS.filter((n) => n.situation.includes(activeSituation));
     }
     if (showFavorites) {
       return favorites
-        .map((id) => NUMBERS.find((n) => n.id === id))
+        .map((id) => ALL_NUMBERS.find((n) => n.id === id))
         .filter((n): n is NumberItem => n !== undefined);
     }
-    return NUMBERS;
+    return ALL_NUMBERS;
   }, [query, isSearching, activeSituation, showFavorites, favorites]);
 
   const groupByCategory = !isSearching && !activeSituation && !showFavorites;
+  const isBrowseHome = groupByCategory;
   const isFavoritesView = showFavorites && !isSearching && !activeSituation;
+
+  const emergencyHighlights = useMemo(() => {
+    const byId = (id: string) => ALL_NUMBERS.find((item) => item.id === id);
+    return [byId('e2'), byId('e3')].filter((item): item is NumberItem => item !== undefined);
+  }, []);
+
+  const openCategory = useCallback((category: Category) => {
+    setSelectedCategory(category);
+    setHomeView('category');
+  }, []);
+
   const toggleCategory = useCallback((key: string) => {
     setCollapsedCategories((current) => ({ ...current, [key]: !current[key] }));
   }, []);
 
   const sections = useMemo((): ListSection[] => {
-    if (filtered.length === 0) return [];
-
-    if (groupByCategory) {
-      return CATEGORY_ORDER.map((cat) => {
-        const categoryItems = filtered.filter((item) => item.cat === cat);
-        return {
-          key: cat,
-          title: cat,
-          collapsible: true,
-          collapsed: Boolean(collapsedCategories[cat]),
-          data: collapsedCategories[cat] ? [] : categoryItems,
-          hasItems: categoryItems.length > 0,
-        };
-      })
-        .filter((section) => section.hasItems)
-        .map(({ hasItems: _hasItems, ...section }) => section);
-    }
+    if (filtered.length === 0 || isBrowseHome) return [];
 
     if (isFavoritesView) {
       return [
@@ -519,7 +434,7 @@ export default function App() {
     }
 
     return [{ key: 'list', title: '', data: filtered }];
-  }, [collapsedCategories, filtered, groupByCategory, isFavoritesView]);
+  }, [filtered, isBrowseHome, isFavoritesView]);
 
   const cardSections = useMemo((): CardSection[] => {
     return sections.map((section) => ({
@@ -625,6 +540,12 @@ export default function App() {
         </View>
       )}
       </View>
+
+      <EmergencyFinderCard
+        styles={styles}
+        colors={themeColors}
+        onPress={() => setHomeView('emergency-finder')}
+      />
     </View>
   );
 
@@ -679,7 +600,44 @@ export default function App() {
 
             <View style={styles.main}>
               {tab === 'home' ? (
-                viewMode === 'card' ? (
+                homeView === 'emergency-finder' ? (
+                  <EmergencyFinderScreen
+                    colors={themeColors}
+                    onBack={() => setHomeView('numbers')}
+                  />
+                ) : homeView === 'category' && selectedCategory ? (
+                  <CategoryScreen
+                    category={selectedCategory}
+                    subtitle={CATEGORY_SUBTITLES[selectedCategory]}
+                    items={ALL_NUMBERS.filter((item) => item.cat === selectedCategory)}
+                    viewMode={viewMode}
+                    styles={styles}
+                    colors={themeColors}
+                    isFavorite={isFavorite}
+                    onToggleFavorite={toggle}
+                    onOpen={setSelected}
+                    onBack={() => {
+                      setHomeView('numbers');
+                      setSelectedCategory(null);
+                    }}
+                  />
+                ) : isBrowseHome ? (
+                  <ScrollView
+                    keyboardShouldPersistTaps="handled"
+                    contentContainerStyle={styles.listContent}
+                  >
+                    {listHeader}
+                    <CategoryBrowse
+                      emergencyItems={emergencyHighlights}
+                      styles={styles}
+                      colors={themeColors}
+                      isFavorite={isFavorite}
+                      onToggleFavorite={toggle}
+                      onOpenItem={setSelected}
+                      onOpenCategory={openCategory}
+                    />
+                  </ScrollView>
+                ) : viewMode === 'card' ? (
                   <SectionList
                     sections={cardSections}
                     keyExtractor={(row) => row.id}
@@ -785,11 +743,22 @@ export default function App() {
               )}
             </View>
 
+            {!(
+              tab === 'home' &&
+              (homeView === 'emergency-finder' || homeView === 'category')
+            ) ? (
+              <AdBanner colors={themeColors} />
+            ) : null}
+
             <TabBar
               active={tab}
               onChange={(next) => {
                 setTab(next);
                 if (next !== 'settings') setSettingsView('main');
+                if (next !== 'home') {
+                  setHomeView('numbers');
+                  setSelectedCategory(null);
+                }
               }}
               styles={styles}
               colors={themeColors}

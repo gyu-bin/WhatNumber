@@ -26,6 +26,32 @@ export interface NumberItem {
   tip?: string;
 }
 
+/**
+ * 기업 연락처에만 붙는 운영 메타데이터입니다.
+ * 화면은 기존 NumberItem과 동일하게 다루므로 공공번호 UI를 바꾸지 않습니다.
+ */
+export type OrganizationType = 'insurance' | 'card' | 'bank';
+
+export type ContactPurpose =
+  | 'general'
+  | 'lost'
+  | 'fraud'
+  | 'accident'
+  | 'roadside'
+  | 'emergency';
+
+export interface OrganizationContact extends NumberItem {
+  organization: string;
+  organizationType: OrganizationType;
+  purpose: ContactPurpose;
+  keywords: string[];
+  available24h?: boolean;
+  /** 확인용 공식 URL — 앱 화면에는 노출하지 않습니다. */
+  source: string;
+  /** 전화번호를 마지막으로 대조한 날짜 (YYYY-MM-DD). */
+  verifiedAt: string;
+}
+
 export const NUMBERS: NumberItem[] = [
   { id: 'e1', cat: '긴급/안전', icon: '🚑', title: '응급실 비용 없을 때', desc: '국가가 먼저 지급 — 치료 거부는 불법', num: '129', situation: ['emergency'], tip: '119로 이송·치료 먼저, 병원에서 비용 문제로 막히면 129.' },
   { id: 'e2', cat: '긴급/안전', icon: '🔥', title: '화재·구급', desc: '화재·구조·응급출동', num: '119', situation: ['emergency'], tip: '주소·상황·인원을 순서대로. 연기 나면 문 닫고 낮은 자세로 대피 후 신고.' },

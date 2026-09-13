@@ -77,6 +77,18 @@ npm run mobile:update:prod -- --message "긴급 번호 설명 수정"
 
 런타임 정책은 `appVersion`입니다. `version`(예: 1.0.0)이 같은 빌드끼리만 OTA를 받습니다.
 
+## AdMob
+
+하단 탭바 위에 배너 광고를 표시합니다. **Expo Go에서는 표시되지 않으며**, Dev Client / EAS 빌드에서만 동작합니다.
+
+| | Android | iOS |
+|--|---------|-----|
+| 앱 ID | `app.config.ts` 플러그인 | 동일 |
+| 배너 단위 | `EXPO_PUBLIC_ADMOB_ANDROID_BANNER_ID` (기본값 내장) | `EXPO_PUBLIC_ADMOB_IOS_BANNER_ID` |
+
+개발 빌드(`__DEV__`)에서는 Google 테스트 배너 ID를 사용합니다.
+네이티브 모듈 추가이므로 AdMob 반영 후 **새 EAS 빌드**가 필요합니다.
+
 ## 스토어 제출
 
 ```bash

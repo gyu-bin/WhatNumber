@@ -83,7 +83,7 @@ ${allPaths
 writeFileSync(outPath, xml, 'utf8');
 writeFileSync(
   join(root, 'public', 'robots.txt'),
-  `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
+  `User-agent: *\nAllow: /\n\nUser-agent: Google-adstxt\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
   'utf8',
 );
 console.log(

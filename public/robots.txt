@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+User-agent: Google-adstxt
+Allow: /
+
 Sitemap: https://whatnumber-mu.vercel.app/sitemap.xml

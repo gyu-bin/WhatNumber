@@ -50,6 +50,47 @@ export function createStyles(colors: ThemeColors) {
       letterSpacing: -0.2,
       color: colors.textSecondary,
     },
+    emergencyFinderCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginHorizontal: 20,
+      marginTop: 4,
+      marginBottom: 12,
+      paddingHorizontal: 14,
+      paddingVertical: 13,
+      borderRadius: 14,
+      backgroundColor: colors.surface,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.border,
+    },
+    emergencyFinderIcon: {
+      width: 38,
+      height: 38,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: colors.accentMuted,
+      marginRight: 12,
+    },
+    emergencyFinderEmoji: {
+      fontSize: 18,
+    },
+    emergencyFinderText: {
+      flex: 1,
+      paddingRight: 8,
+    },
+    emergencyFinderTitle: {
+      color: colors.textPrimary,
+      fontSize: 15,
+      fontWeight: '700',
+      letterSpacing: -0.2,
+    },
+    emergencyFinderDescription: {
+      color: colors.textSecondary,
+      fontSize: 12,
+      lineHeight: 17,
+      marginTop: 3,
+    },
 
     requestOverlay: {
       flex: 1,
@@ -244,6 +285,103 @@ export function createStyles(colors: ThemeColors) {
       fontSize: 13,
       lineHeight: 18,
       color: colors.tipText,
+    },
+
+    categoryBrowse: {
+      paddingBottom: 12,
+    },
+    categoryBrowseSectionHeader: {
+      marginHorizontal: 20,
+      marginTop: 8,
+      marginBottom: 12,
+      flexDirection: 'row',
+      alignItems: 'baseline',
+      justifyContent: 'space-between',
+    },
+    categoryBrowseSectionHeaderSpaced: {
+      marginTop: 22,
+    },
+    categoryBrowseSectionTitle: {
+      fontSize: 19,
+      fontWeight: '800',
+      letterSpacing: -0.4,
+      color: colors.textPrimary,
+    },
+    categoryBrowseMore: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: colors.textSecondary,
+    },
+    categoryGrid: {
+      marginHorizontal: 20,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 10,
+    },
+    categoryTile: {
+      width: '47.8%',
+      flexGrow: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      minHeight: 72,
+      paddingVertical: 12,
+      paddingHorizontal: 12,
+      borderRadius: 14,
+      backgroundColor: colors.surface,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.border,
+    },
+    categoryTileText: {
+      flex: 1,
+      gap: 2,
+    },
+    categoryTileTitle: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: colors.textPrimary,
+    },
+    categoryTileSubtitle: {
+      fontSize: 11,
+      lineHeight: 15,
+      color: colors.textSecondary,
+    },
+    categoryScreen: {
+      flex: 1,
+    },
+    categoryScreenTopBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 12,
+      paddingTop: 4,
+      paddingBottom: 10,
+      minHeight: 48,
+    },
+    categoryScreenBack: {
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    categoryScreenTitleWrap: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    categoryScreenTitle: {
+      fontSize: 16,
+      fontWeight: '700',
+      textAlign: 'center',
+      color: colors.textPrimary,
+      includeFontPadding: false,
+    },
+    categoryScreenSubtitle: {
+      marginTop: 2,
+      fontSize: 12,
+      color: colors.textSecondary,
+      textAlign: 'center',
+    },
+    categoryScreenList: {
+      paddingBottom: 28,
     },
 
     tabBar: {
