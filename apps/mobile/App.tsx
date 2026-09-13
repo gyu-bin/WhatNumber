@@ -46,6 +46,7 @@ import { CategoryScreen } from './screens/CategoryScreen';
 import { MoreScreen } from './screens/MoreScreen';
 import { PrivacyScreen } from './screens/PrivacyScreen';
 import { EmergencyFinderScreen } from './screens/EmergencyFinderScreen';
+import { syncFavoritesWidget } from './services/widget/syncFavoritesWidget';
 import { createStyles, type AppStyles } from './styles';
 import { getThemeColors, type ThemeColors } from './theme';
 import { Ionicons } from '@expo/vector-icons';
@@ -329,9 +330,14 @@ export default function App() {
   /** Cold start only — never re-shown on background → foreground */
   const [showSplash, setShowSplash] = useState(true);
   const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
-  const { favorites, toggle, isFavorite } = useFavorites();
+  const { favorites, toggle, isFavorite, ready: favoritesReady } = useFavorites();
   const { theme, toggle: toggleTheme, ready: themeReady } = useTheme();
   const { viewMode, setViewMode, ready: viewModeReady } = useViewMode();
+
+  useEffect(() => {
+    if (!favoritesReady) return;
+    syncFavoritesWidget(favorites);
+  }, [favorites, favoritesReady]);
 
   const themeColors = getThemeColors(theme);
   const styles = useMemo(() => createStyles(themeColors), [theme]);

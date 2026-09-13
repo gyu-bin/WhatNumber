@@ -102,6 +102,30 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           '맞춤형 광고 제공을 위해 기기 식별자를 사용할 수 있습니다.',
       },
     ],
+    [
+      'expo-widgets',
+      {
+        bundleIdentifier: 'kr.whatnumber.app.widgets',
+        groupIdentifier: 'group.kr.whatnumber.app',
+        enableAndroid: true,
+        widgets: [
+          {
+            name: 'FavoritesWidget',
+            displayName: '즐겨찾기 전화',
+            description: '즐겨찾기 번호를 탭하면 바로 전화할 수 있어요',
+            contentMarginsDisabled: true,
+            supportedFamilies: ['systemSmall', 'systemMedium', 'systemLarge'],
+            android: {
+              minWidth: 110,
+              minHeight: 40,
+              targetCellWidth: 2,
+              targetCellHeight: 2,
+              resizeMode: 'both',
+            },
+          },
+        ],
+      },
+    ],
   ],
   // Expo Go / 런타임 스플래시와 플러그인 설정을 맞춤
   // @ts-expect-error Expo runtime still reads top-level splash; types dropped it
