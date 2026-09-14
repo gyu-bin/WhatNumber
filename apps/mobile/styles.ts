@@ -1090,6 +1090,28 @@ export function createStyles(colors: ThemeColors) {
       fontWeight: '700',
       letterSpacing: -0.3,
     },
+
+    toastWrap: {
+      position: 'absolute',
+      left: 20,
+      right: 20,
+      zIndex: 100,
+      alignItems: 'center',
+    },
+    toast: {
+      maxWidth: '100%',
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderRadius: 12,
+      backgroundColor: colors.textPrimary,
+    },
+    toastText: {
+      color: colors.bg,
+      fontSize: 14,
+      fontWeight: '600',
+      textAlign: 'center',
+      letterSpacing: -0.2,
+    },
   });
 }
 

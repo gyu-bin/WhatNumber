@@ -112,7 +112,7 @@ export default {
     }
 
     const to =
-      process.env.NUMBER_REQUEST_TO_EMAIL?.trim() || 'rbqls6651@naver.com';
+      process.env.NUMBER_REQUEST_TO_EMAIL?.trim() || 'rbqls6651@gmail.com';
     const from =
       process.env.RESEND_FROM_EMAIL?.trim() || '몇번이야 <onboarding@resend.dev>';
 

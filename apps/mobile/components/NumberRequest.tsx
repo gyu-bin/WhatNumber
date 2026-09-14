@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -33,6 +33,7 @@ interface NumberRequestModalProps {
   visible: boolean;
   mode?: RequestModalMode;
   onClose: () => void;
+  onSuccess?: (message: string) => void;
   styles: AppStyles;
   colors: ThemeColors;
 }
@@ -63,6 +64,7 @@ export function NumberRequestModal({
   visible,
   mode = 'number',
   onClose,
+  onSuccess,
   styles,
   colors,
 }: NumberRequestModalProps) {
@@ -70,15 +72,21 @@ export function NumberRequestModal({
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
 
   const isFeedback = mode === 'feedback';
+
+  useEffect(() => {
+    if (!visible) return;
+    setForm(EMPTY_FORM);
+    setFeedbackMessage('');
+    setError(null);
+    setSending(false);
+  }, [visible, mode]);
 
   const close = () => {
     onClose();
     setError(null);
     setSending(false);
-    setSent(false);
   };
 
   const update = (key: keyof NumberRequestForm, value: string) => {
@@ -116,12 +124,13 @@ export function NumberRequestModal({
       return;
     }
 
-    setSent(true);
+    const successMessage = isFeedback
+      ? '의견을 보냈어요'
+      : '번호 요청을 보냈어요';
     setForm(EMPTY_FORM);
     setFeedbackMessage('');
-    setTimeout(() => {
-      close();
-    }, 900);
+    onClose();
+    onSuccess?.(successMessage);
   };
 
   return (
@@ -138,8 +147,8 @@ export function NumberRequestModal({
           </Text>
           <Text style={styles.requestDesc}>
             {isFeedback
-              ? '보내기를 누르면 바로 전달돼요.'
-              : '검토 후 반영할게요. 보내기를 누르면 바로 전달돼요.'}
+              ? '앱 사용 중 불편했던 점이나 개선 아이디어를 알려 주세요.'
+              : '빠진 공공·생활 번호를 알려 주세요. 검토 후 반영할게요.'}
           </Text>
 
           <ScrollView
@@ -149,7 +158,7 @@ export function NumberRequestModal({
             showsVerticalScrollIndicator={false}
           >
             {isFeedback ? (
-              <Field label="의견" styles={styles}>
+              <Field label="의견 내용" styles={styles}>
                 <TextInput
                   style={[styles.requestInput, styles.requestTextarea]}
                   value={feedbackMessage}
@@ -157,10 +166,11 @@ export function NumberRequestModal({
                     setFeedbackMessage(v);
                     if (error) setError(null);
                   }}
-                  placeholder="개선 아이디어나 불편했던 점을 적어 주세요"
+                  placeholder="예: 검색이 잘 안 돼요, OO 카테고리가 있으면 좋겠어요"
                   placeholderTextColor={colors.textTertiary}
                   multiline
                   textAlignVertical="top"
+                  autoFocus
                 />
               </Field>
             ) : (
@@ -211,11 +221,6 @@ export function NumberRequestModal({
             )}
 
             {error ? <Text style={styles.requestError}>{error}</Text> : null}
-            {sent ? (
-              <Text style={[styles.requestError, { color: colors.accent }]}>
-                전송됐어요. 확인해 볼게요!
-              </Text>
-            ) : null}
           </ScrollView>
 
           <View style={styles.requestFooter}>
@@ -225,12 +230,14 @@ export function NumberRequestModal({
                 (pressed || sending) && styles.requestSubmitBtnPressed,
               ]}
               onPress={() => void handleSubmit()}
-              disabled={sending || sent}
+              disabled={sending}
             >
               {sending ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text style={styles.requestSubmitText}>보내기</Text>
+                <Text style={styles.requestSubmitText}>
+                  {isFeedback ? '의견 보내기' : '요청 보내기'}
+                </Text>
               )}
             </Pressable>
             <Pressable style={styles.requestCancelLink} onPress={close} disabled={sending}>

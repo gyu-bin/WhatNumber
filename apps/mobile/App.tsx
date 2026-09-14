@@ -43,6 +43,7 @@ import { EmergencyFinderCard } from './components/EmergencyFinderCard';
 import { ImmediateEmergency } from './components/ImmediateEmergency';
 import { NumberRow } from './components/NumberCards';
 import { SplashAnimation } from './components/SplashAnimation';
+import { Toast } from './components/Toast';
 import { useAdMobInit } from './hooks/useAdMobInit';
 import { useFavorites } from './hooks/useFavorites';
 import { useOTAUpdates } from './hooks/useOTAUpdates';
@@ -240,6 +241,7 @@ export default function App() {
   const [selected, setSelected] = useState<NumberItem | null>(null);
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<'number' | 'feedback'>('number');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   /** Cold start only — never re-shown on background → foreground */
   const [showSplash, setShowSplash] = useState(true);
   const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
@@ -736,8 +738,16 @@ export default function App() {
               visible={requestOpen}
               mode={requestMode}
               onClose={() => setRequestOpen(false)}
+              onSuccess={(message) => setToastMessage(message)}
               styles={styles}
               colors={themeColors}
+            />
+
+            <Toast
+              message={toastMessage}
+              visible={Boolean(toastMessage)}
+              styles={styles}
+              onHide={() => setToastMessage(null)}
             />
 
             <Modal

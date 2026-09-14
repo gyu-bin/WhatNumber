@@ -1,4 +1,4 @@
-export const NUMBER_REQUEST_EMAIL = 'rbqls6651@naver.com';
+export const NUMBER_REQUEST_EMAIL = 'rbqls6651@gmail.com';
 
 export type ContactRequestKind = 'number-request' | 'feedback';
 
