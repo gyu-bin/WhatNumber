@@ -4,12 +4,12 @@ export class EmergencyRoomsConfigurationError extends Error {}
 
 export class EmergencyRoomsResponseError extends Error {}
 
+// 공개 endpoint만 기본값으로 둡니다. NEMC Service Key는 이 앱 코드나 번들에 없습니다.
+const PRODUCTION_EMERGENCY_ENDPOINT = 'https://whatnumber-mu.vercel.app/api/emergency';
+
 function getEndpoint(): string {
   const endpoint = process.env.EXPO_PUBLIC_EMERGENCY_API_BASE_URL?.trim();
-  if (!endpoint) {
-    throw new EmergencyRoomsConfigurationError('응급실 정보 연결이 아직 설정되지 않았어요.');
-  }
-  return endpoint;
+  return endpoint || PRODUCTION_EMERGENCY_ENDPOINT;
 }
 
 function parseResponse(value: unknown): EmergencyRoomsResponse {

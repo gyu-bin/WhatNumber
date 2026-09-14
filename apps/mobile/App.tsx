@@ -32,7 +32,6 @@ import {
 } from '@whatnumber/shared';
 import { NumberRequestModal } from './components/NumberRequest';
 import { AdBanner } from './components/AdBanner';
-import { CategoryBrowse } from './components/CategoryBrowse';
 import { EmergencyFinderCard } from './components/EmergencyFinderCard';
 import { NumberGridCard, NumberRow } from './components/NumberCards';
 import { SplashAnimation } from './components/SplashAnimation';
@@ -411,11 +410,6 @@ export default function App() {
   const isBrowseHome = groupByCategory;
   const isFavoritesView = showFavorites && !isSearching && !activeSituation;
 
-  const emergencyHighlights = useMemo(() => {
-    const byId = (id: string) => ALL_NUMBERS.find((item) => item.id === id);
-    return [byId('e2'), byId('e3')].filter((item): item is NumberItem => item !== undefined);
-  }, []);
-
   const openCategory = useCallback((category: Category) => {
     setSelectedCategory(category);
     setHomeView('category');
@@ -426,7 +420,25 @@ export default function App() {
   }, []);
 
   const sections = useMemo((): ListSection[] => {
-    if (filtered.length === 0 || isBrowseHome) return [];
+    if (filtered.length === 0) return [];
+
+    if (isBrowseHome) {
+      return CATEGORY_ORDER.flatMap((category) => {
+        const categoryItems = filtered.filter((item) => item.cat === category);
+        if (categoryItems.length === 0) return [];
+
+        const collapsed = collapsedCategories[category] === true;
+        return [
+          {
+            key: category,
+            title: category,
+            collapsible: true,
+            collapsed,
+            data: collapsed ? [] : categoryItems,
+          },
+        ];
+      });
+    }
 
     if (isFavoritesView) {
       return [
@@ -440,7 +452,7 @@ export default function App() {
     }
 
     return [{ key: 'list', title: '', data: filtered }];
-  }, [filtered, isBrowseHome, isFavoritesView]);
+  }, [filtered, isBrowseHome, isFavoritesView, collapsedCategories]);
 
   const cardSections = useMemo((): CardSection[] => {
     return sections.map((section) => ({
@@ -627,22 +639,6 @@ export default function App() {
                       setSelectedCategory(null);
                     }}
                   />
-                ) : isBrowseHome ? (
-                  <ScrollView
-                    keyboardShouldPersistTaps="handled"
-                    contentContainerStyle={styles.listContent}
-                  >
-                    {listHeader}
-                    <CategoryBrowse
-                      emergencyItems={emergencyHighlights}
-                      styles={styles}
-                      colors={themeColors}
-                      isFavorite={isFavorite}
-                      onToggleFavorite={toggle}
-                      onOpenItem={setSelected}
-                      onOpenCategory={openCategory}
-                    />
-                  </ScrollView>
                 ) : viewMode === 'card' ? (
                   <SectionList
                     sections={cardSections}

@@ -14,8 +14,8 @@ const BG_LIGHT = '#FCFBFA';
 const BG_DARK = '#171717';
 const BUBBLE_W = 246;
 const BUBBLE_H = 78;
-const EXIT_AT = 1_400;
-const TOTAL_DURATION = 2_000;
+const EXIT_AT = 2_450;
+const TOTAL_DURATION = 3_150;
 
 type Props = {
   theme: Theme;
@@ -26,14 +26,16 @@ type Props = {
 };
 
 /**
- * Cold-start brand intro: Minimal Pop (2.0s).
+ * Cold-start brand intro: Minimal Pop (3.15s).
  * The completed wordmark appears as one group; no dot-to-bubble transformation.
  */
 export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: Props) {
   const bg = theme === 'dark' ? BG_DARK : BG_LIGHT;
   const overlayOpacity = useRef(new Animated.Value(1)).current;
   const logoOpacity = useRef(new Animated.Value(0)).current;
-  const logoScale = useRef(new Animated.Value(0.78)).current;
+  const logoScale = useRef(new Animated.Value(0.46)).current;
+  const textOpacity = useRef(new Animated.Value(0)).current;
+  const textTY = useRef(new Animated.Value(10)).current;
   const groupOpacity = useRef(new Animated.Value(1)).current;
   const groupTY = useRef(new Animated.Value(0)).current;
   const groupScale = useRef(new Animated.Value(1)).current;
@@ -55,7 +57,9 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
     // Makes Fast Refresh and each cold start deterministic.
     overlayOpacity.setValue(1);
     logoOpacity.setValue(0);
-    logoScale.setValue(0.78);
+    logoScale.setValue(0.46);
+    textOpacity.setValue(0);
+    textTY.setValue(10);
     groupOpacity.setValue(1);
     groupTY.setValue(0);
     groupScale.setValue(1);
@@ -124,25 +128,25 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
       );
     };
     const runMinimalPop = () => {
-      // 0–530ms: the completed wordmark arrives as one confident pop.
+      // 0–1,180ms: bubble, wordmark, then emphasis rays arrive in a visible sequence.
       run(
         Animated.parallel([
           Animated.timing(logoOpacity, {
             toValue: 1,
-            duration: 230,
+            duration: 180,
             easing: easeOut,
             useNativeDriver: true,
           }),
           Animated.sequence([
             Animated.timing(logoScale, {
-              toValue: 1.1,
-              duration: 360,
+              toValue: 1.14,
+              duration: 470,
               easing: easeOut,
               useNativeDriver: true,
             }),
             Animated.timing(logoScale, {
               toValue: 1,
-              duration: 170,
+              duration: 260,
               easing: Easing.inOut(Easing.quad),
               useNativeDriver: true,
             }),
@@ -150,12 +154,30 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
         ]),
       );
 
-      // 330–670ms: the three accent rays land one after another.
-      popRay(ray1, ray1Scale, 330);
-      popRay(ray2, ray2Scale, 440);
-      popRay(ray3, ray3Scale, 550);
+      schedule(() => {
+        run(
+          Animated.parallel([
+            Animated.timing(textOpacity, {
+              toValue: 1,
+              duration: 290,
+              easing: easeOut,
+              useNativeDriver: true,
+            }),
+            Animated.timing(textTY, {
+              toValue: 0,
+              duration: 290,
+              easing: easeOut,
+              useNativeDriver: true,
+            }),
+          ]),
+        );
+      }, 300);
 
-      // 670–1120ms: leave enough time for the mark to register.
+      popRay(ray1, ray1Scale, 700);
+      popRay(ray2, ray2Scale, 850);
+      popRay(ray3, ray3Scale, 1_000);
+
+      // Keep the completed mark on screen long enough to register as a brand moment.
       schedule(() => exit(TOTAL_DURATION - EXIT_AT, true), EXIT_AT);
       schedule(finish, TOTAL_DURATION);
     };
@@ -182,8 +204,10 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
       ray1Scale.setValue(1);
       ray2Scale.setValue(1);
       ray3Scale.setValue(1);
-      schedule(() => exit(180, false), 420);
-      schedule(finish, 600);
+      textOpacity.setValue(1);
+      textTY.setValue(0);
+      schedule(() => exit(260, false), 1_180);
+      schedule(finish, 1_440);
     };
 
     AccessibilityInfo.isReduceMotionEnabled()
@@ -199,7 +223,7 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
       timers.forEach(clearTimeout);
       animations.forEach((animation) => animation.stop());
     };
-  }, [active]);
+  }, [active, groupOpacity, groupScale, groupTY, logoOpacity, logoScale, onFinish, onTransitionStart, overlayOpacity, ray1, ray1Scale, ray2, ray2Scale, ray3, ray3Scale, textOpacity, textTY]);
 
   return (
     <Animated.View
@@ -230,7 +254,11 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
         >
           <View style={styles.bubbleShadow}>
             <View style={styles.bubble}>
-              <Text style={styles.logoText}>몇번이야?</Text>
+              <Animated.Text
+                style={[styles.logoText, { opacity: textOpacity, transform: [{ translateY: textTY }] }]}
+              >
+                몇번이야?
+              </Animated.Text>
               <View style={styles.tail} />
             </View>
           </View>

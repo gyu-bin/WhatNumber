@@ -21,6 +21,7 @@ export function syncFavoritesWidget(favoriteIds: string[]): void {
       const number = ALL_NUMBERS.find((entry) => entry.id === id);
       if (!number) continue;
       items.push({
+        icon: number.icon,
         title: number.title,
         num: number.num,
         tel: telHref(number.num),
