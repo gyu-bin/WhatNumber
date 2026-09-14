@@ -99,8 +99,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       {
         androidAppId: ADMOB_ANDROID_APP_ID,
         iosAppId: ADMOB_IOS_APP_ID,
-        userTrackingUsageDescription:
-          '맞춤형 광고 제공을 위해 기기 식별자를 사용할 수 있습니다.',
       },
     ],
     [

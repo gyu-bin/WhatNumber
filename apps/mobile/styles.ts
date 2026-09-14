@@ -334,6 +334,14 @@ export function createStyles(colors: ThemeColors) {
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.border,
     },
+    categoryTileIconWrap: {
+      width: 36,
+      height: 36,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+    },
     categoryTileText: {
       flex: 1,
       gap: 2,

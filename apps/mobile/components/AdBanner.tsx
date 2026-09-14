@@ -42,7 +42,7 @@ export function AdBanner({ colors }: { colors: ThemeColors }) {
       <BannerAd
         unitId={unitId}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{ requestNonPersonalizedAdsOnly: false }}
+        requestOptions={{ requestNonPersonalizedAdsOnly: true }}
         onAdFailedToLoad={() => setVisible(false)}
       />
     </View>
