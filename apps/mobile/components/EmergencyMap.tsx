@@ -1,12 +1,20 @@
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
-import { forwardRef, useImperativeHandle, useRef, type Ref } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  type Ref,
+} from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { Coordinate, EmergencyRoom } from '../services/emergency/types';
 import type { ThemeColors } from '../theme';
 
-const HOSPITAL_PIN = '#FF5A55';
-const DEFAULT_ZOOM = 13;
+/** Zoomed out enough to show nearby hospitals (~4–6km) with the user. */
+const DEFAULT_ZOOM = 11;
+const MARKER_SIZE = 36;
+const MARKER_SELECTED_SIZE = 44;
 
 export type EmergencyMapHandle = {
   /** 이미 알고 있는 좌표로 카메라만 이동 (권한/API 재요청 없음) */
@@ -84,6 +92,27 @@ function EmergencyMapNative({
     },
   }));
 
+  const fitToRooms = () => {
+    if (!userLocation || rooms.length === 0) return;
+    const farthest = rooms.reduce((best, room) =>
+      room.distanceKm > best.distanceKm ? room : best,
+    );
+    nativeRef.current?.animateCameraWithTwoCoords({
+      coord1: userLocation,
+      coord2: farthest.location,
+      duration: 360,
+      easing: 'EaseOut',
+    });
+  };
+
+  // Rooms arrive after the map mounts — zoom out so hospital pins are on screen.
+  useEffect(() => {
+    if (!userLocation || rooms.length === 0) return;
+    const timer = setTimeout(fitToRooms, 80);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fit once per room set / location
+  }, [userLocation?.latitude, userLocation?.longitude, rooms]);
+
   const initialCamera = userLocation
     ? {
         latitude: userLocation.latitude,
@@ -96,9 +125,13 @@ function EmergencyMapNative({
           longitude: rooms[0].location.longitude,
           zoom: DEFAULT_ZOOM,
         }
-      : { latitude: 37.5665, longitude: 126.978, zoom: 11 };
+      : { latitude: 37.5665, longitude: 126.978, zoom: DEFAULT_ZOOM };
 
   const recenter = () => {
+    if (userLocation && rooms.length > 0) {
+      fitToRooms();
+      return;
+    }
     if (!userLocation) return;
     nativeRef.current?.animateCameraTo({
       latitude: userLocation.latitude,
@@ -138,7 +171,7 @@ function EmergencyMapNative({
       >
         {rooms.map((room) => {
           const selected = room.id === selectedId;
-          const size = selected ? 38 : 30;
+          const size = selected ? MARKER_SELECTED_SIZE : MARKER_SIZE;
           return (
             <NaverMapMarkerOverlay
               key={room.id}
@@ -146,34 +179,18 @@ function EmergencyMapNative({
               longitude={room.location.longitude}
               width={size}
               height={size}
-              anchor={{ x: 0.5, y: 0.5 }}
+              anchor={{ x: 0.5, y: 1 }}
               zIndex={selected ? 20 : 1}
+              image={{ symbol: selected ? 'red' : 'pink' }}
               onTap={() => onSelectRoom(room.id)}
               caption={{
                 text: room.name,
                 color: colors.textPrimary,
                 haloColor: colors.surface,
                 textSize: 11,
-                offset: 4,
+                offset: 2,
               }}
-            >
-              <View
-                collapsable={false}
-                style={[
-                  styles.pin,
-                  {
-                    width: size,
-                    height: size,
-                    borderRadius: size / 2,
-                    backgroundColor: HOSPITAL_PIN,
-                    borderWidth: selected ? 3 : 2,
-                    borderColor: '#fff',
-                  },
-                ]}
-              >
-                <Ionicons name="medical" size={selected ? 16 : 13} color="#fff" />
-              </View>
-            </NaverMapMarkerOverlay>
+            />
           );
         })}
       </NaverMapView>
@@ -214,10 +231,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 2 },
     elevation: 3,
-  },
-  pin: {
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   fallback: {
     alignItems: 'center',

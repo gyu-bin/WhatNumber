@@ -130,7 +130,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       '@mj-studio/react-native-naver-map',
       {
-        client_id: 'i20jt73shx',
+        client_id: 'an2eak5w9q',
       },
     ],
     [
