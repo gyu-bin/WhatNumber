@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
-  buildNumberRequestMailUrl,
   canSendNumberRequest,
+  submitContactRequest,
   type NumberRequestForm,
 } from '@whatnumber/shared';
 import styles from './NumberRequest.module.css';
@@ -13,14 +13,21 @@ const EMPTY_FORM: NumberRequestForm = {
   note: '',
 };
 
+const NUMBER_REQUEST_API_URL =
+  import.meta.env.VITE_NUMBER_REQUEST_API_URL?.trim() || '/api/number-request';
+
 export function NumberRequest() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<NumberRequestForm>(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
 
   const close = useCallback(() => {
     setOpen(false);
     setError(null);
+    setSending(false);
+    setSent(false);
   }, []);
 
   useEffect(() => {
@@ -37,15 +44,33 @@ export function NumberRequest() {
     if (error) setError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (sending) return;
+
     if (!canSendNumberRequest(form)) {
       setError('번호 이름, 전화번호, 설명 중 하나 이상 입력해 주세요.');
       return;
     }
-    window.location.href = buildNumberRequestMailUrl(form);
+
+    setSending(true);
+    setError(null);
+
+    const result = await submitContactRequest(NUMBER_REQUEST_API_URL, {
+      kind: 'number-request',
+      ...form,
+    });
+
+    setSending(false);
+
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+
+    setSent(true);
     setForm(EMPTY_FORM);
-    close();
+    window.setTimeout(() => close(), 900);
   };
 
   return (
@@ -78,11 +103,11 @@ export function NumberRequest() {
                 번호 추가 요청
               </h2>
               <p className={styles.desc}>
-                검토 후 반영할게요. 메일 앱에서 보내기만 누르면 됩니다.
+                검토 후 반영할게요. 보내기를 누르면 바로 전달돼요.
               </p>
             </div>
 
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={(e) => void handleSubmit(e)}>
               <label className={styles.field}>
                 <span className={styles.labelRow}>
                   <span className={styles.label}>번호 이름</span>
@@ -134,12 +159,13 @@ export function NumberRequest() {
               </label>
 
               {error ? <p className={styles.error}>{error}</p> : null}
+              {sent ? <p className={styles.error}>전송됐어요. 확인해 볼게요!</p> : null}
 
               <div className={styles.footer}>
-                <button type="submit" className={styles.submit}>
-                  메일 보내기
+                <button type="submit" className={styles.submit} disabled={sending || sent}>
+                  {sending ? '보내는 중…' : '보내기'}
                 </button>
-                <button type="button" className={styles.cancel} onClick={close}>
+                <button type="button" className={styles.cancel} onClick={close} disabled={sending}>
                   취소
                 </button>
               </div>

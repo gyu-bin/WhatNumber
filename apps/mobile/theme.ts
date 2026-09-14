@@ -1,8 +1,6 @@
 export type Theme = 'light' | 'dark';
-export type ViewMode = 'list' | 'card';
 
 export const THEME_STORAGE_KEY = 'theme_v2';
-export const VIEW_MODE_STORAGE_KEY = 'view_mode_v1';
 
 export type ThemeColors = {
   bg: string;

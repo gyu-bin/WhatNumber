@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
-  Linking,
   Modal,
   Platform,
   Pressable,
@@ -11,10 +11,12 @@ import {
   View,
 } from 'react-native';
 import {
-  buildNumberRequestMailUrl,
+  canSendFeedback,
   canSendNumberRequest,
+  submitContactRequest,
   type NumberRequestForm,
 } from '@whatnumber/shared';
+import { NUMBER_REQUEST_API_URL } from '../constants';
 import type { AppStyles } from '../styles';
 import type { ThemeColors } from '../theme';
 
@@ -25,8 +27,11 @@ const EMPTY_FORM: NumberRequestForm = {
   note: '',
 };
 
+export type RequestModalMode = 'number' | 'feedback';
+
 interface NumberRequestModalProps {
   visible: boolean;
+  mode?: RequestModalMode;
   onClose: () => void;
   styles: AppStyles;
   colors: ThemeColors;
@@ -56,16 +61,24 @@ function Field({
 
 export function NumberRequestModal({
   visible,
+  mode = 'number',
   onClose,
   styles,
   colors,
 }: NumberRequestModalProps) {
   const [form, setForm] = useState<NumberRequestForm>(EMPTY_FORM);
+  const [feedbackMessage, setFeedbackMessage] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const isFeedback = mode === 'feedback';
 
   const close = () => {
     onClose();
     setError(null);
+    setSending(false);
+    setSent(false);
   };
 
   const update = (key: keyof NumberRequestForm, value: string) => {
@@ -74,21 +87,41 @@ export function NumberRequestModal({
   };
 
   const handleSubmit = async () => {
-    if (!canSendNumberRequest(form)) {
+    if (sending) return;
+
+    if (isFeedback) {
+      if (!canSendFeedback({ message: feedbackMessage })) {
+        setError('의견을 입력해 주세요.');
+        return;
+      }
+    } else if (!canSendNumberRequest(form)) {
       setError('번호 이름, 전화번호, 설명 중 하나 이상 입력해 주세요.');
       return;
     }
 
-    const url = buildNumberRequestMailUrl(form);
-    const supported = await Linking.canOpenURL(url);
-    if (!supported) {
-      setError('메일 앱을 열 수 없어요. 메일 앱 설정을 확인해 주세요.');
+    setSending(true);
+    setError(null);
+
+    const result = await submitContactRequest(
+      NUMBER_REQUEST_API_URL,
+      isFeedback
+        ? { kind: 'feedback', message: feedbackMessage }
+        : { kind: 'number-request', ...form },
+    );
+
+    setSending(false);
+
+    if (!result.ok) {
+      setError(result.error);
       return;
     }
 
-    await Linking.openURL(url);
+    setSent(true);
     setForm(EMPTY_FORM);
-    close();
+    setFeedbackMessage('');
+    setTimeout(() => {
+      close();
+    }, 900);
   };
 
   return (
@@ -100,9 +133,13 @@ export function NumberRequestModal({
         <Pressable style={styles.requestBackdrop} onPress={close} />
         <View style={styles.requestSheet}>
           <View style={styles.handle} />
-          <Text style={styles.requestTitle}>번호 추가 요청</Text>
+          <Text style={styles.requestTitle}>
+            {isFeedback ? '의견 보내기' : '번호 추가 요청'}
+          </Text>
           <Text style={styles.requestDesc}>
-            검토 후 반영할게요. 메일 앱에서 보내기만 누르면 됩니다.
+            {isFeedback
+              ? '보내기를 누르면 바로 전달돼요.'
+              : '검토 후 반영할게요. 보내기를 누르면 바로 전달돼요.'}
           </Text>
 
           <ScrollView
@@ -111,63 +148,92 @@ export function NumberRequestModal({
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            <Field label="번호 이름" styles={styles}>
-              <TextInput
-                style={styles.requestInput}
-                value={form.title}
-                onChangeText={(v) => update('title', v)}
-                placeholder="예: 방첩신고, 전세사기 상담"
-                placeholderTextColor={colors.textTertiary}
-              />
-            </Field>
+            {isFeedback ? (
+              <Field label="의견" styles={styles}>
+                <TextInput
+                  style={[styles.requestInput, styles.requestTextarea]}
+                  value={feedbackMessage}
+                  onChangeText={(v) => {
+                    setFeedbackMessage(v);
+                    if (error) setError(null);
+                  }}
+                  placeholder="개선 아이디어나 불편했던 점을 적어 주세요"
+                  placeholderTextColor={colors.textTertiary}
+                  multiline
+                  textAlignVertical="top"
+                />
+              </Field>
+            ) : (
+              <>
+                <Field label="번호 이름" styles={styles}>
+                  <TextInput
+                    style={styles.requestInput}
+                    value={form.title}
+                    onChangeText={(v) => update('title', v)}
+                    placeholder="예: 방첩신고, 전세사기 상담"
+                    placeholderTextColor={colors.textTertiary}
+                  />
+                </Field>
 
-            <Field label="전화번호" styles={styles}>
-              <TextInput
-                style={styles.requestInput}
-                value={form.number}
-                onChangeText={(v) => update('number', v)}
-                placeholder="예: 113, 1588-0000"
-                placeholderTextColor={colors.textTertiary}
-                keyboardType="phone-pad"
-              />
-            </Field>
+                <Field label="전화번호" styles={styles}>
+                  <TextInput
+                    style={styles.requestInput}
+                    value={form.number}
+                    onChangeText={(v) => update('number', v)}
+                    placeholder="예: 113, 1588-0000"
+                    placeholderTextColor={colors.textTertiary}
+                    keyboardType="phone-pad"
+                  />
+                </Field>
 
-            <Field label="설명 · 언제 쓰는지" styles={styles}>
-              <TextInput
-                style={[styles.requestInput, styles.requestTextarea]}
-                value={form.description}
-                onChangeText={(v) => update('description', v)}
-                placeholder="어떤 상황에서 필요한 번호인지"
-                placeholderTextColor={colors.textTertiary}
-                multiline
-                textAlignVertical="top"
-              />
-            </Field>
+                <Field label="설명 · 언제 쓰는지" styles={styles}>
+                  <TextInput
+                    style={[styles.requestInput, styles.requestTextarea]}
+                    value={form.description}
+                    onChangeText={(v) => update('description', v)}
+                    placeholder="어떤 상황에서 필요한 번호인지"
+                    placeholderTextColor={colors.textTertiary}
+                    multiline
+                    textAlignVertical="top"
+                  />
+                </Field>
 
-            <Field label="기타" optional styles={styles}>
-              <TextInput
-                style={styles.requestInput}
-                value={form.note}
-                onChangeText={(v) => update('note', v)}
-                placeholder="출처, 참고 링크 등"
-                placeholderTextColor={colors.textTertiary}
-              />
-            </Field>
+                <Field label="기타" optional styles={styles}>
+                  <TextInput
+                    style={styles.requestInput}
+                    value={form.note}
+                    onChangeText={(v) => update('note', v)}
+                    placeholder="출처, 참고 링크 등"
+                    placeholderTextColor={colors.textTertiary}
+                  />
+                </Field>
+              </>
+            )}
 
             {error ? <Text style={styles.requestError}>{error}</Text> : null}
+            {sent ? (
+              <Text style={[styles.requestError, { color: colors.accent }]}>
+                전송됐어요. 확인해 볼게요!
+              </Text>
+            ) : null}
           </ScrollView>
 
           <View style={styles.requestFooter}>
             <Pressable
               style={({ pressed }) => [
                 styles.requestSubmitBtn,
-                pressed && styles.requestSubmitBtnPressed,
+                (pressed || sending) && styles.requestSubmitBtnPressed,
               ]}
               onPress={() => void handleSubmit()}
+              disabled={sending || sent}
             >
-              <Text style={styles.requestSubmitText}>메일 보내기</Text>
+              {sending ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.requestSubmitText}>보내기</Text>
+              )}
             </Pressable>
-            <Pressable style={styles.requestCancelLink} onPress={close}>
+            <Pressable style={styles.requestCancelLink} onPress={close} disabled={sending}>
               <Text style={styles.requestCancelText}>취소</Text>
             </Pressable>
           </View>

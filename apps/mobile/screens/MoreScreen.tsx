@@ -3,19 +3,17 @@ import type { ComponentProps } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Image, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { ThemeToggle } from '../components/ThemeToggle';
-import { ViewModeToggle } from '../components/ViewModeToggle';
 import { SITE_URL } from '../constants';
 import type { AppStyles } from '../styles';
-import type { Theme, ThemeColors, ViewMode } from '../theme';
+import type { Theme, ThemeColors } from '../theme';
 
 interface MoreScreenProps {
   styles: AppStyles;
   colors: ThemeColors;
   theme: Theme;
   onChangeTheme: (theme: Theme) => void;
-  viewMode: ViewMode;
-  onChangeViewMode: (mode: ViewMode) => void;
   onOpenRequest: () => void;
+  onOpenFeedback: () => void;
   onOpenPrivacy: () => void;
 }
 
@@ -24,9 +22,8 @@ export function MoreScreen({
   colors,
   theme,
   onChangeTheme,
-  viewMode,
-  onChangeViewMode,
   onOpenRequest,
+  onOpenFeedback,
   onOpenPrivacy,
 }: MoreScreenProps) {
   const version = Constants.expoConfig?.version ?? '1.0.0';
@@ -56,15 +53,6 @@ export function MoreScreen({
 
       <Text style={styles.moreSectionLabel}>화면</Text>
       <View style={styles.moreSection}>
-        <View style={styles.moreRow}>
-          <SettingIcon name="grid-outline" styles={styles} colors={colors} />
-          <View style={styles.moreRowText}>
-            <Text style={styles.moreRowTitle}>보기 방식</Text>
-            <Text style={styles.moreRowHint}>리스트 또는 카드로 볼 수 있어요.</Text>
-          </View>
-          <ViewModeToggle mode={viewMode} colors={colors} onChange={onChangeViewMode} />
-        </View>
-        <View style={styles.moreRowDivider} />
         <View style={styles.moreRow}>
           <SettingIcon name="moon-outline" styles={styles} colors={colors} />
           <View style={styles.moreRowText}>
@@ -111,7 +99,7 @@ export function MoreScreen({
         </Pressable>
       </View>
 
-      <Pressable style={styles.feedbackCard} onPress={onOpenRequest}>
+      <Pressable style={styles.feedbackCard} onPress={onOpenFeedback}>
         <SettingIcon name="chatbubble-ellipses-outline" styles={styles} colors={colors} />
         <View style={styles.moreRowText}>
           <Text style={styles.feedbackTitle}>더 나은 앱이 될 수 있도록</Text>

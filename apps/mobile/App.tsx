@@ -41,13 +41,12 @@ import { AdBanner } from './components/AdBanner';
 import { CategoryBrowse } from './components/CategoryBrowse';
 import { EmergencyFinderCard } from './components/EmergencyFinderCard';
 import { ImmediateEmergency } from './components/ImmediateEmergency';
-import { NumberGridCard, NumberRow } from './components/NumberCards';
+import { NumberRow } from './components/NumberCards';
 import { SplashAnimation } from './components/SplashAnimation';
 import { useAdMobInit } from './hooks/useAdMobInit';
 import { useFavorites } from './hooks/useFavorites';
 import { useOTAUpdates } from './hooks/useOTAUpdates';
 import { useTheme } from './hooks/useTheme';
-import { useViewMode } from './hooks/useViewMode';
 import { CategoryScreen } from './screens/CategoryScreen';
 import { MoreScreen } from './screens/MoreScreen';
 import { PrivacyScreen } from './screens/PrivacyScreen';
@@ -83,17 +82,6 @@ const MORE_SITUATIONS: { id: Situation; icon: string; label: string }[] = [
 const FIRE_ITEM = ALL_NUMBERS.find((n) => n.id === 'e2')!;
 const POLICE_ITEM = ALL_NUMBERS.find((n) => n.id === 'e3')!;
 
-const CATEGORY_ORDER: Category[] = [
-  '긴급/안전',
-  '교통/차량',
-  '주거/생활',
-  '법률/금융',
-  '가족/복지',
-  '고용/노동',
-  '민원/행정',
-  '통신/디지털',
-];
-
 const CATEGORY_SUBTITLES: Partial<Record<Category, string>> = {
   '긴급/안전': '지금 바로 도움이 필요한 순간',
   '교통/차량': '이동 중에도 든든하게',
@@ -113,33 +101,6 @@ type ListSection = {
   collapsed?: boolean;
   data: NumberItem[];
 };
-
-type CardRow = {
-  id: string;
-  left: NumberItem;
-  right?: NumberItem;
-};
-
-type CardSection = {
-  key: string;
-  title: string;
-  isFavorites?: boolean;
-  collapsible?: boolean;
-  collapsed?: boolean;
-  data: CardRow[];
-};
-
-function chunkToRows(items: NumberItem[]): CardRow[] {
-  const rows: CardRow[] = [];
-  for (let i = 0; i < items.length; i += 2) {
-    rows.push({
-      id: `row-${items[i].id}`,
-      left: items[i],
-      right: items[i + 1],
-    });
-  }
-  return rows;
-}
 
 function DetailSheet({
   item,
@@ -215,68 +176,6 @@ function DetailSheet({
   );
 }
 
-function CategoryHeader({
-  section,
-  styles,
-  cardMode,
-  onToggle,
-}: {
-  section: {
-    key: string;
-    title: string;
-    isFavorites?: boolean;
-    collapsible?: boolean;
-    collapsed?: boolean;
-  };
-  styles: AppStyles;
-  cardMode?: boolean;
-  onToggle: (key: string) => void;
-}) {
-  if (!section.title) return null;
-
-  const headerStyle = cardMode ? styles.cardModeHeader : styles.sectionHeader;
-
-  if (section.isFavorites) {
-    return (
-      <View style={headerStyle}>
-        <Text style={styles.favHeader}>
-          <Text style={styles.favHeaderStar}>★ </Text>
-          {section.title}
-        </Text>
-      </View>
-    );
-  }
-
-  const titleBlock = (
-    <View style={styles.catHeaderText}>
-      <Text style={styles.catHeader}>{section.title}</Text>
-    </View>
-  );
-
-  if (!section.collapsible) {
-    return <View style={headerStyle}>{titleBlock}</View>;
-  }
-
-  return (
-    <View style={headerStyle}>
-      <Pressable
-        style={styles.catHeaderRow}
-        onPress={() => onToggle(section.key)}
-        accessibilityRole="button"
-        accessibilityLabel={`${section.title} ${section.collapsed ? '펼치기' : '접기'}`}
-        accessibilityState={{ expanded: !section.collapsed }}
-      >
-        {titleBlock}
-        <Ionicons
-          name={section.collapsed ? 'chevron-down' : 'chevron-up'}
-          size={18}
-          color={styles.sectionChevron.color}
-        />
-      </Pressable>
-    </View>
-  );
-}
-
 function TabBar({
   active,
   onChange,
@@ -338,15 +237,14 @@ export default function App() {
   const [showFavorites, setShowFavorites] = useState(false);
   const [activeSituation, setActiveSituation] = useState<Situation | null>(null);
   const [situationMoreOpen, setSituationMoreOpen] = useState(false);
-  const [collapsedCategories, setCollapsedCategories] = useState<Record<string, boolean>>({});
   const [selected, setSelected] = useState<NumberItem | null>(null);
   const [requestOpen, setRequestOpen] = useState(false);
+  const [requestMode, setRequestMode] = useState<'number' | 'feedback'>('number');
   /** Cold start only — never re-shown on background → foreground */
   const [showSplash, setShowSplash] = useState(true);
   const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
   const { favorites, toggle, reorder, isFavorite, ready: favoritesReady } = useFavorites();
   const { theme, toggle: toggleTheme, ready: themeReady } = useTheme();
-  const { viewMode, setViewMode, ready: viewModeReady } = useViewMode();
 
   useEffect(() => {
     if (!favoritesReady) return;
@@ -433,30 +331,8 @@ export default function App() {
 
   const isMoreSituationActive = MORE_SITUATIONS.some((sit) => sit.id === activeSituation);
 
-  const toggleCategory = useCallback((key: string) => {
-    setCollapsedCategories((current) => ({ ...current, [key]: !current[key] }));
-  }, []);
-
   const sections = useMemo((): ListSection[] => {
     if (filtered.length === 0) return [];
-
-    if (isBrowseHome) {
-      return CATEGORY_ORDER.flatMap((category) => {
-        const categoryItems = filtered.filter((item) => item.cat === category);
-        if (categoryItems.length === 0) return [];
-
-        const collapsed = collapsedCategories[category] === true;
-        return [
-          {
-            key: category,
-            title: category,
-            collapsible: true,
-            collapsed,
-            data: collapsed ? [] : categoryItems,
-          },
-        ];
-      });
-    }
 
     if (isFavoritesView) {
       return [
@@ -470,14 +346,7 @@ export default function App() {
     }
 
     return [{ key: 'list', title: '', data: filtered }];
-  }, [filtered, isBrowseHome, isFavoritesView, collapsedCategories]);
-
-  const cardSections = useMemo((): CardSection[] => {
-    return sections.map((section) => ({
-      ...section,
-      data: chunkToRows(section.data),
-    }));
-  }, [sections]);
+  }, [filtered, isFavoritesView]);
 
   const listHeader = (
     <View style={styles.listHeader}>
@@ -613,10 +482,7 @@ export default function App() {
     </View>
   );
 
-  const listExtraData = `${favorites.join(',')}|${Object.keys(collapsedCategories)
-    .filter((key) => collapsedCategories[key])
-    .sort()
-    .join(',')}`;
+  const listExtraData = favorites.join(',');
 
   const browseHome = (
     <ScrollView
@@ -697,7 +563,7 @@ export default function App() {
     [filtered.length, isFavorite, styles, toggle],
   );
 
-  if (!themeReady || !viewModeReady) {
+  if (!themeReady) {
     // Expo Go 아이콘 splash를 가리기 위한 Warm White 덮개
     return (
       <SafeAreaProvider>
@@ -755,7 +621,6 @@ export default function App() {
                   title={selectedCategoryLabel ?? undefined}
                   subtitle={CATEGORY_SUBTITLES[selectedCategory]}
                   items={ALL_NUMBERS.filter((item) => item.cat === selectedCategory)}
-                  viewMode={viewMode}
                   styles={styles}
                   colors={themeColors}
                   isFavorite={isFavorite}
@@ -784,90 +649,36 @@ export default function App() {
               ) : null}
 
               {showFilteredList ? (
-                viewMode === 'card' ? (
-                  <SectionList
-                    sections={cardSections}
-                    keyExtractor={(row) => row.id}
-                    extraData={listExtraData}
-                    stickySectionHeadersEnabled={false}
-                    keyboardShouldPersistTaps="handled"
-                    contentContainerStyle={styles.listContent}
-                    ListHeaderComponent={listHeader}
-                    ListEmptyComponent={emptyComponent}
-                    renderSectionHeader={({ section }) => (
-                      <CategoryHeader
-                        section={section}
+                <SectionList
+                  sections={sections}
+                  keyExtractor={(item) => item.id}
+                  extraData={listExtraData}
+                  stickySectionHeadersEnabled={false}
+                  keyboardShouldPersistTaps="handled"
+                  contentContainerStyle={styles.listContent}
+                  ListHeaderComponent={listHeader}
+                  ListEmptyComponent={emptyComponent}
+                  renderItem={({ item, index, section }) => (
+                    <View
+                      style={[
+                        styles.sectionItem,
+                        index === 0 && styles.sectionItemFirst,
+                        index === section.data.length - 1 && styles.sectionItemLast,
+                      ]}
+                    >
+                      <NumberRow
+                        item={item}
+                        isFavorite={isFavorite(item.id)}
+                        onToggleFavorite={toggle}
+                        onOpen={setSelected}
                         styles={styles}
-                        cardMode
-                        onToggle={toggleCategory}
                       />
-                    )}
-                    renderItem={({ item: row }) => (
-                      <View style={styles.gridRow}>
-                        <View style={styles.gridCell}>
-                          <NumberGridCard
-                            item={row.left}
-                            isFavorite={isFavorite(row.left.id)}
-                            onToggleFavorite={toggle}
-                            onOpen={setSelected}
-                            styles={styles}
-                          />
-                        </View>
-                        <View style={styles.gridCell}>
-                          {row.right ? (
-                            <NumberGridCard
-                              item={row.right}
-                              isFavorite={isFavorite(row.right.id)}
-                              onToggleFavorite={toggle}
-                              onOpen={setSelected}
-                              styles={styles}
-                            />
-                          ) : (
-                            <View style={styles.gridCellSpacer} />
-                          )}
-                        </View>
-                      </View>
-                    )}
-                  />
-                ) : (
-                  <SectionList
-                    sections={sections}
-                    keyExtractor={(item) => item.id}
-                    extraData={listExtraData}
-                    stickySectionHeadersEnabled={false}
-                    keyboardShouldPersistTaps="handled"
-                    contentContainerStyle={styles.listContent}
-                    ListHeaderComponent={listHeader}
-                    ListEmptyComponent={emptyComponent}
-                    renderSectionHeader={({ section }) => (
-                      <CategoryHeader
-                        section={section}
-                        styles={styles}
-                        onToggle={toggleCategory}
-                      />
-                    )}
-                    renderItem={({ item, index, section }) => (
-                      <View
-                        style={[
-                          styles.sectionItem,
-                          !section.title && index === 0 && styles.sectionItemFirst,
-                          index === section.data.length - 1 && styles.sectionItemLast,
-                        ]}
-                      >
-                        <NumberRow
-                          item={item}
-                          isFavorite={isFavorite(item.id)}
-                          onToggleFavorite={toggle}
-                          onOpen={setSelected}
-                          styles={styles}
-                        />
-                        {index < section.data.length - 1 ? (
-                          <View style={styles.cardDivider} />
-                        ) : null}
-                      </View>
-                    )}
-                  />
-                )
+                      {index < section.data.length - 1 ? (
+                        <View style={styles.cardDivider} />
+                      ) : null}
+                    </View>
+                  )}
+                />
               ) : null}
 
               {showSettings ? (
@@ -885,9 +696,14 @@ export default function App() {
                     onChangeTheme={(next) => {
                       if (next !== theme) toggleTheme();
                     }}
-                    viewMode={viewMode}
-                    onChangeViewMode={setViewMode}
-                    onOpenRequest={() => setRequestOpen(true)}
+                    onOpenRequest={() => {
+                      setRequestMode('number');
+                      setRequestOpen(true);
+                    }}
+                    onOpenFeedback={() => {
+                      setRequestMode('feedback');
+                      setRequestOpen(true);
+                    }}
                     onOpenPrivacy={() => setSettingsView('privacy')}
                   />
                 )
@@ -918,6 +734,7 @@ export default function App() {
 
             <NumberRequestModal
               visible={requestOpen}
+              mode={requestMode}
               onClose={() => setRequestOpen(false)}
               styles={styles}
               colors={themeColors}
@@ -977,7 +794,7 @@ export default function App() {
         {showSplash ? (
           <SplashAnimation
             theme={theme}
-            active={nativeSplashHidden && themeReady && viewModeReady}
+            active={nativeSplashHidden && themeReady}
             onTransitionStart={onSplashTransitionStart}
             onFinish={onSplashFinish}
           />
