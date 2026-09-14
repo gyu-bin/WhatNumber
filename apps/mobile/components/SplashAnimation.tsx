@@ -14,8 +14,9 @@ const BG_LIGHT = '#FCFBFA';
 const BG_DARK = '#171717';
 const BUBBLE_W = 246;
 const BUBBLE_H = 78;
-const EXIT_AT = 2_450;
-const TOTAL_DURATION = 3_150;
+const RISE_FROM = 280;
+const EXIT_AT = 2_400;
+const TOTAL_DURATION = 3_100;
 
 type Props = {
   theme: Theme;
@@ -26,45 +27,46 @@ type Props = {
 };
 
 /**
- * Cold-start brand intro: Minimal Pop (3.15s).
- * The completed wordmark appears as one group; no dot-to-bubble transformation.
+ * Cold-start brand intro: coral bubble rises from the bottom to center.
  */
 export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: Props) {
   const bg = theme === 'dark' ? BG_DARK : BG_LIGHT;
   const overlayOpacity = useRef(new Animated.Value(1)).current;
   const logoOpacity = useRef(new Animated.Value(0)).current;
-  const logoScale = useRef(new Animated.Value(0.46)).current;
-  const textOpacity = useRef(new Animated.Value(0)).current;
-  const textTY = useRef(new Animated.Value(10)).current;
-  const groupOpacity = useRef(new Animated.Value(1)).current;
-  const groupTY = useRef(new Animated.Value(0)).current;
-  const groupScale = useRef(new Animated.Value(1)).current;
+  const logoScale = useRef(new Animated.Value(0.92)).current;
+  const riseY = useRef(new Animated.Value(RISE_FROM)).current;
+  const exitOpacity = useRef(new Animated.Value(1)).current;
+  const exitTY = useRef(new Animated.Value(0)).current;
+  const exitScale = useRef(new Animated.Value(1)).current;
   const ray1 = useRef(new Animated.Value(0)).current;
   const ray2 = useRef(new Animated.Value(0)).current;
   const ray3 = useRef(new Animated.Value(0)).current;
-  const ray1Scale = useRef(new Animated.Value(0.5)).current;
-  const ray2Scale = useRef(new Animated.Value(0.5)).current;
-  const ray3Scale = useRef(new Animated.Value(0.5)).current;
+  const ray1Scale = useRef(new Animated.Value(0.4)).current;
+  const ray2Scale = useRef(new Animated.Value(0.4)).current;
+  const ray3Scale = useRef(new Animated.Value(0.4)).current;
+  const startedRef = useRef(false);
 
   useEffect(() => {
-    if (!active) return;
+    if (!active || startedRef.current) return;
+    startedRef.current = true;
 
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const animations: Animated.CompositeAnimation[] = [];
     const easeOut = Easing.out(Easing.cubic);
+    const easeBack = Easing.out(Easing.back(1.35));
 
-    // Makes Fast Refresh and each cold start deterministic.
-    overlayOpacity.setValue(1);
-    logoOpacity.setValue(0);
-    logoScale.setValue(0.46);
-    textOpacity.setValue(0);
-    textTY.setValue(10);
-    groupOpacity.setValue(1);
-    groupTY.setValue(0);
-    groupScale.setValue(1);
-    [ray1, ray2, ray3].forEach((ray) => ray.setValue(0));
-    [ray1Scale, ray2Scale, ray3Scale].forEach((scale) => scale.setValue(0.5));
+    const reset = () => {
+      overlayOpacity.setValue(1);
+      logoOpacity.setValue(0);
+      logoScale.setValue(0.92);
+      riseY.setValue(RISE_FROM);
+      exitOpacity.setValue(1);
+      exitTY.setValue(0);
+      exitScale.setValue(1);
+      [ray1, ray2, ray3].forEach((ray) => ray.setValue(0));
+      [ray1Scale, ray2Scale, ray3Scale].forEach((scale) => scale.setValue(0.4));
+    };
 
     const schedule = (callback: () => void, delay: number) => {
       timers.push(setTimeout(callback, delay));
@@ -82,14 +84,14 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
           Animated.parallel([
             Animated.timing(opacity, {
               toValue: 1,
-              duration: 150,
+              duration: 180,
               easing: easeOut,
               useNativeDriver: true,
             }),
             Animated.timing(scale, {
               toValue: 1,
-              duration: 150,
-              easing: easeOut,
+              duration: 200,
+              easing: easeBack,
               useNativeDriver: true,
             }),
           ]),
@@ -100,20 +102,20 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
       if (!cancelled) onTransitionStart?.();
       run(
         Animated.parallel([
-          Animated.timing(groupOpacity, {
+          Animated.timing(exitOpacity, {
             toValue: 0,
             duration,
             easing: easeOut,
             useNativeDriver: true,
           }),
-          Animated.timing(groupScale, {
-            toValue: 0.84,
+          Animated.timing(exitScale, {
+            toValue: 0.9,
             duration,
             easing: easeOut,
             useNativeDriver: true,
           }),
-          Animated.timing(groupTY, {
-            toValue: moveUp ? -72 : 0,
+          Animated.timing(exitTY, {
+            toValue: moveUp ? -56 : 0,
             duration,
             easing: easeOut,
             useNativeDriver: true,
@@ -127,26 +129,32 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
         ]),
       );
     };
-    const runMinimalPop = () => {
-      // 0–1,180ms: bubble, wordmark, then emphasis rays arrive in a visible sequence.
+
+    const runRise = () => {
       run(
         Animated.parallel([
           Animated.timing(logoOpacity, {
             toValue: 1,
-            duration: 180,
+            duration: 280,
+            easing: easeOut,
+            useNativeDriver: true,
+          }),
+          Animated.timing(riseY, {
+            toValue: 0,
+            duration: 820,
             easing: easeOut,
             useNativeDriver: true,
           }),
           Animated.sequence([
             Animated.timing(logoScale, {
-              toValue: 1.14,
-              duration: 470,
+              toValue: 1.05,
+              duration: 820,
               easing: easeOut,
               useNativeDriver: true,
             }),
             Animated.timing(logoScale, {
               toValue: 1,
-              duration: 260,
+              duration: 240,
               easing: Easing.inOut(Easing.quad),
               useNativeDriver: true,
             }),
@@ -154,76 +162,93 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
         ]),
       );
 
-      schedule(() => {
-        run(
-          Animated.parallel([
-            Animated.timing(textOpacity, {
-              toValue: 1,
-              duration: 290,
-              easing: easeOut,
-              useNativeDriver: true,
-            }),
-            Animated.timing(textTY, {
-              toValue: 0,
-              duration: 290,
-              easing: easeOut,
-              useNativeDriver: true,
-            }),
-          ]),
-        );
-      }, 300);
+      popRay(ray1, ray1Scale, 860);
+      popRay(ray2, ray2Scale, 1_000);
+      popRay(ray3, ray3Scale, 1_140);
 
-      popRay(ray1, ray1Scale, 700);
-      popRay(ray2, ray2Scale, 850);
-      popRay(ray3, ray3Scale, 1_000);
-
-      // Keep the completed mark on screen long enough to register as a brand moment.
       schedule(() => exit(TOTAL_DURATION - EXIT_AT, true), EXIT_AT);
       schedule(finish, TOTAL_DURATION);
     };
+
     const runReducedMotion = () => {
       run(
         Animated.parallel([
           Animated.timing(logoOpacity, {
             toValue: 1,
-            duration: 180,
+            duration: 360,
+            easing: easeOut,
+            useNativeDriver: true,
+          }),
+          Animated.timing(riseY, {
+            toValue: 0,
+            duration: 360,
             easing: easeOut,
             useNativeDriver: true,
           }),
           Animated.timing(logoScale, {
             toValue: 1,
-            duration: 180,
+            duration: 360,
             easing: easeOut,
             useNativeDriver: true,
           }),
-          Animated.timing(ray1, { toValue: 1, duration: 180, easing: easeOut, useNativeDriver: true }),
-          Animated.timing(ray2, { toValue: 1, duration: 180, easing: easeOut, useNativeDriver: true }),
-          Animated.timing(ray3, { toValue: 1, duration: 180, easing: easeOut, useNativeDriver: true }),
+          Animated.timing(ray1, { toValue: 1, duration: 360, easing: easeOut, useNativeDriver: true }),
+          Animated.timing(ray2, { toValue: 1, duration: 360, easing: easeOut, useNativeDriver: true }),
+          Animated.timing(ray3, { toValue: 1, duration: 360, easing: easeOut, useNativeDriver: true }),
         ]),
       );
       ray1Scale.setValue(1);
       ray2Scale.setValue(1);
       ray3Scale.setValue(1);
-      textOpacity.setValue(1);
-      textTY.setValue(0);
-      schedule(() => exit(260, false), 1_180);
-      schedule(finish, 1_440);
+      schedule(() => exit(320, false), 1_200);
+      schedule(finish, 1_560);
     };
 
-    AccessibilityInfo.isReduceMotionEnabled()
-      .then((enabled) => {
-        if (!cancelled) (enabled ? runReducedMotion : runMinimalPop)();
-      })
-      .catch(() => {
-        if (!cancelled) runMinimalPop();
-      });
+    reset();
+
+    const start = () => {
+      if (cancelled) return;
+      AccessibilityInfo.isReduceMotionEnabled()
+        .then((enabled) => {
+          if (!cancelled) (enabled ? runReducedMotion : runRise)();
+        })
+        .catch(() => {
+          if (!cancelled) runRise();
+        });
+    };
+
+    const raf1 = requestAnimationFrame(() => {
+      const raf2 = requestAnimationFrame(start);
+      timers.push(raf2 as unknown as ReturnType<typeof setTimeout>);
+    });
 
     return () => {
       cancelled = true;
-      timers.forEach(clearTimeout);
+      cancelAnimationFrame(raf1);
+      timers.forEach((id) => {
+        clearTimeout(id);
+        cancelAnimationFrame(id as unknown as number);
+      });
       animations.forEach((animation) => animation.stop());
+      startedRef.current = false;
     };
-  }, [active, groupOpacity, groupScale, groupTY, logoOpacity, logoScale, onFinish, onTransitionStart, overlayOpacity, ray1, ray1Scale, ray2, ray2Scale, ray3, ray3Scale, textOpacity, textTY]);
+  }, [
+    active,
+    exitOpacity,
+    exitScale,
+    exitTY,
+    logoOpacity,
+    logoScale,
+    onFinish,
+    onTransitionStart,
+    overlayOpacity,
+    ray1,
+    ray1Scale,
+    ray2,
+    ray2Scale,
+    ray3,
+    ray3Scale,
+    riseY,
+  ]);
 
   return (
     <Animated.View
@@ -234,44 +259,57 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
     >
       <Animated.View
         style={[
-          styles.group,
+          styles.exitWrap,
           {
-            opacity: groupOpacity,
-            transform: [
-              { translateX: -22 },
-              { translateY: groupTY },
-              { scale: groupScale },
-              { rotate: '-4deg' },
-            ],
+            opacity: exitOpacity,
+            transform: [{ translateY: exitTY }, { scale: exitScale }],
           },
         ]}
       >
         <Animated.View
           style={[
-            styles.logoGroup,
-            { opacity: logoOpacity, transform: [{ scale: logoScale }] },
+            styles.group,
+            {
+              opacity: logoOpacity,
+              transform: [
+                { translateX: -22 },
+                { translateY: riseY },
+                { scale: logoScale },
+                { rotate: '-4deg' },
+              ],
+            },
           ]}
         >
           <View style={styles.bubbleShadow}>
             <View style={styles.bubble}>
-              <Animated.Text
-                style={[styles.logoText, { opacity: textOpacity, transform: [{ translateY: textTY }] }]}
-              >
+              <Text style={styles.logoText} allowFontScaling={false}>
                 몇번이야?
-              </Animated.Text>
+              </Text>
               <View style={styles.tail} />
             </View>
           </View>
 
           <View style={styles.rays} pointerEvents="none">
             <Animated.View
-              style={[styles.ray, styles.ray1, { opacity: ray1, transform: [{ rotate: '-70deg' }, { scale: ray1Scale }] }]}
+              style={[
+                styles.ray,
+                styles.ray1,
+                { opacity: ray1, transform: [{ rotate: '-70deg' }, { scale: ray1Scale }] },
+              ]}
             />
             <Animated.View
-              style={[styles.ray, styles.ray2, { opacity: ray2, transform: [{ rotate: '-38deg' }, { scale: ray2Scale }] }]}
+              style={[
+                styles.ray,
+                styles.ray2,
+                { opacity: ray2, transform: [{ rotate: '-38deg' }, { scale: ray2Scale }] },
+              ]}
             />
             <Animated.View
-              style={[styles.ray, styles.ray3, { opacity: ray3, transform: [{ rotate: '-8deg' }, { scale: ray3Scale }] }]}
+              style={[
+                styles.ray,
+                styles.ray3,
+                { opacity: ray3, transform: [{ rotate: '-8deg' }, { scale: ray3Scale }] },
+              ]}
             />
           </View>
         </Animated.View>
@@ -282,18 +320,23 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
 
 const styles = StyleSheet.create({
   overlay: {
-    ...StyleSheet.absoluteFill,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
     zIndex: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  exitWrap: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   group: {
     width: BUBBLE_W + 60,
     height: BUBBLE_H + 62,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoGroup: {
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -331,19 +374,19 @@ const styles = StyleSheet.create({
   },
   rays: {
     position: 'absolute',
-    right: -29,
-    top: -32,
-    width: 56,
-    height: 56,
+    right: 14,
+    top: 2,
+    width: 34,
+    height: 34,
   },
   ray: {
     position: 'absolute',
-    width: 20,
-    height: 6,
-    borderRadius: 3,
+    width: 13,
+    height: 4,
+    borderRadius: 2,
     backgroundColor: CORAL,
   },
-  ray1: { left: 8, top: 2 },
-  ray2: { left: 18, top: 14 },
-  ray3: { left: 24, top: 29 },
+  ray1: { left: 2, top: 0 },
+  ray2: { left: 9, top: 9 },
+  ray3: { left: 14, top: 18 },
 });
