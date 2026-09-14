@@ -127,6 +127,24 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ],
       },
     ],
+    [
+      '@mj-studio/react-native-naver-map',
+      {
+        client_id: 'i20jt73shx',
+      },
+    ],
+    [
+      'expo-build-properties',
+      {
+        android: {
+          extraMavenRepos: ['https://repository.map.naver.com/archive/maven'],
+          extraProguardRules: [
+            '-keep class com.naver.maps.** { *; }',
+            '-dontwarn com.naver.maps.**',
+          ].join('\n'),
+        },
+      },
+    ],
   ],
   // Expo Go / 런타임 스플래시와 플러그인 설정을 맞춤
   // @ts-expect-error Expo runtime still reads top-level splash; types dropped it
