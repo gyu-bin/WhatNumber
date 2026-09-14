@@ -11,10 +11,16 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { Coordinate, EmergencyRoom } from '../services/emergency/types';
 import type { ThemeColors } from '../theme';
 
-/** Zoomed out enough to show nearby hospitals (~4–6km) with the user. */
-const DEFAULT_ZOOM = 11;
-const MARKER_SIZE = 36;
-const MARKER_SELECTED_SIZE = 44;
+/** City-neighborhood zoom with the user at the center. */
+const DEFAULT_ZOOM = 12;
+/** Display size on map — Pinterest-style hollow teardrop (80×108 asset). */
+const PIN_W = 26;
+const PIN_H = 35;
+const PIN_SELECTED_W = 32;
+const PIN_SELECTED_H = 43;
+
+const PIN_DEFAULT = require('../assets/map/hospital-pin.png');
+const PIN_SELECTED = require('../assets/map/hospital-pin-selected.png');
 
 export type EmergencyMapHandle = {
   /** 이미 알고 있는 좌표로 카메라만 이동 (권한/API 재요청 없음) */
@@ -80,6 +86,17 @@ function EmergencyMapNative({
 
   const nativeRef = useRef<MapViewRef>(null);
 
+  const focusUser = (zoom = DEFAULT_ZOOM, duration = 320) => {
+    if (!userLocation) return;
+    nativeRef.current?.animateCameraTo({
+      latitude: userLocation.latitude,
+      longitude: userLocation.longitude,
+      zoom,
+      duration,
+      easing: 'EaseOut',
+    });
+  };
+
   useImperativeHandle(forwardedRef, () => ({
     focusCoordinate: (coordinate, zoom = DEFAULT_ZOOM) => {
       nativeRef.current?.animateCameraTo({
@@ -92,26 +109,13 @@ function EmergencyMapNative({
     },
   }));
 
-  const fitToRooms = () => {
-    if (!userLocation || rooms.length === 0) return;
-    const farthest = rooms.reduce((best, room) =>
-      room.distanceKm > best.distanceKm ? room : best,
-    );
-    nativeRef.current?.animateCameraWithTwoCoords({
-      coord1: userLocation,
-      coord2: farthest.location,
-      duration: 360,
-      easing: 'EaseOut',
-    });
-  };
-
-  // Rooms arrive after the map mounts — zoom out so hospital pins are on screen.
+  // Keep the user at the center once location (and nearby rooms) are ready.
   useEffect(() => {
-    if (!userLocation || rooms.length === 0) return;
-    const timer = setTimeout(fitToRooms, 80);
+    if (!userLocation) return;
+    const timer = setTimeout(() => focusUser(DEFAULT_ZOOM, 280), 80);
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- fit once per room set / location
-  }, [userLocation?.latitude, userLocation?.longitude, rooms]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- recenter when location settles
+  }, [userLocation?.latitude, userLocation?.longitude, rooms.length]);
 
   const initialCamera = userLocation
     ? {
@@ -126,21 +130,6 @@ function EmergencyMapNative({
           zoom: DEFAULT_ZOOM,
         }
       : { latitude: 37.5665, longitude: 126.978, zoom: DEFAULT_ZOOM };
-
-  const recenter = () => {
-    if (userLocation && rooms.length > 0) {
-      fitToRooms();
-      return;
-    }
-    if (!userLocation) return;
-    nativeRef.current?.animateCameraTo({
-      latitude: userLocation.latitude,
-      longitude: userLocation.longitude,
-      zoom: DEFAULT_ZOOM,
-      duration: 300,
-      easing: 'EaseOut',
-    });
-  };
 
   return (
     <View style={[styles.mapWrap, { height }]}>
@@ -163,33 +152,38 @@ function EmergencyMapNative({
                   latitude: userLocation.latitude,
                   longitude: userLocation.longitude,
                 },
-                circleRadius: 40,
-                circleColor: 'rgba(64, 140, 255, 0.22)',
+                circleRadius: 36,
+                circleColor: 'rgba(64, 140, 255, 0.2)',
               }
             : undefined
         }
       >
         {rooms.map((room) => {
           const selected = room.id === selectedId;
-          const size = selected ? MARKER_SELECTED_SIZE : MARKER_SIZE;
+          const width = selected ? PIN_SELECTED_W : PIN_W;
+          const heightPin = selected ? PIN_SELECTED_H : PIN_H;
           return (
             <NaverMapMarkerOverlay
               key={room.id}
               latitude={room.location.latitude}
               longitude={room.location.longitude}
-              width={size}
-              height={size}
+              width={width}
+              height={heightPin}
               anchor={{ x: 0.5, y: 1 }}
               zIndex={selected ? 20 : 1}
-              image={{ symbol: selected ? 'red' : 'pink' }}
+              image={selected ? PIN_SELECTED : PIN_DEFAULT}
               onTap={() => onSelectRoom(room.id)}
-              caption={{
-                text: room.name,
-                color: colors.textPrimary,
-                haloColor: colors.surface,
-                textSize: 11,
-                offset: 2,
-              }}
+              caption={
+                selected
+                  ? {
+                      text: room.name,
+                      color: colors.textPrimary,
+                      haloColor: colors.surface,
+                      textSize: 11,
+                      offset: 2,
+                    }
+                  : undefined
+              }
             />
           );
         })}
@@ -201,7 +195,7 @@ function EmergencyMapNative({
             styles.locateButton,
             { backgroundColor: colors.surface, borderColor: colors.border },
           ]}
-          onPress={recenter}
+          onPress={() => focusUser(DEFAULT_ZOOM, 300)}
           accessibilityRole="button"
           accessibilityLabel="현재 위치로 이동"
         >

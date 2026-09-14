@@ -73,11 +73,11 @@ export function AboutPage() {
         <section className={styles.section}>
           <h2>운영·문의</h2>
           <p>
-            몇번이야는 개인이 운영하는 비영리 성격의 정보 서비스입니다.
-            데이터 처리 방침은{' '}
+            몇번이야는 개인이 운영하는 정보 서비스입니다. 서비스 운영을 위해
+            웹·앱에 광고(AdSense·AdMob)가 표시될 수 있습니다. 데이터 처리 방침은{' '}
             <Link to="/privacy">개인정보처리방침</Link>을 참고해 주세요.
           </p>
-          <p className={styles.updated}>최종 업데이트: 2026년 6월</p>
+          <p className={styles.updated}>최종 업데이트: 2026년 9월</p>
         </section>
       </main>
       <Footer />

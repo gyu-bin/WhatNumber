@@ -5,8 +5,8 @@
 <h1 align="center">몇번이야</h1>
 
 <p align="center">
-  <strong>진짜 쓸 일 생기는 번호 모음</strong><br />
-  갑자기 응급실, 고속도로 사고, 전세사기… 있는지도 몰랐던 공공 전화번호 35개
+  <strong>진짜 쓸 일 생기는 전화번호 모음</strong><br />
+  갑자기 응급실, 고속도로 사고, 전세사기… 있는지도 몰랐던 공공·생활 전화번호를 모았습니다
 </p>
 
 <p align="center">
@@ -19,17 +19,18 @@
 
 ## 소개
 
-**몇번이야**는 한국 성인이 긴급·생활 상황에서 바로 쓸 수 있는 공공 전화번호를 모바일 퍼스트로 정리한 웹 앱입니다. 카카오톡 공유와 PWA 홈 화면 추가를 염두에 두고, 탭 한 번으로 `tel:` 연결까지 이어지도록 만들었습니다.
+**몇번이야**는 한국 성인이 긴급·생활 상황에서 바로 쓸 수 있는 전화번호를 모바일 퍼스트로 정리한 웹·앱 서비스입니다. 탭 한 번으로 `tel:` 연결까지 이어지도록 만들었습니다.
 
 ### 주요 기능
 
 - **상황별 퀵 필터** — 응급, 차량 고장, 범죄 피해, 주거, 해외, 법률·금융
-- **카테고리 칩** — 7개 분야 + 즐겨찾기
-- **검색** — 제목·설명·번호 텍스트 검색 (검색 시 다른 필터 비활성)
-- **즐겨찾기** — `localStorage`에 저장
-- **카카오톡 / 네이티브 공유** — OG 메타·미리보기 이미지 포함
+- **카테고리** — 긴급/안전, 교통/차량, 주거/생활, 법률/금융, 가족/복지, 고용/노동, 민원/행정, 통신/디지털
+- **검색** — 제목·설명·번호 텍스트 검색
+- **즐겨찾기** — 웹은 `localStorage`, 앱은 AsyncStorage (+ 홈 화면 위젯)
+- **공유** — 링크 복사·시스템 공유, OG 메타·미리보기 이미지
 - **PWA** — 오프라인 캐시, 홈 화면 설치
-- **테마** — 기본 다크(블랙), 헤더 버튼으로 라이트/다크 수동 전환 (`localStorage` 저장)
+- **테마** — 라이트/다크 (`localStorage` / AsyncStorage)
+- **모바일** — 내 주변 응급실(네이버 지도), AdMob 배너, EAS OTA
 
 ---
 
@@ -37,11 +38,10 @@
 
 | 영역 | 선택 |
 |------|------|
-| 프레임워크 | React 19 + TypeScript |
-| 빌드 | Vite 8 |
-| 스타일 | CSS Modules (Tailwind 없음) |
-| 라우팅 | react-router-dom v7 (확장 대비) |
+| 웹 | React 19 + TypeScript, Vite 8, CSS Modules, react-router-dom v7 |
 | PWA | vite-plugin-pwa |
+| 모바일 | Expo (Dev Client / EAS Build / OTA) |
+| 공용 데이터 | `packages/shared` |
 | 배포 | [Vercel](https://vercel.com) |
 
 ---
@@ -57,6 +57,14 @@ npm run dev
 
 브라우저에서 `http://localhost:5173` 을 엽니다.
 
+모바일:
+
+```bash
+npm run mobile
+# 네이버 지도 등 네이티브 모듈은 Dev Client 필요
+# cd apps/mobile && EXPO_NO_UPDATES=1 npx expo run:ios
+```
+
 ### 환경 변수
 
 `.env.example`을 복사해 `.env`를 만듭니다.
@@ -67,10 +75,13 @@ cp .env.example .env
 
 | 변수 | 설명 |
 |------|------|
-| `VITE_KAKAO_APP_KEY` | [카카오 개발자 콘솔](https://developers.kakao.com) JavaScript 앱 키 |
 | `VITE_SITE_URL` | 배포 URL (기본: `https://whatnumber-mu.vercel.app`) |
-
-카카오 공유를 쓰려면 **플랫폼 → Web → 사이트 도메인**에 배포 URL을 등록해야 합니다.
+| `VITE_ADSENSE_PUBLISHER_ID` | AdSense 게시자 ID |
+| `VITE_NUMBER_REQUEST_API_URL` | 번호 요청 API (선택) |
+| `RESEND_API_KEY` | 번호 요청/피드백 메일 발송 (Vercel 서버 전용) |
+| `NEMC_EMERGENCY_API_KEY` | 응급실 공공 API 키 (Vercel 서버 전용) |
+| `EXPO_PUBLIC_EMERGENCY_API_BASE_URL` | 모바일 응급실 API 베이스 URL |
+| `EXPO_PUBLIC_NUMBER_REQUEST_API_URL` | 모바일 번호 요청 API URL |
 
 ---
 
@@ -112,42 +123,27 @@ vercel --prod
    - `https://whatnumber-mu.vercel.app/app-ads.txt`
 
 5. 스토어에 개발자 웹사이트 URL을 **정확히 그 도메인**으로 넣어야 AdMob이 크롤합니다.
-   - Play Console → 스토어 설정 → 연락처 웹사이트
-   - App Store Connect → 마케팅 URL / 개발자 웹사이트
 
 ---
 
 ## 프로젝트 구조
 
 ```
-src/
-├── data/numbers.ts      # 번호 데이터 · 카테고리 색상
-├── hooks/useFavorites.ts
-├── utils/kakao.ts
-├── components/          # Header, SearchBar, NumberCard …
-├── styles/              # global.css, variables.css
-├── App.tsx
-└── main.tsx
-
-apps/mobile/             # Expo 네이티브 앱 (EAS Build / OTA)
+src/                     # 웹 앱
+apps/mobile/             # Expo 네이티브 앱
 packages/shared/         # 웹·앱 공용 번호/검색 로직
-
-public/
-├── icons/               # PWA 아이콘
-├── og-image.png         # 카카오·SNS 미리보기
-├── ads.txt              # AdSense (generate-ads-txt로 생성)
-└── apple-touch-icon.png
-
-scripts/generate-assets.mjs  # 아이콘·OG 이미지 생성
-scripts/generate-ads-txt.mjs # ads.txt 생성
+api/                     # Vercel Functions (emergency, number-request)
+public/                  # PWA 아이콘, ads.txt, OG
 ```
 
-네이티브 앱 빌드·OTA는 [`apps/mobile/README.md`](apps/mobile/README.md)를 참고하세요.
+네이티브 앱 빌드·OTA·스토어 Data Safety 체크는 [`apps/mobile/README.md`](apps/mobile/README.md)를 참고하세요.
+
 ---
 
 ## 번호 데이터 수정
 
-`src/data/numbers.ts`의 `NUMBERS` 배열을 편집하면 됩니다. 새 항목 추가 시 `id`, `cat`, `situation` 필드를 맞춰 주세요.
+`packages/shared/src/numbers.ts` (및 기업 연락처는 `organizationContacts.ts`)를 편집하면 됩니다.
+새 항목 추가 시 `id`, `cat`, `situation` 필드를 맞춰 주세요.
 
 ---
 

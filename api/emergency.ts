@@ -1,3 +1,5 @@
+import { clientKey, rateLimitAllow } from './_rateLimit';
+
 const NEMC_LOCATION_URL =
   'https://apis.data.go.kr/B552657/ErmctInfoInqireService/getEgytLcinfoInqire';
 const NEMC_BEDS_URL =
@@ -340,6 +342,10 @@ export default {
   async fetch(request: Request): Promise<Response> {
     if (request.method !== 'GET') {
       return new Response(null, { status: 405, headers: { Allow: 'GET' } });
+    }
+
+    if (!rateLimitAllow(`emergency:${clientKey(request)}`, 30, 60_000)) {
+      return json({ error: '요청이 많아요. 잠시 후 다시 시도해 주세요.' }, 429);
     }
 
     const url = new URL(request.url);

@@ -28,4 +28,9 @@ dist-ssr
 .vercel
 .expo
 apps/mobile/.expo
-.env*
+.env
+.env.*
+!.env.example
+apps/mobile/.env
+apps/mobile/.env.*
+!apps/mobile/.env.example

@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import NetInfo from '@react-native-community/netinfo';
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -142,14 +142,6 @@ export function EmergencyFinderScreen({
     }
   }, [findRooms, refreshing, rooms.length, state]);
 
-  // 응급실 화면에 들어오면 바로 조회(이때 위치 권한 팝업)
-  const didAutoStart = useRef(false);
-  useEffect(() => {
-    if (didAutoStart.current) return;
-    didAutoStart.current = true;
-    void findRooms();
-  }, [findRooms]);
-
   const isBusy = state === 'locating' || state === 'loading' || refreshing;
   const canShowNativeMap = Boolean(userLocation) || rooms.length > 0;
   const resultsOffsetRef = useRef(0);
@@ -216,7 +208,9 @@ export function EmergencyFinderScreen({
                   ? '현재 위치를 확인할 수 없어요'
                   : state === 'api-error' || state === 'offline' || state === 'configuration-error'
                     ? '지도를 표시하려면 다시 시도해 주세요'
-                    : '주변 응급실 지도를 준비 중이에요'}
+                    : state === 'idle'
+                      ? '아래 버튼으로 주변 응급실을 찾아보세요'
+                      : '주변 응급실 지도를 준비 중이에요'}
               </Text>
             </>
           )}
@@ -349,7 +343,12 @@ export function EmergencyFinderScreen({
                     ) : null}
                     <Pressable
                       style={styles.roomAction}
-                      onPress={() => void openDirections(room.location)}
+                      onPress={() =>
+                        void openDirections(room.location, {
+                          destinationName: room.name,
+                          origin: userLocation,
+                        })
+                      }
                     >
                       <Ionicons name="navigate-outline" size={15} color={colors.accent} />
                       <Text style={styles.roomActionText}>길찾기</Text>
@@ -365,7 +364,7 @@ export function EmergencyFinderScreen({
             colors,
             errorMessage,
             onFind: () => void findRooms(),
-            onOpenSettings: () => void Linking.openURL('app-settings:'),
+            onOpenSettings: () => void Linking.openSettings(),
           })
         )}
       </ScrollView>
@@ -405,7 +404,7 @@ function renderFinderState({
   const styles = finderStatusStyles(colors);
   const isBusy = state === 'locating' || state === 'loading';
   const message = {
-    idle: '위치 사용을 허용하면 가까운 응급실을 거리순으로 보여드려요.',
+    idle: '가까운 응급실을 찾으려면 현재 위치가 필요해요. 위치는 검색에만 쓰이며 저장하지 않아요.',
     locating: '현재 위치를 확인하고 있어요.',
     loading: '응급실 정보를 불러오고 있어요.',
     'permission-denied': '현재 위치를 확인할 수 없어요. 위치 권한을 확인해 주세요.',

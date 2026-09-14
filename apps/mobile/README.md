@@ -82,7 +82,7 @@ npm run mobile:update:prod -- --message "긴급 번호 설명 수정"
 앱 즐겨찾기를 홈 화면 위젯에 보여 주고, 탭하면 `tel:`로 바로 전화를 걸 수 있습니다.
 
 - 위젯 이름: **즐겨찾기 전화**
-- 크기: 소형(첫 번째 번호) / 중·대형(최대 4개)
+- 크기: 소형(첫 번째 번호) / 중·대형(즐겨찾기 표시, large는 최대 6개)
 - 동기화: 앱에서 즐겨찾기를 추가·삭제하면 위젯이 갱신됩니다
 - 빈 상태: 위젯을 탭하면 앱이 열립니다 (`whatnumber://`)
 
@@ -101,6 +101,19 @@ npm run mobile:update:prod -- --message "긴급 번호 설명 수정"
 
 개발 빌드(`__DEV__`)에서는 Google 테스트 배너 ID를 사용합니다.
 네이티브 모듈 추가이므로 AdMob 반영 후 **새 EAS 빌드**가 필요합니다.
+
+## 스토어 Data Safety / App Privacy 체크리스트
+
+개인정보처리방침: https://whatnumber-mu.vercel.app/privacy  
+코드·방침과 Connect / Play Console 설정을 맞추세요.
+
+| 항목 | 선언 가이드 |
+|------|-------------|
+| 위치 | 앱 기능(응급실). Precise Location, 서버 전송(공공 API 조회), 이력 미보관 |
+| 광고 | AdMob 배너, 비맞춤(NPA). Advertising / Device ID(AD_ID) |
+| 연락처 요청 | 이용자 입력 텍스트가 Resend 경유 운영자 메일로 전달 |
+| 지도 | 네이버 지도 SDK(제3자) |
+| 암호화 | 표준 HTTPS만 → ITSAppUsesNonExemptEncryption false와 설문 일치 |
 
 ## 스토어 제출
 
@@ -124,7 +137,7 @@ npm run generate-mobile-assets
 |------|------|
 | `assets/icon.png` | iOS / 기본 앱 아이콘 (1024) |
 | `assets/android-icon-*.png` | Android Adaptive Icon |
-| `assets/splash-icon.png` | 스플래시 (배경 `#111110`) |
+| `assets/splash-icon.png` | 스플래시 (배경 `#FCFBFA`) |
 | `assets/favicon.png` | 웹 파비콘 |
 
 ## 번들 ID

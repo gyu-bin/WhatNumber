@@ -41,7 +41,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     infoPlist: {
       CFBundleAllowMixedLocalizations: true,
       ITSAppUsesNonExemptEncryption: false,
-      LSApplicationQueriesSchemes: ['tel', 'mailto'],
+      LSApplicationQueriesSchemes: ['tel', 'mailto', 'nmap', 'kakaomap'],
     },
     privacyManifests: {
       NSPrivacyAccessedAPITypes: [

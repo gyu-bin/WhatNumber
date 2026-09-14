@@ -68,7 +68,7 @@ export function PrivacyScreen({ styles, colors, onBack }: PrivacyScreenProps) {
         <Section title="1. 수집하는 정보" styles={styles}>
           <Text style={styles.privacyBody}>
             서비스(웹·모바일 앱)는 회원가입 없이 이용할 수 있으며, 이름·이메일·전화번호 등
-            개인을 직접 식별하는 정보를 서버에 저장하지 않습니다.
+            개인을 직접 식별하는 정보를 서버에 장기간 저장하지 않습니다.
           </Text>
           <Bullet
             styles={styles}
@@ -76,23 +76,27 @@ export function PrivacyScreen({ styles, colors, onBack }: PrivacyScreenProps) {
           />
           <Bullet
             styles={styles}
-            text="테마·보기 방식: 라이트/다크 모드와 리스트/카드 보기 선택을 기기 로컬 저장소에 저장합니다."
+            text="테마 설정: 라이트/다크 모드 선택을 기기 로컬 저장소에 저장합니다."
           />
           <Bullet
             styles={styles}
-            text="내 주변 응급실: 응급실 찾기 화면에서 조회를 시작할 때만 현재 위치 권한을 요청합니다. 위치는 가까운 응급실을 조회하기 위해서만 사용하며, 앱은 위치 이력을 저장하거나 백그라운드에서 위치를 수집하지 않습니다."
+            text="내 주변 응급실: 조회를 시작할 때만 현재 위치 권한을 요청합니다. 가까운 응급실을 찾기 위해 대략적인 좌표를 서비스 서버로 전송하며, 서버는 국립중앙의료원 등 공공 API 조회에만 사용합니다. 앱은 위치 이력을 저장하지 않으며 백그라운드에서 위치를 수집하지 않습니다."
           />
           <Bullet
             styles={styles}
-            text="번호 추가 요청: 이용자가 메일 앱을 통해 요청을 보낼 때만 해당 메일 내용이 운영자 이메일로 전달됩니다."
+            text="지도 표시: 응급실 지도는 네이버 지도 SDK를 사용합니다. 지도 타일·표시를 위해 네이버 클라우드 플랫폼의 지도 서비스가 기기의 네트워크 요청을 처리할 수 있습니다."
           />
           <Bullet
             styles={styles}
-            text="접속·이용 통계(웹): Vercel Analytics를 통해 익명화된 페이지 방문 통계(국가, 기기 유형, 참조 경로 등)가 수집될 수 있습니다."
+            text="번호 추가 요청·앱 의견: 앱에서 입력한 내용은 서비스 서버를 거쳐 이메일 발송 서비스(Resend)를 통해 운영자 이메일로 전달됩니다. 별도 회원 DB에 저장하지 않습니다."
           />
           <Bullet
             styles={styles}
-            text="앱 업데이트(모바일): Expo EAS Update를 통해 앱 기능·화면 개선용 JavaScript 번들을 내려받을 수 있습니다. 이 과정에서 개인을 식별하는 정보는 수집하지 않습니다."
+            text="접속·이용 통계(웹): Vercel Analytics를 통해 익명화된 페이지 방문 통계가 수집될 수 있습니다."
+          />
+          <Bullet
+            styles={styles}
+            text="앱 업데이트: Expo EAS Update를 통해 앱 개선용 번들을 내려받을 수 있습니다. 개인을 식별하는 정보는 수집하지 않습니다."
           />
         </Section>
 
@@ -101,8 +105,8 @@ export function PrivacyScreen({ styles, colors, onBack }: PrivacyScreenProps) {
             웹 서비스는 Google AdSense를, 모바일 앱은 Google AdMob을 통해 광고를
             게재할 수 있습니다. 모바일 앱 배너는 맞춤형 추적(ATT) 없이
             비맞춤(non-personalized) 광고로 요청합니다. 웹에서는 Google 및 제휴
-            파트너가 쿠키·광고 ID 등을 사용해 관심사 기반 광고를 표시하고 성과를
-            측정할 수 있습니다. 모바일 앱의 광고는 화면 하단 배너 형태로 표시될 수
+            파트너가 쿠키·광고 ID 등을 사용할 수 있으며, 모바일 앱의 광고는 화면
+            하단 배너로 표시될 수 있고 Android에서는 광고 ID(AD_ID) 권한이 사용될 수
             있습니다.
           </Text>
           <Pressable onPress={() => void Linking.openURL(ADS_SETTINGS_URL)}>
@@ -123,17 +127,17 @@ export function PrivacyScreen({ styles, colors, onBack }: PrivacyScreenProps) {
 
         <Section title="4. 정보의 보관·파기" styles={styles}>
           <Text style={styles.privacyBody}>
-            기기에 저장된 즐겨찾기·테마·보기 방식 설정은 이용자가 앱/브라우저 데이터를
-            삭제하거나 직접 초기화할 때까지 기기에 남습니다. 서비스 운영자는 해당
-            데이터에 접근하지 않습니다.
+            기기에 저장된 즐겨찾기·테마 설정은 이용자가 앱/브라우저 데이터를
+            삭제하거나 직접 초기화할 때까지 기기에 남습니다. 응급실 조회용 좌표는
+            요청 처리 후 서버에 보관하지 않습니다.
           </Text>
         </Section>
 
         <Section title="5. 이용자의 권리" styles={styles}>
           <Text style={styles.privacyBody}>
-            즐겨찾기·테마·보기 방식은 서비스 내 설정 변경 또는 기기/브라우저 데이터
-            삭제로 언제든 지울 수 있습니다. AdSense·Analytics 관련 문의는 Google 정책
-            페이지를 참고해 주세요.
+            즐겨찾기·테마는 서비스 내 설정 변경 또는 기기/브라우저 데이터 삭제로
+            언제든 지울 수 있습니다. 위치 권한은 기기 설정에서 철회할 수 있습니다.
+            AdSense·Analytics·AdMob 관련 문의는 Google 정책 페이지를 참고해 주세요.
           </Text>
         </Section>
 
@@ -143,7 +147,7 @@ export function PrivacyScreen({ styles, colors, onBack }: PrivacyScreenProps) {
             내 안내를 추가할 수 있습니다.
           </Text>
           <Text style={styles.privacyUpdated}>
-            시행일: 2026년 6월 10일 · 앱 반영 개정: 2026년 9월 12일
+            시행일: 2026년 6월 10일 · 개정: 2026년 9월 15일
           </Text>
         </Section>
       </ScrollView>

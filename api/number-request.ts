@@ -1,3 +1,5 @@
+import { clientKey, rateLimitAllow } from './_rateLimit';
+
 declare const process: { env: Record<string, string | undefined> };
 
 const RESEND_API_URL = 'https://api.resend.com/emails';
@@ -104,6 +106,10 @@ export default {
         status: 405,
         headers: { Allow: 'POST, OPTIONS', ...corsHeaders() },
       });
+    }
+
+    if (!rateLimitAllow(`number-request:${clientKey(request)}`, 5, 60_000)) {
+      return json({ error: '요청이 많아요. 잠시 후 다시 시도해 주세요.' }, 429);
     }
 
     const apiKey = process.env.RESEND_API_KEY?.trim();
