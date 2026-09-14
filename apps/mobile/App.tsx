@@ -37,6 +37,7 @@ import {
 } from '@whatnumber/shared';
 import { NumberRequestModal } from './components/NumberRequest';
 import { AdBanner } from './components/AdBanner';
+import { CategoryBrowse } from './components/CategoryBrowse';
 import { EmergencyFinderCard } from './components/EmergencyFinderCard';
 import { NumberGridCard, NumberRow } from './components/NumberCards';
 import { SplashAnimation } from './components/SplashAnimation';
@@ -83,6 +84,7 @@ const CATEGORY_ORDER: Category[] = [
   '가족/복지',
   '고용/노동',
   '민원/행정',
+  '통신/디지털',
 ];
 
 const CATEGORY_SUBTITLES: Partial<Record<Category, string>> = {
@@ -93,6 +95,7 @@ const CATEGORY_SUBTITLES: Partial<Record<Category, string>> = {
   '가족/복지': '가족과 이웃을 위한 도움',
   '고용/노동': '일하는 사람을 위한 안내',
   '민원/행정': '공공 서비스가 필요할 때',
+  '통신/디지털': '통신·인터넷·개인정보 문제',
 };
 
 type ListSection = {
@@ -224,46 +227,44 @@ function CategoryHeader({
 }) {
   if (!section.title) return null;
 
-  const titleNode = section.isFavorites ? (
-    <Text style={styles.favHeader}>
-      <Text style={styles.favHeaderStar}>★ </Text>
-      {section.title}
-    </Text>
-  ) : (
-    <View>
+  const headerStyle = cardMode ? styles.cardModeHeader : styles.sectionHeader;
+
+  if (section.isFavorites) {
+    return (
+      <View style={headerStyle}>
+        <Text style={styles.favHeader}>
+          <Text style={styles.favHeaderStar}>★ </Text>
+          {section.title}
+        </Text>
+      </View>
+    );
+  }
+
+  const titleBlock = (
+    <View style={styles.catHeaderText}>
       <Text style={styles.catHeader}>{section.title}</Text>
-      {CATEGORY_SUBTITLES[section.title as Category] ? (
-        <Text style={styles.catSubtitle}>{CATEGORY_SUBTITLES[section.title as Category]}</Text>
-      ) : null}
     </View>
   );
 
-  const content = (
-    <>
-      {titleNode}
-      {section.collapsible ? (
-        <Ionicons
-          name={section.collapsed ? 'chevron-down' : 'chevron-up'}
-          size={18}
-          color={styles.sectionChevron.color}
-        />
-      ) : null}
-    </>
-  );
-
-  const headerStyle = cardMode ? styles.cardModeHeader : styles.sectionHeader;
-  if (!section.collapsible) return <View style={headerStyle}>{titleNode}</View>;
+  if (!section.collapsible) {
+    return <View style={headerStyle}>{titleBlock}</View>;
+  }
 
   return (
     <View style={headerStyle}>
       <Pressable
-        style={cardMode ? styles.cardModeHeaderPressable : styles.sectionHeaderPressable}
+        style={styles.catHeaderRow}
         onPress={() => onToggle(section.key)}
         accessibilityRole="button"
         accessibilityLabel={`${section.title} ${section.collapsed ? '펼치기' : '접기'}`}
         accessibilityState={{ expanded: !section.collapsed }}
       >
-        {content}
+        {titleBlock}
+        <Ionicons
+          name={section.collapsed ? 'chevron-down' : 'chevron-up'}
+          size={18}
+          color={styles.sectionChevron.color}
+        />
       </Pressable>
     </View>
   );
@@ -593,6 +594,20 @@ export default function App() {
     .sort()
     .join(',')}`;
 
+  const browseHome = (
+    <ScrollView
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={styles.listContent}
+    >
+      {listHeader}
+      <CategoryBrowse
+        styles={styles}
+        colors={themeColors}
+        onOpenCategory={openCategory}
+      />
+    </ScrollView>
+  );
+
   const favoritesHeader = (
     <View>
       {listHeader}
@@ -702,6 +717,8 @@ export default function App() {
                     ListEmptyComponent={emptyComponent}
                     renderItem={renderFavoriteItem}
                   />
+                ) : isBrowseHome ? (
+                  browseHome
                 ) : viewMode === 'card' ? (
                   <SectionList
                     sections={cardSections}

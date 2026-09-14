@@ -94,22 +94,24 @@ export function NumberGridCard({
           hitSlop={8}
           accessibilityLabel={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
         >
-          <Text style={[styles.favorite, isFavorite && styles.favoriteActive]}>
-            {isFavorite ? '★' : '☆'}
-          </Text>
+          <Ionicons
+            name={isFavorite ? 'star' : 'star-outline'}
+            size={18}
+            color={isFavorite ? styles.favoriteActive.color : styles.favorite.color}
+          />
         </Pressable>
       </View>
       <Text style={styles.gridCardTitle} numberOfLines={2}>
         {item.title}
       </Text>
-      <Text style={styles.gridCardDesc} numberOfLines={1}>
+      <Text style={styles.gridCardDesc} numberOfLines={2}>
         {item.desc}
       </Text>
       <Pressable
         onPress={() => void Linking.openURL(telHref(item.num))}
         style={styles.gridCallBtn}
       >
-        <Ionicons name="call" size={15} color={styles.gridCallText.color} />
+        <Ionicons name="call" size={13} color={styles.gridCallText.color} />
         <Text style={styles.gridCallText}>{item.num}</Text>
       </Pressable>
     </Pressable>

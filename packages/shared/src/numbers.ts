@@ -5,7 +5,8 @@ export type Category =
   | '법률/금융'
   | '가족/복지'
   | '고용/노동'
-  | '민원/행정';
+  | '민원/행정'
+  | '통신/디지털';
 
 export type Situation =
   | 'emergency'
@@ -91,9 +92,13 @@ export const NUMBERS: NumberItem[] = [
   { id: 'l2', cat: '법률/금융', icon: '💰', title: '병원비 환급받기', desc: '본인부담상한제 초과 환급', num: '1577-1000', situation: ['legal', 'emergency'], tip: '1년 의료비가 많았는데 환급 안내가 없으면 문의해 보세요.' },
   { id: 'l3', cat: '법률/금융', icon: '🏦', title: '금융 소비자 보호', desc: '불법금융·금융상품 피해', num: '1332', situation: ['crime', 'legal'], tip: '이체를 재촉하면 끊고 1398. 금융상품 불만은 1332.' },
   { id: 'l4', cat: '법률/금융', icon: '📵', title: '보이스피싱 신고', desc: '당하는 중에도 바로 신고', num: '1398', situation: ['crime'], tip: '검찰·금감원 사칭이면 끊고 즉시 1398. 이체 전이 골든타임.' },
-  { id: 'l5', cat: '법률/금융', icon: '🔒', title: '개인정보 침해 신고', desc: '유출·도용 · 삭제·차단 안내', num: '1811-9000', situation: ['crime', 'legal'] },
-  { id: 'l9', cat: '법률/금융', icon: '💻', title: '사이버범죄·해킹 신고', desc: '랜섬웨어·해킹 · KISA 24시간', num: '118', situation: ['crime'], tip: '보이스피싱은 1398, 해킹·피싱사이트는 118.' },
+  { id: 'l5', cat: '통신/디지털', icon: '🔒', title: '개인정보 침해 신고', desc: '유출·도용 · 삭제·차단 안내', num: '1811-9000', situation: ['crime', 'legal'] },
+  { id: 'l9', cat: '통신/디지털', icon: '💻', title: '사이버범죄·해킹 신고', desc: '랜섬웨어·해킹 · KISA 24시간', num: '118', situation: ['crime'], tip: '보이스피싱은 1398, 해킹·피싱사이트는 118.' },
   { id: 'l10', cat: '법률/금융', icon: '💊', title: '마약·검찰 범죄신고', desc: '마약·특수수사 · 검찰 민원', num: '1301', situation: ['crime'], tip: '즉시 출동이 필요하면 112.' },
+  { id: 'd1', cat: '통신/디지털', icon: '📡', title: '방송통신 민원', desc: '통신·방송 요금·서비스 불만', num: '1335', situation: [], tip: '통신사 고객센터로 안 되면 1335로 민원을 남길 수 있어요.' },
+  { id: 'd2', cat: '통신/디지털', icon: '☎️', title: '전화번호 안내', desc: '전국 번호 안내 (114)', num: '114', situation: [] },
+  { id: 'd3', cat: '통신/디지털', icon: '📺', title: '방송통신 심의 민원', desc: '유해·불법 방송·통신 심의', num: '1377', situation: [] },
+  { id: 'd4', cat: '통신/디지털', icon: '📵', title: '불법스팸 신고', desc: '스팸문자·스팸전화 신고 안내', num: '118', situation: ['crime'], tip: '스팸·피싱사이트도 118. 보이스피싱 당하는 중이면 1398.' },
   { id: 'l6', cat: '법률/금융', icon: '🧾', title: '소비자 분쟁 조정', desc: '환불 거부·계약 분쟁', num: '1544-0990', situation: ['legal'], tip: '계약서·결제·대화 기록을 준비하세요.' },
   { id: 'l7', cat: '법률/금융', icon: '💸', title: '세금 문의 (국세청)', desc: '소득세·부가세·세무 상담', num: '126', situation: ['legal'] },
   { id: 'l8', cat: '법률/금융', icon: '🏠', title: '지방세 문의', desc: '자동차세·재산세 상담', num: '1661-7600', situation: ['legal'] },
@@ -157,6 +162,7 @@ export const CAT_COLOR: Record<Category, string> = {
   '가족/복지': '#6D4ACA',
   '고용/노동': '#0D7490',
   '민원/행정': '#4A4A47',
+  '통신/디지털': '#4F46E5',
 };
 
 export const CATEGORIES: { id: string; label: string }[] = [
@@ -168,6 +174,7 @@ export const CATEGORIES: { id: string; label: string }[] = [
   { id: '가족/복지', label: '가족·복지' },
   { id: '고용/노동', label: '고용·노동' },
   { id: '민원/행정', label: '민원·행정' },
+  { id: '통신/디지털', label: '통신·디지털' },
 ];
 
 export const SITUATION_ACCENT: Record<Situation, string> = {
