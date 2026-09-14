@@ -728,6 +728,23 @@ export function createStyles(colors: ThemeColors) {
       gap: 6,
       paddingLeft: 4,
     },
+    cardDragging: {
+      opacity: 0.92,
+    },
+    dragHandle: {
+      paddingVertical: 2,
+      paddingHorizontal: 2,
+    },
+    dragHandleIcon: {
+      color: colors.textTertiary,
+    },
+    favReorderHint: {
+      marginHorizontal: 20,
+      marginBottom: 8,
+      fontSize: 12,
+      lineHeight: 16,
+      color: colors.textTertiary,
+    },
     favorite: {
       fontSize: 16,
       color: colors.textTertiary,

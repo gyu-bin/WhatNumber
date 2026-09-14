@@ -14,6 +14,11 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import DraggableFlatList, {
+  ScaleDecorator,
+  type RenderItemParams,
+} from 'react-native-draggable-flatlist';
 import {
   SafeAreaProvider,
   SafeAreaView,
@@ -329,7 +334,7 @@ export default function App() {
   /** Cold start only — never re-shown on background → foreground */
   const [showSplash, setShowSplash] = useState(true);
   const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
-  const { favorites, toggle, isFavorite, ready: favoritesReady } = useFavorites();
+  const { favorites, toggle, reorder, isFavorite, ready: favoritesReady } = useFavorites();
   const { theme, toggle: toggleTheme, ready: themeReady } = useTheme();
   const { viewMode, setViewMode, ready: viewModeReady } = useViewMode();
 
@@ -588,6 +593,51 @@ export default function App() {
     .sort()
     .join(',')}`;
 
+  const favoritesHeader = (
+    <View>
+      {listHeader}
+      <View style={styles.sectionHeader}>
+        <Text style={styles.favHeader}>
+          <Text style={styles.favHeaderStar}>★ </Text>
+          {`내 즐겨찾기 · ${filtered.length}개`}
+        </Text>
+      </View>
+      {filtered.length > 1 ? (
+        <Text style={styles.favReorderHint}>길게 눌러 순서를 바꿀 수 있어요</Text>
+      ) : null}
+    </View>
+  );
+
+  const renderFavoriteItem = useCallback(
+    ({ item, drag, isActive, getIndex }: RenderItemParams<NumberItem>) => {
+      const index = getIndex() ?? 0;
+      const last = index === filtered.length - 1;
+      return (
+        <ScaleDecorator>
+          <View
+            style={[
+              styles.sectionItem,
+              index === 0 && styles.sectionItemFirst,
+              last && styles.sectionItemLast,
+            ]}
+          >
+            <NumberRow
+              item={item}
+              isFavorite={isFavorite(item.id)}
+              onToggleFavorite={toggle}
+              onOpen={setSelected}
+              onDrag={drag}
+              isActive={isActive}
+              styles={styles}
+            />
+            {!last ? <View style={styles.cardDivider} /> : null}
+          </View>
+        </ScaleDecorator>
+      );
+    },
+    [filtered.length, isFavorite, styles, toggle],
+  );
+
   if (!themeReady || !viewModeReady) {
     // Expo Go 아이콘 splash를 가리기 위한 Warm White 덮개
     return (
@@ -603,6 +653,7 @@ export default function App() {
   }
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <SafeAreaProvider>
       <View style={{ flex: 1, backgroundColor: themeColors.bg }}>
         <Animated.View
@@ -638,6 +689,18 @@ export default function App() {
                       setHomeView('numbers');
                       setSelectedCategory(null);
                     }}
+                  />
+                ) : isFavoritesView ? (
+                  <DraggableFlatList
+                    data={filtered}
+                    keyExtractor={(item) => item.id}
+                    onDragEnd={({ data }) => reorder(data.map((entry) => entry.id))}
+                    activationDistance={8}
+                    keyboardShouldPersistTaps="handled"
+                    contentContainerStyle={styles.listContent}
+                    ListHeaderComponent={favoritesHeader}
+                    ListEmptyComponent={emptyComponent}
+                    renderItem={renderFavoriteItem}
                   />
                 ) : viewMode === 'card' ? (
                   <SectionList
@@ -795,5 +858,6 @@ export default function App() {
         ) : null}
       </View>
     </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

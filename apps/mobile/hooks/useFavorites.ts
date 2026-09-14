@@ -31,7 +31,12 @@ export function useFavorites() {
     });
   }, []);
 
+  const reorder = useCallback((nextIds: string[]) => {
+    setFavorites(nextIds);
+    void AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(nextIds));
+  }, []);
+
   const isFavorite = useCallback((id: string) => favorites.includes(id), [favorites]);
 
-  return { favorites, toggle, isFavorite, ready };
+  return { favorites, toggle, reorder, isFavorite, ready };
 }

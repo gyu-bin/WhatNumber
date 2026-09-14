@@ -37,6 +37,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     supportsTablet: false,
     bundleIdentifier: 'kr.whatnumber.app',
     buildNumber: '1',
+    deploymentTarget: '16.4',
     infoPlist: {
       CFBundleAllowMixedLocalizations: true,
       ITSAppUsesNonExemptEncryption: false,

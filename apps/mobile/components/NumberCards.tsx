@@ -9,15 +9,25 @@ export function NumberRow({
   onToggleFavorite,
   onOpen,
   styles,
+  onDrag,
+  isActive,
 }: {
   item: NumberItem;
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
   onOpen: (item: NumberItem) => void;
   styles: AppStyles;
+  onDrag?: () => void;
+  isActive?: boolean;
 }) {
   return (
-    <Pressable style={styles.card} onPress={() => onOpen(item)}>
+    <Pressable
+      style={[styles.card, isActive ? styles.cardDragging : null]}
+      onPress={() => onOpen(item)}
+      onLongPress={onDrag}
+      delayLongPress={220}
+      disabled={isActive}
+    >
       <View style={[styles.iconWrap, { backgroundColor: iconBgColor(item.cat) }]}>
         <Text style={styles.icon}>{item.icon}</Text>
       </View>
@@ -44,6 +54,17 @@ export function NumberRow({
           <Ionicons name="call" size={13} color={styles.callText.color} />
           <Text style={styles.callText}>{item.num}</Text>
         </Pressable>
+        {onDrag ? (
+          <Pressable
+            onLongPress={onDrag}
+            delayLongPress={120}
+            hitSlop={10}
+            accessibilityLabel="순서 변경"
+            style={styles.dragHandle}
+          >
+            <Ionicons name="reorder-three" size={22} color={styles.dragHandleIcon.color} />
+          </Pressable>
+        ) : null}
       </View>
     </Pressable>
   );

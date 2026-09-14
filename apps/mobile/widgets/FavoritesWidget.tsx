@@ -1,13 +1,14 @@
-import { Divider, HStack, Image, Link, Spacer, Text, VStack } from '@expo/ui/swift-ui';
+import { HStack, Image, Link, Spacer, Text, VStack } from '@expo/ui/swift-ui';
 import {
   background,
+  clipShape,
   containerBackground,
-  containerRelativeFrame,
   cornerRadius,
   font,
   foregroundStyle,
   frame,
   lineLimit,
+  minimumScaleFactor,
   padding,
   widgetURL,
 } from '@expo/ui/swift-ui/modifiers';
@@ -30,108 +31,258 @@ const FavoritesWidgetLayout = (
 ) => {
   'widget';
 
-  // Keep all values inside this function: the widget runs in an isolated runtime.
-  const accent = '#FF5A55';
-  const softAccent = '#FFF0EF';
-  const bg = '#FCFBFA';
-  const ink = '#171717';
-  const muted = '#777777';
-  const divider = '#F0ECE9';
-  const items = props.items ?? [];
+  const accent = '#D94F3D';
+  const softIcon = '#FFEDEA';
+  const bg = '#F7F4F1';
+  const ink = '#1A1A1A';
+  const muted = '#8A8581';
+  const starYellow = '#F0C419';
+  const white = '#FFFFFF';
+  const divider = '#EDE8E4';
+
   const family = environment.widgetFamily;
-  const brand = (
+  const isSmall = family === 'systemSmall';
+  const isMedium = family === 'systemMedium';
+
+  // All list: 2×2 → 1, 4×2 → 3, 4×4 → 6
+  const maxItems = isSmall ? 1 : isMedium ? 3 : 6;
+  const items = (props.items ?? []).slice(0, maxItems);
+
+  // Manual margins (native uses contentMarginsDisabled) — keep content short
+  // enough that SwiftUI does not compress this padding away.
+  const edgeX = 16;
+  const edgeY = isMedium ? 14 : 16;
+
+  const a = items[0];
+  const b = items[1];
+  const c = items[2];
+  const d = items[3];
+  const e = items[4];
+  const f = items[5];
+
+  const brandBadge = (
     <Text
       modifiers={[
-        font({ weight: 'bold', size: 12 }),
-        foregroundStyle('#FFFFFF'),
-        padding({ vertical: 6, horizontal: 10 }),
+        font({ weight: 'bold', size: isMedium ? 9 : 10 }),
+        foregroundStyle(white),
+        padding({ vertical: isMedium ? 3 : 4, horizontal: isMedium ? 7 : 9 }),
         background(accent),
-        cornerRadius(12),
+        cornerRadius(9),
       ]}
     >
       몇번이야?
     </Text>
   );
 
+  const favoritesLink = (
+    <Link destination="whatnumber://">
+      <Text
+        modifiers={[
+          font({ weight: 'semibold', size: isMedium ? 10 : 11 }),
+          foregroundStyle(muted),
+        ]}
+      >
+        즐겨찾기 ›
+      </Text>
+    </Link>
+  );
+
+  /** Full-width list row — title sits beside number so it doesn't clip in a grid cell */
+  const listRow = (
+    item: FavoriteWidgetItem,
+    opts: { compact: boolean; showDivider: boolean },
+  ) => {
+    const icon = opts.compact ? 24 : 28;
+    const call = opts.compact ? 24 : 28;
+    return (
+      <VStack spacing={0} alignment="leading">
+        <Link destination={item.tel}>
+          <HStack
+            spacing={opts.compact ? 7 : 10}
+            alignment="center"
+            modifiers={[padding({ vertical: opts.compact ? 2 : 5 })]}
+          >
+            <HStack
+              alignment="center"
+              modifiers={[
+                frame({ width: icon, height: icon }),
+                background(softIcon),
+                clipShape('circle'),
+              ]}
+            >
+              <Text modifiers={[font({ size: opts.compact ? 12 : 14 })]}>
+                {item.icon || '📞'}
+              </Text>
+            </HStack>
+
+            <Text
+              modifiers={[
+                font({ weight: 'bold', size: opts.compact ? 15 : 17 }),
+                foregroundStyle(ink),
+                lineLimit(1),
+                minimumScaleFactor(0.7),
+              ]}
+            >
+              {item.num}
+            </Text>
+
+            <Text
+              modifiers={[
+                font({ weight: 'medium', size: opts.compact ? 11 : 13 }),
+                foregroundStyle(muted),
+                lineLimit(1),
+                minimumScaleFactor(0.7),
+                frame({ maxWidth: 999 }),
+              ]}
+            >
+              {item.title}
+            </Text>
+
+            <Spacer />
+
+            <Image
+              systemName="phone.fill"
+              size={opts.compact ? 8 : 10}
+              color={white}
+              modifiers={[
+                frame({ width: call, height: call }),
+                padding({ all: opts.compact ? 6 : 8 }),
+                background(accent),
+                clipShape('circle'),
+              ]}
+            />
+          </HStack>
+        </Link>
+        {opts.showDivider ? (
+          <HStack modifiers={[frame({ height: 1, maxWidth: 999 }), background(divider)]}>
+            <Text> </Text>
+          </HStack>
+        ) : null}
+      </VStack>
+    );
+  };
+
   if (items.length === 0) {
-    const emptyTitle = family === 'systemSmall' ? '즐겨찾기가 없어요' : '즐겨찾기를 추가해보세요';
     return (
       <VStack
-        spacing={7}
+        spacing={8}
         alignment="center"
         modifiers={[
-          padding({ all: 14 }),
+          padding({ horizontal: edgeX, vertical: edgeY }),
           containerBackground(bg, 'widget'),
           widgetURL('whatnumber://'),
         ]}
       >
         <HStack>
-          {brand}
+          {brandBadge}
           <Spacer />
-          <Image systemName="star" size={16} color={muted} />
+          {isSmall ? (
+            <Image systemName="star" size={12} color={muted} />
+          ) : (
+            favoritesLink
+          )}
         </HStack>
         <Spacer />
-        <Image systemName="star.fill" size={family === 'systemSmall' ? 28 : 32} color={accent} />
-        <Text modifiers={[font({ weight: 'bold', size: 16 }), foregroundStyle(ink)]}>
-          {emptyTitle}
+        <HStack
+          alignment="center"
+          modifiers={[
+            frame({ width: 44, height: 44 }),
+            background(softIcon),
+            clipShape('circle'),
+          ]}
+        >
+          <Image
+            systemName={isMedium ? 'star.fill' : 'phone.fill'}
+            size={18}
+            color={accent}
+          />
+        </HStack>
+        <Text modifiers={[font({ weight: 'bold', size: 13 }), foregroundStyle(ink)]}>
+          {isSmall ? '즐겨찾기가 없어요' : '즐겨찾기를 추가해보세요'}
         </Text>
-        <Text modifiers={[font({ size: 12 }), foregroundStyle(muted)]}>
-          앱에서 즐겨찾기를 추가하면
-        </Text>
-        <Text modifiers={[font({ size: 12 }), foregroundStyle(muted)]}>
-          여기서 바로 전화할 수 있어요.
+        <Text
+          modifiers={[
+            font({ size: 11 }),
+            foregroundStyle(muted),
+            lineLimit(2),
+            minimumScaleFactor(0.85),
+          ]}
+        >
+          앱에서 추가하면 여기서 바로 전화해요
         </Text>
         <Spacer />
       </VStack>
     );
   }
 
-  if (family === 'systemSmall') {
-    const item = items[0];
+  // Small 2×2 → 1
+  if (isSmall) {
     return (
-      <Link destination={item.tel}>
+      <Link destination={a.tel}>
         <VStack
-          spacing={6}
+          spacing={8}
           alignment="leading"
-          modifiers={[padding({ all: 14 }), containerBackground(bg, 'widget')]}
+          modifiers={[
+            padding({ horizontal: edgeX, vertical: edgeY }),
+            containerBackground(bg, 'widget'),
+          ]}
         >
           <HStack>
-            {brand}
+            {brandBadge}
             <Spacer />
-            <Image systemName="star" size={16} color={muted} />
+            <Image systemName="star.fill" size={12} color={starYellow} />
           </HStack>
-          <Spacer />
-          <HStack spacing={8} alignment="center">
-            <Text modifiers={[font({ size: 26 })]}>{item.icon}</Text>
+
+          <HStack spacing={10} alignment="center">
+            <HStack
+              alignment="center"
+              modifiers={[
+                frame({ width: 36, height: 36 }),
+                background(softIcon),
+                clipShape('circle'),
+              ]}
+            >
+              <Text modifiers={[font({ size: 18 })]}>{a.icon || '📞'}</Text>
+            </HStack>
             <VStack spacing={1} alignment="leading">
               <Text
                 modifiers={[
-                  font({ weight: 'semibold', size: 15 }),
+                  font({ weight: 'bold', size: 22 }),
                   foregroundStyle(ink),
                   lineLimit(1),
+                  minimumScaleFactor(0.65),
                 ]}
               >
-                {item.title}
+                {a.num}
               </Text>
-              <Text modifiers={[font({ weight: 'bold', size: 27 }), foregroundStyle(accent)]}>
-                {item.num}
+              <Text
+                modifiers={[
+                  font({ weight: 'medium', size: 11 }),
+                  foregroundStyle(muted),
+                  lineLimit(2),
+                  minimumScaleFactor(0.8),
+                ]}
+              >
+                {a.title}
               </Text>
             </VStack>
           </HStack>
-          <Spacer />
+
           <HStack
-            spacing={7}
+            spacing={5}
             alignment="center"
             modifiers={[
-              padding({ vertical: 10, horizontal: 12 }),
+              padding({ vertical: 9, horizontal: 10 }),
               background(accent),
-              cornerRadius(15),
+              cornerRadius(12),
               frame({ maxWidth: 999 }),
             ]}
           >
             <Spacer />
-            <Image systemName="phone.fill" size={14} color="#FFFFFF" />
-            <Text modifiers={[font({ weight: 'bold', size: 14 }), foregroundStyle('#FFFFFF')]}>바로 전화</Text>
+            <Image systemName="phone.fill" size={10} color={white} />
+            <Text modifiers={[font({ weight: 'bold', size: 11 }), foregroundStyle(white)]}>
+              바로 전화
+            </Text>
             <Spacer />
           </HStack>
         </VStack>
@@ -139,203 +290,74 @@ const FavoritesWidgetLayout = (
     );
   }
 
-  const a = items[0];
-  const b = items[1];
-  const c = items[2];
-  const d = items[3];
-
-  if (family === 'systemMedium') {
+  // Medium 4×2 → 3 list rows + real top/bottom inset
+  // Content stays short so vertical padding is not squeezed away.
+  if (isMedium) {
     return (
       <VStack
-        spacing={8}
+        spacing={0}
         alignment="leading"
-        modifiers={[padding({ all: 14 }), containerBackground(bg, 'widget')]}
+        modifiers={[containerBackground(bg, 'widget')]}
       >
-        <HStack>
-          {brand}
-          <Spacer />
-          <Text modifiers={[font({ weight: 'semibold', size: 13 }), foregroundStyle(muted)]}>즐겨찾기</Text>
-        </HStack>
-        <Link destination={a.tel}>
-          <HStack spacing={10} alignment="center">
-            <Text modifiers={[font({ weight: 'bold', size: 23 }), foregroundStyle(accent), frame({ width: 48 })]}>
-              {a.num}
-            </Text>
-            <Text modifiers={[font({ weight: 'semibold', size: 15 }), foregroundStyle(ink), lineLimit(1)]}>
-              {a.title}
-            </Text>
+        <VStack
+          spacing={3}
+          alignment="leading"
+          modifiers={[padding({ horizontal: edgeX, vertical: edgeY })]}
+        >
+          <HStack alignment="center" modifiers={[padding({ bottom: 4 })]}>
+            {brandBadge}
             <Spacer />
-            <Image
-              systemName="phone.fill"
-              size={13}
-              color={accent}
-              modifiers={[padding({ all: 9 }), background(softAccent), cornerRadius(16)]}
-            />
+            {favoritesLink}
           </HStack>
-        </Link>
-        {b ? <Divider modifiers={[background(divider)]} /> : null}
-        {b ? (
-          <Link destination={b.tel}>
-            <HStack spacing={10} alignment="center">
-              <Text modifiers={[font({ weight: 'bold', size: 23 }), foregroundStyle(accent), frame({ width: 48 })]}>
-                {b.num}
-              </Text>
-              <Text modifiers={[font({ weight: 'semibold', size: 15 }), foregroundStyle(ink), lineLimit(1)]}>
-                {b.title}
-              </Text>
-              <Spacer />
-              <Image
-                systemName="phone.fill"
-                size={13}
-                color={accent}
-                modifiers={[padding({ all: 9 }), background(softAccent), cornerRadius(16)]}
-              />
-            </HStack>
-          </Link>
-        ) : null}
-        {c ? <Divider modifiers={[background(divider)]} /> : null}
-        {c ? (
-          <Link destination={c.tel}>
-            <HStack spacing={10} alignment="center">
-              <Text modifiers={[font({ weight: 'bold', size: 23 }), foregroundStyle(accent), frame({ width: 48 })]}>
-                {c.num}
-              </Text>
-              <Text modifiers={[font({ weight: 'semibold', size: 15 }), foregroundStyle(ink), lineLimit(1)]}>
-                {c.title}
-              </Text>
-              <Spacer />
-              <Image
-                systemName="phone.fill"
-                size={13}
-                color={accent}
-                modifiers={[padding({ all: 9 }), background(softAccent), cornerRadius(16)]}
-              />
-            </HStack>
-          </Link>
-        ) : null}
+          {a ? listRow(a, { compact: true, showDivider: !!b }) : null}
+          {b ? listRow(b, { compact: true, showDivider: !!c }) : null}
+          {c ? listRow(c, { compact: true, showDivider: false }) : null}
+        </VStack>
       </VStack>
     );
   }
 
+  // Large 4×4 → 6 list rows (no grid — titles stay readable)
   return (
-    <VStack
-      spacing={9}
-      alignment="leading"
-      modifiers={[padding({ all: 14 }), containerBackground(bg, 'widget')]}
-    >
-      <HStack>
-        {brand}
-        <Spacer />
-        <Text modifiers={[font({ weight: 'semibold', size: 13 }), foregroundStyle(muted)]}>즐겨찾기</Text>
-      </HStack>
-      <HStack spacing={8}>
-        <Link destination={a.tel}>
-          <VStack
-            spacing={5}
-            alignment="leading"
+    <VStack spacing={0} alignment="leading" modifiers={[containerBackground(bg, 'widget')]}>
+      <VStack
+        spacing={2}
+        alignment="leading"
+        modifiers={[padding({ horizontal: edgeX, vertical: edgeY })]}
+      >
+        <HStack alignment="center" modifiers={[padding({ bottom: 6 })]}>
+          {brandBadge}
+          <Spacer />
+          {favoritesLink}
+        </HStack>
+        {a ? listRow(a, { compact: false, showDivider: !!b }) : null}
+        {b ? listRow(b, { compact: false, showDivider: !!c }) : null}
+        {c ? listRow(c, { compact: false, showDivider: !!d }) : null}
+        {d ? listRow(d, { compact: false, showDivider: !!e }) : null}
+        {e ? listRow(e, { compact: false, showDivider: !!f }) : null}
+        {f ? listRow(f, { compact: false, showDivider: false }) : null}
+        <HStack modifiers={[padding({ top: 8 })]}>
+          <Text
             modifiers={[
-              padding({ all: 10 }),
-              background(softAccent),
-              cornerRadius(16),
-              frame({ minHeight: 76 }),
-              containerRelativeFrame({ axes: 'horizontal', count: 2, span: 1, spacing: 8 }),
+              font({ size: 10 }),
+              foregroundStyle(muted),
+              lineLimit(1),
+              minimumScaleFactor(0.85),
             ]}
           >
-            <HStack>
-              <Text modifiers={[font({ weight: 'bold', size: 23 }), foregroundStyle(accent)]}>{a.num}</Text>
-              <Spacer />
-              <Image systemName="phone.fill" size={13} color={accent} />
-            </HStack>
-            <Text modifiers={[font({ weight: 'semibold', size: 14 }), foregroundStyle(ink), lineLimit(1)]}>
-              {a.title}
-            </Text>
-          </VStack>
-        </Link>
-        {b ? (
-          <Link destination={b.tel}>
-            <VStack
-              spacing={5}
-              alignment="leading"
-              modifiers={[
-                padding({ all: 10 }),
-                background(softAccent),
-                cornerRadius(16),
-                frame({ minHeight: 76 }),
-                containerRelativeFrame({ axes: 'horizontal', count: 2, span: 1, spacing: 8 }),
-              ]}
-            >
-              <HStack>
-                <Text modifiers={[font({ weight: 'bold', size: 23 }), foregroundStyle(accent)]}>{b.num}</Text>
-                <Spacer />
-                <Image systemName="phone.fill" size={13} color={accent} />
-              </HStack>
-              <Text modifiers={[font({ weight: 'semibold', size: 14 }), foregroundStyle(ink), lineLimit(1)]}>
-                {b.title}
-              </Text>
-            </VStack>
-          </Link>
-        ) : (
+            필요할 때, 바로 몇번이야?
+          </Text>
           <Spacer />
-        )}
-      </HStack>
-      {c || d ? (
-        <HStack spacing={8}>
-          {c ? (
-            <Link destination={c.tel}>
-              <VStack
-                spacing={5}
-                alignment="leading"
-                modifiers={[
-                  padding({ all: 10 }),
-                  background(softAccent),
-                  cornerRadius(16),
-                  frame({ minHeight: 76 }),
-                  containerRelativeFrame({ axes: 'horizontal', count: 2, span: 1, spacing: 8 }),
-                ]}
-              >
-                <HStack>
-                  <Text modifiers={[font({ weight: 'bold', size: 23 }), foregroundStyle(accent)]}>{c.num}</Text>
-                  <Spacer />
-                  <Image systemName="phone.fill" size={13} color={accent} />
-                </HStack>
-                <Text modifiers={[font({ weight: 'semibold', size: 14 }), foregroundStyle(ink), lineLimit(1)]}>
-                  {c.title}
-                </Text>
-              </VStack>
-            </Link>
-          ) : (
-            <Spacer />
-          )}
-          {d ? (
-            <Link destination={d.tel}>
-              <VStack
-                spacing={5}
-                alignment="leading"
-                modifiers={[
-                  padding({ all: 10 }),
-                  background(softAccent),
-                  cornerRadius(16),
-                  frame({ minHeight: 76 }),
-                  containerRelativeFrame({ axes: 'horizontal', count: 2, span: 1, spacing: 8 }),
-                ]}
-              >
-                <HStack>
-                  <Text modifiers={[font({ weight: 'bold', size: 23 }), foregroundStyle(accent)]}>{d.num}</Text>
-                  <Spacer />
-                  <Image systemName="phone.fill" size={13} color={accent} />
-                </HStack>
-                <Text modifiers={[font({ weight: 'semibold', size: 14 }), foregroundStyle(ink), lineLimit(1)]}>
-                  {d.title}
-                </Text>
-              </VStack>
-            </Link>
-          ) : (
-            <Spacer />
-          )}
+          <Text
+            modifiers={[
+              font({ weight: 'medium', size: 11, design: 'serif' }),
+              foregroundStyle(accent),
+            ]}
+          >
+            Better Days
+          </Text>
         </HStack>
-      ) : null}
-      <Spacer />
-      <Text modifiers={[font({ size: 11 }), foregroundStyle(muted)]}>필요할 때, 바로 몇번이야?</Text>
+      </VStack>
     </VStack>
   );
 };
