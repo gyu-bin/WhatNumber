@@ -23,10 +23,12 @@
   "dependencies": {
     "@expo/ui": "~56.0.18",
     "@expo/vector-icons": "^15.1.1",
+    "@mj-studio/react-native-naver-map": "^2.9.0",
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-community/netinfo": "^12.0.1",
     "@whatnumber/shared": "*",
     "expo": "~56.0.21",
+    "expo-build-properties": "~56.0.27",
     "expo-constants": "~56.0.25",
     "expo-dev-client": "~56.0.19",
     "expo-device": "^57.0.2",

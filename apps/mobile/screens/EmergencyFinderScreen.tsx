@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
+  Dimensions,
   Linking,
   Pressable,
   RefreshControl,
@@ -12,8 +13,13 @@ import {
   StyleSheet,
   Text,
   View,
+  type LayoutChangeEvent,
 } from 'react-native';
 import { telHref } from '@whatnumber/shared';
+import {
+  EmergencyMap,
+  type EmergencyMapHandle,
+} from '../components/EmergencyMap';
 import {
   EmergencyRoomsConfigurationError,
   fetchNearbyEmergencyRooms,
@@ -28,6 +34,8 @@ const SIMULATOR_LOCATION: Coordinate = {
   latitude: 37.3225,
   longitude: 127.0975,
 };
+
+const MAP_HEIGHT = Math.round(Dimensions.get('window').height * 0.3);
 
 type FinderState =
   | 'idle'
@@ -54,11 +62,21 @@ export function EmergencyFinderScreen({
   const [fetchedAt, setFetchedAt] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [refreshing, setRefreshing] = useState(false);
+  const [userLocation, setUserLocation] = useState<Coordinate | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const mapRef = useRef<EmergencyMapHandle>(null);
+  const listRef = useRef<ScrollView>(null);
+  const cardOffsets = useRef<Record<string, number>>({});
 
   const findRooms = useCallback(async (options?: { keepResults?: boolean }) => {
     const keepResults = Boolean(options?.keepResults);
     setErrorMessage(undefined);
-    if (!keepResults) setRooms([]);
+    if (!keepResults) {
+      setRooms([]);
+      setSelectedId(null);
+      setUserLocation(null);
+    }
 
     try {
       const network = await NetInfo.fetch();
@@ -91,10 +109,13 @@ export function EmergencyFinderScreen({
           }))
         : SIMULATOR_LOCATION;
 
+      setUserLocation(currentLocation);
+
       if (!keepResults) setState('loading');
       const result = await fetchNearbyEmergencyRooms(currentLocation);
       setRooms(result.rooms);
       setFetchedAt(result.fetchedAt);
+      setSelectedId(result.rooms[0]?.id ?? null);
       setState(result.rooms.length > 0 ? 'ready' : 'empty');
     } catch (error) {
       if (keepResults) return;
@@ -105,7 +126,9 @@ export function EmergencyFinderScreen({
         return;
       }
       setState('api-error');
-      setErrorMessage(error instanceof Error ? error.message : '응급실 정보를 불러오지 못했어요.');
+      setErrorMessage(
+        error instanceof Error ? error.message : '응급실 정보를 불러오지 못했어요.',
+      );
     }
   }, []);
 
@@ -128,18 +151,80 @@ export function EmergencyFinderScreen({
   }, [findRooms]);
 
   const isBusy = state === 'locating' || state === 'loading' || refreshing;
+  const canShowNativeMap = Boolean(userLocation) || rooms.length > 0;
+  const resultsOffsetRef = useRef(0);
 
-  const stateContent = renderFinderState({
-    state,
-    colors,
-    errorMessage,
-    onFind: () => void findRooms(),
-    onOpenSettings: () => void Linking.openURL('app-settings:'),
-  });
+  const selectFromMarker = useCallback((id: string) => {
+    setSelectedId(id);
+    const offset = cardOffsets.current[id];
+    if (typeof offset === 'number') {
+      listRef.current?.scrollTo({
+        y: Math.max(0, resultsOffsetRef.current + offset - 12),
+        animated: true,
+      });
+    }
+  }, []);
+
+  const selectFromCard = useCallback(
+    (room: EmergencyRoom) => {
+      setSelectedId(room.id);
+      mapRef.current?.focusCoordinate(room.location, 14);
+    },
+    [],
+  );
+
+  const onCardLayout = (id: string, event: LayoutChangeEvent) => {
+    cardOffsets.current[id] = event.nativeEvent.layout.y;
+  };
 
   return (
     <View style={styles.screen}>
+      <View style={styles.topBar}>
+        <Pressable
+          onPress={onBack}
+          style={styles.backButton}
+          accessibilityRole="button"
+          accessibilityLabel="홈으로 돌아가기"
+        >
+          <Ionicons name="chevron-back" size={23} color={colors.textPrimary} />
+        </Pressable>
+        <Text style={styles.topTitle} numberOfLines={1}>
+          내 주변 응급실
+        </Text>
+        <View style={styles.backButton} />
+      </View>
+
+      {canShowNativeMap ? (
+        <EmergencyMap
+          ref={mapRef}
+          colors={colors}
+          height={MAP_HEIGHT}
+          userLocation={userLocation}
+          rooms={rooms}
+          selectedId={selectedId}
+          onSelectRoom={selectFromMarker}
+        />
+      ) : (
+        <View style={[styles.mapPlaceholder, { height: MAP_HEIGHT }]}>
+          {isBusy ? (
+            <ActivityIndicator color={colors.accent} />
+          ) : (
+            <>
+              <Ionicons name="map-outline" size={26} color={colors.accent} />
+              <Text style={styles.mapPlaceholderText}>
+                {state === 'permission-denied' || state === 'location-disabled'
+                  ? '현재 위치를 확인할 수 없어요'
+                  : state === 'api-error' || state === 'offline' || state === 'configuration-error'
+                    ? '지도를 표시하려면 다시 시도해 주세요'
+                    : '주변 응급실 지도를 준비 중이에요'}
+              </Text>
+            </>
+          )}
+        </View>
+      )}
+
       <ScrollView
+        ref={listRef}
         style={styles.scroll}
         contentContainerStyle={styles.content}
         refreshControl={
@@ -151,115 +236,139 @@ export function EmergencyFinderScreen({
           />
         }
       >
-        <View style={styles.topBar}>
-          <Pressable
-            onPress={onBack}
-            style={styles.backButton}
-            accessibilityRole="button"
-            accessibilityLabel="홈으로 돌아가기"
-          >
-            <Ionicons name="chevron-back" size={23} color={colors.textPrimary} />
-          </Pressable>
-          <Text style={styles.topTitle} numberOfLines={1}>
-            내 주변 응급실
-          </Text>
-          <View style={styles.backButton} />
-        </View>
-
-        {state !== 'ready' ? (
-          <View style={styles.hero}>
-            <View style={styles.heroIcon}>
-              <Ionicons name="medical" size={22} color={colors.accent} />
-            </View>
-            <Text style={styles.title}>가까운 응급실을 찾아드릴게요</Text>
-            <Text style={styles.description}>현재 위치는 검색할 때만 사용하며 저장하지 않아요.</Text>
-          </View>
-        ) : null}
-
         <Pressable
-          style={[styles.call119, state === 'ready' ? styles.call119Compact : null]}
+          style={styles.call119}
           onPress={() => void Linking.openURL(telHref('119'))}
           accessibilityRole="button"
           accessibilityLabel="119 전화"
         >
-          <Ionicons name="call" size={15} color="#fff" />
+          <Ionicons name="call" size={16} color="#fff" />
           <Text style={styles.call119Text}>위급하면 먼저 119에 전화하세요</Text>
+          <Ionicons name="chevron-forward" size={16} color="#fff" />
         </Pressable>
 
+        <Text style={styles.privacyNote}>
+          현재 위치는 주변 응급실 검색에만 사용되며 저장하지 않아요.
+        </Text>
+
         {state === 'ready' ? (
-          <View style={styles.results}>
-            <View style={styles.resultHeader}>
-              <Text style={styles.resultTitle}>가까운 응급실</Text>
-              <Text style={styles.source}>국립중앙의료원 제공 정보</Text>
+          <View
+            style={styles.results}
+            onLayout={(event) => {
+              resultsOffsetRef.current = event.nativeEvent.layout.y;
+            }}
+          >
+            <View style={styles.sectionHeader}>
+              <View style={styles.sectionTitleRow}>
+                <Text style={styles.resultTitle}>가까운 응급실</Text>
+                <Pressable
+                  style={[styles.refreshChip, isBusy ? styles.refreshChipDisabled : null]}
+                  onPress={() => void refreshRooms()}
+                  disabled={isBusy}
+                  accessibilityRole="button"
+                  accessibilityLabel="응급실 목록 새로고침"
+                >
+                  {isBusy ? (
+                    <ActivityIndicator size="small" color={colors.accent} />
+                  ) : (
+                    <>
+                      <Ionicons name="refresh" size={14} color={colors.accent} />
+                      <Text style={styles.refreshChipText}>새로고침</Text>
+                    </>
+                  )}
+                </Pressable>
+              </View>
+              <View style={styles.metaRow}>
+                <Text style={styles.updatedAt}>
+                  {fetchedAt
+                    ? `현재 위치 기준 · ${formatFetchedAt(fetchedAt)}`
+                    : '현재 위치 기준'}
+                </Text>
+                <Text style={styles.source}>국립중앙의료원 제공 정보</Text>
+              </View>
             </View>
-            {fetchedAt ? (
-              <Text style={styles.updatedAt}>조회 시각 {formatFetchedAt(fetchedAt)}</Text>
-            ) : null}
-            {rooms.map((room) => (
-              <View key={room.id} style={styles.roomCard}>
-                <View style={styles.roomHeading}>
-                  <View style={styles.roomTitleArea}>
-                    <Text style={styles.roomName}>{room.name}</Text>
-                    <Text style={styles.roomAddress}>{room.address}</Text>
+
+            {rooms.map((room) => {
+              const selected = room.id === selectedId;
+              return (
+                <Pressable
+                  key={room.id}
+                  onLayout={(event) => onCardLayout(room.id, event)}
+                  onPress={() => selectFromCard(room)}
+                  style={[styles.roomCard, selected ? styles.roomCardSelected : null]}
+                >
+                  <View style={styles.roomHeading}>
+                    <Text style={styles.roomName} numberOfLines={2}>
+                      {room.name}
+                    </Text>
+                    <Text style={styles.distance}>{formatDistance(room.distanceKm)}</Text>
                   </View>
-                  <Text style={styles.distance}>{formatDistance(room.distanceKm)}</Text>
-                </View>
-                {typeof room.availableBeds === 'number' ? (
-                  <Text
-                    style={[
-                      styles.bedInfo,
-                      room.availableBeds > 0 ? styles.bedAvailable : styles.bedUnavailable,
-                    ]}
-                  >
-                    {formatBedLabel(room.availableBeds)}
+                  <Text style={styles.roomAddress} numberOfLines={2}>
+                    {room.address}
                   </Text>
-                ) : (
-                  <Text style={styles.bedInfo}>실시간 병상 정보 없음</Text>
-                )}
-                <View style={styles.roomActions}>
-                  {(room.emergencyPhone ?? room.phone) ? (
+                  {typeof room.availableBeds === 'number' ? (
+                    <View
+                      style={[
+                        styles.bedBadge,
+                        room.availableBeds > 0
+                          ? styles.bedBadgeAvailable
+                          : styles.bedBadgeUnavailable,
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.bedBadgeText,
+                          room.availableBeds > 0
+                            ? styles.bedBadgeTextAvailable
+                            : styles.bedBadgeTextUnavailable,
+                        ]}
+                      >
+                        {formatBedLabel(room.availableBeds)}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View style={[styles.bedBadge, styles.bedBadgeUnknown]}>
+                      <Text style={[styles.bedBadgeText, styles.bedBadgeTextUnknown]}>
+                        실시간 병상 정보 없음
+                      </Text>
+                    </View>
+                  )}
+                  <View style={styles.roomActions}>
+                    {room.emergencyPhone ?? room.phone ? (
+                      <Pressable
+                        style={styles.roomAction}
+                        onPress={() =>
+                          void Linking.openURL(
+                            telHref(room.emergencyPhone ?? room.phone ?? ''),
+                          )
+                        }
+                      >
+                        <Ionicons name="call-outline" size={15} color={colors.accent} />
+                        <Text style={styles.roomActionText}>전화</Text>
+                      </Pressable>
+                    ) : null}
                     <Pressable
                       style={styles.roomAction}
-                      onPress={() =>
-                        void Linking.openURL(telHref(room.emergencyPhone ?? room.phone ?? ''))
-                      }
+                      onPress={() => void openDirections(room.location)}
                     >
-                      <Ionicons name="call-outline" size={16} color={colors.accent} />
-                      <Text style={styles.roomActionText}>전화</Text>
+                      <Ionicons name="navigate-outline" size={15} color={colors.accent} />
+                      <Text style={styles.roomActionText}>길찾기</Text>
                     </Pressable>
-                  ) : null}
-                  <Pressable
-                    style={styles.roomAction}
-                    onPress={() => void openDirections(room.location)}
-                  >
-                    <Ionicons name="navigate-outline" size={16} color={colors.accent} />
-                    <Text style={styles.roomActionText}>길찾기</Text>
-                  </Pressable>
-                </View>
-              </View>
-            ))}
-            <Pressable style={styles.retryLink} onPress={() => void refreshRooms()}>
-              <Text style={styles.retryText}>현재 위치로 다시 찾기</Text>
-            </Pressable>
+                  </View>
+                </Pressable>
+              );
+            })}
           </View>
         ) : (
-          stateContent
+          renderFinderState({
+            state,
+            colors,
+            errorMessage,
+            onFind: () => void findRooms(),
+            onOpenSettings: () => void Linking.openURL('app-settings:'),
+          })
         )}
       </ScrollView>
-
-      <Pressable
-        style={[styles.fab, isBusy ? styles.fabDisabled : null]}
-        onPress={() => void refreshRooms()}
-        disabled={isBusy}
-        accessibilityRole="button"
-        accessibilityLabel="응급실 목록 새로고침"
-      >
-        {isBusy ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Ionicons name="refresh" size={22} color="#fff" />
-        )}
-      </Pressable>
     </View>
   );
 }
@@ -275,9 +384,7 @@ function formatFetchedAt(value: string): string {
   if (Number.isNaN(parsed.getTime())) return value;
 
   return parsed.toLocaleString('ko-KR', {
-    month: 'numeric',
-    day: 'numeric',
-    hour: '2-digit',
+    hour: 'numeric',
     minute: '2-digit',
   });
 }
@@ -295,36 +402,42 @@ function renderFinderState({
   onFind: () => void;
   onOpenSettings: () => void;
 }) {
+  const styles = finderStatusStyles(colors);
   const isBusy = state === 'locating' || state === 'loading';
   const message = {
     idle: '위치 사용을 허용하면 가까운 응급실을 거리순으로 보여드려요.',
     locating: '현재 위치를 확인하고 있어요.',
     loading: '응급실 정보를 불러오고 있어요.',
-    'permission-denied': '위치 권한이 없어 가까운 응급실을 찾을 수 없어요.',
+    'permission-denied': '현재 위치를 확인할 수 없어요. 위치 권한을 확인해 주세요.',
     'location-disabled': '기기의 위치 서비스가 꺼져 있어요.',
     offline: '인터넷 연결을 확인한 뒤 다시 시도해 주세요.',
     'configuration-error': errorMessage ?? '응급실 정보 연결이 아직 설정되지 않았어요.',
     'api-error': errorMessage ?? '응급실 정보를 불러오지 못했어요.',
-    empty: '현재 위치 주변의 응급실 정보를 찾지 못했어요.',
+    empty: '주변에서 응급실을 찾지 못했어요.',
     ready: '',
   }[state];
 
   return (
-    <View style={finderStatusStyles(colors).box}>
-      <Ionicons
-        name={isBusy ? 'sync-outline' : 'location-outline'}
-        size={28}
-        color={colors.accent}
-      />
-      <Text style={finderStatusStyles(colors).message}>{message}</Text>
+    <View style={styles.box}>
+      {isBusy ? (
+        <>
+          <View style={styles.mapSkeleton} />
+          <View style={styles.cardSkeleton} />
+          <View style={[styles.cardSkeleton, styles.cardSkeletonShort]} />
+          <ActivityIndicator color={colors.accent} style={{ marginTop: 8 }} />
+        </>
+      ) : (
+        <Ionicons name="location-outline" size={28} color={colors.accent} />
+      )}
+      <Text style={styles.message}>{message}</Text>
       {state === 'permission-denied' || state === 'location-disabled' ? (
-        <Pressable style={finderStatusStyles(colors).secondaryButton} onPress={onOpenSettings}>
-          <Text style={finderStatusStyles(colors).secondaryText}>설정 열기</Text>
+        <Pressable style={styles.secondaryButton} onPress={onOpenSettings}>
+          <Text style={styles.secondaryText}>위치 권한 확인</Text>
         </Pressable>
       ) : null}
       {!isBusy ? (
-        <Pressable style={finderStatusStyles(colors).primaryButton} onPress={onFind}>
-          <Text style={finderStatusStyles(colors).primaryText}>
+        <Pressable style={styles.primaryButton} onPress={onFind}>
+          <Text style={styles.primaryText}>
             {state === 'idle' ? '내 주변 응급실 찾기' : '다시 시도'}
           </Text>
         </Pressable>
@@ -336,20 +449,20 @@ function renderFinderState({
 function useEmergencyStyles(colors: ThemeColors) {
   return StyleSheet.create({
     screen: { flex: 1, backgroundColor: colors.bg },
-    scroll: { flex: 1 },
-    content: { paddingHorizontal: 20, paddingTop: 4, paddingBottom: 96 },
     topBar: {
       flexDirection: 'row',
       alignItems: 'center',
-      minHeight: 40,
-      marginBottom: 8,
+      minHeight: 44,
+      paddingHorizontal: 8,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.border,
+      backgroundColor: colors.bg,
     },
     backButton: {
       width: 40,
       height: 40,
       alignItems: 'center',
       justifyContent: 'center',
-      zIndex: 1,
     },
     topTitle: {
       flex: 1,
@@ -359,91 +472,126 @@ function useEmergencyStyles(colors: ThemeColors) {
       textAlign: 'center',
       includeFontPadding: false,
     },
-    hero: { alignItems: 'center', paddingHorizontal: 18, paddingBottom: 12 },
-    heroIcon: {
-      width: 48,
-      height: 48,
-      borderRadius: 16,
+    mapPlaceholder: {
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: colors.accentMuted,
-      marginBottom: 10,
+      gap: 8,
+      backgroundColor: colors.heroBg,
+      paddingHorizontal: 24,
     },
-    title: { color: colors.textPrimary, fontSize: 20, fontWeight: '800', letterSpacing: -0.6 },
-    description: {
+    mapPlaceholderText: {
       color: colors.textSecondary,
       fontSize: 13,
-      lineHeight: 19,
-      marginTop: 6,
       textAlign: 'center',
+      lineHeight: 18,
     },
+    scroll: { flex: 1 },
+    content: { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 32 },
     call119: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       gap: 6,
       paddingVertical: 12,
+      paddingHorizontal: 14,
       borderRadius: 12,
       backgroundColor: colors.accent,
     },
-    call119Compact: {
-      paddingVertical: 10,
-      borderRadius: 11,
+    call119Text: { color: '#fff', fontSize: 14, fontWeight: '700', flexShrink: 1 },
+    privacyNote: {
+      color: colors.textTertiary,
+      fontSize: 11,
+      lineHeight: 16,
+      marginTop: 8,
+      marginBottom: 4,
     },
-    call119Text: { color: '#fff', fontSize: 14, fontWeight: '700' },
-    results: { marginTop: 14 },
-    resultHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
-    resultTitle: { color: colors.textPrimary, fontSize: 17, fontWeight: '800' },
+    results: { marginTop: 10 },
+    sectionHeader: { marginBottom: 8 },
+    sectionTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+    },
+    resultTitle: { color: colors.textPrimary, fontSize: 18, fontWeight: '800' },
+    refreshChip: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      borderRadius: 999,
+      backgroundColor: colors.accentMuted,
+    },
+    refreshChipDisabled: { opacity: 0.7 },
+    refreshChipText: { color: colors.accent, fontSize: 12, fontWeight: '700' },
+    metaRow: {
+      marginTop: 6,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 8,
+    },
+    updatedAt: { color: colors.textSecondary, fontSize: 12, flex: 1 },
     source: { color: colors.textTertiary, fontSize: 11 },
-    updatedAt: { color: colors.textTertiary, fontSize: 12, marginTop: 4, marginBottom: 8 },
     roomCard: {
       backgroundColor: colors.surface,
-      borderRadius: 18,
-      padding: 16,
-      marginTop: 10,
+      borderRadius: 14,
+      padding: 13,
+      marginTop: 8,
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.border,
     },
-    roomHeading: { flexDirection: 'row', gap: 10 },
-    roomTitleArea: { flex: 1 },
-    roomName: { color: colors.textPrimary, fontSize: 16, fontWeight: '700' },
-    roomAddress: { color: colors.textSecondary, fontSize: 13, lineHeight: 19, marginTop: 5 },
-    distance: { color: colors.accent, fontSize: 14, fontWeight: '800' },
-    bedInfo: { fontSize: 12, marginTop: 11, color: colors.textSecondary },
-    bedAvailable: { color: colors.accent, fontWeight: '700' },
-    bedUnavailable: { color: colors.textTertiary, fontWeight: '600' },
-    roomActions: { flexDirection: 'row', gap: 8, marginTop: 14 },
+    roomCardSelected: {
+      borderColor: colors.accent,
+      borderWidth: 1.5,
+      backgroundColor: colors.accentMuted,
+    },
+    roomHeading: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 10,
+    },
+    roomName: {
+      flex: 1,
+      color: colors.textPrimary,
+      fontSize: 15,
+      fontWeight: '700',
+      letterSpacing: -0.2,
+    },
+    distance: { color: colors.accent, fontSize: 13, fontWeight: '800' },
+    roomAddress: {
+      color: colors.textSecondary,
+      fontSize: 12,
+      lineHeight: 17,
+      marginTop: 4,
+    },
+    bedBadge: {
+      alignSelf: 'flex-start',
+      marginTop: 8,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 8,
+    },
+    bedBadgeAvailable: { backgroundColor: 'rgba(34, 140, 84, 0.12)' },
+    bedBadgeUnavailable: { backgroundColor: 'rgba(255, 90, 85, 0.12)' },
+    bedBadgeUnknown: { backgroundColor: colors.tipBg },
+    bedBadgeText: { fontSize: 11, fontWeight: '700' },
+    bedBadgeTextAvailable: { color: '#1B7A45' },
+    bedBadgeTextUnavailable: { color: colors.accent },
+    bedBadgeTextUnknown: { color: colors.textTertiary, fontWeight: '600' },
+    roomActions: { flexDirection: 'row', gap: 8, marginTop: 10 },
     roomAction: {
+      flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       gap: 5,
-      minWidth: 82,
-      paddingHorizontal: 12,
-      paddingVertical: 10,
+      paddingVertical: 9,
       borderRadius: 10,
       backgroundColor: colors.accentMuted,
     },
     roomActionText: { color: colors.accent, fontSize: 13, fontWeight: '700' },
-    retryLink: { alignSelf: 'center', paddingVertical: 18 },
-    retryText: { color: colors.accent, fontSize: 14, fontWeight: '700' },
-    fab: {
-      position: 'absolute',
-      right: 20,
-      bottom: 18,
-      width: 52,
-      height: 52,
-      borderRadius: 26,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: colors.accent,
-      shadowColor: '#000',
-      shadowOpacity: 0.18,
-      shadowRadius: 10,
-      shadowOffset: { width: 0, height: 4 },
-      elevation: 4,
-    },
-    fabDisabled: { opacity: 0.72 },
   });
 }
 
@@ -451,13 +599,28 @@ function finderStatusStyles(colors: ThemeColors) {
   return StyleSheet.create({
     box: {
       alignItems: 'center',
-      marginTop: 24,
-      padding: 24,
-      borderRadius: 18,
+      marginTop: 16,
+      padding: 20,
+      borderRadius: 16,
       backgroundColor: colors.surface,
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.border,
     },
+    mapSkeleton: {
+      alignSelf: 'stretch',
+      height: 88,
+      borderRadius: 12,
+      backgroundColor: colors.divider,
+      marginBottom: 10,
+    },
+    cardSkeleton: {
+      alignSelf: 'stretch',
+      height: 64,
+      borderRadius: 12,
+      backgroundColor: colors.divider,
+      marginBottom: 8,
+    },
+    cardSkeletonShort: { height: 48, opacity: 0.7 },
     message: {
       color: colors.textSecondary,
       fontSize: 14,
@@ -468,13 +631,13 @@ function finderStatusStyles(colors: ThemeColors) {
     primaryButton: {
       alignSelf: 'stretch',
       alignItems: 'center',
-      paddingVertical: 14,
+      paddingVertical: 13,
       borderRadius: 12,
       backgroundColor: colors.accent,
-      marginTop: 18,
+      marginTop: 16,
     },
     primaryText: { color: '#fff', fontSize: 15, fontWeight: '700' },
-    secondaryButton: { paddingVertical: 10, marginTop: 8 },
+    secondaryButton: { paddingVertical: 10, marginTop: 6 },
     secondaryText: { color: colors.accent, fontSize: 14, fontWeight: '700' },
   });
 }
