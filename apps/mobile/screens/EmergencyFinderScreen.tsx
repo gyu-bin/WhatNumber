@@ -166,21 +166,23 @@ export function EmergencyFinderScreen({
           <View style={styles.backButton} />
         </View>
 
-        <View style={styles.hero}>
-          <View style={styles.heroIcon}>
-            <Ionicons name="medical" size={27} color={colors.accent} />
+        {state !== 'ready' ? (
+          <View style={styles.hero}>
+            <View style={styles.heroIcon}>
+              <Ionicons name="medical" size={22} color={colors.accent} />
+            </View>
+            <Text style={styles.title}>가까운 응급실을 찾아드릴게요</Text>
+            <Text style={styles.description}>현재 위치는 검색할 때만 사용하며 저장하지 않아요.</Text>
           </View>
-          <Text style={styles.title}>가까운 응급실을 찾아드릴게요</Text>
-          <Text style={styles.description}>현재 위치는 검색할 때만 사용하며 저장하지 않아요.</Text>
-        </View>
+        ) : null}
 
         <Pressable
-          style={styles.call119}
+          style={[styles.call119, state === 'ready' ? styles.call119Compact : null]}
           onPress={() => void Linking.openURL(telHref('119'))}
           accessibilityRole="button"
           accessibilityLabel="119 전화"
         >
-          <Ionicons name="call" size={17} color="#fff" />
+          <Ionicons name="call" size={15} color="#fff" />
           <Text style={styles.call119Text}>위급하면 먼저 119에 전화하세요</Text>
         </Pressable>
 
@@ -340,7 +342,7 @@ function useEmergencyStyles(colors: ThemeColors) {
       flexDirection: 'row',
       alignItems: 'center',
       minHeight: 40,
-      marginBottom: 12,
+      marginBottom: 8,
     },
     backButton: {
       width: 40,
@@ -357,39 +359,43 @@ function useEmergencyStyles(colors: ThemeColors) {
       textAlign: 'center',
       includeFontPadding: false,
     },
-    hero: { alignItems: 'center', paddingHorizontal: 18, paddingBottom: 20 },
+    hero: { alignItems: 'center', paddingHorizontal: 18, paddingBottom: 12 },
     heroIcon: {
-      width: 62,
-      height: 62,
-      borderRadius: 22,
+      width: 48,
+      height: 48,
+      borderRadius: 16,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: colors.accentMuted,
-      marginBottom: 14,
+      marginBottom: 10,
     },
-    title: { color: colors.textPrimary, fontSize: 22, fontWeight: '800', letterSpacing: -0.6 },
+    title: { color: colors.textPrimary, fontSize: 20, fontWeight: '800', letterSpacing: -0.6 },
     description: {
       color: colors.textSecondary,
-      fontSize: 14,
-      lineHeight: 21,
-      marginTop: 8,
+      fontSize: 13,
+      lineHeight: 19,
+      marginTop: 6,
       textAlign: 'center',
     },
     call119: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 7,
-      paddingVertical: 14,
-      borderRadius: 14,
+      gap: 6,
+      paddingVertical: 12,
+      borderRadius: 12,
       backgroundColor: colors.accent,
     },
-    call119Text: { color: '#fff', fontSize: 15, fontWeight: '700' },
-    results: { marginTop: 22 },
+    call119Compact: {
+      paddingVertical: 10,
+      borderRadius: 11,
+    },
+    call119Text: { color: '#fff', fontSize: 14, fontWeight: '700' },
+    results: { marginTop: 14 },
     resultHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
-    resultTitle: { color: colors.textPrimary, fontSize: 19, fontWeight: '800' },
+    resultTitle: { color: colors.textPrimary, fontSize: 17, fontWeight: '800' },
     source: { color: colors.textTertiary, fontSize: 11 },
-    updatedAt: { color: colors.textTertiary, fontSize: 12, marginTop: 5, marginBottom: 10 },
+    updatedAt: { color: colors.textTertiary, fontSize: 12, marginTop: 4, marginBottom: 8 },
     roomCard: {
       backgroundColor: colors.surface,
       borderRadius: 18,

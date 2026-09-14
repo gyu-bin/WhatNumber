@@ -2,6 +2,7 @@ import { Linking, Pressable, Text, View } from 'react-native';
 import { telHref, type NumberItem } from '@whatnumber/shared';
 import type { AppStyles } from '../styles';
 import type { ThemeColors } from '../theme';
+import { NumberVisualIcon } from './NumberVisualIcon';
 
 export function ImmediateEmergency({
   fireItem,
@@ -28,7 +29,7 @@ export function ImmediateEmergency({
           accessibilityLabel={`${fireItem.num} 소방 구급 전화`}
         >
           <View style={styles.immediateCardTop}>
-            <Text style={styles.immediateCardEmoji}>{fireItem.icon}</Text>
+            <NumberVisualIcon item={fireItem} size={36} />
             <Text style={[styles.immediateCardNum, { color: colors.accent }]}>
               {fireItem.num}
             </Text>
@@ -45,7 +46,7 @@ export function ImmediateEmergency({
           accessibilityLabel={`${policeItem.num} 경찰 전화`}
         >
           <View style={styles.immediateCardTop}>
-            <Text style={styles.immediateCardEmoji}>{policeItem.icon}</Text>
+            <NumberVisualIcon item={policeItem} size={36} />
             <Text style={[styles.immediateCardNum, { color: colors.textPrimary }]}>
               {policeItem.num}
             </Text>

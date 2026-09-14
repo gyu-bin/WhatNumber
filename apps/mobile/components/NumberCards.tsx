@@ -1,7 +1,8 @@
 import { Linking, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { iconBgColor, telHref, type NumberItem } from '@whatnumber/shared';
+import { telHref, type NumberItem } from '@whatnumber/shared';
 import type { AppStyles } from '../styles';
+import { NumberVisualIcon } from './NumberVisualIcon';
 
 export function NumberRow({
   item,
@@ -28,9 +29,7 @@ export function NumberRow({
       delayLongPress={220}
       disabled={isActive}
     >
-      <View style={[styles.iconWrap, { backgroundColor: iconBgColor(item.cat) }]}>
-        <Text style={styles.icon}>{item.icon}</Text>
-      </View>
+      <NumberVisualIcon item={item} size={44} />
       <View style={styles.cardBody}>
         <Text style={styles.cardTitle}>{item.title}</Text>
         <Text style={styles.cardDesc} numberOfLines={1}>
@@ -86,9 +85,7 @@ export function NumberGridCard({
   return (
     <Pressable style={styles.gridCard} onPress={() => onOpen(item)}>
       <View style={styles.gridCardTop}>
-        <View style={[styles.gridIconWrap, { backgroundColor: iconBgColor(item.cat) }]}>
-          <Text style={styles.gridIcon}>{item.icon}</Text>
-        </View>
+        <NumberVisualIcon item={item} size={40} />
         <Pressable
           onPress={() => onToggleFavorite(item.id)}
           hitSlop={8}

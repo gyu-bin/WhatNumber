@@ -32,7 +32,6 @@ import {
   type Category,
   type NumberItem,
   type Situation,
-  iconBgColor,
   searchNumbers,
   telHref,
 } from '@whatnumber/shared';
@@ -42,6 +41,7 @@ import { CategoryBrowse } from './components/CategoryBrowse';
 import { EmergencyFinderCard } from './components/EmergencyFinderCard';
 import { ImmediateEmergency } from './components/ImmediateEmergency';
 import { NumberRow } from './components/NumberCards';
+import { NumberVisualIcon } from './components/NumberVisualIcon';
 import { SplashAnimation } from './components/SplashAnimation';
 import { Toast } from './components/Toast';
 import { useAdMobInit } from './hooks/useAdMobInit';
@@ -130,9 +130,7 @@ function DetailSheet({
             bounces={false}
           >
             <View style={styles.sheetHeader}>
-              <View style={[styles.iconWrap, { backgroundColor: iconBgColor(item.cat) }]}>
-                <Text style={styles.iconLg}>{item.icon}</Text>
-              </View>
+              <NumberVisualIcon item={item} size={52} />
               <View style={styles.sheetHeaderText}>
                 <Text style={styles.sheetCat}>{item.cat}</Text>
                 <Text style={styles.sheetTitle}>{item.title}</Text>
