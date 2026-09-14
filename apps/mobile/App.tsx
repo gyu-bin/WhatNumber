@@ -8,6 +8,7 @@ import {
   Pressable,
   ScrollView,
   SectionList,
+  StyleSheet,
   Text,
   TextInput,
   View,
@@ -39,9 +40,9 @@ import { NumberRequestModal } from './components/NumberRequest';
 import { AdBanner } from './components/AdBanner';
 import { CategoryBrowse } from './components/CategoryBrowse';
 import { EmergencyFinderCard } from './components/EmergencyFinderCard';
+import { ImmediateEmergency } from './components/ImmediateEmergency';
 import { NumberGridCard, NumberRow } from './components/NumberCards';
 import { SplashAnimation } from './components/SplashAnimation';
-import { ViewModeToggle } from './components/ViewModeToggle';
 import { useAdMobInit } from './hooks/useAdMobInit';
 import { useFavorites } from './hooks/useFavorites';
 import { useOTAUpdates } from './hooks/useOTAUpdates';
@@ -67,14 +68,20 @@ type TabId = 'home' | 'settings';
 type SettingsView = 'main' | 'privacy';
 type HomeView = 'numbers' | 'emergency-finder' | 'category';
 
-const SITUATIONS: { id: Situation; icon: string; label: string }[] = [
+const PRIMARY_SITUATIONS: { id: Situation; icon: string; label: string }[] = [
   { id: 'emergency', icon: '🚑', label: '갑자기 아파요' },
   { id: 'car', icon: '🚗', label: '차가 고장났어요' },
-  { id: 'crime', icon: '🚨', label: '사기·범죄 피해' },
-  { id: 'home', icon: '🏠', label: '집 관련 문제' },
+  { id: 'crime', icon: '🛡', label: '사기·범죄' },
+  { id: 'home', icon: '🏠', label: '집·주거' },
+];
+
+const MORE_SITUATIONS: { id: Situation; icon: string; label: string }[] = [
   { id: 'abroad', icon: '✈️', label: '해외에 있어요' },
   { id: 'legal', icon: '⚖️', label: '법률·금융 문제' },
 ];
+
+const FIRE_ITEM = ALL_NUMBERS.find((n) => n.id === 'e2')!;
+const POLICE_ITEM = ALL_NUMBERS.find((n) => n.id === 'e3')!;
 
 const CATEGORY_ORDER: Category[] = [
   '긴급/안전',
@@ -326,9 +333,11 @@ export default function App() {
   const [settingsView, setSettingsView] = useState<SettingsView>('main');
   const [homeView, setHomeView] = useState<HomeView>('numbers');
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [selectedCategoryLabel, setSelectedCategoryLabel] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [showFavorites, setShowFavorites] = useState(false);
   const [activeSituation, setActiveSituation] = useState<Situation | null>(null);
+  const [situationMoreOpen, setSituationMoreOpen] = useState(false);
   const [collapsedCategories, setCollapsedCategories] = useState<Record<string, boolean>>({});
   const [selected, setSelected] = useState<NumberItem | null>(null);
   const [requestOpen, setRequestOpen] = useState(false);
@@ -416,10 +425,13 @@ export default function App() {
   const isBrowseHome = groupByCategory;
   const isFavoritesView = showFavorites && !isSearching && !activeSituation;
 
-  const openCategory = useCallback((category: Category) => {
+  const openCategory = useCallback((category: Category, label?: string) => {
     setSelectedCategory(category);
+    setSelectedCategoryLabel(label ?? null);
     setHomeView('category');
   }, []);
+
+  const isMoreSituationActive = MORE_SITUATIONS.some((sit) => sit.id === activeSituation);
 
   const toggleCategory = useCallback((key: string) => {
     setCollapsedCategories((current) => ({ ...current, [key]: !current[key] }));
@@ -479,11 +491,9 @@ export default function App() {
             accessibilityLabel="몇번이야"
             accessibilityIgnoresInvertColors
           />
+          <Text style={styles.headerSubtitle}>필요한 번호, 바로 찾아드릴게요.</Text>
         </View>
-        <ViewModeToggle mode={viewMode} colors={themeColors} onChange={setViewMode} />
       </View>
-
-      <Text style={styles.headerSubtitle}>필요한 번호, 바로 찾아드릴게요.</Text>
 
       <View style={styles.searchShell}>
         <Ionicons name="search-outline" size={23} color={themeColors.textTertiary} />
@@ -525,11 +535,11 @@ export default function App() {
                   styles.situationChipFavTextActive,
                 ]}
               >
-                {favorites.length > 0 ? `⭐ 즐겨찾기 ${favorites.length}` : '⭐ 즐겨찾기'}
+                {favorites.length > 0 ? `★ 즐겨찾기 ${favorites.length}` : '★ 즐겨찾기'}
               </Text>
             </Pressable>
 
-            {SITUATIONS.map((sit) => {
+            {PRIMARY_SITUATIONS.map((sit) => {
               const isActive = activeSituation === sit.id;
               return (
                 <Pressable
@@ -554,6 +564,26 @@ export default function App() {
                 </Pressable>
               );
             })}
+
+            <Pressable
+              style={[
+                styles.situationChip,
+                isMoreSituationActive && styles.situationChipActive,
+              ]}
+              onPress={() => setSituationMoreOpen(true)}
+              accessibilityLabel="상황 더보기"
+              accessibilityState={{ selected: isMoreSituationActive }}
+            >
+              <Text style={styles.situationIcon}>•••</Text>
+              <Text
+                style={[
+                  styles.situationChipText,
+                  isMoreSituationActive && styles.situationChipTextActive,
+                ]}
+              >
+                더보기
+              </Text>
+            </Pressable>
           </ScrollView>
 
           {activeSituation ? (
@@ -564,12 +594,6 @@ export default function App() {
         </View>
       )}
       </View>
-
-      <EmergencyFinderCard
-        styles={styles}
-        colors={themeColors}
-        onPress={() => setHomeView('emergency-finder')}
-      />
     </View>
   );
 
@@ -600,6 +624,18 @@ export default function App() {
       contentContainerStyle={styles.listContent}
     >
       {listHeader}
+      <EmergencyFinderCard
+        styles={styles}
+        colors={themeColors}
+        onPress={() => setHomeView('emergency-finder')}
+      />
+      <ImmediateEmergency
+        fireItem={FIRE_ITEM}
+        policeItem={POLICE_ITEM}
+        styles={styles}
+        colors={themeColors}
+        onOpen={setSelected}
+      />
       <CategoryBrowse
         styles={styles}
         colors={themeColors}
@@ -607,6 +643,14 @@ export default function App() {
       />
     </ScrollView>
   );
+
+  const showHomeNumbers = tab === 'home' && homeView === 'numbers';
+  const showBrowse = showHomeNumbers && isBrowseHome;
+  const showFavoritesList = showHomeNumbers && isFavoritesView;
+  const showFilteredList = showHomeNumbers && !isBrowseHome && !isFavoritesView;
+  const showCategory = tab === 'home' && homeView === 'category' && selectedCategory;
+  const showEmergencyFinder = tab === 'home' && homeView === 'emergency-finder';
+  const showSettings = tab === 'settings';
 
   const favoritesHeader = (
     <View>
@@ -683,43 +727,64 @@ export default function App() {
             <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
 
             <View style={styles.main}>
-              {tab === 'home' ? (
-                homeView === 'emergency-finder' ? (
-                  <EmergencyFinderScreen
-                    colors={themeColors}
-                    onBack={() => setHomeView('numbers')}
-                  />
-                ) : homeView === 'category' && selectedCategory ? (
-                  <CategoryScreen
-                    category={selectedCategory}
-                    subtitle={CATEGORY_SUBTITLES[selectedCategory]}
-                    items={ALL_NUMBERS.filter((item) => item.cat === selectedCategory)}
-                    viewMode={viewMode}
-                    styles={styles}
-                    colors={themeColors}
-                    isFavorite={isFavorite}
-                    onToggleFavorite={toggle}
-                    onOpen={setSelected}
-                    onBack={() => {
-                      setHomeView('numbers');
-                      setSelectedCategory(null);
-                    }}
-                  />
-                ) : isFavoritesView ? (
-                  <DraggableFlatList
-                    data={filtered}
-                    keyExtractor={(item) => item.id}
-                    onDragEnd={({ data }) => reorder(data.map((entry) => entry.id))}
-                    activationDistance={8}
-                    keyboardShouldPersistTaps="handled"
-                    contentContainerStyle={styles.listContent}
-                    ListHeaderComponent={favoritesHeader}
-                    ListEmptyComponent={emptyComponent}
-                    renderItem={renderFavoriteItem}
-                  />
-                ) : isBrowseHome ? (
-                  browseHome
-                ) : viewMode === 'card' ? (
+              {/* Browse Home은 언마운트하지 않아 탭/카테고리 왕복 시 스크롤 유지 */}
+              {isBrowseHome ? (
+                <View
+                  style={
+                    showBrowse
+                      ? { flex: 1 }
+                      : [StyleSheet.absoluteFill, { opacity: 0, zIndex: 0 }]
+                  }
+                  pointerEvents={showBrowse ? 'auto' : 'none'}
+                  importantForAccessibility={showBrowse ? 'yes' : 'no-hide-descendants'}
+                >
+                  {browseHome}
+                </View>
+              ) : null}
+
+              {showEmergencyFinder ? (
+                <EmergencyFinderScreen
+                  colors={themeColors}
+                  onBack={() => setHomeView('numbers')}
+                />
+              ) : null}
+
+              {showCategory ? (
+                <CategoryScreen
+                  category={selectedCategory}
+                  title={selectedCategoryLabel ?? undefined}
+                  subtitle={CATEGORY_SUBTITLES[selectedCategory]}
+                  items={ALL_NUMBERS.filter((item) => item.cat === selectedCategory)}
+                  viewMode={viewMode}
+                  styles={styles}
+                  colors={themeColors}
+                  isFavorite={isFavorite}
+                  onToggleFavorite={toggle}
+                  onOpen={setSelected}
+                  onBack={() => {
+                    setHomeView('numbers');
+                    setSelectedCategory(null);
+                    setSelectedCategoryLabel(null);
+                  }}
+                />
+              ) : null}
+
+              {showFavoritesList ? (
+                <DraggableFlatList
+                  data={filtered}
+                  keyExtractor={(item) => item.id}
+                  onDragEnd={({ data }) => reorder(data.map((entry) => entry.id))}
+                  activationDistance={8}
+                  keyboardShouldPersistTaps="handled"
+                  contentContainerStyle={styles.listContent}
+                  ListHeaderComponent={favoritesHeader}
+                  ListEmptyComponent={emptyComponent}
+                  renderItem={renderFavoriteItem}
+                />
+              ) : null}
+
+              {showFilteredList ? (
+                viewMode === 'card' ? (
                   <SectionList
                     sections={cardSections}
                     keyExtractor={(row) => row.id}
@@ -803,26 +868,30 @@ export default function App() {
                     )}
                   />
                 )
-              ) : settingsView === 'privacy' ? (
-                <PrivacyScreen
-                  styles={styles}
-                  colors={themeColors}
-                  onBack={() => setSettingsView('main')}
-                />
-              ) : (
-                <MoreScreen
-                  styles={styles}
-                  colors={themeColors}
-                  theme={theme}
-                  onChangeTheme={(next) => {
-                    if (next !== theme) toggleTheme();
-                  }}
-                  viewMode={viewMode}
-                  onChangeViewMode={setViewMode}
-                  onOpenRequest={() => setRequestOpen(true)}
-                  onOpenPrivacy={() => setSettingsView('privacy')}
-                />
-              )}
+              ) : null}
+
+              {showSettings ? (
+                settingsView === 'privacy' ? (
+                  <PrivacyScreen
+                    styles={styles}
+                    colors={themeColors}
+                    onBack={() => setSettingsView('main')}
+                  />
+                ) : (
+                  <MoreScreen
+                    styles={styles}
+                    colors={themeColors}
+                    theme={theme}
+                    onChangeTheme={(next) => {
+                      if (next !== theme) toggleTheme();
+                    }}
+                    viewMode={viewMode}
+                    onChangeViewMode={setViewMode}
+                    onOpenRequest={() => setRequestOpen(true)}
+                    onOpenPrivacy={() => setSettingsView('privacy')}
+                  />
+                )
+              ) : null}
             </View>
 
             {!(
@@ -840,6 +909,7 @@ export default function App() {
                 if (next !== 'home') {
                   setHomeView('numbers');
                   setSelectedCategory(null);
+                  setSelectedCategoryLabel(null);
                 }
               }}
               styles={styles}
@@ -852,6 +922,45 @@ export default function App() {
               styles={styles}
               colors={themeColors}
             />
+
+            <Modal
+              visible={situationMoreOpen}
+              transparent
+              animationType="slide"
+              onRequestClose={() => setSituationMoreOpen(false)}
+            >
+              <View style={styles.requestOverlay}>
+                <Pressable
+                  style={styles.requestBackdrop}
+                  onPress={() => setSituationMoreOpen(false)}
+                />
+                <View style={styles.situationMoreSheet}>
+                  <View style={styles.situationMoreHandle} />
+                  <Text style={styles.situationMoreTitle}>다른 상황</Text>
+                  {MORE_SITUATIONS.map((sit) => {
+                    const isActive = activeSituation === sit.id;
+                    return (
+                      <Pressable
+                        key={sit.id}
+                        style={styles.situationMoreRow}
+                        onPress={() => {
+                          setActiveSituation(isActive ? null : sit.id);
+                          if (!isActive) setShowFavorites(false);
+                          setSituationMoreOpen(false);
+                        }}
+                        accessibilityState={{ selected: isActive }}
+                      >
+                        <Text style={styles.situationIcon}>{sit.icon}</Text>
+                        <Text style={styles.situationMoreRowText}>{sit.label}</Text>
+                        {isActive ? (
+                          <Ionicons name="checkmark" size={18} color={themeColors.accent} />
+                        ) : null}
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
+            </Modal>
 
             {selected ? (
               <DetailSheet

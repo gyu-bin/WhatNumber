@@ -1,0 +1,59 @@
+import { Linking, Pressable, Text, View } from 'react-native';
+import { telHref, type NumberItem } from '@whatnumber/shared';
+import type { AppStyles } from '../styles';
+import type { ThemeColors } from '../theme';
+
+export function ImmediateEmergency({
+  fireItem,
+  policeItem,
+  styles,
+  colors,
+  onOpen,
+}: {
+  fireItem: NumberItem;
+  policeItem: NumberItem;
+  styles: AppStyles;
+  colors: ThemeColors;
+  onOpen: (item: NumberItem) => void;
+}) {
+  return (
+    <View style={styles.immediateEmergency}>
+      <Text style={styles.immediateEmergencyTitle}>지금 바로 필요한 번호</Text>
+      <View style={styles.immediateEmergencyRow}>
+        <Pressable
+          style={[styles.immediateCard, styles.immediateCardFire]}
+          onPress={() => void Linking.openURL(telHref(fireItem.num))}
+          onLongPress={() => onOpen(fireItem)}
+          accessibilityRole="button"
+          accessibilityLabel={`${fireItem.num} 소방 구급 전화`}
+        >
+          <View style={styles.immediateCardTop}>
+            <Text style={styles.immediateCardEmoji}>{fireItem.icon}</Text>
+            <Text style={[styles.immediateCardNum, { color: colors.accent }]}>
+              {fireItem.num}
+            </Text>
+          </View>
+          <Text style={styles.immediateCardLabel}>소방·구급</Text>
+          <Text style={styles.immediateCardDesc}>화재 · 구조 · 응급상황</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.immediateCard, styles.immediateCardPolice]}
+          onPress={() => void Linking.openURL(telHref(policeItem.num))}
+          onLongPress={() => onOpen(policeItem)}
+          accessibilityRole="button"
+          accessibilityLabel={`${policeItem.num} 경찰 전화`}
+        >
+          <View style={styles.immediateCardTop}>
+            <Text style={styles.immediateCardEmoji}>{policeItem.icon}</Text>
+            <Text style={[styles.immediateCardNum, { color: colors.textPrimary }]}>
+              {policeItem.num}
+            </Text>
+          </View>
+          <Text style={styles.immediateCardLabel}>경찰</Text>
+          <Text style={styles.immediateCardDesc}>범죄 · 신고 · 긴급상황</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}

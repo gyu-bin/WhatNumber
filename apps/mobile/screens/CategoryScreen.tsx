@@ -26,6 +26,7 @@ function chunkToRows(items: NumberItem[]): CardRow[] {
 
 export function CategoryScreen({
   category,
+  title,
   subtitle,
   items,
   viewMode,
@@ -37,6 +38,7 @@ export function CategoryScreen({
   onBack,
 }: {
   category: Category;
+  title?: string;
   subtitle?: string;
   items: NumberItem[];
   viewMode: ViewMode;
@@ -62,7 +64,7 @@ export function CategoryScreen({
         </Pressable>
         <View style={styles.categoryScreenTitleWrap}>
           <Text style={styles.categoryScreenTitle} numberOfLines={1}>
-            {category}
+            {title ?? category}
           </Text>
           {subtitle ? (
             <Text style={styles.categoryScreenSubtitle} numberOfLines={1}>

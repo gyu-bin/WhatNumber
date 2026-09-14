@@ -7,28 +7,62 @@ import type { ThemeColors } from '../theme';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
-export const BROWSE_CATEGORIES = [
-  '긴급/안전',
-  '교통/차량',
-  '법률/금융',
-  '주거/생활',
-  '가족/복지',
-  '민원/행정',
-  '고용/노동',
-  '통신/디지털',
-] as const satisfies readonly Category[];
-
-const CATEGORY_TILE: Record<(typeof BROWSE_CATEGORIES)[number], { icon: IconName; subtitle: string }> =
+/** Home tile label → existing Category (no new DB categories). */
+export const HOME_CATEGORY_TILES: {
+  label: string;
+  category: Category;
+  icon: IconName;
+  subtitle: string;
+}[] = [
   {
-    '긴급/안전': { icon: 'alert-circle-outline', subtitle: '신고·응급·위기 상담' },
-    '교통/차량': { icon: 'car-outline', subtitle: '사고·고장·교통정보' },
-    '법률/금융': { icon: 'card-outline', subtitle: '금융·카드·법률 상담' },
-    '주거/생활': { icon: 'home-outline', subtitle: '가스·전기·주거 문제' },
-    '가족/복지': { icon: 'people-outline', subtitle: '가족·복지·상담' },
-    '민원/행정': { icon: 'document-text-outline', subtitle: '민원·행정 안내' },
-    '고용/노동': { icon: 'briefcase-outline', subtitle: '고용·노동 상담' },
-    '통신/디지털': { icon: 'phone-portrait-outline', subtitle: '통신·해킹·스팸 신고' },
-  };
+    label: '교통/차량',
+    category: '교통/차량',
+    icon: 'car-outline',
+    subtitle: '사고 · 고장 · 교통정보',
+  },
+  {
+    label: '금융/카드',
+    category: '법률/금융',
+    icon: 'card-outline',
+    subtitle: '분실 · 사기 · 금융상담',
+  },
+  {
+    label: '집·주거',
+    category: '주거/생활',
+    icon: 'home-outline',
+    subtitle: '전월세 · 주거복지',
+  },
+  {
+    label: '가족/복지',
+    category: '가족/복지',
+    icon: 'people-outline',
+    subtitle: '아동 · 청소년 · 노인 · 마음건강',
+  },
+  {
+    label: '생활/민원',
+    category: '민원/행정',
+    icon: 'document-text-outline',
+    subtitle: '행정 · 세금 · 민원안내',
+  },
+  {
+    label: '고용/노동',
+    category: '고용/노동',
+    icon: 'briefcase-outline',
+    subtitle: '실업급여 · 노동상담',
+  },
+  {
+    label: '통신/디지털',
+    category: '통신/디지털',
+    icon: 'phone-portrait-outline',
+    subtitle: '해킹 · 스팸 · 통신서비스',
+  },
+  {
+    label: '기타',
+    category: '긴급/안전',
+    icon: 'ellipsis-horizontal-circle-outline',
+    subtitle: '응급 · 신고 · 해외 상담',
+  },
+];
 
 export function CategoryBrowse({
   styles,
@@ -37,7 +71,7 @@ export function CategoryBrowse({
 }: {
   styles: AppStyles;
   colors: ThemeColors;
-  onOpenCategory: (category: Category) => void;
+  onOpenCategory: (category: Category, label: string) => void;
 }) {
   return (
     <View style={styles.categoryBrowse}>
@@ -46,27 +80,24 @@ export function CategoryBrowse({
       </View>
 
       <View style={styles.categoryGrid}>
-        {BROWSE_CATEGORIES.map((category) => {
-          const tile = CATEGORY_TILE[category];
-          return (
-            <Pressable
-              key={category}
-              style={styles.categoryTile}
-              onPress={() => onOpenCategory(category)}
-              accessibilityRole="button"
-              accessibilityLabel={`${category} 번호 보기`}
-            >
-              <Ionicons name={tile.icon} size={20} color={colors.textPrimary} />
-              <View style={styles.categoryTileText}>
-                <Text style={styles.categoryTileTitle}>{category}</Text>
-                <Text style={styles.categoryTileSubtitle} numberOfLines={2}>
-                  {tile.subtitle}
-                </Text>
-              </View>
-              <Ionicons name="chevron-forward" size={14} color={colors.textTertiary} />
-            </Pressable>
-          );
-        })}
+        {HOME_CATEGORY_TILES.map((tile) => (
+          <Pressable
+            key={tile.label}
+            style={styles.categoryTile}
+            onPress={() => onOpenCategory(tile.category, tile.label)}
+            accessibilityRole="button"
+            accessibilityLabel={`${tile.label} 번호 보기`}
+          >
+            <Ionicons name={tile.icon} size={20} color={colors.textPrimary} />
+            <View style={styles.categoryTileText}>
+              <Text style={styles.categoryTileTitle}>{tile.label}</Text>
+              <Text style={styles.categoryTileSubtitle} numberOfLines={2}>
+                {tile.subtitle}
+              </Text>
+            </View>
+            <Ionicons name="chevron-forward" size={14} color={colors.textTertiary} />
+          </Pressable>
+        ))}
       </View>
     </View>
   );
