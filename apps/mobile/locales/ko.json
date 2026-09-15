@@ -1,4 +1,8 @@
 {
-  "CFBundleDisplayName": "몇번이야",
-  "android.app_name": "몇번이야"
+  "ios": {
+    "CFBundleDisplayName": "몇번이야"
+  },
+  "android": {
+    "app_name": "몇번이야"
+  }
 }
