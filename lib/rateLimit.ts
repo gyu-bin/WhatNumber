@@ -1,6 +1,9 @@
 /**
  * Best-effort in-memory rate limit for Vercel serverless.
  * Resets when the isolate is recycled — still blocks burst abuse.
+ *
+ * Kept outside `/api` so Vercel packages it with each function import.
+ * (api/_*.ts sibling imports fail with ERR_MODULE_NOT_FOUND on Node ESM.)
  */
 const buckets = new Map<string, { count: number; resetAt: number }>();
 

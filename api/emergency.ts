@@ -1,4 +1,4 @@
-import { clientKey, rateLimitAllow } from './_rateLimit';
+import { clientKey, rateLimitAllow } from '../lib/rateLimit';
 
 const NEMC_LOCATION_URL =
   'https://apis.data.go.kr/B552657/ErmctInfoInqireService/getEgytLcinfoInqire';

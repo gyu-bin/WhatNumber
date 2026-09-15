@@ -1,4 +1,4 @@
-import { clientKey, rateLimitAllow } from './_rateLimit';
+import { clientKey, rateLimitAllow } from '../lib/rateLimit';
 
 declare const process: { env: Record<string, string | undefined> };
 
