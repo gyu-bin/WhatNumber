@@ -1,4 +1,4 @@
-import { clientKey, rateLimitAllow } from '../lib/rateLimit';
+declare const process: { env: Record<string, string | undefined> };
 
 const NEMC_LOCATION_URL =
   'https://apis.data.go.kr/B552657/ErmctInfoInqireService/getEgytLcinfoInqire';
@@ -6,8 +6,31 @@ const NEMC_BEDS_URL =
   'https://apis.data.go.kr/B552657/ErmctInfoInqireService/getEmrrmRltmUsefulSckbdInfoInqire';
 const UPSTREAM_TIMEOUT_MS = 7_000;
 const MAX_RESULTS = 20;
+const RATE_LIMIT = 30;
+const RATE_WINDOW_MS = 60_000;
 
-declare const process: { env: Record<string, string | undefined> };
+const rateBuckets = new Map<string, { count: number; resetAt: number }>();
+
+function clientKey(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) {
+    const first = forwarded.split(',')[0]?.trim();
+    if (first) return first;
+  }
+  return request.headers.get('x-real-ip')?.trim() || 'unknown';
+}
+
+function rateLimitAllow(key: string, limit: number, windowMs: number): boolean {
+  const now = Date.now();
+  const entry = rateBuckets.get(key);
+  if (!entry || entry.resetAt <= now) {
+    rateBuckets.set(key, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+  if (entry.count >= limit) return false;
+  entry.count += 1;
+  return true;
+}
 
 type Coordinate = {
   latitude: number;
@@ -344,7 +367,7 @@ export default {
       return new Response(null, { status: 405, headers: { Allow: 'GET' } });
     }
 
-    if (!rateLimitAllow(`emergency:${clientKey(request)}`, 30, 60_000)) {
+    if (!rateLimitAllow(`emergency:${clientKey(request)}`, RATE_LIMIT, RATE_WINDOW_MS)) {
       return json({ error: '요청이 많아요. 잠시 후 다시 시도해 주세요.' }, 429);
     }
 

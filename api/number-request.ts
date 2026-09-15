@@ -1,10 +1,33 @@
-import { clientKey, rateLimitAllow } from '../lib/rateLimit';
-
 declare const process: { env: Record<string, string | undefined> };
 
 const RESEND_API_URL = 'https://api.resend.com/emails';
 const MAX_FIELD_LENGTH = 500;
 const MAX_BODY_LENGTH = 2_000;
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60_000;
+
+const rateBuckets = new Map<string, { count: number; resetAt: number }>();
+
+function clientKey(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) {
+    const first = forwarded.split(',')[0]?.trim();
+    if (first) return first;
+  }
+  return request.headers.get('x-real-ip')?.trim() || 'unknown';
+}
+
+function rateLimitAllow(key: string, limit: number, windowMs: number): boolean {
+  const now = Date.now();
+  const entry = rateBuckets.get(key);
+  if (!entry || entry.resetAt <= now) {
+    rateBuckets.set(key, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+  if (entry.count >= limit) return false;
+  entry.count += 1;
+  return true;
+}
 
 type ContactKind = 'number-request' | 'feedback';
 
@@ -108,7 +131,7 @@ export default {
       });
     }
 
-    if (!rateLimitAllow(`number-request:${clientKey(request)}`, 5, 60_000)) {
+    if (!rateLimitAllow(`number-request:${clientKey(request)}`, RATE_LIMIT, RATE_WINDOW_MS)) {
       return json({ error: '요청이 많아요. 잠시 후 다시 시도해 주세요.' }, 429);
     }
 
