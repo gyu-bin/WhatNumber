@@ -225,7 +225,8 @@ function TabBar({
 }
 
 export default function App() {
-  useOTAUpdates();
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  useOTAUpdates(setToastMessage);
   useAdMobInit();
   const [tab, setTab] = useState<TabId>('home');
   const [settingsView, setSettingsView] = useState<SettingsView>('main');
@@ -239,7 +240,6 @@ export default function App() {
   const [selected, setSelected] = useState<NumberItem | null>(null);
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<'number' | 'feedback'>('number');
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
   /** Cold start only — never re-shown on background → foreground */
   const [showSplash, setShowSplash] = useState(true);
   const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
