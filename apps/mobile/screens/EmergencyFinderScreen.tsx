@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import NetInfo from '@react-native-community/netinfo';
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -29,10 +29,10 @@ import type { Coordinate, EmergencyRoom } from '../services/emergency/types';
 import { openDirections } from '../services/maps';
 import type { ThemeColors } from '../theme';
 
-/** iOS/Android 시뮬레이터 테스트용: 용인시 수지구 (수지구청 부근) */
+/** iOS/Android 시뮬레이터 테스트용: 강남역 */
 const SIMULATOR_LOCATION: Coordinate = {
-  latitude: 37.3225,
-  longitude: 127.0975,
+  latitude: 37.4979,
+  longitude: 127.0276,
 };
 
 const MAP_HEIGHT = Math.round(Dimensions.get('window').height * 0.3);
@@ -49,6 +49,29 @@ type FinderState =
   | 'api-error'
   | 'empty';
 
+type RoomSort = 'distance' | 'beds';
+
+function sortRooms(rooms: EmergencyRoom[], sort: RoomSort): EmergencyRoom[] {
+  const next = [...rooms];
+  if (sort === 'distance') {
+    next.sort((a, b) => a.distanceKm - b.distanceKm);
+    return next;
+  }
+
+  // More available beds first; unknown bed counts sink to the bottom.
+  next.sort((a, b) => {
+    const aBeds = a.availableBeds;
+    const bBeds = b.availableBeds;
+    const aKnown = typeof aBeds === 'number';
+    const bKnown = typeof bBeds === 'number';
+    if (aKnown && !bKnown) return -1;
+    if (!aKnown && bKnown) return 1;
+    if (aKnown && bKnown && aBeds !== bBeds) return bBeds - aBeds;
+    return a.distanceKm - b.distanceKm;
+  });
+  return next;
+}
+
 export function EmergencyFinderScreen({
   colors,
   onBack,
@@ -57,13 +80,14 @@ export function EmergencyFinderScreen({
   onBack: () => void;
 }) {
   const styles = useEmergencyStyles(colors);
-  const [state, setState] = useState<FinderState>('idle');
+  const [state, setState] = useState<FinderState>('locating');
   const [rooms, setRooms] = useState<EmergencyRoom[]>([]);
   const [fetchedAt, setFetchedAt] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [refreshing, setRefreshing] = useState(false);
   const [userLocation, setUserLocation] = useState<Coordinate | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [roomSort, setRoomSort] = useState<RoomSort>('distance');
 
   const mapRef = useRef<EmergencyMapHandle>(null);
   const listRef = useRef<ScrollView>(null);
@@ -99,7 +123,7 @@ export function EmergencyFinderScreen({
         return;
       }
 
-      // 시뮬레이터는 Cupertino 등으로 잡히는 경우가 많아 용인 수지구로 고정
+      // 시뮬레이터는 Cupertino 등으로 잡히는 경우가 많아 강남역으로 고정
       const currentLocation: Coordinate = Device.isDevice
         ? await Location.getCurrentPositionAsync({
             accuracy: Location.Accuracy.Balanced,
@@ -142,9 +166,16 @@ export function EmergencyFinderScreen({
     }
   }, [findRooms, refreshing, rooms.length, state]);
 
+  // Entering this screen starts the search immediately (no confirm button).
+  useEffect(() => {
+    void findRooms();
+  }, [findRooms]);
+
   const isBusy = state === 'locating' || state === 'loading' || refreshing;
   const canShowNativeMap = Boolean(userLocation) || rooms.length > 0;
   const resultsOffsetRef = useRef(0);
+
+  const sortedRooms = useMemo(() => sortRooms(rooms, roomSort), [rooms, roomSort]);
 
   const selectFromMarker = useCallback((id: string) => {
     setSelectedId(id);
@@ -208,9 +239,7 @@ export function EmergencyFinderScreen({
                   ? '현재 위치를 확인할 수 없어요'
                   : state === 'api-error' || state === 'offline' || state === 'configuration-error'
                     ? '지도를 표시하려면 다시 시도해 주세요'
-                    : state === 'idle'
-                      ? '아래 버튼으로 주변 응급실을 찾아보세요'
-                      : '주변 응급실 지도를 준비 중이에요'}
+                    : '주변 응급실 지도를 준비 중이에요'}
               </Text>
             </>
           )}
@@ -280,9 +309,46 @@ export function EmergencyFinderScreen({
                 </Text>
                 <Text style={styles.source}>국립중앙의료원 제공 정보</Text>
               </View>
+              <View style={styles.sortRow} accessibilityRole="tablist">
+                <Pressable
+                  style={[
+                    styles.sortChip,
+                    roomSort === 'distance' ? styles.sortChipActive : null,
+                  ]}
+                  onPress={() => setRoomSort('distance')}
+                  accessibilityRole="tab"
+                  accessibilityState={{ selected: roomSort === 'distance' }}
+                  accessibilityLabel="가까운 순으로 정렬"
+                >
+                  <Text
+                    style={[
+                      styles.sortChipText,
+                      roomSort === 'distance' ? styles.sortChipTextActive : null,
+                    ]}
+                  >
+                    가까운순
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.sortChip, roomSort === 'beds' ? styles.sortChipActive : null]}
+                  onPress={() => setRoomSort('beds')}
+                  accessibilityRole="tab"
+                  accessibilityState={{ selected: roomSort === 'beds' }}
+                  accessibilityLabel="병상 많은 순으로 정렬"
+                >
+                  <Text
+                    style={[
+                      styles.sortChipText,
+                      roomSort === 'beds' ? styles.sortChipTextActive : null,
+                    ]}
+                  >
+                    병상 많은순
+                  </Text>
+                </Pressable>
+              </View>
             </View>
 
-            {rooms.map((room) => {
+            {sortedRooms.map((room) => {
               const selected = room.id === selectedId;
               return (
                 <Pressable
@@ -404,7 +470,7 @@ function renderFinderState({
   const styles = finderStatusStyles(colors);
   const isBusy = state === 'locating' || state === 'loading';
   const message = {
-    idle: '가까운 응급실을 찾으려면 현재 위치가 필요해요. 위치는 검색에만 쓰이며 저장하지 않아요.',
+    idle: '현재 위치를 확인하고 있어요.',
     locating: '현재 위치를 확인하고 있어요.',
     loading: '응급실 정보를 불러오고 있어요.',
     'permission-denied': '현재 위치를 확인할 수 없어요. 위치 권한을 확인해 주세요.',
@@ -436,9 +502,7 @@ function renderFinderState({
       ) : null}
       {!isBusy ? (
         <Pressable style={styles.primaryButton} onPress={onFind}>
-          <Text style={styles.primaryText}>
-            {state === 'idle' ? '내 주변 응급실 찾기' : '다시 시도'}
-          </Text>
+          <Text style={styles.primaryText}>다시 시도</Text>
         </Pressable>
       ) : null}
     </View>
@@ -533,6 +597,33 @@ function useEmergencyStyles(colors: ThemeColors) {
     },
     updatedAt: { color: colors.textSecondary, fontSize: 12, flex: 1 },
     source: { color: colors.textTertiary, fontSize: 11 },
+    sortRow: {
+      marginTop: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    sortChip: {
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+      borderRadius: 999,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.border,
+      backgroundColor: colors.surface,
+    },
+    sortChipActive: {
+      borderColor: colors.accent,
+      backgroundColor: colors.accentMuted,
+    },
+    sortChipText: {
+      color: colors.textSecondary,
+      fontSize: 13,
+      fontWeight: '600',
+    },
+    sortChipTextActive: {
+      color: colors.accent,
+      fontWeight: '800',
+    },
     roomCard: {
       backgroundColor: colors.surface,
       borderRadius: 14,

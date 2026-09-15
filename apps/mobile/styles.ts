@@ -415,6 +415,25 @@ export function createStyles(colors: ThemeColors) {
       lineHeight: 16,
       color: colors.textSecondary,
     },
+    immediateCallBtn: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 4,
+      alignSelf: 'stretch',
+      marginTop: 12,
+      paddingVertical: 9,
+      borderRadius: 10,
+      backgroundColor: colors.accentMuted,
+    },
+    immediateCallBtnOnFire: {
+      backgroundColor: colors.surface,
+    },
+    immediateCallText: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: colors.accent,
+    },
 
     situationMoreSheet: {
       backgroundColor: colors.surface,

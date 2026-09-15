@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Linking, Pressable, Text, View } from 'react-native';
 import { telHref, type NumberItem } from '@whatnumber/shared';
 import type { AppStyles } from '../styles';
@@ -23,10 +24,9 @@ export function ImmediateEmergency({
       <View style={styles.immediateEmergencyRow}>
         <Pressable
           style={[styles.immediateCard, styles.immediateCardFire]}
-          onPress={() => void Linking.openURL(telHref(fireItem.num))}
-          onLongPress={() => onOpen(fireItem)}
+          onPress={() => onOpen(fireItem)}
           accessibilityRole="button"
-          accessibilityLabel={`${fireItem.num} 소방 구급 전화`}
+          accessibilityLabel={`${fireItem.num} 소방 구급 상세`}
         >
           <View style={styles.immediateCardTop}>
             <NumberVisualIcon item={fireItem} size={36} />
@@ -36,14 +36,22 @@ export function ImmediateEmergency({
           </View>
           <Text style={styles.immediateCardLabel}>소방·구급</Text>
           <Text style={styles.immediateCardDesc}>화재 · 구조 · 응급상황</Text>
+          <Pressable
+            style={[styles.immediateCallBtn, styles.immediateCallBtnOnFire]}
+            onPress={() => void Linking.openURL(telHref(fireItem.num))}
+            accessibilityRole="button"
+            accessibilityLabel={`${fireItem.num} 전화`}
+          >
+            <Ionicons name="call" size={14} color={colors.accent} />
+            <Text style={styles.immediateCallText}>전화</Text>
+          </Pressable>
         </Pressable>
 
         <Pressable
           style={[styles.immediateCard, styles.immediateCardPolice]}
-          onPress={() => void Linking.openURL(telHref(policeItem.num))}
-          onLongPress={() => onOpen(policeItem)}
+          onPress={() => onOpen(policeItem)}
           accessibilityRole="button"
-          accessibilityLabel={`${policeItem.num} 경찰 전화`}
+          accessibilityLabel={`${policeItem.num} 경찰 상세`}
         >
           <View style={styles.immediateCardTop}>
             <NumberVisualIcon item={policeItem} size={36} />
@@ -53,6 +61,15 @@ export function ImmediateEmergency({
           </View>
           <Text style={styles.immediateCardLabel}>경찰</Text>
           <Text style={styles.immediateCardDesc}>범죄 · 신고 · 긴급상황</Text>
+          <Pressable
+            style={styles.immediateCallBtn}
+            onPress={() => void Linking.openURL(telHref(policeItem.num))}
+            accessibilityRole="button"
+            accessibilityLabel={`${policeItem.num} 전화`}
+          >
+            <Ionicons name="call" size={14} color={colors.accent} />
+            <Text style={styles.immediateCallText}>전화</Text>
+          </Pressable>
         </Pressable>
       </View>
     </View>
