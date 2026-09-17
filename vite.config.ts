@@ -71,6 +71,14 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        // SPA fallback이 ads.txt 등을 가로채지 않도록 (브라우저·크롤러 모두 원문 확인 가능)
+        navigateFallbackDenylist: [
+          /^\/api\//,
+          /^\/ads\.txt$/,
+          /^\/app-ads\.txt$/,
+          /^\/robots\.txt$/,
+          /^\/sitemap\.xml$/,
+        ],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,

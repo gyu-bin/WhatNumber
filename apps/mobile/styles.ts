@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { getHomeMetrics } from './layout';
 import type { ThemeColors } from './theme';
 
 export function createStyles(colors: ThemeColors) {
+  const home = getHomeMetrics();
+
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -14,19 +17,19 @@ export function createStyles(colors: ThemeColors) {
       paddingBottom: 0,
     },
     homeHero: {
-      paddingBottom: 12,
+      paddingBottom: home.heroPadBottom,
       backgroundColor: colors.heroBg,
     },
     listContent: {
-      paddingBottom: 28,
+      paddingBottom: home.listPadBottom,
     },
     header: {
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'space-between',
       paddingHorizontal: 20,
-      paddingTop: 16,
-      paddingBottom: 8,
+      paddingTop: home.headerPadTop,
+      paddingBottom: home.headerPadBottom,
     },
     headerText: {
       flex: 1,
@@ -35,18 +38,18 @@ export function createStyles(colors: ThemeColors) {
       alignItems: 'flex-start',
     },
     logoWordmark: {
-      width: 220,
-      height: 82,
+      width: home.logoWidth,
+      height: home.logoHeight,
       backgroundColor: 'transparent',
-      marginBottom: -6,
+      marginBottom: -4,
     },
     headerSubtitle: {
       marginLeft: 24,
       marginRight: 8,
       marginTop: 0,
       marginBottom: 0,
-      fontSize: 15,
-      lineHeight: 21,
+      fontSize: home.subtitleSize,
+      lineHeight: home.subtitleLineHeight,
       fontWeight: '600',
       letterSpacing: -0.2,
       color: colors.textSecondary,
@@ -55,10 +58,10 @@ export function createStyles(colors: ThemeColors) {
       flexDirection: 'row',
       alignItems: 'center',
       marginHorizontal: 20,
-      marginTop: 8,
+      marginTop: home.erMarginTop,
       marginBottom: 4,
       paddingHorizontal: 14,
-      paddingVertical: 13,
+      paddingVertical: home.erPadVertical,
       borderRadius: 16,
       backgroundColor: colors.accentMuted,
       borderWidth: StyleSheet.hairlineWidth,
@@ -204,8 +207,8 @@ export function createStyles(colors: ThemeColors) {
       flexDirection: 'row',
       alignItems: 'center',
       marginHorizontal: 20,
-      marginBottom: 12,
-      minHeight: 52,
+      marginBottom: home.searchMarginBottom,
+      minHeight: home.searchMinHeight,
       paddingHorizontal: 17,
       gap: 10,
       borderRadius: 18,
@@ -240,8 +243,8 @@ export function createStyles(colors: ThemeColors) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 5,
-      paddingHorizontal: 14,
-      paddingVertical: 10,
+      paddingHorizontal: home.chipPadHorizontal,
+      paddingVertical: home.chipPadVertical,
       borderRadius: 18,
       backgroundColor: colors.surface,
       borderWidth: StyleSheet.hairlineWidth,
@@ -290,7 +293,7 @@ export function createStyles(colors: ThemeColors) {
 
     categoryBrowse: {
       paddingBottom: 12,
-      paddingTop: 4,
+      paddingTop: home.categoryBrowsePadTop,
     },
     categoryBrowseSectionHeader: {
       marginHorizontal: 20,
@@ -304,7 +307,7 @@ export function createStyles(colors: ThemeColors) {
       marginTop: 22,
     },
     categoryBrowseSectionTitle: {
-      fontSize: 19,
+      fontSize: home.sectionTitleSize,
       fontWeight: '800',
       letterSpacing: -0.4,
       color: colors.textPrimary,
@@ -326,8 +329,8 @@ export function createStyles(colors: ThemeColors) {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 8,
-      minHeight: 76,
-      paddingVertical: 12,
+      minHeight: home.tileMinHeight,
+      paddingVertical: home.tilePadVertical,
       paddingHorizontal: 12,
       borderRadius: 14,
       backgroundColor: colors.surface,
@@ -364,11 +367,11 @@ export function createStyles(colors: ThemeColors) {
       paddingHorizontal: 20,
     },
     immediateEmergencyTitle: {
-      fontSize: 19,
+      fontSize: home.sectionTitleSize,
       fontWeight: '800',
       letterSpacing: -0.4,
       color: colors.textPrimary,
-      marginBottom: 12,
+      marginBottom: home.sectionTitleMarginBottom,
     },
     immediateEmergencyRow: {
       flexDirection: 'row',
@@ -377,8 +380,8 @@ export function createStyles(colors: ThemeColors) {
     immediateCard: {
       flex: 1,
       minWidth: 0,
-      paddingVertical: 14,
-      paddingHorizontal: 14,
+      paddingVertical: home.cardPadVertical,
+      paddingHorizontal: home.cardPadHorizontal,
       borderRadius: 16,
       backgroundColor: colors.surface,
       borderWidth: StyleSheet.hairlineWidth,
@@ -400,12 +403,12 @@ export function createStyles(colors: ThemeColors) {
       lineHeight: 26,
     },
     immediateCardNum: {
-      fontSize: 26,
+      fontSize: home.cardNumSize,
       fontWeight: '800',
       letterSpacing: -0.6,
     },
     immediateCardLabel: {
-      fontSize: 15,
+      fontSize: home.cardLabelSize,
       fontWeight: '700',
       color: colors.textPrimary,
       marginBottom: 3,
@@ -421,8 +424,8 @@ export function createStyles(colors: ThemeColors) {
       alignItems: 'center',
       gap: 4,
       alignSelf: 'stretch',
-      marginTop: 12,
-      paddingVertical: 9,
+      marginTop: home.callMarginTop,
+      paddingVertical: home.callPadVertical,
       borderRadius: 10,
       backgroundColor: colors.accentMuted,
     },

@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Linking, Pressable, Text, View } from 'react-native';
 import { telHref, type NumberItem } from '@whatnumber/shared';
+import { getHomeDensity } from '../layout';
 import type { AppStyles } from '../styles';
 import type { ThemeColors } from '../theme';
 import { NumberVisualIcon } from './NumberVisualIcon';
@@ -18,6 +19,8 @@ export function ImmediateEmergency({
   colors: ThemeColors;
   onOpen: (item: NumberItem) => void;
 }) {
+  const iconSize = getHomeDensity() === 'compact' ? 30 : 36;
+
   return (
     <View style={styles.immediateEmergency}>
       <Text style={styles.immediateEmergencyTitle}>지금 바로 필요한 번호</Text>
@@ -29,7 +32,7 @@ export function ImmediateEmergency({
           accessibilityLabel={`${fireItem.num} 소방 구급 상세`}
         >
           <View style={styles.immediateCardTop}>
-            <NumberVisualIcon item={fireItem} size={36} />
+            <NumberVisualIcon item={fireItem} size={iconSize} />
             <Text style={[styles.immediateCardNum, { color: colors.accent }]}>
               {fireItem.num}
             </Text>
@@ -54,7 +57,7 @@ export function ImmediateEmergency({
           accessibilityLabel={`${policeItem.num} 경찰 상세`}
         >
           <View style={styles.immediateCardTop}>
-            <NumberVisualIcon item={policeItem} size={36} />
+            <NumberVisualIcon item={policeItem} size={iconSize} />
             <Text style={[styles.immediateCardNum, { color: colors.textPrimary }]}>
               {policeItem.num}
             </Text>

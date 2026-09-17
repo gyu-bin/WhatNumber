@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
-import { ALL_NUMBERS, telHref } from '@whatnumber/shared';
+import { ALL_NUMBERS, telWidgetHref } from '@whatnumber/shared';
 
 const MAX_ITEMS = 6;
 
@@ -45,7 +45,7 @@ export function syncFavoritesWidget(favoriteIds: string[]): void {
         icon: number.icon || '📞',
         title: number.title,
         num: number.num,
-        tel: telHref(number.num),
+        tel: telWidgetHref(number.num),
       });
     }
 

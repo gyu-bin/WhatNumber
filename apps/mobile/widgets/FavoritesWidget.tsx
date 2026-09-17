@@ -87,7 +87,7 @@ const FavoritesWidgetLayout = (
     </Link>
   );
 
-  /** Full-width list row — title sits beside number so it doesn't clip in a grid cell */
+  /** Full-width list row — 전화 아이콘(및 행 전체)이 tel 링크로 바로 전화앱을 엽니다 */
   const listRow = (
     item: FavoriteWidgetItem,
     opts: { compact: boolean; showDivider: boolean },
@@ -96,50 +96,54 @@ const FavoritesWidgetLayout = (
     const call = opts.compact ? 24 : 28;
     return (
       <VStack spacing={0} alignment="leading">
-        <Link destination={item.tel}>
-          <HStack
-            spacing={opts.compact ? 7 : 10}
-            alignment="center"
-            modifiers={[padding({ vertical: opts.compact ? 2 : 5 })]}
-          >
-            <HStack
-              alignment="center"
-              modifiers={[
-                frame({ width: icon, height: icon }),
-                background(softIcon),
-                clipShape('circle'),
-              ]}
-            >
-              <Text modifiers={[font({ size: opts.compact ? 12 : 14 })]}>
-                {item.icon || '📞'}
+        <HStack
+          spacing={opts.compact ? 7 : 10}
+          alignment="center"
+          modifiers={[padding({ vertical: opts.compact ? 2 : 5 })]}
+        >
+          <Link destination={item.tel}>
+            <HStack spacing={opts.compact ? 7 : 10} alignment="center">
+              <HStack
+                alignment="center"
+                modifiers={[
+                  frame({ width: icon, height: icon }),
+                  background(softIcon),
+                  clipShape('circle'),
+                ]}
+              >
+                <Text modifiers={[font({ size: opts.compact ? 12 : 14 })]}>
+                  {item.icon || '📞'}
+                </Text>
+              </HStack>
+
+              <Text
+                modifiers={[
+                  font({ weight: 'bold', size: opts.compact ? 15 : 17 }),
+                  foregroundStyle(ink),
+                  lineLimit(1),
+                  minimumScaleFactor(0.7),
+                ]}
+              >
+                {item.num}
+              </Text>
+
+              <Text
+                modifiers={[
+                  font({ weight: 'medium', size: opts.compact ? 11 : 13 }),
+                  foregroundStyle(muted),
+                  lineLimit(1),
+                  minimumScaleFactor(0.7),
+                  frame({ maxWidth: 999 }),
+                ]}
+              >
+                {item.title}
               </Text>
             </HStack>
+          </Link>
 
-            <Text
-              modifiers={[
-                font({ weight: 'bold', size: opts.compact ? 15 : 17 }),
-                foregroundStyle(ink),
-                lineLimit(1),
-                minimumScaleFactor(0.7),
-              ]}
-            >
-              {item.num}
-            </Text>
+          <Spacer />
 
-            <Text
-              modifiers={[
-                font({ weight: 'medium', size: opts.compact ? 11 : 13 }),
-                foregroundStyle(muted),
-                lineLimit(1),
-                minimumScaleFactor(0.7),
-                frame({ maxWidth: 999 }),
-              ]}
-            >
-              {item.title}
-            </Text>
-
-            <Spacer />
-
+          <Link destination={item.tel}>
             <Image
               systemName="phone.fill"
               size={opts.compact ? 8 : 10}
@@ -151,8 +155,8 @@ const FavoritesWidgetLayout = (
                 clipShape('circle'),
               ]}
             />
-          </HStack>
-        </Link>
+          </Link>
+        </HStack>
         {opts.showDivider ? (
           <HStack modifiers={[frame({ height: 1, maxWidth: 999 }), background(divider)]}>
             <Text> </Text>

@@ -203,6 +203,11 @@ export function telHref(num: string): string {
   return `tel:${num.replace(/-/g, '')}`;
 }
 
+/** 위젯 Link(destination)용 — URL 파서에 더 안정적인 tel:// 형식 */
+export function telWidgetHref(num: string): string {
+  return `tel://${num.replace(/-/g, '')}`;
+}
+
 export function iconBgColor(cat: Category): string {
   return `${CAT_COLOR[cat]}1A`;
 }
