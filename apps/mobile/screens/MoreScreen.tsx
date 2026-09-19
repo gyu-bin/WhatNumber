@@ -26,7 +26,7 @@ export function MoreScreen({
   onOpenFeedback,
   onOpenPrivacy,
 }: MoreScreenProps) {
-  const version = Constants.expoConfig?.version ?? '1.0.0';
+  const version = Constants.expoConfig?.version ?? '1.0.1';
 
   return (
     <ScrollView

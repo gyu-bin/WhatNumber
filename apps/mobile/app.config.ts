@@ -1,6 +1,6 @@
 import type { ConfigContext, ExpoConfig } from 'expo/config';
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 const PRIVACY_POLICY_URL = 'https://whatnumber-mu.vercel.app/privacy';
 const SUPPORT_URL = 'https://whatnumber-mu.vercel.app';
 const EAS_PROJECT_ID = '890993d6-97dd-477a-833c-05a7531eb8c0';
@@ -36,7 +36,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: false,
     bundleIdentifier: 'kr.whatnumber.app',
-    buildNumber: '1',
+    buildNumber: '2',
     deploymentTarget: '16.4',
     infoPlist: {
       CFBundleAllowMixedLocalizations: true,
@@ -54,7 +54,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     package: 'kr.whatnumber.app',
-    versionCode: 1,
+    versionCode: 2,
     adaptiveIcon: {
       backgroundColor: '#FCFBFA',
       foregroundImage: './assets/android-icon-foreground.png',
