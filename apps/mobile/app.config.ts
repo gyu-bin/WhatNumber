@@ -24,9 +24,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: 'light',
   scheme: 'whatnumber',
   description: '진짜 쓸 일 생기는 공공 전화번호 모음',
-  runtimeVersion: {
-    policy: 'appVersion',
-  },
+  // ios/가 있으면 bare라 policy를 못 씁니다. 앱 버전과 같은 문자열로 고정합니다.
+  runtimeVersion: APP_VERSION,
   updates: {
     url: `https://u.expo.dev/${EAS_PROJECT_ID}`,
     enabled: updatesEnabled,
