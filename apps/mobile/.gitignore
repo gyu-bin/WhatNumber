@@ -37,7 +37,7 @@ yarn-error.*
 *.tsbuildinfo
 
 # generated native folders
-/ios
+# ios는 Xcode Cloud가 app.xcodeproj를 클론하므로 커밋합니다. Pods/build는 ios/.gitignore.
 /android
 
 # local portable build tools (cmake, etc.)
