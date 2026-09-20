@@ -74,7 +74,6 @@ export function MoreScreen({
           <SettingIcon name="language-outline" styles={styles} colors={colors} />
           <View style={styles.moreRowText}>
             <Text style={styles.moreRowTitle}>{t('settings.language')}</Text>
-            <Text style={styles.moreRowHint}>{t('settings.languageHint')}</Text>
           </View>
           <LanguageToggle locale={locale} colors={colors} onChange={onChangeLocale} />
         </View>

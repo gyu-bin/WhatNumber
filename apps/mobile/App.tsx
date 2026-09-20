@@ -262,19 +262,19 @@ export default function App() {
   const styles = useMemo(() => createStyles(themeColors), [theme]);
 
   const homeOpacity = useRef(new Animated.Value(0)).current;
-  const homeTY = useRef(new Animated.Value(8)).current;
+  const homeTY = useRef(new Animated.Value(10)).current;
 
   const onSplashTransitionStart = useCallback(() => {
     Animated.parallel([
       Animated.timing(homeOpacity, {
         toValue: 1,
-        duration: 250,
+        duration: 360,
         easing: Easing.out(Easing.cubic),
         useNativeDriver: true,
       }),
       Animated.timing(homeTY, {
         toValue: 0,
-        duration: 250,
+        duration: 360,
         easing: Easing.out(Easing.cubic),
         useNativeDriver: true,
       }),
