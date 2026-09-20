@@ -212,7 +212,8 @@
     "close": "关闭"
   },
   "ota": {
-    "updating": "正在应用更新…"
+    "updating": "正在应用更新…",
+    "restartToApply": "更新已准备好。请完全退出应用后再打开。"
   },
   "maps": {
     "currentLocation": "当前位置",

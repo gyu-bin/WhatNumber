@@ -212,7 +212,8 @@
     "close": "閉じる"
   },
   "ota": {
-    "updating": "アップデートを適用中…"
+    "updating": "アップデートを適用中…",
+    "restartToApply": "アップデートの準備ができました。アプリを終了してから再度開いてください。"
   },
   "maps": {
     "currentLocation": "現在地",

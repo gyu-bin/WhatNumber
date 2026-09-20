@@ -212,7 +212,8 @@
     "close": "닫기"
   },
   "ota": {
-    "updating": "업데이트를 적용하고 있어요"
+    "updating": "업데이트를 적용하고 있어요",
+    "restartToApply": "업데이트를 준비했어요. 앱을 종료한 뒤 다시 열어주세요."
   },
   "maps": {
     "currentLocation": "현재 위치",

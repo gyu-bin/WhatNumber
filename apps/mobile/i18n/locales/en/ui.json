@@ -212,7 +212,8 @@
     "close": "Close"
   },
   "ota": {
-    "updating": "Applying an update…"
+    "updating": "Applying an update…",
+    "restartToApply": "Update ready. Close the app fully, then open it again."
   },
   "maps": {
     "currentLocation": "Current location",

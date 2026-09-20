@@ -1,6 +1,6 @@
 import type { ConfigContext, ExpoConfig } from 'expo/config';
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 const PRIVACY_POLICY_URL = 'https://whatnumber-mu.vercel.app/privacy';
 const SUPPORT_URL = 'https://whatnumber-mu.vercel.app';
 const EAS_PROJECT_ID = '890993d6-97dd-477a-833c-05a7531eb8c0';
@@ -31,6 +31,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     enabled: updatesEnabled,
     fallbackToCacheTimeout: 0,
     checkAutomatically: updatesEnabled ? 'ON_LOAD' : 'NEVER',
+    // Bare / Xcode Cloud 빌드도 production 채널을 보도록 고정
+    requestHeaders: {
+      'expo-channel-name': 'production',
+    },
   },
   ios: {
     supportsTablet: false,

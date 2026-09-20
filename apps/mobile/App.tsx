@@ -755,6 +755,7 @@ export default function App() {
               visible={Boolean(toastMessage)}
               styles={styles}
               onHide={() => setToastMessage(null)}
+              durationMs={4000}
             />
 
             <Modal
