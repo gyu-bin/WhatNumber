@@ -1,0 +1,233 @@
+{
+  "tabs": {
+    "home": "首页",
+    "settings": "设置"
+  },
+  "home": {
+    "subtitle": "需要的号码，马上找到。",
+    "searchPlaceholder": "搜索号码或情况",
+    "favorites": "收藏",
+    "favoritesWithCount": "收藏 {{count}}",
+    "favoritesHeader": "我的收藏 · {{count}}",
+    "favoritesEmptyTitle": "还没有收藏",
+    "favoritesEmptyBody": "用 ★ 保存常用号码。",
+    "moreSituations": "更多",
+    "categoriesTitle": "按类别查找",
+    "settingsA11y": "设置",
+    "favoritesA11y": "收藏",
+    "searchA11y": "搜索号码或情况",
+    "situationMoreTitle": "其他情况",
+    "situationMoreA11y": "更多情况",
+    "favoritesReorderHint": "长按可调整顺序",
+    "empty": "没有匹配的号码"
+  },
+  "situations": {
+    "emergency": "突然不舒服",
+    "car": "车辆故障",
+    "crime": "诈骗·犯罪",
+    "home": "住房·生活",
+    "abroad": "我在国外",
+    "legal": "法律·金融"
+  },
+  "situationTips": {
+    "emergency": "危急时先打 119；医院指引可打 1339。",
+    "car": "在高速公路请先叫公共拖车。",
+    "crime": "若是电信诈骗，挂断后打 1398。",
+    "home": "煤气泄漏、停电、租房问题请打对应号码。",
+    "abroad": "在国外可通过领事呼叫中心获得韩语协助。",
+    "legal": "诉讼前可先打 132 免费法律咨询。"
+  },
+  "categories": {
+    "긴급/안전": "紧急/安全",
+    "교통/차량": "交通/车辆",
+    "주거/생활": "居住/生活",
+    "법률/금융": "法律/金融",
+    "가족/복지": "家庭/福利",
+    "고용/노동": "就业/劳动",
+    "민원/행정": "民政/行政",
+    "통신/디지털": "通信/数字"
+  },
+  "categoryTiles": {
+    "traffic": { "label": "交通/车辆", "subtitle": "事故 · 故障 · 路况" },
+    "finance": { "label": "金融/卡片", "subtitle": "挂失 · 诈骗 · 金融咨询" },
+    "housing": { "label": "住房", "subtitle": "租房 · 住房福利" },
+    "family": { "label": "家庭/福利", "subtitle": "儿童 · 青少年 · 老人 · 心理" },
+    "civic": { "label": "生活/民政", "subtitle": "行政 · 税务 · 民政指引" },
+    "labor": { "label": "就业/劳动", "subtitle": "失业金 · 劳动咨询" },
+    "digital": { "label": "通信/数字", "subtitle": "黑客 · 垃圾信息 · 通信服务" },
+    "other": { "label": "其他", "subtitle": "急救 · 举报 · 海外协助" }
+  },
+  "categorySubtitles": {
+    "긴급/안전": "需要立刻帮助的时候",
+    "교통/차량": "出行途中也安心",
+    "주거/생활": "快速解决日常问题",
+    "법률/금융": "保护权利与财产的号码",
+    "가족/복지": "为家人与邻里提供帮助",
+    "고용/노동": "为劳动者提供指引",
+    "민원/행정": "需要公共服务时",
+    "통신/디지털": "通信、网络与隐私问题"
+  },
+  "immediate": {
+    "title": "立刻需要的号码",
+    "fireTag": "消防",
+    "policeTag": "警察",
+    "fireLabel": "消防·救护",
+    "policeLabel": "犯罪·报案",
+    "call": "拨打"
+  },
+  "emergencyCard": {
+    "title": "查找附近急诊",
+    "subtitle": "按当前位置查看附近急诊室"
+  },
+  "emergency": {
+    "title": "附近急诊室",
+    "back": "返回",
+    "sortNearest": "最近",
+    "sortBeds": "床位",
+    "call119": "危急时请先拨打 119",
+    "call119A11y": "拨打 119",
+    "permissionTitle": "需要位置权限",
+    "permissionBody": "允许位置访问以查找附近急诊室。",
+    "openSettings": "打开设置",
+    "retry": "重试",
+    "loading": "正在查找附近急诊…",
+    "empty": "附近没有可显示的急诊室",
+    "call": "拨打",
+    "directions": "导航",
+    "beds": "床位 {{count}}",
+    "distanceKm": "{{km}} km",
+    "list": "列表",
+    "map": "地图",
+    "privacyNote": "当前位置仅用于搜索附近急诊，不会保存。",
+    "resultsTitle": "附近急诊室",
+    "refresh": "刷新",
+    "refreshA11y": "刷新急诊列表",
+    "sortNearestA11y": "按距离排序",
+    "sortBedsA11y": "按空床排序",
+    "backA11y": "返回首页",
+    "locationBasis": "基于当前位置",
+    "locationBasisAt": "基于当前位置 · {{time}}",
+    "dataSource": "国立中央医疗院提供",
+    "bedsUnknown": "暂无实时床位信息",
+    "bedAvailable": "急诊普通床位可用 {{count}}",
+    "bedNone": "急诊普通床位已满",
+    "bedOvercrowded": "急诊拥挤（无空余床位）",
+    "checkPermission": "检查位置权限",
+    "mapNoLocation": "无法获取当前位置",
+    "mapRetry": "请重试以显示地图",
+    "mapPreparing": "正在准备附近急诊地图…",
+    "status": {
+      "idle": "正在确认当前位置…",
+      "locating": "正在确认当前位置…",
+      "loading": "正在加载急诊信息…",
+      "permissionDenied": "无法获取当前位置。请检查位置权限。",
+      "locationDisabled": "设备的位置服务已关闭。",
+      "offline": "请检查网络连接后重试。",
+      "configurationError": "急诊信息连接尚未配置。",
+      "apiError": "无法加载急诊信息。",
+      "empty": "附近未找到急诊室。"
+    },
+    "errors": {
+      "invalidResponse": "无法确认急诊室信息格式。",
+      "fetchFailed": "无法加载急诊室信息。（{{status}}）"
+    }
+  },
+  "detail": {
+    "addFavorite": "☆ 加入收藏",
+    "removeFavorite": "★ 取消收藏",
+    "call": "拨打 {{num}}",
+    "close": "关闭",
+    "tip": "小提示"
+  },
+  "numberRow": {
+    "addFavorite": "加入收藏",
+    "removeFavorite": "取消收藏",
+    "reorder": "调整顺序"
+  },
+  "settings": {
+    "title": "设置",
+    "subtitle": "让应用更好用。",
+    "sectionDisplay": "显示",
+    "theme": "主题",
+    "themeHint": "设置应用颜色。",
+    "language": "语言",
+    "languageHint": "选择应用使用的语言。",
+    "sectionNumbers": "号码",
+    "requestTitle": "申请缺少的号码",
+    "requestHint": "告诉我们需要添加的号码",
+    "sectionInfo": "信息",
+    "privacyTitle": "隐私政策",
+    "privacyHint": "我们如何保护您的信息。",
+    "websiteTitle": "网站",
+    "websiteHint": "查看更多信息。",
+    "feedbackTitle": "帮助我们做得更好",
+    "feedbackHint": "欢迎留下宝贵意见。",
+    "metaBrand": "几号啊",
+    "meta": "几号啊？ · v{{version}}\n需要的号码，马上。",
+    "themeLight": "浅色",
+    "themeDark": "深色"
+  },
+  "request": {
+    "numberTitle": "申请添加号码",
+    "feedbackTitle": "发送意见",
+    "numberName": "号码名称",
+    "phone": "电话号码",
+    "description": "说明",
+    "note": "其他",
+    "feedbackMessage": "意见",
+    "optional": "可选",
+    "cancel": "取消",
+    "send": "发送",
+    "sending": "发送中…",
+    "errorEmpty": "请至少填写名称、电话或说明中的一项。",
+    "errorFeedbackEmpty": "请输入意见。",
+    "numberDesc": "告诉我们缺少的公共或生活号码，我们会审核后添加。",
+    "feedbackDesc": "请告诉我们使用中的不便或改进想法。",
+    "feedbackContent": "意见内容",
+    "descriptionWhen": "说明 · 何时使用",
+    "namePlaceholder": "例：防谍举报、全租诈骗咨询",
+    "phonePlaceholder": "例：113、1588-0000",
+    "descriptionPlaceholder": "什么情况下需要这个号码",
+    "notePlaceholder": "来源、参考链接等",
+    "feedbackPlaceholder": "例：搜索不好用，希望有 XX 分类",
+    "sendRequest": "发送请求",
+    "successNumber": "已发送号码请求",
+    "successFeedback": "已发送意见",
+    "error": {
+      "send_failed": "发送失败，请稍后再试。",
+      "network": "网络错误，请检查连接。"
+    }
+  },
+  "privacy": {
+    "back": "‹ 设置",
+    "title": "隐私政策",
+    "lead": "几号啊无需注册即可使用，并谨慎处理个人信息。完整内容请查看网站隐私政策。",
+    "openWeb": "在网页查看完整政策"
+  },
+  "categoryScreen": {
+    "backHome": "返回首页"
+  },
+  "common": {
+    "ad": "广告",
+    "close": "关闭"
+  },
+  "ota": {
+    "updating": "正在应用更新…"
+  },
+  "maps": {
+    "currentLocation": "当前位置",
+    "emergencyRoom": "急诊室",
+    "previewTitle": "地图预览",
+    "previewBody": "Naver 地图在开发/正式版中显示。Expo Go 中请使用列表。",
+    "locateA11y": "移动到当前位置"
+  },
+  "widget": {
+    "brand": "几号啊？",
+    "favoritesLink": "收藏 ›",
+    "emptySmall": "还没有收藏",
+    "emptyMedium": "来添加收藏吧",
+    "emptyHint": "在应用中添加后，可在此直接拨打",
+    "callNow": "立即拨打",
+    "footerTagline": "需要时，几号啊"
+  }
+}

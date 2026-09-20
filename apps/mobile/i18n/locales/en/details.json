@@ -1,0 +1,287 @@
+{
+  "e1": [
+    "129 is the Emergency Medical Support Center. Call when ER costs block care or a hospital refuses treatment or discharge for financial reasons.",
+    "Emergency patients must not be denied appropriate care for economic reasons. 129 explains state advance payment; your share is settled later by income and assets.",
+    "In an emergency, call 119 first for rescue and transport; if the hospital raises cost issues, use 129."
+  ],
+  "e2": [
+    "119 handles fire, ambulance, and rescue—the main emergency number in Korea.",
+    "Report where (address/building), what (fire/injury/trapped), and how many people. If you see smoke, close doors, stay low, evacuate, then call from safety."
+  ],
+  "e3": [
+    "112 is police emergency—for crimes in progress, threats, traffic accident verification, domestic violence, and similar cases.",
+    "If you cannot speak, 112 accepts SMS reports. Allowing location on your phone can speed dispatch."
+  ],
+  "e4": [
+    "1339 is the health call center for after-hours ERs and 24-hour pharmacies.",
+    "Useful when you need a hospital you can reach now. Give area and symptoms for nearby options; infectious disease guidance is also available."
+  ],
+  "e5": [
+    "1577-2584 is the Crime Victim Support Center—medical, counseling, and legal referrals after violence or robbery.",
+    "This is public recovery support separate from investigation—contact early rather than coping alone."
+  ],
+  "e6": [
+    "02-3210-0404 is the MOFA consular call center—24/7 Korean help for citizens abroad.",
+    "For passport loss, arrest, accidents, or disasters overseas, contact local police/hospital first, then call. From abroad: +82-2-3210-0404."
+  ],
+  "e7": [
+    "109 is the 24/7 anonymous mental health crisis line.",
+    "You do not have to face severe anxiety, depression, or isolation alone. Counselors listen without judgment and can link local mental health or emergency services."
+  ],
+  "e8": [
+    "111 is the NIS reporting line for espionage, terror, North Korea-linked threats, and national security concerns.",
+    "Industrial technology leaks and counter-intelligence tips are included. Overlap with police 113—either line is fine."
+  ],
+  "e9": [
+    "113 is police counter-espionage—for espionage, tech leaks, terror, and suspected spy activity.",
+    "If you see suspicious approaches or theft attempts, note time, place, and behavior when reporting."
+  ],
+  "e10": [
+    "1338 is integrated civil defense reporting—for drones, unknown vessels, suspicious military activity, and similar signs.",
+    "Record time and location if safe; evacuate first if there is danger."
+  ],
+  "e11": [
+    "1337 reports military secrets, military espionage, and defense-industry spying (Military Security Support Command).",
+    "Use for suspected leaks of military or defense technology; ordinary crimes go to 112."
+  ],
+  "e12": [
+    "122 is Korea Coast Guard emergency—for distress, accidents, illegal fishing, and marine pollution.",
+    "At sea, tidal flats, or islands, remember 122 with 119. Give precise location (island name, coordinates, buoys)."
+  ],
+  "e13": [
+    "1393 is the suicide prevention hotline—24/7 when you or someone nearby is at risk.",
+    "Can be used with 109. If life is in immediate danger, call 119 or 112 first."
+  ],
+  "e14": [
+    "128 handles environmental pollution complaints—odors, illegal dumping, water and air pollution.",
+    "State when, where, and what type of pollution to speed site checks."
+  ],
+  "e15": [
+    "1399 is food safety counseling—for food poisoning, bad products, and mislabeled goods.",
+    "Have product name, store, expiry, and photos ready when reporting."
+  ],
+  "c1": [
+    "1588-2504 is KEX public tow on expressways—call before private tow to avoid overcharges after breakdowns or crashes.",
+    "Free distance may apply; use this first when confused right after an incident."
+  ],
+  "c2": [
+    "1588-2100 is expressway emergency tow to move vehicles from shoulders to safety.",
+    "Stopping on the highway is high risk—use hazards and a triangle, then call this, 119, or 112 as needed."
+  ],
+  "c3": [
+    "112 can verify a traffic accident on scene—official record of investigation, alcohol tests, and statements.",
+    "Reporting right after a crash helps insurance and disputes; if injured, call 119 first."
+  ],
+  "c4": [
+    "If anyone may be hurt after a crash, call 119 for an ambulance—even mild pain can worsen later."
+  ],
+  "c5": [
+    "1566-8000 is a major insurers’ accident line for roadside help, tow, and rental car links.",
+    "Save your own insurer’s number too; on expressways prefer public tow (1588-2504)."
+  ],
+  "c6": [
+    "1544-0119 guides injury claims when the other driver is uninsured or flees."
+  ],
+  "c7": [
+    "110 connects post-accident admin needs—fines, license, and civil complaints through the government helpline."
+  ],
+  "c8": [
+    "182 helps find lost items on buses and subways and guides missing-person services.",
+    "Prepare time, route, seat, and item details; missing children/adults can also be reported here."
+  ],
+  "c9": [
+    "1544-7788 is Korail—trains, seats, lost items, and delay compensation.",
+    "For items lost on a train, give the train number, station where you got off, and time."
+  ],
+  "h1": [
+    "1588-1300 updates bank, card, insurance, and telecom addresses in one request after a move.",
+    "Apply within 1–2 weeks of moving to reduce missed mail and notices."
+  ],
+  "h2": [
+    "1661-2642 is the neighbor noise mediation center with on-site mediators.",
+    "Use when the building office cannot resolve conflict; logs and recordings help."
+  ],
+  "h3": [
+    "1566-9009 HUG center checks registry and rights before jeonse contracts to prevent deposit fraud.",
+    "Consult before sending deposit; urgent-only deals or agent-only meetings are red flags."
+  ],
+  "h4": [
+    "1670-1004 is city gas emergency—24/7 for smell or leaks.",
+    "Do not touch switches; ventilate, evacuate, then report. Follow local gas company guidance."
+  ],
+  "h5": [
+    "123 is KEPCO for outages, line problems, and shock or fire risk from electricity.",
+    "Electrocution or fire risk: 119 first; simple outages: 123."
+  ],
+  "h6": [
+    "1577-0600 is K-water for water, dams, quality, and some outage/leak guidance.",
+    "City water leaks may be faster via local 120; if unsure, 110 can route you."
+  ],
+  "h7": [
+    "131 is KMA weather—for typhoon, flood, heat, cold alerts and daily forecasts.",
+    "Check before hiking, boating, or outdoor plans."
+  ],
+  "l1": [
+    "132 Legal Aid offers free lawyer consults and litigation support by income.",
+    "Before suing on traffic, lease, labor, or family issues, 132 helps set direction cost-effectively."
+  ],
+  "l2": [
+    "1577-1000 NHIS-related line—for out-of-pocket cap refunds and similar.",
+    "Ask if you paid heavily in a year without refund notice."
+  ],
+  "l3": [
+    "1332 FSS consumer protection—for voice phishing, illegal loans, and financial product harm.",
+    "Bank, insurance, card, and investment complaints accepted; if rushed to transfer, call 1398 first."
+  ],
+  "l4": [
+    "1398 is dedicated voice-phishing reporting—hang up on fake prosecutors/police/regulators and call immediately.",
+    "You can report during the call; before transferring money is the critical window."
+  ],
+  "l5": [
+    "1811-9000 personal data breach center—leaks, unauthorized collection, deletion and blocking steps.",
+    "ID/account leaks and marketing without consent count; for hacking/ransomware also use 118."
+  ],
+  "l6": [
+    "1544-0990 Consumer Agency mediates refund and contract disputes for free—bring contract, payment, and chat records."
+  ],
+  "l7": [
+    "126 National Tax Service—for income/VAT filing, notices, refunds, and Hometax questions."
+  ],
+  "l8": [
+    "1661-7600 local tax line—for vehicle, property, and local income tax."
+  ],
+  "l9": [
+    "118 is KISA cyber security—for hacking, ransomware, phishing sites, and illegal spam.",
+    "Voice phishing: 1398; personal data: 1811-9000; money fraud: 112 and 1332."
+  ],
+  "l10": [
+    "1301 Prosecution Service—for drugs, public corruption, and special investigation tips.",
+    "For theft or assault needing immediate police, use 112."
+  ],
+  "l11": [
+    "1372 Fair Trade Commission—for collusion, unfair terms, ads, franchise and distribution issues.",
+    "Individual refund fights are often better at Consumer Agency 1544-0990."
+  ],
+  "l12": [
+    "1600-5500 Credit Counseling & Recovery—for arrears, debt adjustment, and personal rehabilitation links.",
+    "With multiple debts, try public counseling before illegal lenders."
+  ],
+  "l13": [
+    "1397 MFC policy finance—including Sunshine loans and financial counseling.",
+    "Check eligibility before high-interest emergency loans."
+  ],
+  "l14": [
+    "1331 National Human Rights Commission—for discrimination and human rights complaints and procedures."
+  ],
+  "f1": [
+    "1661-2129 senior care counseling—welfare checks and visit care links for seniors living alone.",
+    "Local services may also route via municipal 120 or 110."
+  ],
+  "f2": [
+    "117 school violence reporting by phone or text—consider public report alongside school steps to protect students."
+  ],
+  "f3": [
+    "1366 women’s emergency line—24/7 for domestic/sexual violence and stalking; shelter links.",
+    "If in immediate danger, also call 112; counseling is confidential."
+  ],
+  "f4": [
+    "1899-0088 digital sex crime victim support—illegal filming takedown and investigation/counseling links.",
+    "Do not destroy evidence; follow guidance for deletion and investigation together."
+  ],
+  "f5": [
+    "1345 immigration help center—visa, stay, and daily life in multiple languages; useful for foreign family and friends."
+  ],
+  "f6": [
+    "1388 youth counseling—anonymous help with school, family, friends, and career; crisis links to 109 and 1393."
+  ],
+  "f7": [
+    "1355 National Pension Service—pension receipt, enrollment, contributions, and estimates."
+  ],
+  "f8": [
+    "1389 elder abuse reporting—physical, emotional, financial abuse and neglect.",
+    "Urgent danger: 112."
+  ],
+  "f9": [
+    "182 also guides missing children and missing persons—report quickly after disappearance.",
+    "Prepare recent photos, clothing, and last seen location; clear danger also warrants 112."
+  ],
+  "w1": [
+    "1350 MOEL helpline—unemployment benefits, employment aid, contracts, and wage arrears.",
+    "Unpaid wages and unfair dismissal procedures can be explained here."
+  ],
+  "w2": [
+    "1588-0075 KCOMWEL—industrial accidents, employment insurance, and vocational rehab.",
+    "After a workplace injury, ask about filing deadlines and documents."
+  ],
+  "w3": [
+    "1644-8000 training and “Tomorrow Learning Card” counseling for job change and certifications."
+  ],
+  "w4": [
+    "1544-4140 equal employment counseling—workplace harassment, discrimination, and relief steps.",
+    "Use when internal reporting is hard or retaliation is a concern."
+  ],
+  "g1": [
+    "110 government civil helpline routes central, local, and public agency services nationwide—call when unsure who to contact."
+  ],
+  "g2": [
+    "02-120 Seoul Dasan Call Center—Seoul life, transport, and environment services; reachable from outside Seoul on mobile."
+  ],
+  "g3": [
+    "1588-2188 Gov24 call center—resident registration, family relations certificates, and digital ID issuance."
+  ],
+  "g4": [
+    "031-120 Gyeonggi Province call center handles local administration and daily civil services for residents."
+  ],
+  "g5": [
+    "032-120 Incheon call center handles local administration and daily civil services for residents."
+  ],
+  "g6": [
+    "051-120 Busan call center handles local administration and daily civil services for residents."
+  ],
+  "g7": [
+    "053-120 Daegu call center handles local administration and daily civil services for residents."
+  ],
+  "g8": [
+    "062-120 Gwangju call center handles local administration and daily civil services for residents."
+  ],
+  "g9": [
+    "042-120 Daejeon call center handles local administration and daily civil services for residents."
+  ],
+  "g10": [
+    "052-120 Ulsan call center handles local administration and daily civil services for residents."
+  ],
+  "g11": [
+    "044-120 Sejong call center handles local administration and daily civil services for residents."
+  ],
+  "g12": [
+    "033-120 Gangwon call center handles local administration and daily civil services for residents."
+  ],
+  "g13": [
+    "043-120 North Chungcheong call center handles local administration and daily civil services for residents."
+  ],
+  "g14": [
+    "041-120 South Chungcheong call center handles local administration and daily civil services for residents."
+  ],
+  "g15": [
+    "063-120 Jeollabuk (Jeonbuk) call center handles local administration and daily civil services for residents."
+  ],
+  "g16": [
+    "061-120 South Jeolla call center handles local administration and daily civil services for residents."
+  ],
+  "g17": [
+    "054-120 North Gyeongsang call center handles local administration and daily civil services for residents."
+  ],
+  "g18": [
+    "055-120 South Gyeongsang call center handles local administration and daily civil services for residents."
+  ],
+  "g19": [
+    "064-120 Jeju call center handles local administration and daily civil services for residents."
+  ],
+  "g20": [
+    "125 Customs—cross-border shopping clearance, duties, prohibited items, and declarations.",
+    "If held at customs, have tracking number and item description ready."
+  ],
+  "g21": [
+    "1588-9090 Military Manpower Administration—conscription, enlistment, discharge, and duty questions."
+  ]
+}

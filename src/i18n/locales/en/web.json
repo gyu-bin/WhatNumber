@@ -1,0 +1,459 @@
+{
+  "brand": {
+    "name": "WhatNumber?",
+    "subtitle": "Public numbers you will actually need"
+  },
+  "common": {
+    "copyOk": "Copied",
+    "copyFail": "Could not copy",
+    "language": "Language"
+  },
+  "nav": {
+    "home": "Number list",
+    "guides": "Guides by situation",
+    "about": "About",
+    "privacy": "Privacy policy",
+    "siteMenu": "Site menu"
+  },
+  "header": {
+    "homeA11y": "WhatNumber? home",
+    "copyLinkA11y": "Copy web address",
+    "link": "Link",
+    "copySiteOk": "Web address copied"
+  },
+  "footer": {
+    "disclaimer": "Numbers are updated periodically · Confirm details with each agency",
+    "favoritesNote": "Favorites are stored only on this device and browser"
+  },
+  "theme": {
+    "toDark": "Switch to dark mode",
+    "toLight": "Switch to light mode",
+    "dark": "Dark mode",
+    "light": "Light mode"
+  },
+  "home": {
+    "srTitle": "WhatNumber? — Public hotlines by emergency, traffic, housing, and legal situation",
+    "faq": [
+      {
+        "question": "Who do I call if I cannot pay for the ER?",
+        "answer": "Call 129 (Emergency Medical Support Center) for guidance on national advance payment for treatment."
+      },
+      {
+        "question": "Free towing after an expressway accident?",
+        "answer": "Call 1588-2504 (public tow truck) or 1588-2100 (emergency towing) first."
+      },
+      {
+        "question": "Espionage or counterintelligence reporting numbers?",
+        "answer": "You can report to 111 (NIS) and 113 (police counterintelligence)."
+      }
+    ]
+  },
+  "intro": {
+    "heading": "Why WhatNumber?",
+    "paragraph1": "Ever needed 129 for ER costs, 1588-2504 for a public tow after a highway crash, or 1566-9009 before signing a jeonse lease—but did not know them? WhatNumber is a free guide that organizes public hotlines you will actually use, by situation.",
+    "paragraph1Strong": "public hotlines you will actually use",
+    "paragraph2BeforeLink": "Each entry explains when to call and in what order. In a hurry, tap the number on a card to dial; to read ahead, see our",
+    "paragraph2Link": "situation guides",
+    "paragraph2AfterLink": "."
+  },
+  "popular": {
+    "heading": "Frequently searched public numbers"
+  },
+  "search": {
+    "placeholder": "Search number, situation (accident, move), or category",
+    "a11y": "Search numbers",
+    "clearA11y": "Clear search"
+  },
+  "situationBar": {
+    "label": "What situation are you in?"
+  },
+  "situations": {
+    "emergency": "Medical emergency",
+    "car": "Car trouble",
+    "crime": "Scam / crime",
+    "home": "Home / housing",
+    "abroad": "I'm abroad",
+    "legal": "Legal / finance"
+  },
+  "situationLabels": {
+    "emergency": "Medical emergency",
+    "car": "Car breakdown / accident",
+    "crime": "Scam / crime victim",
+    "home": "Home-related issue",
+    "abroad": "I'm abroad",
+    "legal": "Legal / finance"
+  },
+  "situationTips": {
+    "emergency": "💡 ERs must not refuse emergency care for lack of money. Call 129 first. For mental health: 109 · 1393.",
+    "car": "💡 If injured: 119 → report 112 → on expressways 1588-2504 (public tow). Insurance: 1566-8000.",
+    "crime": "💡 Voice phishing 1398 · cybercrime 118 · espionage 111 (NIS) · 113 (police). Emergency: 112.",
+    "home": "💡 National civil complaints 110 · local 0XX-120. Power outage 123 · gas 1670-1004 · address change 1588-1300.",
+    "abroad": "💡 Overseas emergency: 02-3210-0404 (+82). Customs / direct import: 125.",
+    "legal": "💡 Free legal advice 132. Debt counseling 1600-5500, inclusive finance 1397."
+  },
+  "categories": {
+    "all": "All",
+    "favorites": "Favorites",
+    "긴급/안전": "Emergency · Safety",
+    "교통/차량": "Traffic · Vehicles",
+    "주거/생활": "Housing · Daily life",
+    "법률/금융": "Legal · Finance",
+    "가족/복지": "Family · Welfare",
+    "고용/노동": "Jobs · Labor",
+    "민원/행정": "Civic · Admin",
+    "통신/디지털": "Telecom · Digital",
+    "filterA11y": "Categories",
+    "favoritesA11y": "Favorites {{count}}"
+  },
+  "favorites": {
+    "barPrefix": "My favorites",
+    "barCount": "{{count}}",
+    "viewAll": "View all",
+    "header": "My favorites · {{count}}",
+    "emptyTitle": "No favorites yet",
+    "emptyHint": "Tap ☆ on cards you use often",
+    "add": "Add favorite",
+    "remove": "Remove favorite",
+    "addStar": "☆ Favorite",
+    "removeStar": "★ Favorite"
+  },
+  "list": {
+    "empty": "No matching numbers"
+  },
+  "card": {
+    "viewA11y": "View info for {{title}} {{num}}",
+    "callA11y": "Call {{num}}"
+  },
+  "detail": {
+    "close": "Close",
+    "closeA11y": "Close",
+    "tipPrefix": "💡",
+    "call": "Call {{num}}",
+    "permalink": "Open detail page",
+    "copyLink": "Copy link",
+    "copyNumber": "Copy number only",
+    "copyLinkOk": "Detail link copied",
+    "copyNumberOk": "Phone number copied",
+    "learnMore": "Learn more",
+    "situationsHeading": "Use in these situations",
+    "tipHeading": "Tip",
+    "findMoreHeading": "Find other numbers",
+    "findMoreBodyBefore": "",
+    "findMoreLink": "WhatNumber? home",
+    "findMoreBodyAfter": " to search more public numbers by situation or category."
+  },
+  "numberPage": {
+    "notFoundTitle": "Number not found",
+    "pageTitle": "Number info",
+    "notFound": "We could not find that number.",
+    "backToNumbers": "← Back to list",
+    "breadcrumbHome": "Home"
+  },
+  "request": {
+    "triggerLabel": "Missing a number?",
+    "triggerSub": "Send a request",
+    "title": "Request a number",
+    "desc": "We will review it. Send delivers it right away.",
+    "nameLabel": "Name",
+    "phoneLabel": "Phone number",
+    "descriptionLabel": "Description · when to use",
+    "noteLabel": "Other",
+    "optional": "Optional",
+    "namePlaceholder": "e.g. counterintelligence report, jeonse scam counseling",
+    "phonePlaceholder": "e.g. 113, 1588-0000",
+    "descriptionPlaceholder": "When would someone need this number?",
+    "notePlaceholder": "Source, reference link, etc.",
+    "errorEmpty": "Enter at least a name, phone number, or description.",
+    "errorNetwork": "Network error. Check your connection.",
+    "errorSend": "Could not send. Please try again shortly.",
+    "success": "Sent. We will take a look!",
+    "send": "Send",
+    "sending": "Sending…",
+    "cancel": "Cancel"
+  },
+  "share": {
+    "brandTag": "[WhatNumber?]",
+    "phoneLabel": "Phone"
+  },
+  "guides": {
+    "pageTitle": "Guides by situation",
+    "listTitle": "Situation response guides",
+    "listLead": "For emergencies, traffic accidents, jeonse, voice phishing, and other common situations, we explain which numbers to call and in what order. Each guide links to related numbers at the bottom.",
+    "listSeoDescription": "Guides on which numbers to call and in what order for emergencies, accidents, housing, voice phishing, and more.",
+    "backToList": "← Guide list",
+    "backToNumbers": "← Back to number list",
+    "notFoundTitle": "Guide not found",
+    "notFoundPageTitle": "Guide",
+    "notFound": "We could not find that guide.",
+    "relatedNumbers": "Related numbers",
+    "breadcrumbGuides": "Guides by situation",
+    "items": {
+      "emergency": {
+        "title": "Who to call first in an emergency",
+        "summary": "The difference between 119, 112, 129, and 1339—and the order to call when you are sick or in danger.",
+        "sections": [
+          {
+            "heading": "Decide if life is at risk",
+            "paragraphs": [
+              "If someone is unconscious, struggling to breathe, or bleeding heavily, call 119 immediately. Fire, gas leaks, or smoke also mean 119. Give your location first (road name address, building, floor) so ambulances and fire trucks arrive faster.",
+              "If a crime is in progress or someone is being chased, call 112 first. You can also report by text when you cannot make noise."
+            ]
+          },
+          {
+            "heading": "If the ER refuses care because of cost",
+            "paragraphs": [
+              "Emergency patients have the right to care regardless of ability to pay. Being turned away with only “we cannot treat you without money” is often improper.",
+              "Call 129 (Emergency Medical Support Center) for guidance on state advance payment. Stay at the ER after calling so your condition does not worsen."
+            ]
+          },
+          {
+            "heading": "Finding open hospitals and pharmacies at night or on holidays",
+            "paragraphs": [
+              "1339 (Ministry of Health & Welfare call center) lists emergency, night, and holiday clinics and pharmacies nationwide. Useful when you need care now—not just a cold—but for ongoing pain, high fever, or dizziness and you do not know what is open."
+            ]
+          },
+          {
+            "heading": "When it feels too heavy to cope alone",
+            "paragraphs": [
+              "109 (suicide prevention hotline) is anonymous 24/7. Even outside crisis, you can talk about anxiety, depression, or family conflict. Sharing with a professional often eases the load."
+            ]
+          }
+        ]
+      },
+      "car-accident": {
+        "title": "Traffic accidents and car breakdowns: call order",
+        "summary": "Expressway crashes, shoulder breakdowns, insurance, and public vs private tow—practical steps in one guide.",
+        "sections": [
+          {
+            "heading": "First 10 minutes after a crash",
+            "paragraphs": [
+              "If anyone is injured, call 119 first. If conscious and able to move, pull to a safe place (shoulder) and use hazard lights and a warning triangle.",
+              "Then report the accident to 112. If drunk driving, hit-and-run, or signal violations are possible, police confirmation helps later with insurance and settlement."
+            ],
+            "bullets": [
+              "119 — injury, unconsciousness, bleeding",
+              "112 — accident report, scene confirmation",
+              "1588-2504 — expressway public tow (free)",
+              "1566-8000 — auto insurance emergency"
+            ]
+          },
+          {
+            "heading": "On expressways, prefer public tow",
+            "paragraphs": [
+              "Private tow trucks may arrive first after a breakdown or crash. Always confirm fees before use. The public tow (1588-2504) can move your vehicle free within designated sections—helpful when costs add stress.",
+              "If stopped on the shoulder, remember expressway emergency towing (1588-2100) for free help to a safe area in some cases."
+            ]
+          },
+          {
+            "heading": "Uninsured or hit-and-run opponent",
+            "paragraphs": [
+              "If the other driver is uninsured or you have no plate number, call 1544-0119 (uninsured motorist injury support) for compensation guidance. Gather scene photos, witness contacts, and dashcam footage quickly."
+            ]
+          }
+        ]
+      },
+      "housing": {
+        "title": "Jeonse, moving, noise, and housing issues",
+        "summary": "Jeonse fraud prevention, bulk address change after a move, noise mediation, gas leaks—numbers explained by situation.",
+        "sections": [
+          {
+            "heading": "Before signing a jeonse contract",
+            "paragraphs": [
+              "Jeonse deposit is often a household’s largest asset. 1566-9009 (HUG jeonse fraud support) explains registry checks and safe contract steps before you sign.",
+              "“Urgent sale” or “special studio” deals only, or meeting only a landlord’s agent, can be scam patterns. Get public counseling before transferring the deposit."
+            ]
+          },
+          {
+            "heading": "Change address in one go after moving",
+            "paragraphs": [
+              "1588-1300 (bulk address change) updates banks, cards, insurance, carriers, and more in one request—fewer missed mail and documents at your old address."
+            ]
+          },
+          {
+            "heading": "Floor noise and gas leaks",
+            "paragraphs": [
+              "For repeated floor noise, 1661-2642 (noise mediation) offers professional mediation—often faster than endless arguments.",
+              "If you smell gas, do not touch switches; open windows and call 1670-1004 (city gas emergency). They respond 24/7."
+            ]
+          }
+        ]
+      },
+      "legal-finance": {
+        "title": "Voice phishing, consumer disputes, free legal help",
+        "summary": "Financial fraud, refund denials, medical cost refunds, and free legal counseling—numbers that actually connect.",
+        "sections": [
+          {
+            "heading": "If you suspect voice phishing",
+            "paragraphs": [
+              "Calls posing as prosecutors, police, or FSS, claims your account is tied to crime, or requests remote-control apps are classic patterns. Hang up and call 1398 (voice phishing report)—even while still on the suspicious call.",
+              "1332 (FSS complaints) also helps with illegal loans, investment pitches, and financial product harm."
+            ]
+          },
+          {
+            "heading": "Refunds and contract disputes",
+            "paragraphs": [
+              "If an online shop, academy, or carrier refuses a refund, apply for mediation at 1544-0990 (Consumer Agency). Having contracts, payment records, and chat screenshots ready smooths the process."
+            ]
+          },
+          {
+            "heading": "Free legal advice and medical refunds",
+            "paragraphs": [
+              "132 (Korean Legal Aid) offers free lawyer consultation on traffic accidents, damages, lease disputes, and more. Worth one call before litigation.",
+              "1577-1000 (HIRA) explains refunds when annual out-of-pocket costs exceed the cap. Ask if the hospital never mentioned a refund you may qualify for."
+            ]
+          }
+        ]
+      },
+      "civil-admin": {
+        "title": "Civil complaints: 110 and regional 120",
+        "summary": "How national 110 and city/province 120 lines work—and which complaints go where.",
+        "sections": [
+          {
+            "heading": "110 vs 0XX-120",
+            "paragraphs": [
+              "110 (Government call center) connects central, local, and public agency complaints nationwide. When unsure where to call, start with 110.",
+              "If you know your region, the local center (e.g. Seoul 02-120, Gyeonggi 031-120) is often faster for daily issues—trash, road damage, parks."
+            ]
+          },
+          {
+            "heading": "Resident registration and family relations certificates",
+            "paragraphs": [
+              "1588-2188 (Gov24 call center) guides issuance of resident and family certificates and digital certificates. Many tasks no longer require a visit to the community office."
+            ]
+          }
+        ]
+      },
+      "family-welfare": {
+        "title": "Family, welfare, youth, and women’s emergency support",
+        "summary": "School violence, domestic violence, illegal filming, youth counseling, and support numbers for families.",
+        "sections": [
+          {
+            "heading": "School violence and domestic violence",
+            "paragraphs": [
+              "117 (school violence) accepts text reports. If a child says they are bullied, do not rely on the school alone—know the public reporting path.",
+              "1366 (women’s emergency hotline) offers 24/7 counseling and protection linkage for domestic violence, sexual violence, and stalking."
+            ]
+          },
+          {
+            "heading": "Illegal filming and digital sex crimes",
+            "paragraphs": [
+              "1899-0088 (digital sex crime victim support) helps remove distributed content, explains investigation steps, and links counseling. Prepare screenshots, URLs, and how you found the material."
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "about": {
+    "pageTitle": "About",
+    "seoDescription": "WhatNumber? is a free web service that organizes public hotlines you need in urgent and daily situations.",
+    "backToNumbers": "← Back to number list",
+    "eyebrow": "WhatNumber?",
+    "title": "Numbers you did not know you needed",
+    "lead": "WhatNumber? is a free web service that lists public hotlines Koreans actually need in urgent and daily life, organized by situation.",
+    "problemHeading": "What problem does it solve?",
+    "problemP1Before": "Many know 119 and 112, but numbers like 129 for ER costs, 1588-2504 for public tow after a highway crash, or 1566-9009 before jeonse—",
+    "problemP1Strong": "numbers that help immediately when you know them",
+    "problemP1After": "— rarely show up in a quick search. In a rush there is no time to Google; hopping across government sites is hard.",
+    "problemP2": "WhatNumber? gathers these in one place with situation filters, search, and favorites so you can find and dial quickly on mobile.",
+    "selectionHeading": "How are numbers chosen?",
+    "selectionP1": "We prioritize public agency and call-center numbers with real-world demand—emergency, traffic, housing, legal, family, employment, civil affairs. Each entry adds when to call, based on official agency guidance.",
+    "selectionP2": "Numbers and rules change. For major decisions (jeonse, legal action), always confirm with the official agency.",
+    "contentHeading": "Content and guides",
+    "contentP1Before": "Beyond a flat list, our",
+    "contentP1Link": "situation guides",
+    "contentP1After": " cover accident steps, voice phishing, ER costs, and more. Each number detail explains concrete situations for that hotline.",
+    "opsHeading": "Operation and contact",
+    "opsP1Before": "WhatNumber? is an individually operated information service. Ads (AdSense · AdMob) may appear on web and app. See our",
+    "opsP1Link": "Privacy policy",
+    "opsP1After": " for data practices.",
+    "updated": "Last updated: September 2026"
+  },
+  "privacy": {
+    "pageTitle": "Privacy policy",
+    "seoDescription": "How WhatNumber? handles personal data and retention.",
+    "backToNumbers": "← Back to number list",
+    "title": "Privacy policy",
+    "lead": "WhatNumber? (“the Service”) values your privacy and complies with applicable law. This policy applies from June 10, 2026.",
+    "sections": {
+      "collect": {
+        "heading": "1. Information we collect",
+        "intro": "The Service (web and mobile app) works without sign-up. We do not long-term store on servers personally identifying information such as name, email, or phone number.",
+        "items": [
+          {
+            "title": "Favorites",
+            "body": "Selected number IDs are stored only on your device. Web uses browser localStorage; the mobile app uses AsyncStorage. They are not sent to our server."
+          },
+          {
+            "title": "Theme",
+            "body": "Light/dark mode choice is stored in local device storage."
+          },
+          {
+            "title": "Nearby ERs (mobile)",
+            "body": "Location is requested only when you start a nearby ER search. Approximate coordinates are sent to our server solely to query public APIs such as NEMC. We do not store location history or collect location in the background."
+          },
+          {
+            "title": "Maps (mobile)",
+            "body": "ER maps use Naver Map SDK. Naver Cloud Platform map services may handle network requests for map tiles and display."
+          },
+          {
+            "title": "Number requests and feedback",
+            "body": "What you submit on web/app passes through our server to operator email via Resend, processed only as needed for the request—not stored in a member database."
+          },
+          {
+            "title": "Usage analytics (web)",
+            "body": "Vercel Analytics may collect anonymized visit stats (country, device type, referrer, etc.)."
+          },
+          {
+            "title": "App updates (mobile)",
+            "body": "Expo EAS Update may download JavaScript bundles for improvements. No personally identifying information is collected in that process."
+          }
+        ]
+      },
+      "ads": {
+        "heading": "2. Advertising (Google AdSense · AdMob)",
+        "body": "The web may show ads via Google AdSense; the mobile app via Google AdMob. Mobile banners request non-personalized ads without ATT tracking. On the web, Google and partners may use cookies and ad IDs for interest-based ads and measurement. Mobile ads may appear as bottom banners; Android may use the AD_ID permission.",
+        "links": [
+          {
+            "before": "Turn off personalized ads in Google ad settings:",
+            "label": "google.com/settings/ads",
+            "href": "https://www.google.com/settings/ads"
+          },
+          {
+            "before": "Google ads and data policy:",
+            "label": "policies.google.com/technologies/ads",
+            "href": "https://policies.google.com/technologies/ads"
+          }
+        ]
+      },
+      "cookies": {
+        "heading": "3. Cookies",
+        "body": "The web and third parties (e.g. Google) may use cookies and similar technologies for features, analytics, and ads. You can refuse or delete cookies in browser settings, but some features may be limited."
+      },
+      "retention": {
+        "heading": "4. Retention and deletion",
+        "body": "Favorites and theme on device remain until you clear app/browser data or reset them. Operators cannot access that data. ER lookup coordinates are not kept on the server after the request."
+      },
+      "rights": {
+        "heading": "5. Your rights",
+        "body": "Clear favorites and theme in the Service or by deleting device/browser data anytime. For AdSense, Analytics, and AdMob, see Google policy pages. Revoke location permission in device settings anytime."
+      },
+      "changes": {
+        "heading": "6. Policy changes",
+        "body": "We will post changes on this page and may add in-service notice for important updates.",
+        "updated": "Effective: June 10, 2026 · Revised: September 15, 2026"
+      }
+    }
+  },
+  "seo": {
+    "defaultTitle": "WhatNumber — public numbers you actually need",
+    "defaultDescription": "Emergency rooms, highway accidents, lease scams, voice phishing… Korean public phone numbers by situation. Tap to call.",
+    "alternateName": "WhatNumber public phone directory",
+    "itemListName": "Public phone number list",
+    "numberFallback": "Find situation-based public numbers on WhatNumber.",
+    "phoneLabel": "Call",
+    "country": "South Korea",
+    "ogLocale": "en_US",
+    "htmlLang": "en"
+  }
+}

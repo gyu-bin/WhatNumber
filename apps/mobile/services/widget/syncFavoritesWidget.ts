@@ -1,6 +1,8 @@
 import { Platform } from 'react-native';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { ALL_NUMBERS, telWidgetHref } from '@whatnumber/shared';
+import { localizeNumber } from '../../i18n';
+import type { AppLocale } from '../../i18n/types';
 
 const MAX_ITEMS = 6;
 
@@ -25,13 +27,19 @@ function canSyncWidget(): boolean {
  * 홈 화면 위젯에 즐겨찾기 목록을 반영합니다.
  * Expo Go / 미지원 환경에서는 조용히 무시합니다.
  */
-export function syncFavoritesWidget(favoriteIds: string[]): void {
+export function syncFavoritesWidget(
+  favoriteIds: string[],
+  locale?: AppLocale,
+): void {
   if (!canSyncWidget()) return;
 
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const FavoritesWidget = require('../../widgets/FavoritesWidget').default as {
-      updateSnapshot: (props: { items: FavoriteWidgetItem[] }) => void;
+      updateSnapshot: (props: {
+        items: FavoriteWidgetItem[];
+        locale?: AppLocale;
+      }) => void;
     };
 
     if (!FavoritesWidget?.updateSnapshot) return;
@@ -41,15 +49,16 @@ export function syncFavoritesWidget(favoriteIds: string[]): void {
       if (items.length >= MAX_ITEMS) break;
       const number = ALL_NUMBERS.find((entry) => entry.id === id);
       if (!number) continue;
+      const localized = localizeNumber(number, locale);
       items.push({
-        icon: number.icon || '📞',
-        title: number.title,
+        icon: localized.icon || '📞',
+        title: localized.title,
         num: number.num,
         tel: telWidgetHref(number.num),
       });
     }
 
-    FavoritesWidget.updateSnapshot({ items });
+    FavoritesWidget.updateSnapshot({ items, locale: locale ?? 'ko' });
   } catch {
     // Native widget missing (e.g. outdated binary) — ignore.
   }

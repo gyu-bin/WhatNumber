@@ -1,5 +1,10 @@
 import { Linking } from 'react-native';
+import i18n from '../i18n';
 import type { Coordinate } from './emergency/types';
+
+function tMaps(key: string): string {
+  return i18n.t(key, { ns: 'ui' });
+}
 
 const APP_SCHEME_ID = 'kr.whatnumber.app';
 
@@ -10,6 +15,8 @@ type OpenDirectionsOptions = {
   /** Current user location — already requested on the emergency finder screen. */
   origin?: Coordinate | null;
   originName?: string;
+  /** Label when destinationName is empty (e.g. localized “Emergency room”). */
+  destinationFallback?: string;
 };
 
 async function tryOpenUrl(url: string): Promise<boolean> {
@@ -23,23 +30,27 @@ async function tryOpenUrl(url: string): Promise<boolean> {
   }
 }
 
-function buildNaverDirectionsUrl({
-  destination,
-  destinationName,
-  origin,
-  originName,
-}: OpenDirectionsOptions): string {
+function resolveDestinationLabel(options: OpenDirectionsOptions): string {
+  return (
+    options.destinationName?.trim() ||
+    options.destinationFallback?.trim() ||
+    tMaps('maps.emergencyRoom')
+  );
+}
+
+function buildNaverDirectionsUrl(options: OpenDirectionsOptions): string {
+  const { destination, origin, originName } = options;
   const parts = [
     `dlat=${destination.latitude}`,
     `dlng=${destination.longitude}`,
-    `dname=${encodeURIComponent(destinationName?.trim() || '응급실')}`,
+    `dname=${encodeURIComponent(resolveDestinationLabel(options))}`,
     `appname=${APP_SCHEME_ID}`,
   ];
   if (origin) {
     parts.unshift(
       `slat=${origin.latitude}`,
       `slng=${origin.longitude}`,
-      `sname=${encodeURIComponent(originName?.trim() || '현재 위치')}`,
+      `sname=${encodeURIComponent(originName?.trim() || tMaps('maps.currentLocation'))}`,
     );
   }
   return `nmap://route/car?${parts.join('&')}`;
@@ -58,14 +69,11 @@ function buildKakaoDirectionsUrl({
   return `kakaomap://look?p=${destination.latitude},${destination.longitude}`;
 }
 
-function buildKakaoWebDirectionsUrl({
-  destination,
-  destinationName,
-  origin,
-}: OpenDirectionsOptions): string {
-  const dname = encodeURIComponent(destinationName?.trim() || '응급실');
+function buildKakaoWebDirectionsUrl(options: OpenDirectionsOptions): string {
+  const { destination, origin, originName } = options;
+  const dname = encodeURIComponent(resolveDestinationLabel(options));
   if (origin) {
-    const sname = encodeURIComponent('현재 위치');
+    const sname = encodeURIComponent(originName?.trim() || tMaps('maps.currentLocation'));
     return (
       `https://map.kakao.com/link/from/${sname},${origin.latitude},${origin.longitude}` +
       `/to/${dname},${destination.latitude},${destination.longitude}`
@@ -87,6 +95,7 @@ export async function openDirections(
     destinationName: options?.destinationName,
     origin: options?.origin ?? null,
     originName: options?.originName,
+    destinationFallback: options?.destinationFallback,
   };
 
   if (await tryOpenUrl(buildNaverDirectionsUrl(payload))) return;

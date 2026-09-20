@@ -33,8 +33,10 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@whatnumber/shared": "*",
+    "i18next": "^26.4.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-i18next": "^17.0.14",
     "react-router-dom": "^7.16.0"
   },
   "devDependencies": {

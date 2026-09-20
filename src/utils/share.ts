@@ -1,4 +1,5 @@
 import type { NumberItem } from '@whatnumber/shared';
+import i18n from '../i18n';
 import { absoluteUrl, numberPath } from './seo';
 
 export function getShareUrl(numberId?: string): string {
@@ -9,9 +10,10 @@ export function getShareUrl(numberId?: string): string {
 }
 
 export function formatShareMessage(item: NumberItem): string {
+  const t = i18n.t.bind(i18n);
   const url = getShareUrl(item.id);
-  let text = `[몇번이야] ${item.title}\n${item.desc}\n전화: ${item.num}`;
-  if (item.tip) text += `\n\n💡 ${item.tip}`;
+  let text = `${t('share.brandTag')} ${item.title}\n${item.desc}\n${t('share.phoneLabel')}: ${item.num}`;
+  if (item.tip) text += `\n\n${t('detail.tipPrefix')} ${item.tip}`;
   return `${text}\n${url}`;
 }
 

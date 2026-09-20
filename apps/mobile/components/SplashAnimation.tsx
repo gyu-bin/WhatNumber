@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import type { Theme } from '../theme';
+import i18n from '../i18n';
 
 const CORAL = '#FF5A55';
 const BG_LIGHT = '#FCFBFA';
@@ -283,7 +284,7 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
           <View style={styles.bubbleShadow}>
             <View style={styles.bubble}>
               <Text style={styles.logoText} allowFontScaling={false}>
-                몇번이야?
+                {i18n.t('widget.brand', { ns: 'ui' })}
               </Text>
               <View style={styles.tail} />
             </View>

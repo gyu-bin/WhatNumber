@@ -1,0 +1,8 @@
+{
+  "ios": {
+    "CFBundleDisplayName": "WhatNumber"
+  },
+  "android": {
+    "app_name": "WhatNumber"
+  }
+}

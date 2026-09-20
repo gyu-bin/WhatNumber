@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import styles from './SearchBar.module.css';
 
 interface SearchBarProps {
@@ -7,6 +8,8 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ query, onChange, disabled }: SearchBarProps) {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.wrap}>
       <div className={`${styles.bar} ${disabled ? styles.disabled : ''}`}>
@@ -16,18 +19,18 @@ export function SearchBar({ query, onChange, disabled }: SearchBarProps) {
         <input
           type="search"
           className={styles.input}
-          placeholder="번호, 상황(사고·이사), 카테고리 검색"
+          placeholder={t('search.placeholder')}
           value={query}
           onChange={(e) => onChange(e.target.value)}
           disabled={disabled}
-          aria-label="번호 검색"
+          aria-label={t('search.a11y')}
         />
         {query && (
           <button
             type="button"
             className={styles.clear}
             onClick={() => onChange('')}
-            aria-label="검색어 지우기"
+            aria-label={t('search.clearA11y')}
           >
             ✕
           </button>

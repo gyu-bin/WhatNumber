@@ -152,6 +152,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   locales: {
     ko: './locales/ko.json',
+    en: './locales/en.json',
+    zh: './locales/zh.json',
+    ja: './locales/ja.json',
   },
   extra: {
     privacyPolicyUrl: PRIVACY_POLICY_URL,

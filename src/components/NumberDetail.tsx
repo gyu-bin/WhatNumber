@@ -1,14 +1,15 @@
 import {
   CAT_COLOR,
-  SITUATION_LABELS,
-  getNumberDetail,
   iconBgColor,
   telHref,
 } from '@whatnumber/shared';
 import type { NumberItem } from '@whatnumber/shared';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { copyNumberShare, copyText } from '../utils/share';
+import { localizeNumberDetail } from '../i18n';
+import { useLocale } from '../hooks/useLocale';
 import { numberPath } from '../utils/seo';
 import styles from './NumberDetail.module.css';
 
@@ -27,6 +28,9 @@ export function NumberDetail({
   onToggleFavorite,
   onCopied,
 }: NumberDetailProps) {
+  const { t } = useTranslation();
+  const { locale } = useLocale();
+
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -42,15 +46,15 @@ export function NumberDetail({
 
   const handleShare = async () => {
     const ok = await copyNumberShare(item);
-    onCopied(ok ? '상세 정보 링크가 복사됐어요' : '복사에 실패했어요');
+    onCopied(ok ? t('detail.copyLinkOk') : t('common.copyFail'));
   };
 
   const handleCopyNumber = async () => {
     const ok = await copyText(item.num);
-    onCopied(ok ? '전화번호가 복사됐어요' : '복사에 실패했어요');
+    onCopied(ok ? t('detail.copyNumberOk') : t('common.copyFail'));
   };
 
-  const detail = getNumberDetail(item.id);
+  const detail = localizeNumberDetail(item.id, locale) ?? [];
 
   return (
     <div className={styles.overlay} onClick={onClose} role="presentation">
@@ -66,7 +70,7 @@ export function NumberDetail({
           type="button"
           className={styles.close}
           onClick={onClose}
-          aria-label="닫기"
+          aria-label={t('detail.closeA11y')}
         >
           ✕
         </button>
@@ -84,7 +88,7 @@ export function NumberDetail({
               className={styles.cat}
               style={{ color: CAT_COLOR[item.cat] }}
             >
-              {item.cat}
+              {t(`categories.${item.cat}`)}
             </span>
             <h2 id="detail-title" className={styles.title}>
               {item.title}
@@ -104,7 +108,7 @@ export function NumberDetail({
 
         {item.tip && (
           <div className={styles.tip} role="note">
-            💡 {item.tip}
+            {t('detail.tipPrefix')} {item.tip}
           </div>
         )}
 
@@ -112,30 +116,30 @@ export function NumberDetail({
           <div className={styles.tags}>
             {item.situation.map((s) => (
               <span key={s} className={styles.tag}>
-                {SITUATION_LABELS[s]}
+                {t(`situationLabels.${s}`)}
               </span>
             ))}
           </div>
         )}
 
         <a href={telHref(item.num)} className={styles.callBtn}>
-          {item.num} 전화하기
+          {t('detail.call', { num: item.num })}
         </a>
 
         <Link to={numberPath(item.id)} className={styles.permalink}>
-          상세 페이지 보기
+          {t('detail.permalink')}
         </Link>
 
         <div className={styles.actions}>
           <button type="button" className={styles.actionBtn} onClick={handleShare}>
-            링크 복사
+            {t('detail.copyLink')}
           </button>
           <button
             type="button"
             className={styles.actionBtn}
             onClick={handleCopyNumber}
           >
-            번호만 복사
+            {t('detail.copyNumber')}
           </button>
           <button
             type="button"
@@ -143,7 +147,7 @@ export function NumberDetail({
             data-active={isFavorite || undefined}
             onClick={() => onToggleFavorite(item.id)}
           >
-            {isFavorite ? '★ 즐겨찾기' : '☆ 즐겨찾기'}
+            {isFavorite ? t('favorites.removeStar') : t('favorites.addStar')}
           </button>
         </div>
       </div>

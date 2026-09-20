@@ -13,6 +13,8 @@ import {
   widgetURL,
 } from '@expo/ui/swift-ui/modifiers';
 import { createWidget, type WidgetEnvironment } from 'expo-widgets';
+import i18n from '../i18n';
+import type { AppLocale } from '../i18n/types';
 
 export type FavoriteWidgetItem = {
   icon: string;
@@ -23,6 +25,7 @@ export type FavoriteWidgetItem = {
 
 export type FavoritesWidgetProps = {
   items: FavoriteWidgetItem[];
+  locale?: AppLocale;
 };
 
 const FavoritesWidgetLayout = (
@@ -30,6 +33,9 @@ const FavoritesWidgetLayout = (
   environment: WidgetEnvironment,
 ) => {
   'widget';
+
+  const lng = props.locale ?? 'ko';
+  const wt = (key: string) => i18n.t(key, { ns: 'ui', lng });
 
   const accent = '#D94F3D';
   const softIcon = '#FFEDEA';
@@ -70,7 +76,7 @@ const FavoritesWidgetLayout = (
         cornerRadius(9),
       ]}
     >
-      몇번이야?
+      {wt('widget.brand')}
     </Text>
   );
 
@@ -82,7 +88,7 @@ const FavoritesWidgetLayout = (
           foregroundStyle(muted),
         ]}
       >
-        즐겨찾기 ›
+        {wt('widget.favoritesLink')}
       </Text>
     </Link>
   );
@@ -202,7 +208,7 @@ const FavoritesWidgetLayout = (
           />
         </HStack>
         <Text modifiers={[font({ weight: 'bold', size: 13 }), foregroundStyle(ink)]}>
-          {isSmall ? '즐겨찾기가 없어요' : '즐겨찾기를 추가해보세요'}
+          {isSmall ? wt('widget.emptySmall') : wt('widget.emptyMedium')}
         </Text>
         <Text
           modifiers={[
@@ -212,7 +218,7 @@ const FavoritesWidgetLayout = (
             minimumScaleFactor(0.85),
           ]}
         >
-          앱에서 추가하면 여기서 바로 전화해요
+          {wt('widget.emptyHint')}
         </Text>
         <Spacer />
       </VStack>
@@ -285,7 +291,7 @@ const FavoritesWidgetLayout = (
             <Spacer />
             <Image systemName="phone.fill" size={10} color={white} />
             <Text modifiers={[font({ weight: 'bold', size: 11 }), foregroundStyle(white)]}>
-              바로 전화
+              {wt('widget.callNow')}
             </Text>
             <Spacer />
           </HStack>
@@ -349,7 +355,7 @@ const FavoritesWidgetLayout = (
               minimumScaleFactor(0.85),
             ]}
           >
-            필요할 때, 바로 몇번이야?
+            {wt('widget.footerTagline')}
           </Text>
           <Spacer />
           <Text

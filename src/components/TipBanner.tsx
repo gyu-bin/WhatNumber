@@ -1,5 +1,5 @@
 import type { Situation } from '@whatnumber/shared';
-import { SITUATION_TIPS } from '@whatnumber/shared';
+import { useTranslation } from 'react-i18next';
 import styles from './TipBanner.module.css';
 
 interface TipBannerProps {
@@ -7,8 +7,9 @@ interface TipBannerProps {
 }
 
 export function TipBanner({ situation }: TipBannerProps) {
-  const tip = SITUATION_TIPS[situation];
-  if (!tip) return null;
+  const { t } = useTranslation();
+  const tip = t(`situationTips.${situation}`);
+  if (!tip || tip === `situationTips.${situation}`) return null;
 
   return (
     <div className={styles.banner} role="note">

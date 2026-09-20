@@ -2,7 +2,20 @@ import type { Coordinate, EmergencyRoom, EmergencyRoomsResponse } from './types'
 
 export class EmergencyRoomsConfigurationError extends Error {}
 
-export class EmergencyRoomsResponseError extends Error {}
+export class EmergencyRoomsResponseError extends Error {
+  readonly code = 'invalid_response' as const;
+}
+
+export class EmergencyRoomsFetchError extends Error {
+  readonly code = 'fetch_failed' as const;
+
+  readonly status: number;
+
+  constructor(status: number) {
+    super(String(status));
+    this.status = status;
+  }
+}
 
 // 공개 endpoint만 기본값으로 둡니다. NEMC Service Key는 이 앱 코드나 번들에 없습니다.
 const PRODUCTION_EMERGENCY_ENDPOINT = 'https://whatnumber-mu.vercel.app/api/emergency';
@@ -14,7 +27,7 @@ function getEndpoint(): string {
 
 function parseResponse(value: unknown): EmergencyRoomsResponse {
   if (!value || typeof value !== 'object' || !Array.isArray((value as EmergencyRoomsResponse).rooms)) {
-    throw new EmergencyRoomsResponseError('응급실 정보 형식을 확인할 수 없어요.');
+    throw new EmergencyRoomsResponseError('invalid_response');
   }
 
   return value as EmergencyRoomsResponse;
@@ -38,7 +51,7 @@ export async function fetchNearbyEmergencyRooms(
   });
 
   if (!response.ok) {
-    throw new Error(`응급실 정보를 불러오지 못했어요. (${response.status})`);
+    throw new EmergencyRoomsFetchError(response.status);
   }
 
   const payload = parseResponse(await response.json());

@@ -1,9 +1,9 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   CAT_COLOR,
-  SITUATION_LABELS,
   getNumberById,
-  getNumberDetail,
   iconBgColor,
   telHref,
 } from '@whatnumber/shared';
@@ -11,6 +11,8 @@ import { JsonLd } from '../components/JsonLd';
 import { Footer } from '../components/Footer';
 import { PageTopBar } from '../components/PageTopBar';
 import { usePageSeo } from '../hooks/usePageSeo';
+import { useLocale } from '../hooks/useLocale';
+import { localizeNumber, localizeNumberDetail } from '../i18n';
 import {
   buildBreadcrumbJsonLd,
   buildNumberJsonLd,
@@ -22,8 +24,14 @@ import styles from '../styles/contentPage.module.css';
 import detailStyles from '../components/NumberDetail.module.css';
 
 export function NumberPage() {
+  const { t } = useTranslation();
+  const { locale } = useLocale();
   const { id } = useParams<{ id: string }>();
-  const item = id ? getNumberById(id) : undefined;
+  const rawItem = id ? getNumberById(id) : undefined;
+  const item = useMemo(
+    () => (rawItem ? localizeNumber(rawItem, locale) : undefined),
+    [rawItem, locale],
+  );
 
   usePageSeo(
     item
@@ -32,44 +40,44 @@ export function NumberPage() {
           description: numberPageDescription(item),
           path: numberPath(item.id),
         }
-      : { title: '번호를 찾을 수 없음', noIndex: true },
+      : { title: t('numberPage.notFoundTitle'), noIndex: true },
   );
 
   if (!id) {
     return <Navigate to="/" replace />;
   }
 
-  if (!item) {
+  if (!item || !rawItem) {
     return (
       <div className="app">
-        <PageTopBar title="번호 안내" />
+        <PageTopBar title={t('numberPage.pageTitle')} />
         <main className={styles.page}>
           <Link to="/" className={styles.back}>
-            ← 번호 목록으로
+            {t('numberPage.backToNumbers')}
           </Link>
-          <p>요청하신 번호를 찾을 수 없습니다.</p>
+          <p>{t('numberPage.notFound')}</p>
         </main>
         <Footer />
       </div>
     );
   }
 
-  const detail = getNumberDetail(item.id);
+  const detail = localizeNumberDetail(item.id, locale) ?? [];
   const breadcrumb = buildBreadcrumbJsonLd([
-    { name: '홈', path: '/' },
-    { name: item.cat, path: '/' },
+    { name: t('numberPage.breadcrumbHome'), path: '/' },
+    { name: t(`categories.${item.cat}`), path: '/' },
     { name: item.title, path: numberPath(item.id) },
   ]);
 
   return (
     <div className="app">
-      <JsonLd id="number" data={buildNumberJsonLd(item)} />
+      <JsonLd id="number" data={buildNumberJsonLd(rawItem)} />
       <JsonLd id="breadcrumb" data={breadcrumb} />
 
-      <PageTopBar title={item.cat} />
+      <PageTopBar title={t(`categories.${item.cat}`)} />
       <main className={styles.page}>
         <Link to="/" className={styles.back}>
-          ← 번호 목록으로
+          {t('numberPage.backToNumbers')}
         </Link>
 
         <header className={styles.hero}>
@@ -81,18 +89,18 @@ export function NumberPage() {
             <span style={{ fontSize: 28 }}>{item.icon}</span>
           </div>
           <p className={styles.eyebrow} style={{ color: CAT_COLOR[item.cat] }}>
-            {item.cat}
+            {t(`categories.${item.cat}`)}
           </p>
           <h1 className={styles.title}>{item.title}</h1>
           <p className={styles.lead}>{item.desc}</p>
           <a href={telHref(item.num)} className={styles.callLink}>
-            {item.num} 전화하기
+            {t('detail.call', { num: item.num })}
           </a>
         </header>
 
         {detail.length > 0 && (
           <section className={styles.section}>
-            <h2>자세히 알아보기</h2>
+            <h2>{t('detail.learnMore')}</h2>
             {detail.map((paragraph) => (
               <p key={paragraph.slice(0, 48)}>{paragraph}</p>
             ))}
@@ -101,10 +109,10 @@ export function NumberPage() {
 
         {item.situation.length > 0 && (
           <section className={styles.section}>
-            <h2>이런 상황에 쓰세요</h2>
+            <h2>{t('detail.situationsHeading')}</h2>
             <ul>
               {item.situation.map((sit) => (
-                <li key={sit}>{SITUATION_LABELS[sit]}</li>
+                <li key={sit}>{t(`situationLabels.${sit}`)}</li>
               ))}
             </ul>
           </section>
@@ -112,16 +120,17 @@ export function NumberPage() {
 
         {item.tip && (
           <section className={styles.section}>
-            <h2>꿀팁</h2>
+            <h2>{t('detail.tipHeading')}</h2>
             <p>{item.tip}</p>
           </section>
         )}
 
         <section className={styles.section}>
-          <h2>다른 번호 찾기</h2>
+          <h2>{t('detail.findMoreHeading')}</h2>
           <p>
-            <Link to="/">몇번이야 홈</Link>에서 상황별·카테고리별로 더 많은 공공
-            전화번호를 검색할 수 있습니다.
+            {t('detail.findMoreBodyBefore')}
+            <Link to="/">{t('detail.findMoreLink')}</Link>
+            {t('detail.findMoreBodyAfter')}
           </p>
         </section>
       </main>

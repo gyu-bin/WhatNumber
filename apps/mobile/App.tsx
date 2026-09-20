@@ -25,10 +25,9 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import {
   ALL_NUMBERS,
-  SITUATION_TIPS,
-  getNumberDetail,
   type Category,
   type NumberItem,
   type Situation,
@@ -47,7 +46,9 @@ import { Toast } from './components/Toast';
 import { useAdMobInit } from './hooks/useAdMobInit';
 import { useFavorites } from './hooks/useFavorites';
 import { useOTAUpdates } from './hooks/useOTAUpdates';
+import { useLocale } from './hooks/useLocale';
 import { useTheme } from './hooks/useTheme';
+import { localizeNumberDetail, localizeNumbers } from './i18n';
 import { CategoryScreen } from './screens/CategoryScreen';
 import { MoreScreen } from './screens/MoreScreen';
 import { PrivacyScreen } from './screens/PrivacyScreen';
@@ -68,31 +69,17 @@ type TabId = 'home' | 'settings';
 type SettingsView = 'main' | 'privacy';
 type HomeView = 'numbers' | 'emergency-finder' | 'category';
 
-const PRIMARY_SITUATIONS: { id: Situation; icon: string; label: string }[] = [
-  { id: 'emergency', icon: '🚑', label: '갑자기 아파요' },
-  { id: 'car', icon: '🚗', label: '차가 고장났어요' },
-  { id: 'crime', icon: '🛡', label: '사기·범죄' },
-  { id: 'home', icon: '🏠', label: '집·주거' },
+const PRIMARY_SITUATIONS: { id: Situation; icon: string }[] = [
+  { id: 'emergency', icon: '🚑' },
+  { id: 'car', icon: '🚗' },
+  { id: 'crime', icon: '🛡' },
+  { id: 'home', icon: '🏠' },
 ];
 
-const MORE_SITUATIONS: { id: Situation; icon: string; label: string }[] = [
-  { id: 'abroad', icon: '✈️', label: '해외에 있어요' },
-  { id: 'legal', icon: '⚖️', label: '법률·금융 문제' },
+const MORE_SITUATIONS: { id: Situation; icon: string }[] = [
+  { id: 'abroad', icon: '✈️' },
+  { id: 'legal', icon: '⚖️' },
 ];
-
-const FIRE_ITEM = ALL_NUMBERS.find((n) => n.id === 'e2')!;
-const POLICE_ITEM = ALL_NUMBERS.find((n) => n.id === 'e3')!;
-
-const CATEGORY_SUBTITLES: Partial<Record<Category, string>> = {
-  '긴급/안전': '지금 바로 도움이 필요한 순간',
-  '교통/차량': '이동 중에도 든든하게',
-  '주거/생활': '매일의 생활 문제를 빠르게',
-  '법률/금융': '권리와 재산을 지키는 번호',
-  '가족/복지': '가족과 이웃을 위한 도움',
-  '고용/노동': '일하는 사람을 위한 안내',
-  '민원/행정': '공공 서비스가 필요할 때',
-  '통신/디지털': '통신·인터넷·개인정보 문제',
-};
 
 type ListSection = {
   key: string;
@@ -116,7 +103,8 @@ function DetailSheet({
   onToggleFavorite: (id: string) => void;
   styles: AppStyles;
 }) {
-  const detail = getNumberDetail(item.id);
+  const { t } = useTranslation();
+  const detail = localizeNumberDetail(item.id) ?? [];
 
   return (
     <Modal visible animationType="slide" transparent onRequestClose={onClose}>
@@ -132,7 +120,7 @@ function DetailSheet({
             <View style={styles.sheetHeader}>
               <NumberVisualIcon item={item} size={52} />
               <View style={styles.sheetHeaderText}>
-                <Text style={styles.sheetCat}>{item.cat}</Text>
+                <Text style={styles.sheetCat}>{t(`categories.${item.cat}`)}</Text>
                 <Text style={styles.sheetTitle}>{item.title}</Text>
                 <Text style={styles.sheetDesc}>{item.desc}</Text>
               </View>
@@ -159,14 +147,14 @@ function DetailSheet({
               onPress={() => onToggleFavorite(item.id)}
             >
               <Text style={styles.secondaryBtnText}>
-                {isFavorite ? '★ 즐겨찾기 해제' : '☆ 즐겨찾기 추가'}
+                {isFavorite ? t('detail.removeFavorite') : t('detail.addFavorite')}
               </Text>
             </Pressable>
             <Pressable
               style={styles.primaryBtn}
               onPress={() => void Linking.openURL(telHref(item.num))}
             >
-              <Text style={styles.primaryBtnText}>{item.num} 전화</Text>
+              <Text style={styles.primaryBtnText}>{t('detail.call', { num: item.num })}</Text>
             </Pressable>
           </View>
         </Pressable>
@@ -186,6 +174,7 @@ function TabBar({
   styles: AppStyles;
   colors: ThemeColors;
 }) {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const homeActive = active === 'home';
   const settingsActive = active === 'settings';
@@ -197,34 +186,38 @@ function TabBar({
         onPress={() => onChange('home')}
         accessibilityRole="tab"
         accessibilityState={{ selected: homeActive }}
-        accessibilityLabel="홈"
+        accessibilityLabel={t('tabs.home')}
       >
         <Ionicons
           name={homeActive ? 'home' : 'home-outline'}
           size={20}
           color={homeActive ? colors.accent : colors.textTertiary}
         />
-        <Text style={[styles.tabLabel, homeActive && styles.tabLabelActive]}>홈</Text>
+        <Text style={[styles.tabLabel, homeActive && styles.tabLabelActive]}>{t('tabs.home')}</Text>
       </Pressable>
       <Pressable
         style={[styles.tabItem, settingsActive && styles.tabItemActive]}
         onPress={() => onChange('settings')}
         accessibilityRole="tab"
         accessibilityState={{ selected: settingsActive }}
-        accessibilityLabel="설정"
+        accessibilityLabel={t('tabs.settings')}
       >
         <Ionicons
           name={settingsActive ? 'settings' : 'settings-outline'}
           size={20}
           color={settingsActive ? colors.accent : colors.textTertiary}
         />
-        <Text style={[styles.tabLabel, settingsActive && styles.tabLabelActive]}>설정</Text>
+        <Text style={[styles.tabLabel, settingsActive && styles.tabLabelActive]}>
+          {t('tabs.settings')}
+        </Text>
       </Pressable>
     </View>
   );
 }
 
 export default function App() {
+  const { t } = useTranslation();
+  const { locale, setLocale } = useLocale();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   useOTAUpdates(setToastMessage);
   useAdMobInit();
@@ -246,10 +239,24 @@ export default function App() {
   const { favorites, toggle, reorder, isFavorite, ready: favoritesReady } = useFavorites();
   const { theme, toggle: toggleTheme, ready: themeReady } = useTheme();
 
+  const localizedNumbers = useMemo(
+    () => localizeNumbers(ALL_NUMBERS, locale),
+    [locale],
+  );
+
+  const fireItem = useMemo(
+    () => localizedNumbers.find((n) => n.id === 'e2')!,
+    [localizedNumbers],
+  );
+  const policeItem = useMemo(
+    () => localizedNumbers.find((n) => n.id === 'e3')!,
+    [localizedNumbers],
+  );
+
   useEffect(() => {
     if (!favoritesReady) return;
-    syncFavoritesWidget(favorites);
-  }, [favorites, favoritesReady]);
+    syncFavoritesWidget(favorites, locale);
+  }, [favorites, favoritesReady, locale]);
 
   const themeColors = getThemeColors(theme);
   const styles = useMemo(() => createStyles(themeColors), [theme]);
@@ -306,18 +313,18 @@ export default function App() {
 
   const filtered = useMemo(() => {
     if (isSearching) {
-      return searchNumbers(ALL_NUMBERS, query);
+      return searchNumbers(localizedNumbers, query);
     }
     if (activeSituation) {
-      return ALL_NUMBERS.filter((n) => n.situation.includes(activeSituation));
+      return localizedNumbers.filter((n) => n.situation.includes(activeSituation));
     }
     if (showFavorites) {
       return favorites
-        .map((id) => ALL_NUMBERS.find((n) => n.id === id))
+        .map((id) => localizedNumbers.find((n) => n.id === id))
         .filter((n): n is NumberItem => n !== undefined);
     }
-    return ALL_NUMBERS;
-  }, [query, isSearching, activeSituation, showFavorites, favorites]);
+    return localizedNumbers;
+  }, [query, isSearching, activeSituation, showFavorites, favorites, localizedNumbers]);
 
   const groupByCategory = !isSearching && !activeSituation && !showFavorites;
   const isBrowseHome = groupByCategory;
@@ -338,7 +345,7 @@ export default function App() {
       return [
         {
           key: 'favorites',
-          title: `내 즐겨찾기 · ${filtered.length}개`,
+          title: t('home.favoritesHeader', { count: filtered.length }),
           isFavorites: true,
           data: filtered,
         },
@@ -346,7 +353,7 @@ export default function App() {
     }
 
     return [{ key: 'list', title: '', data: filtered }];
-  }, [filtered, isFavoritesView]);
+  }, [filtered, isFavoritesView, t]);
 
   const listHeader = (
     <View style={styles.listHeader}>
@@ -357,10 +364,10 @@ export default function App() {
             source={require('./assets/brand/header-label-light.png')}
             style={styles.logoWordmark}
             resizeMode="contain"
-            accessibilityLabel="몇번이야"
+            accessibilityLabel={t('settings.metaBrand')}
             accessibilityIgnoresInvertColors
           />
-          <Text style={styles.headerSubtitle}>필요한 번호, 바로 찾아드릴게요.</Text>
+          <Text style={styles.headerSubtitle}>{t('home.subtitle')}</Text>
         </View>
       </View>
 
@@ -368,12 +375,12 @@ export default function App() {
         <Ionicons name="search-outline" size={23} color={themeColors.textTertiary} />
         <TextInput
           style={styles.search}
-          placeholder="번호나 상황을 검색해보세요"
+          placeholder={t('home.searchPlaceholder')}
           placeholderTextColor={themeColors.textTertiary}
           value={query}
           onChangeText={setQuery}
           clearButtonMode="while-editing"
-          accessibilityLabel="번호 또는 상황 검색"
+          accessibilityLabel={t('home.searchA11y')}
         />
       </View>
 
@@ -395,7 +402,7 @@ export default function App() {
                 setShowFavorites(next);
                 if (next) setActiveSituation(null);
               }}
-              accessibilityLabel="즐겨찾기"
+              accessibilityLabel={t('home.favoritesA11y')}
               accessibilityState={{ selected: showFavorites && !activeSituation }}
             >
               <Text
@@ -404,7 +411,9 @@ export default function App() {
                   styles.situationChipFavTextActive,
                 ]}
               >
-                {favorites.length > 0 ? `★ 즐겨찾기 ${favorites.length}` : '★ 즐겨찾기'}
+                {favorites.length > 0
+                  ? `★ ${t('home.favoritesWithCount', { count: favorites.length })}`
+                  : `★ ${t('home.favorites')}`}
               </Text>
             </Pressable>
 
@@ -428,7 +437,7 @@ export default function App() {
                       isActive && styles.situationChipTextActive,
                     ]}
                   >
-                    {sit.label}
+                    {t(`situations.${sit.id}`)}
                   </Text>
                 </Pressable>
               );
@@ -440,7 +449,7 @@ export default function App() {
                 isMoreSituationActive && styles.situationChipActive,
               ]}
               onPress={() => setSituationMoreOpen(true)}
-              accessibilityLabel="상황 더보기"
+              accessibilityLabel={t('home.situationMoreA11y')}
               accessibilityState={{ selected: isMoreSituationActive }}
             >
               <Text style={styles.situationIcon}>•••</Text>
@@ -450,14 +459,14 @@ export default function App() {
                   isMoreSituationActive && styles.situationChipTextActive,
                 ]}
               >
-                더보기
+                {t('home.moreSituations')}
               </Text>
             </Pressable>
           </ScrollView>
 
           {activeSituation ? (
             <View style={styles.tipBanner}>
-              <Text style={styles.tipBannerText}>{SITUATION_TIPS[activeSituation]}</Text>
+              <Text style={styles.tipBannerText}>{t(`situationTips.${activeSituation}`)}</Text>
             </View>
           ) : null}
         </View>
@@ -471,13 +480,11 @@ export default function App() {
       {isFavoritesView ? (
         <>
           <Text style={styles.emptyIcon}>☆</Text>
-          <Text style={styles.emptyTitle}>아직 즐겨찾기가 없어요</Text>
-          <Text style={styles.emptyHint}>
-            자주 쓰는 번호 카드에서 ☆를 눌러 모아두세요
-          </Text>
+          <Text style={styles.emptyTitle}>{t('home.favoritesEmptyTitle')}</Text>
+          <Text style={styles.emptyHint}>{t('home.favoritesEmptyBody')}</Text>
         </>
       ) : (
-        <Text style={styles.empty}>해당하는 번호가 없어요</Text>
+        <Text style={styles.empty}>{t('home.empty')}</Text>
       )}
     </View>
   );
@@ -496,8 +503,8 @@ export default function App() {
         onPress={() => setHomeView('emergency-finder')}
       />
       <ImmediateEmergency
-        fireItem={FIRE_ITEM}
-        policeItem={POLICE_ITEM}
+        fireItem={fireItem}
+        policeItem={policeItem}
         styles={styles}
         colors={themeColors}
         onOpen={setSelected}
@@ -524,11 +531,11 @@ export default function App() {
       <View style={styles.sectionHeader}>
         <Text style={styles.favHeader}>
           <Text style={styles.favHeaderStar}>★ </Text>
-          {`내 즐겨찾기 · ${filtered.length}개`}
+          {t('home.favoritesHeader', { count: filtered.length })}
         </Text>
       </View>
       {filtered.length > 1 ? (
-        <Text style={styles.favReorderHint}>길게 눌러 순서를 바꿀 수 있어요</Text>
+        <Text style={styles.favReorderHint}>{t('home.favoritesReorderHint')}</Text>
       ) : null}
     </View>
   );
@@ -618,9 +625,9 @@ export default function App() {
               {showCategory ? (
                 <CategoryScreen
                   category={selectedCategory}
-                  title={selectedCategoryLabel ?? undefined}
-                  subtitle={CATEGORY_SUBTITLES[selectedCategory]}
-                  items={ALL_NUMBERS.filter((item) => item.cat === selectedCategory)}
+                  title={selectedCategoryLabel ?? t(`categories.${selectedCategory}`)}
+                  subtitle={t(`categorySubtitles.${selectedCategory}`)}
+                  items={localizedNumbers.filter((item) => item.cat === selectedCategory)}
                   styles={styles}
                   colors={themeColors}
                   isFavorite={isFavorite}
@@ -693,6 +700,8 @@ export default function App() {
                     styles={styles}
                     colors={themeColors}
                     theme={theme}
+                    locale={locale}
+                    onChangeLocale={setLocale}
                     onChangeTheme={(next) => {
                       if (next !== theme) toggleTheme();
                     }}
@@ -761,7 +770,7 @@ export default function App() {
                 />
                 <View style={styles.situationMoreSheet}>
                   <View style={styles.situationMoreHandle} />
-                  <Text style={styles.situationMoreTitle}>다른 상황</Text>
+                  <Text style={styles.situationMoreTitle}>{t('home.situationMoreTitle')}</Text>
                   {MORE_SITUATIONS.map((sit) => {
                     const isActive = activeSituation === sit.id;
                     return (
@@ -776,7 +785,9 @@ export default function App() {
                         accessibilityState={{ selected: isActive }}
                       >
                         <Text style={styles.situationIcon}>{sit.icon}</Text>
-                        <Text style={styles.situationMoreRowText}>{sit.label}</Text>
+                        <Text style={styles.situationMoreRowText}>
+                          {t(`situations.${sit.id}`)}
+                        </Text>
                         {isActive ? (
                           <Ionicons name="checkmark" size={18} color={themeColors.accent} />
                         ) : null}

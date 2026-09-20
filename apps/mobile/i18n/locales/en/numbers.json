@@ -1,0 +1,417 @@
+{
+  "e1": {
+    "title": "Emergency care without upfront payment",
+    "desc": "Government pays first — refusing treatment is illegal",
+    "tip": "Call 119 for transport and treatment first; if the hospital blocks you over cost, call 129."
+  },
+  "e2": {
+    "title": "Fire & ambulance",
+    "desc": "119 — fire, rescue, and emergency medical response",
+    "tip": "Give address, situation, and headcount in order. If there is smoke, close doors, stay low, evacuate, then call."
+  },
+  "e3": {
+    "title": "Police",
+    "desc": "112 — dispatch; SMS reporting available",
+    "tip": "If you cannot speak, use 112 SMS reporting. Turning on location helps dispatch find you faster."
+  },
+  "e4": {
+    "title": "Emergency hospitals & pharmacies",
+    "desc": "Find open hospitals and pharmacies at night and on holidays",
+    "tip": "Tell them your area and symptoms to get nearby ERs and pharmacies."
+  },
+  "e5": {
+    "title": "Crime victim support",
+    "desc": "Medical care, counseling, and legal referrals",
+    "tip": "Support for recovery separate from police investigation—earlier contact helps."
+  },
+  "e6": {
+    "title": "Overseas emergency (Korean citizens)",
+    "desc": "24/7 Korean-language consular assistance",
+    "tip": "From abroad dial +82-2-3210-0404. After passport loss, accident, or arrest, contact local authorities first, then call."
+  },
+  "e7": {
+    "title": "Mental health crisis",
+    "desc": "24/7 mental health crisis counseling",
+    "tip": "Anonymous and free. If you have thoughts of self-harm, also remember 1393."
+  },
+  "e13": {
+    "title": "Suicide prevention hotline",
+    "desc": "24/7 suicide prevention counseling",
+    "tip": "If life is in immediate danger, call 119 or 112 first. Counseling: 109 or 1393."
+  },
+  "e8": {
+    "title": "Espionage reporting (NIS)",
+    "desc": "National Intelligence Service — espionage, terror, security threats",
+    "tip": "Police counter-espionage is 113. Either line accepts reports."
+  },
+  "e9": {
+    "title": "Counter-espionage (police)",
+    "desc": "National Police — espionage, tech leaks, spying",
+    "tip": "Note exact time, place, and behavior—it helps investigators."
+  },
+  "e10": {
+    "title": "Integrated defense hotline",
+    "desc": "Drones, suspicious vessels, unusual military activity"
+  },
+  "e11": {
+    "title": "Military secrets & espionage",
+    "desc": "Military Security Support Command — defense secrets",
+    "tip": "Use 112 for ordinary crimes; 1337 for military secrets or defense-industry espionage."
+  },
+  "e12": {
+    "title": "Coast Guard emergency",
+    "desc": "Maritime distress, accidents, illegal fishing",
+    "tip": "At sea, islands, or tidal flats in danger, call 122. Give the island name and precise location."
+  },
+  "e14": {
+    "title": "Environmental pollution",
+    "desc": "Odors, illegal dumping, water and air pollution",
+    "tip": "State when and where it happened and what kind of pollution you see."
+  },
+  "e15": {
+    "title": "Food safety",
+    "desc": "Food poisoning, unsafe food, false labeling",
+    "tip": "Product name, store, expiry date, and photos speed up the report."
+  },
+  "c1": {
+    "title": "Expressway public tow truck",
+    "desc": "Avoid private tow scams — free tow to a safe area",
+    "tip": "On expressways after a crash, call public tow before private tow—free distance may apply."
+  },
+  "c2": {
+    "title": "Expressway emergency towing",
+    "desc": "Breakdown or crash on shoulder — tow to safety zone",
+    "tip": "Turn on hazards and set a warning triangle before calling. If injured, call 119 first."
+  },
+  "c3": {
+    "title": "Traffic accident report",
+    "desc": "Police dispatch — DUI checks and on-scene investigation",
+    "tip": "A 112 report before settling creates an official record if a dispute arises."
+  },
+  "c4": {
+    "title": "Injury ambulance (traffic)",
+    "desc": "First aid and hospital transport"
+  },
+  "c5": {
+    "title": "Auto insurance accident line",
+    "desc": "Roadside assist, towing, and rental car coordination",
+    "tip": "Save your insurer’s direct number too. On expressways, prefer public tow first."
+  },
+  "c6": {
+    "title": "Uninsured driver accident",
+    "desc": "Compensation when the other party is uninsured or flees"
+  },
+  "c7": {
+    "title": "Post-accident admin help",
+    "desc": "Fines, license, and insurance civil-service referrals"
+  },
+  "c8": {
+    "title": "Transit lost & found",
+    "desc": "Subway and bus lost-property lookup",
+    "tip": "Remember route, time, and seat to recover items. Missing persons: also 182."
+  },
+  "c9": {
+    "title": "Rail & KTX customer center",
+    "desc": "Train schedules, lost items, delay info",
+    "tip": "Give train number, station where you got off, and time."
+  },
+  "h1": {
+    "title": "Bulk address change after moving",
+    "desc": "Update banks, cards, and insurance in one go",
+    "tip": "One call after moving updates bank, insurance, and card addresses together."
+  },
+  "h2": {
+    "title": "Neighbor noise mediation",
+    "desc": "Professional mediators visit to help resolve disputes",
+    "tip": "If the building office cannot help, try the neighbor mediation center. Keep a noise log."
+  },
+  "h3": {
+    "title": "Jeonse fraud prevention",
+    "desc": "Check deposit safety before signing a lease",
+    "tip": "Call before sending jeonse deposit. Urgent-only deals or agents-only meetings are red flags."
+  },
+  "h4": {
+    "title": "Gas leak emergency",
+    "desc": "City gas — 24/7 emergency response",
+    "tip": "If you smell gas, do not touch switches—ventilate, evacuate, then report."
+  },
+  "h5": {
+    "title": "Power outage & electrical faults",
+    "desc": "KEPCO — outages and damaged lines",
+    "tip": "Electrocution or fire risk: 119 first. Simple outage: 123."
+  },
+  "h6": {
+    "title": "Water supply & quality",
+    "desc": "K-water — outages and water quality info",
+    "tip": "City water leaks may be faster via local 120. Unsure? try 110."
+  },
+  "h7": {
+    "title": "Weather alerts",
+    "desc": "Typhoon, heavy rain, heat wave, and cold wave advisories",
+    "tip": "Check weather alerts before hiking, boating, or outdoor plans."
+  },
+  "l1": {
+    "title": "Free legal aid",
+    "desc": "Lawyer consultation and litigation support",
+    "tip": "Free legal help may be available by income—consult before suing."
+  },
+  "l2": {
+    "title": "Hospital bill refund",
+    "desc": "Refund when costs exceed the out-of-pocket cap",
+    "tip": "If you paid a lot out-of-pocket in a year with no refund notice, ask here."
+  },
+  "l3": {
+    "title": "Financial consumer protection",
+    "desc": "Illegal finance and financial product harm",
+    "tip": "If they rush a transfer, hang up and call 1398. Product complaints: 1332."
+  },
+  "l4": {
+    "title": "Voice phishing report",
+    "desc": "Report even while a scam call is in progress",
+    "tip": "Hang up on fake prosecutors or regulators and call 1398 immediately—before transferring money."
+  },
+  "l5": {
+    "title": "Personal data breach",
+    "desc": "Leaks and misuse — deletion and blocking guidance"
+  },
+  "l9": {
+    "title": "Cybercrime & hacking",
+    "desc": "Ransomware and hacking — KISA 24/7",
+    "tip": "Voice phishing: 1398. Hacking or phishing sites: 118."
+  },
+  "l10": {
+    "title": "Drugs & prosecution crimes",
+    "desc": "Drugs and special investigations — prosecution services",
+    "tip": "Need immediate police response? 112."
+  },
+  "d1": {
+    "title": "Telecom & broadcasting complaints",
+    "desc": "Billing and service issues for telecom and TV",
+    "tip": "If the carrier cannot help, you can file a telecom/broadcast complaint at 1335."
+  },
+  "d2": {
+    "title": "Directory assistance",
+    "desc": "Nationwide number lookup (114)"
+  },
+  "d3": {
+    "title": "Broadcast & telecom review",
+    "desc": "Harmful or illegal broadcast and telecom content"
+  },
+  "d4": {
+    "title": "Illegal spam report",
+    "desc": "Spam texts and spam calls",
+    "tip": "Spam and phishing sites: 118. Active voice phishing: 1398."
+  },
+  "l6": {
+    "title": "Consumer dispute mediation",
+    "desc": "Refund refusals and contract disputes",
+    "tip": "Have contract, payment proof, and chat logs ready."
+  },
+  "l7": {
+    "title": "National tax inquiry (NTS)",
+    "desc": "Income tax, VAT, and tax counseling"
+  },
+  "l8": {
+    "title": "Local tax inquiry",
+    "desc": "Vehicle tax and property tax counseling"
+  },
+  "l11": {
+    "title": "Fair trade counseling",
+    "desc": "Unfair practices, ads, and franchise disputes",
+    "tip": "Individual refund fights are often better at Consumer Agency 1544-0990."
+  },
+  "l12": {
+    "title": "Credit recovery & debt adjustment",
+    "desc": "Arrears, personal rehabilitation referrals",
+    "tip": "Try public debt counseling before illegal loan sharks."
+  },
+  "l13": {
+    "title": "Microfinance counseling",
+    "desc": "Policy loans such as Sunshine Loan"
+  },
+  "l14": {
+    "title": "Human rights counseling",
+    "desc": "Discrimination and human-rights violations"
+  },
+  "f1": {
+    "title": "Elder care counseling",
+    "desc": "Wellness checks and in-home care referrals"
+  },
+  "f2": {
+    "title": "School violence report",
+    "desc": "Report by phone or text message",
+    "tip": "Consider a public report in addition to school-internal steps."
+  },
+  "f3": {
+    "title": "Women's emergency hotline",
+    "desc": "Domestic and sexual violence — 24/7",
+    "tip": "Immediate danger: also 112. Counseling is confidential."
+  },
+  "f4": {
+    "title": "Illegal filming victim support",
+    "desc": "Video takedown and investigation support",
+    "tip": "Do not delete evidence on your own—follow counselor guidance for takedown and investigation."
+  },
+  "f5": {
+    "title": "Foreign resident helpline",
+    "desc": "Visas, stay status — multilingual guidance"
+  },
+  "f6": {
+    "title": "Youth counseling",
+    "desc": "Anonymous help with school, family, and careers"
+  },
+  "f7": {
+    "title": "National pension",
+    "desc": "Benefits, contributions, and eligibility"
+  },
+  "f8": {
+    "title": "Elder abuse report",
+    "desc": "Abuse and neglect counseling and protection",
+    "tip": "Urgent danger: 112. Financial abuse and neglect also count."
+  },
+  "f9": {
+    "title": "Missing child or person",
+    "desc": "Missing-person reports and search guidance",
+    "tip": "Prepare recent photos, clothing, and last known location."
+  },
+  "w1": {
+    "title": "Unemployment benefits & employment aid",
+    "desc": "Ministry of Employment and Labor counseling",
+    "tip": "Unpaid wages or unfair dismissal guidance is also available at 1350."
+  },
+  "w2": {
+    "title": "Workers' comp & employment insurance",
+    "desc": "KCOMWEL counseling",
+    "tip": "After a workplace injury, check industrial-accident filing deadlines."
+  },
+  "w3": {
+    "title": "Job training (Tomorrow Learning Card)",
+    "desc": "Vocational training counseling and applications"
+  },
+  "w4": {
+    "title": "Workplace bullying & harassment",
+    "desc": "Employment equality counseling and relief",
+    "tip": "Use this public channel if internal reporting is hard or you fear retaliation."
+  },
+  "g1": {
+    "title": "Government call center",
+    "desc": "Connect to agencies and civil services nationwide",
+    "tip": "Not sure who to call? start with 110."
+  },
+  "g2": {
+    "title": "Seoul Dasan Call Center",
+    "desc": "Seoul 120 — from outside Seoul dial 02-120"
+  },
+  "g4": {
+    "title": "Gyeonggi Province call center",
+    "desc": "Life and provincial services for Gyeonggi residents"
+  },
+  "g5": {
+    "title": "Incheon City call center",
+    "desc": "Life and administrative services for Incheon residents"
+  },
+  "g6": {
+    "title": "Busan City 120",
+    "desc": "Life, traffic, and admin for Busan residents"
+  },
+  "g7": {
+    "title": "Daegu City call center",
+    "desc": "Life and administrative services for Daegu residents"
+  },
+  "g8": {
+    "title": "Gwangju City call center",
+    "desc": "Life and administrative services for Gwangju residents"
+  },
+  "g9": {
+    "title": "Daejeon City call center",
+    "desc": "Life and administrative services for Daejeon residents"
+  },
+  "g10": {
+    "title": "Ulsan City call center",
+    "desc": "Life and administrative services for Ulsan residents"
+  },
+  "g11": {
+    "title": "Sejong City call center",
+    "desc": "Life and administrative services for Sejong residents"
+  },
+  "g12": {
+    "title": "Gangwon Province call center",
+    "desc": "Life and provincial services for Gangwon residents"
+  },
+  "g13": {
+    "title": "North Chungcheong call center",
+    "desc": "Life and provincial services for Chungbuk residents"
+  },
+  "g14": {
+    "title": "South Chungcheong call center",
+    "desc": "Life and provincial services for Chungnam residents"
+  },
+  "g15": {
+    "title": "Jeonbuk Special Self-Governing Province",
+    "desc": "Life and provincial services for Jeonbuk residents"
+  },
+  "g16": {
+    "title": "South Jeolla call center",
+    "desc": "Life and provincial services for Jeonnam residents"
+  },
+  "g17": {
+    "title": "North Gyeongsang call center",
+    "desc": "Life and provincial services for Gyeongbuk residents"
+  },
+  "g18": {
+    "title": "South Gyeongsang call center",
+    "desc": "Life and provincial services for Gyeongnam residents"
+  },
+  "g19": {
+    "title": "Jeju Special Self-Governing Province",
+    "desc": "Life and provincial services for Jeju residents"
+  },
+  "g3": {
+    "title": "Resident registration & family records",
+    "desc": "Government24 — certificate issuance guidance"
+  },
+  "g20": {
+    "title": "Customs & overseas shopping",
+    "desc": "Customs clearance and duty inquiries",
+    "tip": "Have tracking number and item description ready."
+  },
+  "g21": {
+    "title": "Military Manpower Administration",
+    "desc": "Conscription, enlistment, and discharge inquiries"
+  },
+  "org-ins-samsung-auto": {
+    "title": "Samsung Fire — auto accident & roadside",
+    "desc": "Accident reporting and breakdown dispatch (IVR)",
+    "tip": "IVR 1: accident report; 2: roadside breakdown."
+  },
+  "org-ins-db-auto": {
+    "title": "DB Insurance — accident & roadside",
+    "desc": "Auto accident reporting and breakdown dispatch"
+  },
+  "org-ins-kb-auto": {
+    "title": "KB Insurance — accident & roadside",
+    "desc": "Auto accident reporting and breakdown dispatch"
+  },
+  "org-card-hyundai-lost": {
+    "title": "Hyundai Card — lost or stolen",
+    "desc": "Lost or stolen cards and voice phishing"
+  },
+  "org-card-samsung-lost": {
+    "title": "Samsung Card — lost card & limits",
+    "desc": "Lost cards and financial fraud reports"
+  },
+  "org-card-lotte-lost": {
+    "title": "Lotte Card — lost card & limits",
+    "desc": "Lost or stolen card reports"
+  },
+  "org-bank-kb-incident": {
+    "title": "KB Kookmin Bank — loss & fraud",
+    "desc": "Passbook, debit card, OTP, KB Card",
+    "tip": "After IVR connects, press * for lost card, passbook, or OTP."
+  },
+  "org-bank-woori-incident": {
+    "title": "Woori Bank — loss & fraud",
+    "desc": "Passbook, debit card, OTP, voice phishing",
+    "tip": "After IVR: #-1 voice phishing; #-2-3 passbook/seal; #-2-5 OTP loss."
+  }
+}

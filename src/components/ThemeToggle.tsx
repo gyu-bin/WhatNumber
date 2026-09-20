@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { Theme } from '../utils/theme';
 import styles from './ThemeToggle.module.css';
 
@@ -7,6 +8,7 @@ interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ theme, onToggle }: ThemeToggleProps) {
+  const { t } = useTranslation();
   const isDark = theme === 'dark';
 
   return (
@@ -14,8 +16,8 @@ export function ThemeToggle({ theme, onToggle }: ThemeToggleProps) {
       type="button"
       className={styles.btn}
       onClick={onToggle}
-      aria-label={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
-      title={isDark ? '라이트 모드' : '다크 모드'}
+      aria-label={isDark ? t('theme.toLight') : t('theme.toDark')}
+      title={isDark ? t('theme.light') : t('theme.dark')}
     >
       {isDark ? (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>

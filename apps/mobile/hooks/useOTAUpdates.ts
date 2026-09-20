@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as Updates from 'expo-updates';
+import i18n from '../i18n';
 
 const TOAST_BEFORE_RELOAD_MS = 1_400;
 
@@ -24,7 +25,7 @@ export function useOTAUpdates(onUpdateReady?: (message: string) => void) {
         const result = await Updates.fetchUpdateAsync();
         if (cancelled || !result.isNew) return;
 
-        onUpdateReadyRef.current?.('업데이트를 적용하고 있어요');
+        onUpdateReadyRef.current?.(i18n.t('ota.updating', { ns: 'ui' }));
         await new Promise((resolve) => setTimeout(resolve, TOAST_BEFORE_RELOAD_MS));
         if (cancelled) return;
 

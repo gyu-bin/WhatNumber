@@ -1,5 +1,6 @@
 import { Linking, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { telHref, type NumberItem } from '@whatnumber/shared';
 import type { AppStyles } from '../styles';
 import { NumberVisualIcon } from './NumberVisualIcon';
@@ -21,6 +22,7 @@ export function NumberRow({
   onDrag?: () => void;
   isActive?: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <Pressable
       style={[styles.card, isActive ? styles.cardDragging : null]}
@@ -40,7 +42,9 @@ export function NumberRow({
         <Pressable
           onPress={() => onToggleFavorite(item.id)}
           hitSlop={8}
-          accessibilityLabel={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+          accessibilityLabel={
+            isFavorite ? t('numberRow.removeFavorite') : t('numberRow.addFavorite')
+          }
         >
           <Text style={[styles.favorite, isFavorite && styles.favoriteActive]}>
             {isFavorite ? '★' : '☆'}
@@ -58,7 +62,7 @@ export function NumberRow({
             onLongPress={onDrag}
             delayLongPress={120}
             hitSlop={10}
-            accessibilityLabel="순서 변경"
+            accessibilityLabel={t('numberRow.reorder')}
             style={styles.dragHandle}
           >
             <Ionicons name="reorder-three" size={22} color={styles.dragHandleIcon.color} />
@@ -82,6 +86,7 @@ export function NumberGridCard({
   onOpen: (item: NumberItem) => void;
   styles: AppStyles;
 }) {
+  const { t } = useTranslation();
   return (
     <Pressable style={styles.gridCard} onPress={() => onOpen(item)}>
       <View style={styles.gridCardTop}>
@@ -89,7 +94,9 @@ export function NumberGridCard({
         <Pressable
           onPress={() => onToggleFavorite(item.id)}
           hitSlop={8}
-          accessibilityLabel={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+          accessibilityLabel={
+            isFavorite ? t('numberRow.removeFavorite') : t('numberRow.addFavorite')
+          }
         >
           <Ionicons
             name={isFavorite ? 'star' : 'star-outline'}

@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  DEFAULT_DESCRIPTION,
   absoluteUrl,
   buildTitle,
+  getDefaultDescription,
+  getSiteName,
   getSiteUrl,
 } from '../utils/seo';
-
 export interface PageSeoOptions {
   title?: string;
   description?: string;
@@ -37,12 +38,15 @@ function upsertLink(rel: string, href: string) {
 
 export function usePageSeo({
   title,
-  description = DEFAULT_DESCRIPTION,
+  description,
   path = '/',
   image,
   noIndex = false,
   type = 'website',
 }: PageSeoOptions = {}) {
+  const { t, i18n } = useTranslation();
+  const resolvedDescription = description ?? getDefaultDescription();
+
   useEffect(() => {
     const pageTitle = buildTitle(title);
     const url = absoluteUrl(path);
@@ -50,22 +54,27 @@ export function usePageSeo({
 
     document.title = pageTitle;
 
-    upsertMeta('name', 'description', description);
-    upsertMeta('name', 'robots', noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
+    upsertMeta('name', 'description', resolvedDescription);
+    upsertMeta(
+      'name',
+      'robots',
+      noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large',
+    );
 
     upsertMeta('property', 'og:type', type);
     upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:title', pageTitle);
-    upsertMeta('property', 'og:description', description);
+    upsertMeta('property', 'og:description', resolvedDescription);
     upsertMeta('property', 'og:image', ogImage);
-    upsertMeta('property', 'og:locale', 'ko_KR');
-    upsertMeta('property', 'og:site_name', '몇번이야');
+    upsertMeta('property', 'og:locale', t('seo.ogLocale'));
+    upsertMeta('property', 'og:site_name', getSiteName());
 
     upsertMeta('name', 'twitter:card', 'summary_large_image');
     upsertMeta('name', 'twitter:title', pageTitle);
-    upsertMeta('name', 'twitter:description', description);
+    upsertMeta('name', 'twitter:description', resolvedDescription);
     upsertMeta('name', 'twitter:image', ogImage);
 
     upsertLink('canonical', url);
-  }, [title, description, path, image, noIndex, type]);
+    document.documentElement.lang = t('seo.htmlLang');
+  }, [title, resolvedDescription, path, image, noIndex, type, t, i18n.language]);
 }

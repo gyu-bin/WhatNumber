@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
+import { LanguageSelect } from './LanguageSelect';
+import { useLocale } from '../hooks/useLocale';
 import type { Theme } from '../utils/theme';
 import styles from './Header.module.css';
 
@@ -11,19 +14,23 @@ interface HeaderProps {
 }
 
 export function Header({ theme, onToggleTheme, onCopyLink }: HeaderProps) {
+  const { t } = useTranslation();
+  const { locale, setLocale } = useLocale();
+
   return (
     <header className={styles.header}>
       <div className={styles.topRow}>
-        <Link to="/" aria-label="몇번이야 홈">
+        <Link to="/" aria-label={t('header.homeA11y')}>
           <Logo size="compact" showSubtitle />
         </Link>
         <div className={styles.actions}>
+          <LanguageSelect locale={locale} onChange={setLocale} />
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <button
             type="button"
             className={styles.shareBtn}
             onClick={onCopyLink}
-            aria-label="웹 주소 복사"
+            aria-label={t('header.copyLinkA11y')}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path
@@ -31,7 +38,7 @@ export function Header({ theme, onToggleTheme, onCopyLink }: HeaderProps) {
                 fill="currentColor"
               />
             </svg>
-            링크
+            {t('header.link')}
           </button>
         </div>
       </div>

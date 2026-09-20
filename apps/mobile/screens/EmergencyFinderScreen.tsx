@@ -15,13 +15,17 @@ import {
   View,
   type LayoutChangeEvent,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { telHref } from '@whatnumber/shared';
+import i18n from '../i18n';
 import {
   EmergencyMap,
   type EmergencyMapHandle,
 } from '../components/EmergencyMap';
 import {
   EmergencyRoomsConfigurationError,
+  EmergencyRoomsFetchError,
+  EmergencyRoomsResponseError,
   fetchNearbyEmergencyRooms,
 } from '../services/emergency/api';
 import { formatDistance } from '../services/emergency/distance';
@@ -79,6 +83,7 @@ export function EmergencyFinderScreen({
   colors: ThemeColors;
   onBack: () => void;
 }) {
+  const { t } = useTranslation();
   const styles = useEmergencyStyles(colors);
   const [state, setState] = useState<FinderState>('locating');
   const [rooms, setRooms] = useState<EmergencyRoom[]>([]);
@@ -146,13 +151,21 @@ export function EmergencyFinderScreen({
 
       if (error instanceof EmergencyRoomsConfigurationError) {
         setState('configuration-error');
-        setErrorMessage(error.message);
+        setErrorMessage(t('emergency.status.configurationError'));
+        return;
+      }
+      if (error instanceof EmergencyRoomsResponseError) {
+        setState('api-error');
+        setErrorMessage(t('emergency.errors.invalidResponse'));
+        return;
+      }
+      if (error instanceof EmergencyRoomsFetchError) {
+        setState('api-error');
+        setErrorMessage(t('emergency.errors.fetchFailed', { status: error.status }));
         return;
       }
       setState('api-error');
-      setErrorMessage(
-        error instanceof Error ? error.message : '응급실 정보를 불러오지 못했어요.',
-      );
+      setErrorMessage(t('emergency.status.apiError'));
     }
   }, []);
 
@@ -207,12 +220,12 @@ export function EmergencyFinderScreen({
           onPress={onBack}
           style={styles.backButton}
           accessibilityRole="button"
-          accessibilityLabel="홈으로 돌아가기"
+          accessibilityLabel={t('emergency.backA11y')}
         >
           <Ionicons name="chevron-back" size={23} color={colors.textPrimary} />
         </Pressable>
         <Text style={styles.topTitle} numberOfLines={1}>
-          내 주변 응급실
+          {t('emergency.title')}
         </Text>
         <View style={styles.backButton} />
       </View>
@@ -236,10 +249,10 @@ export function EmergencyFinderScreen({
               <Ionicons name="map-outline" size={26} color={colors.accent} />
               <Text style={styles.mapPlaceholderText}>
                 {state === 'permission-denied' || state === 'location-disabled'
-                  ? '현재 위치를 확인할 수 없어요'
+                  ? t('emergency.mapNoLocation')
                   : state === 'api-error' || state === 'offline' || state === 'configuration-error'
-                    ? '지도를 표시하려면 다시 시도해 주세요'
-                    : '주변 응급실 지도를 준비 중이에요'}
+                    ? t('emergency.mapRetry')
+                    : t('emergency.mapPreparing')}
               </Text>
             </>
           )}
@@ -263,16 +276,14 @@ export function EmergencyFinderScreen({
           style={styles.call119}
           onPress={() => void Linking.openURL(telHref('119'))}
           accessibilityRole="button"
-          accessibilityLabel="119 전화"
+          accessibilityLabel={t('emergency.call119A11y')}
         >
           <Ionicons name="call" size={16} color="#fff" />
-          <Text style={styles.call119Text}>위급하면 먼저 119에 전화하세요</Text>
+          <Text style={styles.call119Text}>{t('emergency.call119')}</Text>
           <Ionicons name="chevron-forward" size={16} color="#fff" />
         </Pressable>
 
-        <Text style={styles.privacyNote}>
-          현재 위치는 주변 응급실 검색에만 사용되며 저장하지 않아요.
-        </Text>
+        <Text style={styles.privacyNote}>{t('emergency.privacyNote')}</Text>
 
         {state === 'ready' ? (
           <View
@@ -283,20 +294,20 @@ export function EmergencyFinderScreen({
           >
             <View style={styles.sectionHeader}>
               <View style={styles.sectionTitleRow}>
-                <Text style={styles.resultTitle}>가까운 응급실</Text>
+                <Text style={styles.resultTitle}>{t('emergency.resultsTitle')}</Text>
                 <Pressable
                   style={[styles.refreshChip, isBusy ? styles.refreshChipDisabled : null]}
                   onPress={() => void refreshRooms()}
                   disabled={isBusy}
                   accessibilityRole="button"
-                  accessibilityLabel="응급실 목록 새로고침"
+                  accessibilityLabel={t('emergency.refreshA11y')}
                 >
                   {isBusy ? (
                     <ActivityIndicator size="small" color={colors.accent} />
                   ) : (
                     <>
                       <Ionicons name="refresh" size={14} color={colors.accent} />
-                      <Text style={styles.refreshChipText}>새로고침</Text>
+                      <Text style={styles.refreshChipText}>{t('emergency.refresh')}</Text>
                     </>
                   )}
                 </Pressable>
@@ -304,10 +315,12 @@ export function EmergencyFinderScreen({
               <View style={styles.metaRow}>
                 <Text style={styles.updatedAt}>
                   {fetchedAt
-                    ? `현재 위치 기준 · ${formatFetchedAt(fetchedAt)}`
-                    : '현재 위치 기준'}
+                    ? t('emergency.locationBasisAt', {
+                        time: formatFetchedAt(fetchedAt),
+                      })
+                    : t('emergency.locationBasis')}
                 </Text>
-                <Text style={styles.source}>국립중앙의료원 제공 정보</Text>
+                <Text style={styles.source}>{t('emergency.dataSource')}</Text>
               </View>
               <View style={styles.sortRow} accessibilityRole="tablist">
                 <Pressable
@@ -318,7 +331,7 @@ export function EmergencyFinderScreen({
                   onPress={() => setRoomSort('distance')}
                   accessibilityRole="tab"
                   accessibilityState={{ selected: roomSort === 'distance' }}
-                  accessibilityLabel="가까운 순으로 정렬"
+                  accessibilityLabel={t('emergency.sortNearestA11y')}
                 >
                   <Text
                     style={[
@@ -326,7 +339,7 @@ export function EmergencyFinderScreen({
                       roomSort === 'distance' ? styles.sortChipTextActive : null,
                     ]}
                   >
-                    가까운순
+                    {t('emergency.sortNearest')}
                   </Text>
                 </Pressable>
                 <Pressable
@@ -334,7 +347,7 @@ export function EmergencyFinderScreen({
                   onPress={() => setRoomSort('beds')}
                   accessibilityRole="tab"
                   accessibilityState={{ selected: roomSort === 'beds' }}
-                  accessibilityLabel="병상 많은 순으로 정렬"
+                  accessibilityLabel={t('emergency.sortBedsA11y')}
                 >
                   <Text
                     style={[
@@ -342,7 +355,7 @@ export function EmergencyFinderScreen({
                       roomSort === 'beds' ? styles.sortChipTextActive : null,
                     ]}
                   >
-                    병상 많은순
+                    {t('emergency.sortBeds')}
                   </Text>
                 </Pressable>
               </View>
@@ -383,13 +396,13 @@ export function EmergencyFinderScreen({
                             : styles.bedBadgeTextUnavailable,
                         ]}
                       >
-                        {formatBedLabel(room.availableBeds)}
+                        {formatBedLabel(room.availableBeds, t)}
                       </Text>
                     </View>
                   ) : (
                     <View style={[styles.bedBadge, styles.bedBadgeUnknown]}>
                       <Text style={[styles.bedBadgeText, styles.bedBadgeTextUnknown]}>
-                        실시간 병상 정보 없음
+                        {t('emergency.bedsUnknown')}
                       </Text>
                     </View>
                   )}
@@ -404,7 +417,7 @@ export function EmergencyFinderScreen({
                         }
                       >
                         <Ionicons name="call-outline" size={15} color={colors.accent} />
-                        <Text style={styles.roomActionText}>전화</Text>
+                        <Text style={styles.roomActionText}>{t('emergency.call')}</Text>
                       </Pressable>
                     ) : null}
                     <Pressable
@@ -413,11 +426,13 @@ export function EmergencyFinderScreen({
                         void openDirections(room.location, {
                           destinationName: room.name,
                           origin: userLocation,
+                          originName: t('maps.currentLocation'),
+                          destinationFallback: t('maps.emergencyRoom'),
                         })
                       }
                     >
                       <Ionicons name="navigate-outline" size={15} color={colors.accent} />
-                      <Text style={styles.roomActionText}>길찾기</Text>
+                      <Text style={styles.roomActionText}>{t('emergency.directions')}</Text>
                     </Pressable>
                   </View>
                 </Pressable>
@@ -429,6 +444,7 @@ export function EmergencyFinderScreen({
             state,
             colors,
             errorMessage,
+            t,
             onFind: () => void findRooms(),
             onOpenSettings: () => void Linking.openSettings(),
           })
@@ -438,17 +454,22 @@ export function EmergencyFinderScreen({
   );
 }
 
-function formatBedLabel(availableBeds: number): string {
-  if (availableBeds > 0) return `응급실 일반병상 ${availableBeds}병상 이용 가능`;
-  if (availableBeds === 0) return '응급실 일반병상 여유 없음';
-  return '응급실 과밀 (여유 병상 없음)';
+type EmergencyT = (key: string, options?: Record<string, unknown>) => string;
+
+function formatBedLabel(availableBeds: number, t: EmergencyT): string {
+  if (availableBeds > 0) {
+    return t('emergency.bedAvailable', { count: availableBeds });
+  }
+  if (availableBeds === 0) return t('emergency.bedNone');
+  return t('emergency.bedOvercrowded');
 }
 
 function formatFetchedAt(value: string): string {
   const parsed = new Date(value);
   if (Number.isNaN(parsed.getTime())) return value;
 
-  return parsed.toLocaleString('ko-KR', {
+  const localeTag = i18n.resolvedLanguage || i18n.language || 'ko';
+  return parsed.toLocaleString(localeTag, {
     hour: 'numeric',
     minute: '2-digit',
   });
@@ -458,29 +479,45 @@ function renderFinderState({
   state,
   colors,
   errorMessage,
+  t,
   onFind,
   onOpenSettings,
 }: {
   state: FinderState;
   colors: ThemeColors;
   errorMessage?: string;
+  t: EmergencyT;
   onFind: () => void;
   onOpenSettings: () => void;
 }) {
   const styles = finderStatusStyles(colors);
   const isBusy = state === 'locating' || state === 'loading';
-  const message = {
-    idle: '현재 위치를 확인하고 있어요.',
-    locating: '현재 위치를 확인하고 있어요.',
-    loading: '응급실 정보를 불러오고 있어요.',
-    'permission-denied': '현재 위치를 확인할 수 없어요. 위치 권한을 확인해 주세요.',
-    'location-disabled': '기기의 위치 서비스가 꺼져 있어요.',
-    offline: '인터넷 연결을 확인한 뒤 다시 시도해 주세요.',
-    'configuration-error': errorMessage ?? '응급실 정보 연결이 아직 설정되지 않았어요.',
-    'api-error': errorMessage ?? '응급실 정보를 불러오지 못했어요.',
-    empty: '주변에서 응급실을 찾지 못했어요.',
-    ready: '',
-  }[state];
+  const message = (() => {
+    switch (state) {
+      case 'idle':
+        return t('emergency.status.idle');
+      case 'locating':
+        return t('emergency.status.locating');
+      case 'loading':
+        return t('emergency.status.loading');
+      case 'permission-denied':
+        return t('emergency.status.permissionDenied');
+      case 'location-disabled':
+        return t('emergency.status.locationDisabled');
+      case 'offline':
+        return t('emergency.status.offline');
+      case 'configuration-error':
+        return errorMessage ?? t('emergency.status.configurationError');
+      case 'api-error':
+        return errorMessage ?? t('emergency.status.apiError');
+      case 'empty':
+        return t('emergency.status.empty');
+      case 'ready':
+        return '';
+      default:
+        return '';
+    }
+  })();
 
   return (
     <View style={styles.box}>
@@ -497,12 +534,12 @@ function renderFinderState({
       <Text style={styles.message}>{message}</Text>
       {state === 'permission-denied' || state === 'location-disabled' ? (
         <Pressable style={styles.secondaryButton} onPress={onOpenSettings}>
-          <Text style={styles.secondaryText}>위치 권한 확인</Text>
+          <Text style={styles.secondaryText}>{t('emergency.checkPermission')}</Text>
         </Pressable>
       ) : null}
       {!isBusy ? (
         <Pressable style={styles.primaryButton} onPress={onFind}>
-          <Text style={styles.primaryText}>다시 시도</Text>
+          <Text style={styles.primaryText}>{t('emergency.retry')}</Text>
         </Pressable>
       ) : null}
     </View>

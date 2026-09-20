@@ -58,10 +58,12 @@ export function buildFeedbackMailUrl(): string {
   return `mailto:${NUMBER_REQUEST_EMAIL}?subject=${subject}&body=${body}`;
 }
 
+export type ContactRequestErrorCode = 'send_failed' | 'network';
+
 export async function submitContactRequest(
   endpoint: string,
   payload: ContactRequestPayload,
-): Promise<{ ok: true } | { ok: false; error: string }> {
+): Promise<{ ok: true } | { ok: false; error: ContactRequestErrorCode }> {
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -74,14 +76,12 @@ export async function submitContactRequest(
       | null;
 
     if (!response.ok) {
-      return {
-        ok: false,
-        error: data?.error?.trim() || '전송에 실패했어요. 잠시 후 다시 시도해 주세요.',
-      };
+      void data;
+      return { ok: false, error: 'send_failed' };
     }
 
     return { ok: true };
   } catch {
-    return { ok: false, error: '네트워크 오류예요. 연결을 확인해 주세요.' };
+    return { ok: false, error: 'network' };
   }
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import styles from './Logo.module.css';
 import brandLogo from '../assets/logo-256.png';
 
@@ -7,6 +8,7 @@ interface LogoProps {
 }
 
 export function Logo({ size = 'full', showSubtitle = false }: LogoProps) {
+  const { t } = useTranslation();
   const isFull = size === 'full';
 
   return (
@@ -20,9 +22,9 @@ export function Logo({ size = 'full', showSubtitle = false }: LogoProps) {
         decoding="async"
       />
       <div className={styles.text}>
-        <span className={styles.wordmark}>몇번이야</span>
+        <span className={styles.wordmark}>{t('brand.name')}</span>
         {(isFull || showSubtitle) && (
-          <span className={styles.sub}>진짜 쓸 일 생기는 번호 모음</span>
+          <span className={styles.sub}>{t('brand.subtitle')}</span>
         )}
       </div>
     </div>

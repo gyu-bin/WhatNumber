@@ -1,11 +1,14 @@
 import { useMemo, useState, useCallback } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   NUMBERS,
   getNumberById,
   matchesSearch,
   type Situation,
 } from '@whatnumber/shared';
+import { localizeNumbers } from '../i18n';
+import { useLocale } from '../hooks/useLocale';
 import { useFavorites } from '../hooks/useFavorites';
 import { useTheme } from '../hooks/useTheme';
 import { usePageSeo } from '../hooks/usePageSeo';
@@ -30,6 +33,8 @@ import { Toast } from '../components/Toast';
 import { VercelAnalytics } from '../components/VercelAnalytics';
 
 export function HomePage() {
+  const { t } = useTranslation();
+  const { locale } = useLocale();
   const [searchParams] = useSearchParams();
   const legacyId = searchParams.get('n');
   const legacyItem = legacyId ? getNumberById(legacyId) : undefined;
@@ -43,27 +48,20 @@ export function HomePage() {
 
   usePageSeo({ path: '/' });
 
+  const localizedNumbers = useMemo(
+    () => localizeNumbers(NUMBERS, locale),
+    [locale],
+  );
+
   const websiteJsonLd = useMemo(() => buildWebsiteJsonLd(), []);
   const itemListJsonLd = useMemo(() => buildItemListJsonLd(), []);
-  const faqJsonLd = useMemo(
-    () =>
-      buildFaqJsonLd([
-        {
-          question: '응급실 비용이 없을 때 어디에 전화하나요?',
-          answer:
-            '129(응급의료지원센터)에 연락하면 국가가 먼저 치료비를 지원하는 절차를 안내받을 수 있습니다.',
-        },
-        {
-          question: '고속도로에서 사고가 났을 때 무료 견인은?',
-          answer: '1588-2504(고속도로 공공렉카) 또는 1588-2100(긴급견인)을 먼저 연락하세요.',
-        },
-        {
-          question: '간첩·방첩 신고 번호는?',
-          answer: '111(국가정보원), 113(경찰 방첩신고)로 신고할 수 있습니다.',
-        },
-      ]),
-    [],
-  );
+  const faqJsonLd = useMemo(() => {
+    const faq = t('home.faq', { returnObjects: true }) as {
+      question: string;
+      answer: string;
+    }[];
+    return buildFaqJsonLd(faq);
+  }, [t, locale]);
 
   const showToast = useCallback((message: string) => {
     setToast(message);
@@ -72,8 +70,8 @@ export function HomePage() {
 
   const handleCopySite = useCallback(async () => {
     const ok = await copySiteLink();
-    showToast(ok ? '웹 주소가 복사됐어요' : '복사에 실패했어요');
-  }, [showToast]);
+    showToast(ok ? t('header.copySiteOk') : t('common.copyFail'));
+  }, [showToast, t]);
 
   if (legacyItem) {
     return <Navigate to={numberPath(legacyItem.id)} replace />;
@@ -93,27 +91,37 @@ export function HomePage() {
 
   const favoriteItems = useMemo(
     () =>
-      favorites
-        .map((id) => getNumberById(id))
-        .filter((n): n is NonNullable<typeof n> => n !== undefined),
-    [favorites],
+      localizeNumbers(
+        favorites
+          .map((id) => getNumberById(id))
+          .filter((n): n is NonNullable<typeof n> => n !== undefined),
+        locale,
+      ),
+    [favorites, locale],
   );
 
   const filtered = useMemo(() => {
     if (isSearching) {
-      return NUMBERS.filter((n) => matchesSearch(n, query));
+      return localizedNumbers.filter((n) => matchesSearch(n, query));
     }
     if (activeSituation) {
-      return NUMBERS.filter((n) => n.situation.includes(activeSituation));
+      return localizedNumbers.filter((n) => n.situation.includes(activeSituation));
     }
     if (activeCategory === 'favorites') {
       return favoriteItems;
     }
     if (activeCategory !== 'all') {
-      return NUMBERS.filter((n) => n.cat === activeCategory);
+      return localizedNumbers.filter((n) => n.cat === activeCategory);
     }
-    return NUMBERS;
-  }, [query, isSearching, activeSituation, activeCategory, favorites, favoriteItems]);
+    return localizedNumbers;
+  }, [
+    query,
+    isSearching,
+    activeSituation,
+    activeCategory,
+    localizedNumbers,
+    favoriteItems,
+  ]);
 
   const groupByCategory =
     !isSearching && !activeSituation && activeCategory === 'all';
@@ -131,9 +139,7 @@ export function HomePage() {
         onCopyLink={handleCopySite}
       />
       <main className="main">
-        <h1 className="sr-only">
-          몇번이야 — 응급·교통·주거·법률 상황별 공공 전화번호 안내
-        </h1>
+        <h1 className="sr-only">{t('home.srTitle')}</h1>
         <NumberRequest />
         <SearchBar query={query} onChange={setQuery} />
         {!isSearching && (

@@ -1,0 +1,233 @@
+{
+  "tabs": {
+    "home": "ホーム",
+    "settings": "設定"
+  },
+  "home": {
+    "subtitle": "必要な番号を、すぐ見つけます。",
+    "searchPlaceholder": "番号や状況を検索",
+    "favorites": "お気に入り",
+    "favoritesWithCount": "お気に入り {{count}}",
+    "favoritesHeader": "お気に入り · {{count}}件",
+    "favoritesEmptyTitle": "お気に入りはまだありません",
+    "favoritesEmptyBody": "よく使う番号を★で保存しましょう。",
+    "moreSituations": "もっと見る",
+    "categoriesTitle": "分野から探す",
+    "settingsA11y": "設定",
+    "favoritesA11y": "お気に入り",
+    "searchA11y": "番号や状況を検索",
+    "situationMoreTitle": "その他の状況",
+    "situationMoreA11y": "状況をもっと見る",
+    "favoritesReorderHint": "長押しで順序を変更できます",
+    "empty": "該当する番号がありません"
+  },
+  "situations": {
+    "emergency": "急に具合が悪い",
+    "car": "車が故障した",
+    "crime": "詐欺・犯罪",
+    "home": "住まい",
+    "abroad": "海外にいます",
+    "legal": "法律・金融"
+  },
+  "situationTips": {
+    "emergency": "命に関わる場合は119、病院案内は1339を。",
+    "car": "高速道路では公共レッカーを先に呼んでください。",
+    "crime": "ボイスフィッシングなら切って1398へ。",
+    "home": "ガス漏れ・停電・賃貸トラブルは該当番号へ。",
+    "abroad": "海外では領事コールセンターで韓国語支援が受けられます。",
+    "legal": "訴訟前に132の無料法律相談を。"
+  },
+  "categories": {
+    "긴급/안전": "緊急/安全",
+    "교통/차량": "交通/車両",
+    "주거/생활": "住居/生活",
+    "법률/금융": "法律/金融",
+    "가족/복지": "家族/福祉",
+    "고용/노동": "雇用/労働",
+    "민원/행정": "行政",
+    "통신/디지털": "通信/デジタル"
+  },
+  "categoryTiles": {
+    "traffic": { "label": "交通/車両", "subtitle": "事故 · 故障 · 交通情報" },
+    "finance": { "label": "金融/カード", "subtitle": "紛失 · 詐欺 · 金融相談" },
+    "housing": { "label": "住まい", "subtitle": "賃貸 · 住居支援" },
+    "family": { "label": "家族/福祉", "subtitle": "子ども · 若者 · 高齢者 · こころ" },
+    "civic": { "label": "生活/行政", "subtitle": "行政 · 税金 · 窓口案内" },
+    "labor": { "label": "雇用/労働", "subtitle": "失業給付 · 労働相談" },
+    "digital": { "label": "通信/デジタル", "subtitle": "ハッキング · 迷惑 · 通信サービス" },
+    "other": { "label": "その他", "subtitle": "救急 · 通報 · 海外支援" }
+  },
+  "categorySubtitles": {
+    "긴급/안전": "今すぐ助けが必要なとき",
+    "교통/차량": "移動中も安心",
+    "주거/생활": "毎日の生活トラブルを早く",
+    "법률/금융": "権利と財産を守る番号",
+    "가족/복지": "家族と地域のための支援",
+    "고용/노동": "働く人のための案内",
+    "민원/행정": "公共サービスが必要なとき",
+    "통신/디지털": "通信・ネット・個人情報"
+  },
+  "immediate": {
+    "title": "今すぐ必要な番号",
+    "fireTag": "消防",
+    "policeTag": "警察",
+    "fireLabel": "消防・救急",
+    "policeLabel": "犯罪・通報",
+    "call": "電話"
+  },
+  "emergencyCard": {
+    "title": "近くの救急を探す",
+    "subtitle": "現在地から近い救急を確認"
+  },
+  "emergency": {
+    "title": "近くの救急",
+    "back": "戻る",
+    "sortNearest": "近い順",
+    "sortBeds": "病床順",
+    "call119": "危険なら先に119へ",
+    "call119A11y": "119に電話",
+    "permissionTitle": "位置情報が必要です",
+    "permissionBody": "近くの救急を探すには位置情報を許可してください。",
+    "openSettings": "設定を開く",
+    "retry": "再試行",
+    "loading": "近くの救急を検索中…",
+    "empty": "表示できる救急が近くにありません",
+    "call": "電話",
+    "directions": "案内",
+    "beds": "病床 {{count}}",
+    "distanceKm": "{{km}} km",
+    "list": "一覧",
+    "map": "地図",
+    "privacyNote": "現在地は近くの救急検索にのみ使い、保存しません。",
+    "resultsTitle": "近い救急",
+    "refresh": "更新",
+    "refreshA11y": "救急リストを更新",
+    "sortNearestA11y": "近い順に並べ替え",
+    "sortBedsA11y": "空き病床の多い順",
+    "backA11y": "ホームに戻る",
+    "locationBasis": "現在地基準",
+    "locationBasisAt": "現在地基準 · {{time}}",
+    "dataSource": "国立中央医療院の情報",
+    "bedsUnknown": "リアルタイム病床情報なし",
+    "bedAvailable": "救急一般病床 {{count}}床利用可",
+    "bedNone": "救急一般病床に空きなし",
+    "bedOvercrowded": "救急混雑（空き病床なし）",
+    "checkPermission": "位置情報を確認",
+    "mapNoLocation": "現在地を確認できません",
+    "mapRetry": "地図を表示するには再試行してください",
+    "mapPreparing": "近くの救急地図を準備中…",
+    "status": {
+      "idle": "現在地を確認しています…",
+      "locating": "現在地を確認しています…",
+      "loading": "救急情報を読み込んでいます…",
+      "permissionDenied": "現在地を確認できません。位置情報の許可を確認してください。",
+      "locationDisabled": "端末の位置情報サービスがオフです。",
+      "offline": "インターネット接続を確認して再試行してください。",
+      "configurationError": "救急情報の接続がまだ設定されていません。",
+      "apiError": "救急情報を読み込めませんでした。",
+      "empty": "近くに救急が見つかりませんでした。"
+    },
+    "errors": {
+      "invalidResponse": "救急室情報の形式を確認できませんでした。",
+      "fetchFailed": "救急室情報を読み込めませんでした。（{{status}}）"
+    }
+  },
+  "detail": {
+    "addFavorite": "☆ お気に入り追加",
+    "removeFavorite": "★ お気に入り解除",
+    "call": "{{num}} に電話",
+    "close": "閉じる",
+    "tip": "知っておくと便利"
+  },
+  "numberRow": {
+    "addFavorite": "お気に入り追加",
+    "removeFavorite": "お気に入り解除",
+    "reorder": "並び替え"
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "アプリをもっと使いやすく。",
+    "sectionDisplay": "画面",
+    "theme": "テーマ",
+    "themeHint": "アプリの色を設定します。",
+    "language": "言語",
+    "languageHint": "アプリで使う言語を選びます。",
+    "sectionNumbers": "番号",
+    "requestTitle": "足りない番号を依頼",
+    "requestHint": "追加してほしい番号を送ってください",
+    "sectionInfo": "情報",
+    "privacyTitle": "プライバシーポリシー",
+    "privacyHint": "個人情報の取り扱いについて。",
+    "websiteTitle": "ウェブサイト",
+    "websiteHint": "詳しい情報を確認できます。",
+    "feedbackTitle": "より良いアプリのために",
+    "feedbackHint": "ご意見をお待ちしています。",
+    "metaBrand": "何番",
+    "meta": "何番？ · v{{version}}\n必要な番号、すぐ。",
+    "themeLight": "ライト",
+    "themeDark": "ダーク"
+  },
+  "request": {
+    "numberTitle": "番号追加の依頼",
+    "feedbackTitle": "フィードバック",
+    "numberName": "番号名",
+    "phone": "電話番号",
+    "description": "説明",
+    "note": "その他",
+    "feedbackMessage": "ご意見",
+    "optional": "任意",
+    "cancel": "キャンセル",
+    "send": "送信",
+    "sending": "送信中…",
+    "errorEmpty": "番号名、電話番号、説明のいずれかを入力してください。",
+    "errorFeedbackEmpty": "ご意見を入力してください。",
+    "numberDesc": "不足している公共・生活番号を教えてください。確認後に反映します。",
+    "feedbackDesc": "使いにくかった点や改善アイデアをお知らせください。",
+    "feedbackContent": "ご意見",
+    "descriptionWhen": "説明 · いつ使うか",
+    "namePlaceholder": "例: 防諜通報、全租詐欺相談",
+    "phonePlaceholder": "例: 113, 1588-0000",
+    "descriptionPlaceholder": "どんな場面で必要か",
+    "notePlaceholder": "出典、参考リンクなど",
+    "feedbackPlaceholder": "例: 検索が使いにくい、XXカテゴリが欲しい",
+    "sendRequest": "リクエスト送信",
+    "successNumber": "番号リクエストを送信しました",
+    "successFeedback": "ご意見を送信しました",
+    "error": {
+      "send_failed": "送信に失敗しました。しばらくしてからもう一度お試しください。",
+      "network": "ネットワークエラーです。接続を確認してください。"
+    }
+  },
+  "privacy": {
+    "back": "‹ 設定",
+    "title": "プライバシーポリシー",
+    "lead": "何番？は会員登録なしで使え、個人情報を大切に扱います。詳細はウェブサイトのポリシーをご覧ください。",
+    "openWeb": "ウェブで全文を見る"
+  },
+  "categoryScreen": {
+    "backHome": "ホームに戻る"
+  },
+  "common": {
+    "ad": "広告",
+    "close": "閉じる"
+  },
+  "ota": {
+    "updating": "アップデートを適用中…"
+  },
+  "maps": {
+    "currentLocation": "現在地",
+    "emergencyRoom": "救急室",
+    "previewTitle": "地図プレビュー",
+    "previewBody": "Naver Mapは開発/リリースビルドで表示されます。Expo Goではリストのみ利用できます。",
+    "locateA11y": "現在地へ移動"
+  },
+  "widget": {
+    "brand": "何番？",
+    "favoritesLink": "お気に入り ›",
+    "emptySmall": "お気に入りがありません",
+    "emptyMedium": "お気に入りを追加しましょう",
+    "emptyHint": "アプリで追加すると、ここからすぐ電話できます",
+    "callNow": "今すぐ電話",
+    "footerTagline": "必要なとき、何番？"
+  }
+}

@@ -1,19 +1,21 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styles from './SiteNav.module.css';
 
 const LINKS = [
-  { to: '/', label: '번호 목록' },
-  { to: '/guide', label: '상황별 가이드' },
-  { to: '/about', label: '서비스 소개' },
-  { to: '/privacy', label: '개인정보처리방침' },
+  { to: '/', key: 'home' as const },
+  { to: '/guide', key: 'guides' as const },
+  { to: '/about', key: 'about' as const },
+  { to: '/privacy', key: 'privacy' as const },
 ] as const;
 
 export function SiteNav() {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
 
   return (
-    <nav className={styles.nav} aria-label="사이트 메뉴">
-      {LINKS.map(({ to, label }) => {
+    <nav className={styles.nav} aria-label={t('nav.siteMenu')}>
+      {LINKS.map(({ to, key }) => {
         const active = to === '/' ? pathname === '/' : pathname.startsWith(to);
         return (
           <Link
@@ -23,7 +25,7 @@ export function SiteNav() {
             data-active={active || undefined}
             aria-current={active ? 'page' : undefined}
           >
-            {label}
+            {t(`nav.${key}`)}
           </Link>
         );
       })}

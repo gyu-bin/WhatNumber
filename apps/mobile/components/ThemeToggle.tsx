@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import type { Theme, ThemeColors } from '../theme';
 
 interface ThemeToggleProps {
@@ -8,21 +9,27 @@ interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ theme, colors, onChange }: ThemeToggleProps) {
+  const { t } = useTranslation();
+
   return (
-    <View style={[styles.wrap, { backgroundColor: colors.bg, borderColor: colors.border }]} accessibilityRole="tablist">
+    <View
+      style={[styles.wrap, { backgroundColor: colors.bg, borderColor: colors.border }]}
+      accessibilityRole="tablist"
+    >
       {(['light', 'dark'] as const).map((option) => {
         const selected = theme === option;
+        const label = option === 'light' ? t('settings.themeLight') : t('settings.themeDark');
         return (
           <Pressable
             key={option}
             style={[styles.btn, selected && { backgroundColor: colors.accentMuted }]}
             onPress={() => onChange(option)}
-            accessibilityLabel={`${option === 'light' ? '라이트' : '다크'} 모드`}
+            accessibilityLabel={label}
             accessibilityRole="tab"
             accessibilityState={{ selected }}
           >
             <Text style={[styles.label, { color: selected ? colors.accent : colors.textTertiary }]}>
-              {option === 'light' ? '라이트' : '다크'}
+              {label}
             </Text>
           </Pressable>
         );

@@ -1,0 +1,233 @@
+{
+  "tabs": {
+    "home": "Home",
+    "settings": "Settings"
+  },
+  "home": {
+    "subtitle": "Find the number you need, right away.",
+    "searchPlaceholder": "Search a number or situation",
+    "favorites": "Favorites",
+    "favoritesWithCount": "Favorites {{count}}",
+    "favoritesHeader": "My favorites · {{count}}",
+    "favoritesEmptyTitle": "No favorites yet",
+    "favoritesEmptyBody": "Save numbers you use often with ★.",
+    "moreSituations": "More",
+    "categoriesTitle": "Browse by topic",
+    "settingsA11y": "Settings",
+    "favoritesA11y": "Favorites",
+    "searchA11y": "Search numbers or situations",
+    "situationMoreTitle": "More situations",
+    "situationMoreA11y": "More situations",
+    "favoritesReorderHint": "Press and hold to reorder",
+    "empty": "No matching numbers"
+  },
+  "situations": {
+    "emergency": "Medical emergency",
+    "car": "Car trouble",
+    "crime": "Scam / crime",
+    "home": "Home / housing",
+    "abroad": "I'm abroad",
+    "legal": "Legal / finance"
+  },
+  "situationTips": {
+    "emergency": "In a life-threatening emergency call 119; for hospital guidance try 1339.",
+    "car": "On expressways, call the public tow service first.",
+    "crime": "If it's voice phishing, hang up and call 1398.",
+    "home": "For gas leaks, outages, or lease scams, call the matching number right away.",
+    "abroad": "Overseas, the consular call center can help in Korean.",
+    "legal": "Before a lawsuit, try free legal advice at 132."
+  },
+  "categories": {
+    "긴급/안전": "Emergency / Safety",
+    "교통/차량": "Traffic / Vehicles",
+    "주거/생활": "Housing / Daily life",
+    "법률/금융": "Legal / Finance",
+    "가족/복지": "Family / Welfare",
+    "고용/노동": "Jobs / Labor",
+    "민원/행정": "Civic / Admin",
+    "통신/디지털": "Telecom / Digital"
+  },
+  "categoryTiles": {
+    "traffic": { "label": "Traffic / Vehicles", "subtitle": "Accidents · breakdowns · traffic info" },
+    "finance": { "label": "Finance / Cards", "subtitle": "Loss · fraud · financial help" },
+    "housing": { "label": "Home / Housing", "subtitle": "Rent · housing support" },
+    "family": { "label": "Family / Welfare", "subtitle": "Children · teens · seniors · mental health" },
+    "civic": { "label": "Daily / Civic", "subtitle": "Admin · tax · public services" },
+    "labor": { "label": "Jobs / Labor", "subtitle": "Unemployment · labor advice" },
+    "digital": { "label": "Telecom / Digital", "subtitle": "Hacking · spam · phone service" },
+    "other": { "label": "Other", "subtitle": "Emergency · reports · overseas help" }
+  },
+  "categorySubtitles": {
+    "긴급/안전": "When you need help right now",
+    "교통/차량": "Support while you're on the move",
+    "주거/생활": "Everyday living problems, fast",
+    "법률/금융": "Numbers that protect your rights",
+    "가족/복지": "Help for family and neighbors",
+    "고용/노동": "Guidance for working people",
+    "민원/행정": "When you need public services",
+    "통신/디지털": "Phone, internet, and privacy issues"
+  },
+  "immediate": {
+    "title": "Call right now",
+    "fireTag": "Fire",
+    "policeTag": "Police",
+    "fireLabel": "Fire · Rescue",
+    "policeLabel": "Crime · Report",
+    "call": "Call"
+  },
+  "emergencyCard": {
+    "title": "Find nearby ERs",
+    "subtitle": "See emergency rooms near your location"
+  },
+  "emergency": {
+    "title": "Nearby emergency rooms",
+    "back": "Back",
+    "sortNearest": "Nearest",
+    "sortBeds": "Beds",
+    "call119": "In danger, call 119 first",
+    "call119A11y": "Call 119",
+    "permissionTitle": "Location permission needed",
+    "permissionBody": "Allow location access to find nearby emergency rooms.",
+    "openSettings": "Open settings",
+    "retry": "Try again",
+    "loading": "Finding nearby ERs…",
+    "empty": "No emergency rooms to show nearby",
+    "call": "Call",
+    "directions": "Directions",
+    "beds": "{{count}} beds",
+    "distanceKm": "{{km}} km",
+    "list": "List",
+    "map": "Map",
+    "privacyNote": "Your location is used only to search nearby ERs and is not stored.",
+    "resultsTitle": "Nearby emergency rooms",
+    "refresh": "Refresh",
+    "refreshA11y": "Refresh ER list",
+    "sortNearestA11y": "Sort by distance",
+    "sortBedsA11y": "Sort by available beds",
+    "backA11y": "Back to home",
+    "locationBasis": "Based on your location",
+    "locationBasisAt": "Based on your location · {{time}}",
+    "dataSource": "Data from National Medical Center",
+    "bedsUnknown": "No real-time bed data",
+    "bedAvailable": "{{count}} general ER beds available",
+    "bedNone": "No general ER beds available",
+    "bedOvercrowded": "ER overcrowded (no beds available)",
+    "checkPermission": "Check location permission",
+    "mapNoLocation": "Cannot determine your location",
+    "mapRetry": "Try again to show the map",
+    "mapPreparing": "Preparing map of nearby ERs…",
+    "status": {
+      "idle": "Checking your location…",
+      "locating": "Checking your location…",
+      "loading": "Loading emergency room info…",
+      "permissionDenied": "Cannot determine your location. Check location permission.",
+      "locationDisabled": "Location services are turned off on this device.",
+      "offline": "Check your internet connection and try again.",
+      "configurationError": "Emergency room data is not configured yet.",
+      "apiError": "Could not load emergency room info.",
+      "empty": "No emergency rooms found nearby."
+    },
+    "errors": {
+      "invalidResponse": "Emergency room data format could not be verified.",
+      "fetchFailed": "Could not load emergency room info. ({{status}})"
+    }
+  },
+  "detail": {
+    "addFavorite": "☆ Add to favorites",
+    "removeFavorite": "★ Remove favorite",
+    "call": "Call {{num}}",
+    "close": "Close",
+    "tip": "Good to know"
+  },
+  "numberRow": {
+    "addFavorite": "Add favorite",
+    "removeFavorite": "Remove favorite",
+    "reorder": "Reorder"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Make the app easier to use.",
+    "sectionDisplay": "Display",
+    "theme": "Theme",
+    "themeHint": "Choose light or dark colors.",
+    "language": "Language",
+    "languageHint": "Choose the language used in the app.",
+    "sectionNumbers": "Numbers",
+    "requestTitle": "Request a missing number",
+    "requestHint": "Tell us which number to add",
+    "sectionInfo": "Info",
+    "privacyTitle": "Privacy policy",
+    "privacyHint": "How we handle your data.",
+    "websiteTitle": "Website",
+    "websiteHint": "See more information online.",
+    "feedbackTitle": "Help us improve",
+    "feedbackHint": "We welcome your feedback.",
+    "metaBrand": "WhatNumber",
+    "meta": "WhatNumber · v{{version}}\nThe number you need, now.",
+    "themeLight": "Light",
+    "themeDark": "Dark"
+  },
+  "request": {
+    "numberTitle": "Request a number",
+    "feedbackTitle": "Send feedback",
+    "numberName": "Name",
+    "phone": "Phone number",
+    "description": "Description",
+    "note": "Notes",
+    "feedbackMessage": "Feedback",
+    "optional": "Optional",
+    "cancel": "Cancel",
+    "send": "Send",
+    "sending": "Sending…",
+    "errorEmpty": "Enter at least a name, phone number, or description.",
+    "errorFeedbackEmpty": "Please enter your feedback.",
+    "numberDesc": "Tell us a public or everyday number we should add. We will review it.",
+    "feedbackDesc": "Share anything that felt awkward or ideas to improve the app.",
+    "feedbackContent": "Your feedback",
+    "descriptionWhen": "Description · when to use",
+    "namePlaceholder": "e.g. fraud hotline, lease scam counseling",
+    "phonePlaceholder": "e.g. 113, 1588-0000",
+    "descriptionPlaceholder": "When would someone need this number?",
+    "notePlaceholder": "Source, reference link, etc.",
+    "feedbackPlaceholder": "e.g. search is hard to use, I want a XX category",
+    "sendRequest": "Send request",
+    "successNumber": "Request sent",
+    "successFeedback": "Feedback sent",
+    "error": {
+      "send_failed": "Could not send. Please try again in a moment.",
+      "network": "Network error. Check your connection."
+    }
+  },
+  "privacy": {
+    "back": "‹ Settings",
+    "title": "Privacy policy",
+    "lead": "WhatNumber works without signing up and treats personal data carefully. Read the full policy on the website.",
+    "openWeb": "View full policy on the web"
+  },
+  "categoryScreen": {
+    "backHome": "Back to home"
+  },
+  "common": {
+    "ad": "Ad",
+    "close": "Close"
+  },
+  "ota": {
+    "updating": "Applying an update…"
+  },
+  "maps": {
+    "currentLocation": "Current location",
+    "emergencyRoom": "Emergency room",
+    "previewTitle": "Map preview",
+    "previewBody": "Naver Map appears in development and release builds. In Expo Go, use the list only.",
+    "locateA11y": "Move to current location"
+  },
+  "widget": {
+    "brand": "WhatNumber?",
+    "favoritesLink": "Favorites ›",
+    "emptySmall": "No favorites yet",
+    "emptyMedium": "Add some favorites",
+    "emptyHint": "Add numbers in the app to call them from here",
+    "callNow": "Call now",
+    "footerTagline": "When you need it—WhatNumber"
+  }
+}

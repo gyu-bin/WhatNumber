@@ -1,5 +1,6 @@
 import { FlatList, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import type { Category, NumberItem } from '@whatnumber/shared';
 import { NumberRow } from '../components/NumberCards';
 import type { AppStyles } from '../styles';
@@ -28,6 +29,7 @@ export function CategoryScreen({
   onOpen: (item: NumberItem) => void;
   onBack: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <View style={styles.categoryScreen}>
       <View style={styles.categoryScreenTopBar}>
@@ -35,7 +37,7 @@ export function CategoryScreen({
           onPress={onBack}
           style={styles.categoryScreenBack}
           accessibilityRole="button"
-          accessibilityLabel="홈으로 돌아가기"
+          accessibilityLabel={t('categoryScreen.backHome')}
         >
           <Ionicons name="chevron-back" size={23} color={colors.textPrimary} />
         </Pressable>

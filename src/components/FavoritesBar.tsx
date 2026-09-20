@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import styles from './FavoritesBar.module.css';
 
 interface FavoritesBarProps {
@@ -6,6 +7,8 @@ interface FavoritesBarProps {
 }
 
 export function FavoritesBar({ count, onOpen }: FavoritesBarProps) {
+  const { t } = useTranslation();
+
   if (count === 0) return null;
 
   return (
@@ -14,9 +17,10 @@ export function FavoritesBar({ count, onOpen }: FavoritesBarProps) {
         ★
       </span>
       <span className={styles.text}>
-        내 즐겨찾기 <strong>{count}개</strong>
+        {t('favorites.barPrefix')}{' '}
+        <strong>{t('favorites.barCount', { count })}</strong>
       </span>
-      <span className={styles.action}>모아보기</span>
+      <span className={styles.action}>{t('favorites.viewAll')}</span>
     </button>
   );
 }

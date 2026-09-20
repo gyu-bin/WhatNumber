@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { NumberItem } from '@whatnumber/shared';
 import { iconBgColor, telHref } from '@whatnumber/shared';
 import { numberPath } from '../utils/seo';
@@ -15,6 +16,8 @@ export function NumberCard({
   isFavorite,
   onToggleFavorite,
 }: NumberCardProps) {
+  const { t } = useTranslation();
+
   const handleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -29,7 +32,7 @@ export function NumberCard({
     <Link
       to={numberPath(item.id)}
       className={styles.card}
-      aria-label={`${item.title} ${item.num} 안내 보기`}
+      aria-label={t('card.viewA11y', { title: item.title, num: item.num })}
     >
       <div
         className={styles.iconWrap}
@@ -48,7 +51,7 @@ export function NumberCard({
           className={styles.favorite}
           data-active={isFavorite || undefined}
           onClick={handleFavorite}
-          aria-label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+          aria-label={isFavorite ? t('favorites.remove') : t('favorites.add')}
         >
           {isFavorite ? '★' : '☆'}
         </button>
@@ -56,7 +59,7 @@ export function NumberCard({
           href={telHref(item.num)}
           className={styles.num}
           onClick={handleCall}
-          aria-label={`${item.num} 전화`}
+          aria-label={t('card.callA11y', { num: item.num })}
         >
           {item.num}
         </a>

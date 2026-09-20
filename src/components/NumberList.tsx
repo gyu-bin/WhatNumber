@@ -1,5 +1,6 @@
 import type { Category, NumberItem } from '@whatnumber/shared';
 import { CAT_COLOR } from '@whatnumber/shared';
+import { useTranslation } from 'react-i18next';
 import { NumberCard } from './NumberCard';
 import styles from './NumberList.module.css';
 
@@ -52,6 +53,8 @@ export function NumberList({
   onToggleFavorite,
   mode = 'default',
 }: NumberListProps) {
+  const { t } = useTranslation();
+
   if (items.length === 0) {
     if (mode === 'favorites') {
       return (
@@ -59,16 +62,14 @@ export function NumberList({
           <p className={styles.emptyIcon} aria-hidden>
             ☆
           </p>
-          <p className={styles.emptyTitle}>아직 즐겨찾기가 없어요</p>
-          <p className={styles.emptyHint}>
-            자주 쓰는 번호 카드에서 ☆를 눌러 모아두세요
-          </p>
+          <p className={styles.emptyTitle}>{t('favorites.emptyTitle')}</p>
+          <p className={styles.emptyHint}>{t('favorites.emptyHint')}</p>
         </div>
       );
     }
     return (
       <div className={styles.empty}>
-        <p>해당하는 번호가 없어요</p>
+        <p>{t('list.empty')}</p>
       </div>
     );
   }
@@ -82,7 +83,7 @@ export function NumberList({
               <span className={styles.favHeaderStar} aria-hidden>
                 ★
               </span>
-              내 즐겨찾기 · {items.length}개
+              {t('favorites.header', { count: items.length })}
             </h2>
           )}
           <CardGrid
@@ -109,7 +110,7 @@ export function NumberList({
               className={styles.catHeader}
               style={{ color: CAT_COLOR[cat] }}
             >
-              {cat}
+              {t(`categories.${cat}`)}
             </h2>
             <CardGrid
               items={groupItems}

@@ -8,6 +8,7 @@ import {
   type Ref,
 } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import i18n from '../i18n';
 import type { Coordinate, EmergencyRoom } from '../services/emergency/types';
 import type { ThemeColors } from '../theme';
 
@@ -43,6 +44,8 @@ function isExpoGo(): boolean {
 export const EmergencyMap = forwardRef<EmergencyMapHandle, EmergencyMapProps>(
   function EmergencyMap(props, ref) {
     if (isExpoGo()) {
+      const title = i18n.t('maps.previewTitle', { ns: 'ui' });
+      const body = i18n.t('maps.previewBody', { ns: 'ui' });
       return (
         <View
           style={[
@@ -52,11 +55,10 @@ export const EmergencyMap = forwardRef<EmergencyMapHandle, EmergencyMapProps>(
         >
           <Ionicons name="map-outline" size={28} color={props.colors.accent} />
           <Text style={[styles.fallbackTitle, { color: props.colors.textPrimary }]}>
-            지도 미리보기
+            {title}
           </Text>
           <Text style={[styles.fallbackBody, { color: props.colors.textSecondary }]}>
-            네이버 지도는 개발/배포 빌드에서 표시됩니다. Expo Go에서는 목록만 사용할 수
-            있어요.
+            {body}
           </Text>
         </View>
       );
@@ -197,7 +199,7 @@ function EmergencyMapNative({
           ]}
           onPress={() => focusUser(DEFAULT_ZOOM, 300)}
           accessibilityRole="button"
-          accessibilityLabel="현재 위치로 이동"
+          accessibilityLabel={i18n.t('maps.locateA11y', { ns: 'ui' })}
         >
           <Ionicons name="locate" size={20} color={colors.accent} />
         </Pressable>

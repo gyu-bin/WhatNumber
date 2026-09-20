@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
+import i18n from '../i18n';
 import { getBannerUnitId, isExpoGo } from '../services/ads/config';
 import type { ThemeColors } from '../theme';
 
@@ -37,7 +38,7 @@ export function AdBanner({ colors }: { colors: ThemeColors }) {
   return (
     <View
       style={[styles.wrap, { backgroundColor: colors.surface, borderTopColor: colors.border }]}
-      accessibilityLabel="광고"
+      accessibilityLabel={i18n.t('common.ad', { ns: 'ui' })}
     >
       <BannerAd
         unitId={unitId}

@@ -1,0 +1,233 @@
+{
+  "tabs": {
+    "home": "홈",
+    "settings": "설정"
+  },
+  "home": {
+    "subtitle": "필요한 번호, 바로 찾아드릴게요.",
+    "searchPlaceholder": "번호나 상황을 검색해보세요",
+    "favorites": "즐겨찾기",
+    "favoritesWithCount": "즐겨찾기 {{count}}",
+    "favoritesHeader": "내 즐겨찾기 · {{count}}개",
+    "favoritesEmptyTitle": "아직 즐겨찾기가 없어요",
+    "favoritesEmptyBody": "자주 쓰는 번호를 ★로 저장해 보세요.",
+    "moreSituations": "더보기",
+    "categoriesTitle": "분야별 찾기",
+    "settingsA11y": "설정",
+    "favoritesA11y": "즐겨찾기",
+    "searchA11y": "번호 또는 상황 검색",
+    "situationMoreTitle": "다른 상황",
+    "situationMoreA11y": "상황 더보기",
+    "favoritesReorderHint": "길게 눌러 순서를 바꿀 수 있어요",
+    "empty": "해당하는 번호가 없어요"
+  },
+  "situations": {
+    "emergency": "갑자기 아파요",
+    "car": "차가 고장났어요",
+    "crime": "사기·범죄",
+    "home": "집·주거",
+    "abroad": "해외에 있어요",
+    "legal": "법률·금융 문제"
+  },
+  "situationTips": {
+    "emergency": "위급하면 119, 응급 안내는 1339를 먼저 확인하세요.",
+    "car": "고속도로에서는 공공렉카를 먼저 부르세요.",
+    "crime": "보이스피싱이면 끊고 1398로 신고하세요.",
+    "home": "가스 냄새·정전·전세 문제는 해당 번호로 바로 연락하세요.",
+    "abroad": "해외에서는 영사콜센터로 한국어 지원을 받을 수 있어요.",
+    "legal": "소송 전에는 132 무료 법률 상담을 이용해 보세요."
+  },
+  "categories": {
+    "긴급/안전": "긴급/안전",
+    "교통/차량": "교통/차량",
+    "주거/생활": "주거/생활",
+    "법률/금융": "법률/금융",
+    "가족/복지": "가족/복지",
+    "고용/노동": "고용/노동",
+    "민원/행정": "민원/행정",
+    "통신/디지털": "통신/디지털"
+  },
+  "categoryTiles": {
+    "traffic": { "label": "교통/차량", "subtitle": "사고 · 고장 · 교통정보" },
+    "finance": { "label": "금융/카드", "subtitle": "분실 · 사기 · 금융상담" },
+    "housing": { "label": "집·주거", "subtitle": "전월세 · 주거복지" },
+    "family": { "label": "가족/복지", "subtitle": "아동 · 청소년 · 노인 · 마음건강" },
+    "civic": { "label": "생활/민원", "subtitle": "행정 · 세금 · 민원안내" },
+    "labor": { "label": "고용/노동", "subtitle": "실업급여 · 노동상담" },
+    "digital": { "label": "통신/디지털", "subtitle": "해킹 · 스팸 · 통신서비스" },
+    "other": { "label": "기타", "subtitle": "응급 · 신고 · 해외 상담" }
+  },
+  "categorySubtitles": {
+    "긴급/안전": "지금 바로 도움이 필요한 순간",
+    "교통/차량": "이동 중에도 든든하게",
+    "주거/생활": "매일의 생활 문제를 빠르게",
+    "법률/금융": "권리와 재산을 지키는 번호",
+    "가족/복지": "가족과 이웃을 위한 도움",
+    "고용/노동": "일하는 사람을 위한 안내",
+    "민원/행정": "공공 서비스가 필요할 때",
+    "통신/디지털": "통신·인터넷·개인정보 문제"
+  },
+  "immediate": {
+    "title": "지금 바로 필요한 번호",
+    "fireTag": "소방",
+    "policeTag": "경찰",
+    "fireLabel": "소방·구급",
+    "policeLabel": "범죄·신고",
+    "call": "전화"
+  },
+  "emergencyCard": {
+    "title": "내 주변 응급실 찾기",
+    "subtitle": "현재 위치 기준으로 가까운 응급실을 확인해요"
+  },
+  "emergency": {
+    "title": "내 주변 응급실",
+    "back": "뒤로",
+    "sortNearest": "가까운순",
+    "sortBeds": "병상순",
+    "call119": "위급하면 먼저 119에 전화하세요",
+    "call119A11y": "119 전화",
+    "permissionTitle": "위치 권한이 필요해요",
+    "permissionBody": "주변 응급실을 찾으려면 위치 접근을 허용해 주세요.",
+    "openSettings": "설정 열기",
+    "retry": "다시 시도",
+    "loading": "주변 응급실을 찾는 중…",
+    "empty": "근처에 표시할 응급실이 없어요",
+    "call": "전화",
+    "directions": "길찾기",
+    "beds": "병상 {{count}}",
+    "distanceKm": "{{km}} km",
+    "list": "목록",
+    "map": "지도",
+    "privacyNote": "현재 위치는 주변 응급실 검색에만 사용되며 저장하지 않아요.",
+    "resultsTitle": "가까운 응급실",
+    "refresh": "새로고침",
+    "refreshA11y": "응급실 목록 새로고침",
+    "sortNearestA11y": "가까운 순으로 정렬",
+    "sortBedsA11y": "병상 많은 순으로 정렬",
+    "backA11y": "홈으로 돌아가기",
+    "locationBasis": "현재 위치 기준",
+    "locationBasisAt": "현재 위치 기준 · {{time}}",
+    "dataSource": "국립중앙의료원 제공 정보",
+    "bedsUnknown": "실시간 병상 정보 없음",
+    "bedAvailable": "응급실 일반병상 {{count}}병상 이용 가능",
+    "bedNone": "응급실 일반병상 여유 없음",
+    "bedOvercrowded": "응급실 과밀 (여유 병상 없음)",
+    "checkPermission": "위치 권한 확인",
+    "mapNoLocation": "현재 위치를 확인할 수 없어요",
+    "mapRetry": "지도를 표시하려면 다시 시도해 주세요",
+    "mapPreparing": "주변 응급실 지도를 준비 중이에요",
+    "status": {
+      "idle": "현재 위치를 확인하고 있어요.",
+      "locating": "현재 위치를 확인하고 있어요.",
+      "loading": "응급실 정보를 불러오고 있어요.",
+      "permissionDenied": "현재 위치를 확인할 수 없어요. 위치 권한을 확인해 주세요.",
+      "locationDisabled": "기기의 위치 서비스가 꺼져 있어요.",
+      "offline": "인터넷 연결을 확인한 뒤 다시 시도해 주세요.",
+      "configurationError": "응급실 정보 연결이 아직 설정되지 않았어요.",
+      "apiError": "응급실 정보를 불러오지 못했어요.",
+      "empty": "주변에서 응급실을 찾지 못했어요."
+    },
+    "errors": {
+      "invalidResponse": "응급실 정보 형식을 확인할 수 없어요.",
+      "fetchFailed": "응급실 정보를 불러오지 못했어요. ({{status}})"
+    }
+  },
+  "detail": {
+    "addFavorite": "☆ 즐겨찾기 추가",
+    "removeFavorite": "★ 즐겨찾기 해제",
+    "call": "{{num}} 전화",
+    "close": "닫기",
+    "tip": "알아두면 좋아요"
+  },
+  "numberRow": {
+    "addFavorite": "즐겨찾기 추가",
+    "removeFavorite": "즐겨찾기 해제",
+    "reorder": "순서 변경"
+  },
+  "settings": {
+    "title": "설정",
+    "subtitle": "앱을 더 편하게 사용할 수 있어요.",
+    "sectionDisplay": "화면",
+    "theme": "테마",
+    "themeHint": "앱의 색상을 설정해요.",
+    "language": "언어",
+    "languageHint": "앱에서 사용할 언어를 선택해요.",
+    "sectionNumbers": "번호",
+    "requestTitle": "빠진 번호 요청",
+    "requestHint": "추가가 필요한 번호를 보내주세요",
+    "sectionInfo": "정보",
+    "privacyTitle": "개인정보처리방침",
+    "privacyHint": "소중한 개인정보를 지켜요.",
+    "websiteTitle": "웹사이트",
+    "websiteHint": "더 많은 정보를 확인해보세요.",
+    "feedbackTitle": "더 나은 앱이 될 수 있도록",
+    "feedbackHint": "소중한 의견을 기다리고 있어요.",
+    "metaBrand": "몇번이야",
+    "meta": "몇번이야? · v{{version}}\n필요한 번호, 바로.",
+    "themeLight": "라이트",
+    "themeDark": "다크"
+  },
+  "request": {
+    "numberTitle": "번호 추가 요청",
+    "feedbackTitle": "의견 보내기",
+    "numberName": "번호 이름",
+    "phone": "전화번호",
+    "description": "설명",
+    "note": "기타",
+    "feedbackMessage": "의견",
+    "optional": "선택",
+    "cancel": "취소",
+    "send": "보내기",
+    "sending": "보내는 중…",
+    "errorEmpty": "번호 이름, 전화번호, 설명 중 하나 이상 입력해 주세요.",
+    "errorFeedbackEmpty": "의견을 입력해 주세요.",
+    "numberDesc": "빠진 공공·생활 번호를 알려 주세요. 검토 후 반영할게요.",
+    "feedbackDesc": "앱 사용 중 불편했던 점이나 개선 아이디어를 알려 주세요.",
+    "feedbackContent": "의견 내용",
+    "descriptionWhen": "설명 · 언제 쓰는지",
+    "namePlaceholder": "예: 방첩신고, 전세사기 상담",
+    "phonePlaceholder": "예: 113, 1588-0000",
+    "descriptionPlaceholder": "어떤 상황에서 필요한 번호인지",
+    "notePlaceholder": "출처, 참고 링크 등",
+    "feedbackPlaceholder": "예: 검색이 잘 안 돼요, OO 카테고리가 있으면 좋겠어요",
+    "sendRequest": "요청 보내기",
+    "successNumber": "번호 요청을 보냈어요",
+    "successFeedback": "의견을 보냈어요",
+    "error": {
+      "send_failed": "전송에 실패했어요. 잠시 후 다시 시도해 주세요.",
+      "network": "네트워크 오류예요. 연결을 확인해 주세요."
+    }
+  },
+  "privacy": {
+    "back": "‹ 설정",
+    "title": "개인정보처리방침",
+    "lead": "몇번이야는 회원가입 없이 이용할 수 있으며, 개인정보를 소중히 다룹니다. 자세한 내용은 웹사이트 개인정보처리방침을 확인해 주세요.",
+    "openWeb": "웹에서 전체 방침 보기"
+  },
+  "categoryScreen": {
+    "backHome": "홈으로 돌아가기"
+  },
+  "common": {
+    "ad": "광고",
+    "close": "닫기"
+  },
+  "ota": {
+    "updating": "업데이트를 적용하고 있어요"
+  },
+  "maps": {
+    "currentLocation": "현재 위치",
+    "emergencyRoom": "응급실",
+    "previewTitle": "지도 미리보기",
+    "previewBody": "네이버 지도는 개발/배포 빌드에서 표시됩니다. Expo Go에서는 목록만 사용할 수 있어요.",
+    "locateA11y": "현재 위치로 이동"
+  },
+  "widget": {
+    "brand": "몇번이야?",
+    "favoritesLink": "즐겨찾기 ›",
+    "emptySmall": "즐겨찾기가 없어요",
+    "emptyMedium": "즐겨찾기를 추가해보세요",
+    "emptyHint": "앱에서 추가하면 여기서 바로 전화해요",
+    "callNow": "바로 전화",
+    "footerTagline": "필요할 때, 바로 몇번이야?"
+  }
+}

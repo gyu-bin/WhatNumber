@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   canSendNumberRequest,
   submitContactRequest,
@@ -17,6 +18,7 @@ const NUMBER_REQUEST_API_URL =
   import.meta.env.VITE_NUMBER_REQUEST_API_URL?.trim() || '/api/number-request';
 
 export function NumberRequest() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<NumberRequestForm>(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
@@ -49,7 +51,7 @@ export function NumberRequest() {
     if (sending) return;
 
     if (!canSendNumberRequest(form)) {
-      setError('번호 이름, 전화번호, 설명 중 하나 이상 입력해 주세요.');
+      setError(t('request.errorEmpty'));
       return;
     }
 
@@ -64,7 +66,11 @@ export function NumberRequest() {
     setSending(false);
 
     if (!result.ok) {
-      setError(result.error);
+      setError(
+        result.error === 'network'
+          ? t('request.errorNetwork')
+          : t('request.errorSend'),
+      );
       return;
     }
 
@@ -80,8 +86,8 @@ export function NumberRequest() {
           +
         </span>
         <span className={styles.triggerBody}>
-          <span className={styles.triggerLabel}>빠진 번호 있나요?</span>
-          <span className={styles.triggerSub}>추가 요청 보내기</span>
+          <span className={styles.triggerLabel}>{t('request.triggerLabel')}</span>
+          <span className={styles.triggerSub}>{t('request.triggerSub')}</span>
         </span>
         <span className={styles.triggerChevron} aria-hidden>
           ›
@@ -100,73 +106,71 @@ export function NumberRequest() {
             <div className={styles.handle} aria-hidden />
             <div className={styles.header}>
               <h2 id="request-title" className={styles.title}>
-                번호 추가 요청
+                {t('request.title')}
               </h2>
-              <p className={styles.desc}>
-                검토 후 반영할게요. 보내기를 누르면 바로 전달돼요.
-              </p>
+              <p className={styles.desc}>{t('request.desc')}</p>
             </div>
 
             <form className={styles.form} onSubmit={(e) => void handleSubmit(e)}>
               <label className={styles.field}>
                 <span className={styles.labelRow}>
-                  <span className={styles.label}>번호 이름</span>
+                  <span className={styles.label}>{t('request.nameLabel')}</span>
                 </span>
                 <input
                   className={styles.input}
                   value={form.title}
                   onChange={(e) => update('title', e.target.value)}
-                  placeholder="예: 방첩신고, 전세사기 상담"
+                  placeholder={t('request.namePlaceholder')}
                 />
               </label>
 
               <label className={styles.field}>
                 <span className={styles.labelRow}>
-                  <span className={styles.label}>전화번호</span>
+                  <span className={styles.label}>{t('request.phoneLabel')}</span>
                 </span>
                 <input
                   className={styles.input}
                   value={form.number}
                   onChange={(e) => update('number', e.target.value)}
-                  placeholder="예: 113, 1588-0000"
+                  placeholder={t('request.phonePlaceholder')}
                   inputMode="tel"
                 />
               </label>
 
               <label className={styles.field}>
                 <span className={styles.labelRow}>
-                  <span className={styles.label}>설명 · 언제 쓰는지</span>
+                  <span className={styles.label}>{t('request.descriptionLabel')}</span>
                 </span>
                 <textarea
                   className={styles.textarea}
                   value={form.description}
                   onChange={(e) => update('description', e.target.value)}
-                  placeholder="어떤 상황에서 필요한 번호인지"
+                  placeholder={t('request.descriptionPlaceholder')}
                 />
               </label>
 
               <label className={styles.field}>
                 <span className={styles.labelRow}>
-                  <span className={styles.label}>기타</span>
-                  <span className={styles.optional}>선택</span>
+                  <span className={styles.label}>{t('request.noteLabel')}</span>
+                  <span className={styles.optional}>{t('request.optional')}</span>
                 </span>
                 <input
                   className={styles.input}
                   value={form.note}
                   onChange={(e) => update('note', e.target.value)}
-                  placeholder="출처, 참고 링크 등"
+                  placeholder={t('request.notePlaceholder')}
                 />
               </label>
 
               {error ? <p className={styles.error}>{error}</p> : null}
-              {sent ? <p className={styles.error}>전송됐어요. 확인해 볼게요!</p> : null}
+              {sent ? <p className={styles.error}>{t('request.success')}</p> : null}
 
               <div className={styles.footer}>
                 <button type="submit" className={styles.submit} disabled={sending || sent}>
-                  {sending ? '보내는 중…' : '보내기'}
+                  {sending ? t('request.sending') : t('request.send')}
                 </button>
                 <button type="button" className={styles.cancel} onClick={close} disabled={sending}>
-                  취소
+                  {t('request.cancel')}
                 </button>
               </div>
             </form>
