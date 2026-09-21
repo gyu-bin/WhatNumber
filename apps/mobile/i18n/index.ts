@@ -1,8 +1,31 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { getLocales } from 'expo-localization';
+import { NativeModules, Platform } from 'react-native';
 import type { NumberItem } from '@whatnumber/shared';
 import { APP_LOCALES, type AppLocale } from './types';
+
+/**
+ * Avoid `expo-localization` here.
+ * App Store 1.0.0 was built without that native module; importing it in an OTA
+ * bundle crashes before first paint and expo-updates silently rolls back.
+ */
+function readDeviceLanguageTag(): string {
+  try {
+    if (Platform.OS === 'ios') {
+      const settings = NativeModules.SettingsManager?.settings;
+      const appleLocale =
+        (typeof settings?.AppleLocale === 'string' && settings.AppleLocale) ||
+        (Array.isArray(settings?.AppleLanguages) && settings.AppleLanguages[0]) ||
+        '';
+      if (appleLocale) return String(appleLocale);
+    }
+    const androidLocale = NativeModules.I18nManager?.localeIdentifier;
+    if (typeof androidLocale === 'string' && androidLocale) return androidLocale;
+  } catch {
+    /* keep fallback */
+  }
+  return 'ko';
+}
 
 import koUi from './locales/ko/ui.json';
 import enUi from './locales/en/ui.json';
@@ -52,11 +75,12 @@ void i18n.use(initReactI18next).init({
 });
 
 export function detectDeviceLocale(): AppLocale {
-  const tag = getLocales()[0]?.languageCode?.toLowerCase() ?? 'ko';
-  if (tag.startsWith('zh')) return 'zh';
-  if (tag.startsWith('ja')) return 'ja';
-  if (tag.startsWith('en')) return 'en';
-  if (tag.startsWith('ko')) return 'ko';
+  const tag = readDeviceLanguageTag().toLowerCase().replace('_', '-');
+  const code = tag.split('-')[0] || 'ko';
+  if (code === 'zh' || tag.startsWith('zh')) return 'zh';
+  if (code === 'ja') return 'ja';
+  if (code === 'en') return 'en';
+  if (code === 'ko') return 'ko';
   return 'en';
 }
 

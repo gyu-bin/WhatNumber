@@ -17,7 +17,6 @@ const LOGO_ASPECT = 2054 / 766;
 type Props = {
   theme: Theme;
   active: boolean;
-  onTransitionStart?: () => void;
   onFinish: () => void;
 };
 
@@ -26,7 +25,7 @@ type Props = {
  * Uses separate Animated values (native-driver safe) — avoids a single
  * progress tree that can crash some release builds on reload.
  */
-export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: Props) {
+export function SplashAnimation({ theme, active, onFinish }: Props) {
   const colors = getThemeColors(theme);
   const bg = theme === 'dark' ? colors.bg : '#FCFBFA';
   const coral = colors.accent;
@@ -58,14 +57,13 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
   const tagTY = useRef(new Animated.Value(8)).current;
 
   const onFinishRef = useRef(onFinish);
-  const onTransitionStartRef = useRef(onTransitionStart);
   onFinishRef.current = onFinish;
-  onTransitionStartRef.current = onTransitionStart;
 
   useEffect(() => {
     if (!active) return;
 
     let cancelled = false;
+    let settled = false;
     const easeOut = Easing.out(Easing.cubic);
     const animations: Animated.CompositeAnimation[] = [];
 
@@ -75,12 +73,13 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
     };
 
     const finish = () => {
-      if (!cancelled) onFinishRef.current();
+      if (settled) return;
+      settled = true;
+      onFinishRef.current();
     };
 
     const startExit = () => {
       if (cancelled) return;
-      onTransitionStartRef.current?.();
       run(
         Animated.parallel([
           Animated.timing(overlayOpacity, {
@@ -172,8 +171,8 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
       ]);
 
       animations.push(expandAndLogo);
-      expandAndLogo.start(({ finished }) => {
-        if (cancelled || !finished) {
+      expandAndLogo.start(({ finished: animFinished }) => {
+        if (cancelled || !animFinished) {
           finish();
           return;
         }
@@ -189,8 +188,11 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
       tagTY.setValue(0);
       const wait = Animated.delay(500);
       animations.push(wait);
-      wait.start(() => {
-        if (cancelled) return;
+      wait.start(({ finished: animFinished }) => {
+        if (cancelled || !animFinished) {
+          finish();
+          return;
+        }
         startExit();
         setTimeout(finish, 340);
       });
@@ -207,6 +209,8 @@ export function SplashAnimation({ theme, active, onTransitionStart, onFinish }: 
     return () => {
       cancelled = true;
       animations.forEach((a) => a.stop());
+      // Interrupted splash must not leave the app on a blank shell.
+      finish();
     };
   }, [
     active,

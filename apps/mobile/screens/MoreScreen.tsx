@@ -41,7 +41,7 @@ export function MoreScreen({
     ? null
     : Updates.isEmbeddedLaunch
       ? 'store'
-      : (Updates.updateId?.slice(0, 8) ?? 'ota');
+      : `ota-${(Updates.updateId ?? 'x').slice(0, 8)}`;
 
   return (
     <ScrollView

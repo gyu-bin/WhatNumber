@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  Animated,
-  Easing,
   Image,
   Linking,
   Modal,
@@ -261,32 +259,12 @@ export default function App() {
   const themeColors = getThemeColors(theme);
   const styles = useMemo(() => createStyles(themeColors), [theme]);
 
-  const homeOpacity = useRef(new Animated.Value(0)).current;
-  const homeTY = useRef(new Animated.Value(10)).current;
-
-  const onSplashTransitionStart = useCallback(() => {
-    Animated.parallel([
-      Animated.timing(homeOpacity, {
-        toValue: 1,
-        duration: 360,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
-      }),
-      Animated.timing(homeTY, {
-        toValue: 0,
-        duration: 360,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
-      }),
-    ]).start();
-  }, [homeOpacity, homeTY]);
-
+  // Home stays fully visible under the splash overlay.
+  // Animating root opacity with the native driver was sticking at 0 after
+  // background → foreground on iOS (white screen).
   const onSplashFinish = useCallback(() => {
-    homeOpacity.setValue(1);
-    homeTY.setValue(0);
     setShowSplash(false);
-  }, [homeOpacity, homeTY]);
-
+  }, []);
   useEffect(() => {
     if (nativeSplashHidden) return;
     let cancelled = false;
@@ -588,12 +566,8 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
     <SafeAreaProvider>
       <View style={{ flex: 1, backgroundColor: themeColors.bg }}>
-        <Animated.View
-          style={{
-            flex: 1,
-            opacity: homeOpacity,
-            transform: [{ translateY: homeTY }],
-          }}
+        <View
+          style={{ flex: 1 }}
           pointerEvents={showSplash ? 'none' : 'auto'}
         >
           <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -809,13 +783,12 @@ export default function App() {
               />
             ) : null}
           </SafeAreaView>
-        </Animated.View>
+        </View>
 
         {showSplash ? (
           <SplashAnimation
             theme={theme}
             active={nativeSplashHidden && themeReady}
-            onTransitionStart={onSplashTransitionStart}
             onFinish={onSplashFinish}
           />
         ) : null}
