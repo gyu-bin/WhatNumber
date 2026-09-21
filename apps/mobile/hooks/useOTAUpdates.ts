@@ -1,77 +1,68 @@
 import { useEffect, useRef } from 'react';
+import { AppState } from 'react-native';
 import * as Updates from 'expo-updates';
 import i18n from '../i18n';
 
+/** Re-check while the app stays open, without hammering the update service. */
+const POLL_MS = 90_000;
+/** Let the toast paint before `reloadAsync` tears down the JS runtime. */
+const TOAST_BEFORE_RELOAD_MS = 600;
+
 /**
- * Store builds already run native `CheckOnLaunch: ALWAYS`.
- * Calling check/fetch/reload from JS during that startup race crashes iOS
- * release builds and triggers expo-updates rollback (expo/expo#21347).
+ * Apply a downloaded EAS Update in place.
  *
- * - Never call reloadAsync — next cold start applies the download
- * - Wait until native startup finishes before any JS Updates API
- * - Toast when a downloaded update is pending
+ * Native startup (`CheckOnLaunch`) must finish first — calling reload during
+ * that race has crashed iOS release builds. After that, a new bundle is
+ * fetched and `reloadAsync()` swaps it without the user killing the app.
  */
 export function useOTAUpdates(onUpdateReady?: (message: string) => void) {
+  const busyRef = useRef(false);
   const onUpdateReadyRef = useRef(onUpdateReady);
   onUpdateReadyRef.current = onUpdateReady;
-  const notifiedRef = useRef(false);
-  const fetchStartedRef = useRef(false);
-  const fallbackStartedRef = useRef(false);
-
-  const {
-    isUpdatePending,
-    isUpdateAvailable,
-    isStartupProcedureRunning,
-  } = Updates.useUpdates();
+  const { isStartupProcedureRunning, isUpdatePending } = Updates.useUpdates();
 
   useEffect(() => {
-    if (__DEV__ || !Updates.isEnabled) return;
-    if (!isUpdatePending || notifiedRef.current) return;
-    notifiedRef.current = true;
-    onUpdateReadyRef.current?.(
-      i18n.t('ota.restartToApply', {
-        ns: 'ui',
-        defaultValue: '업데이트를 준비했어요. 앱을 종료한 뒤 다시 열어주세요.',
-      }),
-    );
-  }, [isUpdatePending]);
+    if (__DEV__ || !Updates.isEnabled || isStartupProcedureRunning) return;
 
-  // After native startup: finish a download native already discovered.
-  useEffect(() => {
-    if (__DEV__ || !Updates.isEnabled) return;
-    if (isStartupProcedureRunning) return;
-    if (!isUpdateAvailable || isUpdatePending || fetchStartedRef.current) return;
+    let cancelled = false;
 
-    fetchStartedRef.current = true;
-    void Updates.fetchUpdateAsync().catch(() => {
-      fetchStartedRef.current = false;
-    });
-  }, [isStartupProcedureRunning, isUpdateAvailable, isUpdatePending]);
-
-  // Late fallback if native boot check missed the update (e.g. offline at launch).
-  useEffect(() => {
-    if (__DEV__ || !Updates.isEnabled) return;
-    if (isStartupProcedureRunning) return;
-    if (isUpdatePending || isUpdateAvailable || fallbackStartedRef.current) return;
-
-    const timer = setTimeout(() => {
-      if (notifiedRef.current || fetchStartedRef.current || fallbackStartedRef.current) {
-        return;
-      }
-      fallbackStartedRef.current = true;
-      fetchStartedRef.current = true;
-      void (async () => {
-        try {
+    const apply = async () => {
+      if (cancelled || busyRef.current) return;
+      if (AppState.currentState !== 'active') return;
+      busyRef.current = true;
+      try {
+        if (!isUpdatePending) {
           const check = await Updates.checkForUpdateAsync();
-          if (!check.isAvailable) return;
-          await Updates.fetchUpdateAsync();
-        } catch {
-          fetchStartedRef.current = false;
-          fallbackStartedRef.current = false;
+          if (cancelled || !check.isAvailable) return;
+          const fetched = await Updates.fetchUpdateAsync();
+          if (cancelled || !fetched.isNew) return;
         }
-      })();
-    }, 8_000);
+        onUpdateReadyRef.current?.(i18n.t('ota.updating', { ns: 'ui' }));
+        await new Promise((resolve) => setTimeout(resolve, TOAST_BEFORE_RELOAD_MS));
+        if (cancelled) return;
+        await Updates.reloadAsync();
+      } catch {
+        // Offline or update service unavailable — keep the current bundle.
+      } finally {
+        busyRef.current = false;
+      }
+    };
 
-    return () => clearTimeout(timer);
-  }, [isStartupProcedureRunning, isUpdateAvailable, isUpdatePending]);
+    const first = setTimeout(() => {
+      void apply();
+    }, 1200);
+    const interval = setInterval(() => {
+      void apply();
+    }, POLL_MS);
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') void apply();
+    });
+
+    return () => {
+      cancelled = true;
+      clearTimeout(first);
+      clearInterval(interval);
+      sub.remove();
+    };
+  }, [isStartupProcedureRunning, isUpdatePending]);
 }

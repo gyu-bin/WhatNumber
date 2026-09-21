@@ -51,7 +51,7 @@ import { CategoryScreen } from './screens/CategoryScreen';
 import { MoreScreen } from './screens/MoreScreen';
 import { PrivacyScreen } from './screens/PrivacyScreen';
 import { EmergencyFinderScreen } from './screens/EmergencyFinderScreen';
-import { syncFavoritesWidget } from './services/widget/syncFavoritesWidget';
+import { syncFavoritesWidget, registerFavoritesWidgetLayout, ensureWidgetSyncOnForeground } from './services/widget/syncFavoritesWidget';
 import { createStyles, type AppStyles } from './styles';
 import { getThemeColors, type ThemeColors } from './theme';
 import { Ionicons } from '@expo/vector-icons';
@@ -252,8 +252,16 @@ export default function App() {
   );
 
   useEffect(() => {
+    registerFavoritesWidgetLayout();
+  }, []);
+
+  useEffect(() => {
     if (!favoritesReady) return;
     syncFavoritesWidget(favorites, locale);
+    ensureWidgetSyncOnForeground(
+      () => favorites,
+      () => locale,
+    );
   }, [favorites, favoritesReady, locale]);
 
   const themeColors = getThemeColors(theme);

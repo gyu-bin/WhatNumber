@@ -13,8 +13,6 @@ import {
   widgetURL,
 } from '@expo/ui/swift-ui/modifiers';
 import { createWidget, type WidgetEnvironment } from 'expo-widgets';
-import i18n from '../i18n';
-import type { AppLocale } from '../i18n/types';
 
 export type FavoriteWidgetItem = {
   icon: string;
@@ -23,19 +21,69 @@ export type FavoriteWidgetItem = {
   tel: string;
 };
 
+export type WidgetLocale = 'ko' | 'en' | 'zh' | 'ja';
+
 export type FavoritesWidgetProps = {
   items: FavoriteWidgetItem[];
-  locale?: AppLocale;
+  locale?: WidgetLocale;
 };
 
+/**
+ * IMPORTANT: everything the layout needs must live INSIDE this function.
+ * Babel stringifies `'widget'` functions for the widget JSContext — free
+ * variables from the module scope (like a COPY map or i18n) are undefined
+ * there and the widget renders black.
+ */
 const FavoritesWidgetLayout = (
   props: FavoritesWidgetProps,
   environment: WidgetEnvironment,
 ) => {
   'widget';
 
-  const lng = props.locale ?? 'ko';
-  const wt = (key: string) => i18n.t(key, { ns: 'ui', lng });
+  const copy = {
+    ko: {
+      brand: '몇번이야?',
+      favoritesLink: '즐겨찾기 ›',
+      emptySmall: '즐겨찾기가 없어요',
+      emptyMedium: '즐겨찾기를 추가해보세요',
+      emptyHint: '앱에서 추가하면 여기서 바로 전화해요',
+      callNow: '바로 전화',
+      footerTagline: '필요할 때, 바로 몇번이야?',
+    },
+    en: {
+      brand: 'WhatNumber?',
+      favoritesLink: 'Favorites ›',
+      emptySmall: 'No favorites yet',
+      emptyMedium: 'Add some favorites',
+      emptyHint: 'Add numbers in the app to call them from here',
+      callNow: 'Call now',
+      footerTagline: 'When you need it—WhatNumber',
+    },
+    zh: {
+      brand: '几号啊？',
+      favoritesLink: '收藏 ›',
+      emptySmall: '还没有收藏',
+      emptyMedium: '来添加收藏吧',
+      emptyHint: '在应用中添加后，可在此直接拨打',
+      callNow: '立即拨打',
+      footerTagline: '需要时，几号啊',
+    },
+    ja: {
+      brand: '何番？',
+      favoritesLink: 'お気に入り ›',
+      emptySmall: 'お気に入りがありません',
+      emptyMedium: 'お気に入りを追加しましょう',
+      emptyHint: 'アプリで追加すると、ここからすぐ電話できます',
+      callNow: '今すぐ電話',
+      footerTagline: '必要なとき、何番？',
+    },
+  };
+
+  const localeKey =
+    props.locale === 'en' || props.locale === 'zh' || props.locale === 'ja'
+      ? props.locale
+      : 'ko';
+  const t = copy[localeKey];
 
   const accent = '#D94F3D';
   const softIcon = '#FFEDEA';
@@ -50,12 +98,9 @@ const FavoritesWidgetLayout = (
   const isSmall = family === 'systemSmall';
   const isMedium = family === 'systemMedium';
 
-  // All list: 2×2 → 1, 4×2 → 3, 4×4 → 6
   const maxItems = isSmall ? 1 : isMedium ? 3 : 6;
   const items = (props.items ?? []).slice(0, maxItems);
 
-  // Manual margins (native uses contentMarginsDisabled) — keep content short
-  // enough that SwiftUI does not compress this padding away.
   const edgeX = 16;
   const edgeY = isMedium ? 14 : 16;
 
@@ -76,7 +121,7 @@ const FavoritesWidgetLayout = (
         cornerRadius(9),
       ]}
     >
-      {wt('widget.brand')}
+      {t.brand}
     </Text>
   );
 
@@ -88,12 +133,11 @@ const FavoritesWidgetLayout = (
           foregroundStyle(muted),
         ]}
       >
-        {wt('widget.favoritesLink')}
+        {t.favoritesLink}
       </Text>
     </Link>
   );
 
-  /** Full-width list row — 전화 아이콘(및 행 전체)이 tel 링크로 바로 전화앱을 엽니다 */
   const listRow = (
     item: FavoriteWidgetItem,
     opts: { compact: boolean; showDivider: boolean },
@@ -208,7 +252,7 @@ const FavoritesWidgetLayout = (
           />
         </HStack>
         <Text modifiers={[font({ weight: 'bold', size: 13 }), foregroundStyle(ink)]}>
-          {isSmall ? wt('widget.emptySmall') : wt('widget.emptyMedium')}
+          {isSmall ? t.emptySmall : t.emptyMedium}
         </Text>
         <Text
           modifiers={[
@@ -218,14 +262,13 @@ const FavoritesWidgetLayout = (
             minimumScaleFactor(0.85),
           ]}
         >
-          {wt('widget.emptyHint')}
+          {t.emptyHint}
         </Text>
         <Spacer />
       </VStack>
     );
   }
 
-  // Small 2×2 → 1
   if (isSmall) {
     return (
       <Link destination={a.tel}>
@@ -291,7 +334,7 @@ const FavoritesWidgetLayout = (
             <Spacer />
             <Image systemName="phone.fill" size={10} color={white} />
             <Text modifiers={[font({ weight: 'bold', size: 11 }), foregroundStyle(white)]}>
-              {wt('widget.callNow')}
+              {t.callNow}
             </Text>
             <Spacer />
           </HStack>
@@ -300,8 +343,6 @@ const FavoritesWidgetLayout = (
     );
   }
 
-  // Medium 4×2 → 3 list rows + real top/bottom inset
-  // Content stays short so vertical padding is not squeezed away.
   if (isMedium) {
     return (
       <VStack
@@ -327,7 +368,6 @@ const FavoritesWidgetLayout = (
     );
   }
 
-  // Large 4×4 → 6 list rows (no grid — titles stay readable)
   return (
     <VStack spacing={0} alignment="leading" modifiers={[containerBackground(bg, 'widget')]}>
       <VStack
@@ -355,7 +395,7 @@ const FavoritesWidgetLayout = (
               minimumScaleFactor(0.85),
             ]}
           >
-            {wt('widget.footerTagline')}
+            {t.footerTagline}
           </Text>
           <Spacer />
           <Text

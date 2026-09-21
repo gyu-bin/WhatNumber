@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { AppState, Platform } from 'react-native';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { ALL_NUMBERS, telWidgetHref } from '@whatnumber/shared';
 import { localizeNumber } from '../../i18n';
@@ -13,9 +13,16 @@ export type FavoriteWidgetItem = {
   tel: string;
 };
 
+type FavoritesWidgetApi = {
+  updateSnapshot: (props: {
+    items: FavoriteWidgetItem[];
+    locale?: AppLocale;
+  }) => void;
+  reload: () => void;
+};
+
 function canSyncWidget(): boolean {
   if (Platform.OS !== 'ios' && Platform.OS !== 'android') return false;
-  // Expo Go has no expo-widgets native module — skip before requiring it.
   if (Constants.executionEnvironment === ExecutionEnvironment.StoreClient) {
     return false;
   }
@@ -23,9 +30,34 @@ function canSyncWidget(): boolean {
   return true;
 }
 
+function loadWidget(): FavoritesWidgetApi | null {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const FavoritesWidget = require('../../widgets/FavoritesWidget')
+      .default as FavoritesWidgetApi;
+    if (!FavoritesWidget?.updateSnapshot) return null;
+    return FavoritesWidget;
+  } catch {
+    return null;
+  }
+}
+
+function reloadAllWidgetsNative(): void {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const ExpoWidgets = require('expo-widgets/build/ExpoWidgets').default as {
+      reloadAllWidgets?: () => void;
+    };
+    ExpoWidgets?.reloadAllWidgets?.();
+  } catch {
+    /* optional */
+  }
+}
+
 /**
- * 홈 화면 위젯에 즐겨찾기 목록을 반영합니다.
- * Expo Go / 미지원 환경에서는 조용히 무시합니다.
+ * Re-register layout + push snapshot.
+ * createWidget() (module load) writes `__expo_widgets_FavoritesWidget_layout`
+ * into the App Group — required after an OTA that changed the widget source.
  */
 export function syncFavoritesWidget(
   favoriteIds: string[],
@@ -34,15 +66,8 @@ export function syncFavoritesWidget(
   if (!canSyncWidget()) return;
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const FavoritesWidget = require('../../widgets/FavoritesWidget').default as {
-      updateSnapshot: (props: {
-        items: FavoriteWidgetItem[];
-        locale?: AppLocale;
-      }) => void;
-    };
-
-    if (!FavoritesWidget?.updateSnapshot) return;
+    const FavoritesWidget = loadWidget();
+    if (!FavoritesWidget) return;
 
     const items: FavoriteWidgetItem[] = [];
     for (const id of favoriteIds) {
@@ -59,7 +84,34 @@ export function syncFavoritesWidget(
     }
 
     FavoritesWidget.updateSnapshot({ items, locale: locale ?? 'ko' });
+    FavoritesWidget.reload?.();
+    reloadAllWidgetsNative();
   } catch {
     // Native widget missing (e.g. outdated binary) — ignore.
   }
+}
+
+/** Call once at app boot so layout is rewritten even before favorites hydrate. */
+export function registerFavoritesWidgetLayout(): void {
+  if (!canSyncWidget()) return;
+  loadWidget();
+}
+
+let appStateHooked = false;
+let favoritesRef: () => string[] = () => [];
+let localeRef: () => AppLocale | undefined = () => undefined;
+
+/** Re-sync whenever the app becomes active (covers OTA → next foreground). */
+export function ensureWidgetSyncOnForeground(
+  getFavorites: () => string[],
+  getLocale: () => AppLocale | undefined,
+): void {
+  favoritesRef = getFavorites;
+  localeRef = getLocale;
+  if (appStateHooked || !canSyncWidget()) return;
+  appStateHooked = true;
+  AppState.addEventListener('change', (state) => {
+    if (state !== 'active') return;
+    syncFavoritesWidget(favoritesRef(), localeRef());
+  });
 }
