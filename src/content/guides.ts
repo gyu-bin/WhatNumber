@@ -10,7 +10,7 @@ export const GUIDES: GuideMeta[] = [
   },
   {
     slug: 'car-accident',
-    relatedIds: ['c1', 'c2', 'c3', 'c4', 'c5', 'c6'],
+    relatedIds: ['c1', 'c2', 'c3', 'c4', 'c6'],
   },
   {
     slug: 'housing',

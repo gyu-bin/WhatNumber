@@ -511,6 +511,39 @@ export function createStyles(colors: ThemeColors) {
     categoryScreenList: {
       paddingBottom: 28,
     },
+    categorySubTabs: {
+      flexDirection: 'row',
+      marginHorizontal: 16,
+      marginBottom: 10,
+      padding: 3,
+      borderRadius: 12,
+      backgroundColor: colors.tipBg,
+    },
+    categorySubTab: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 8,
+      borderRadius: 10,
+    },
+    categorySubTabActive: {
+      backgroundColor: colors.surface,
+    },
+    categorySubTabLabel: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: colors.textSecondary,
+    },
+    categorySubTabLabelActive: {
+      color: colors.textPrimary,
+    },
+    categoryCardLogoNote: {
+      marginHorizontal: 18,
+      marginBottom: 10,
+      fontSize: 11,
+      lineHeight: 16,
+      color: colors.textTertiary,
+    },
 
     tabBar: {
       flexDirection: 'row',
@@ -643,22 +676,6 @@ export function createStyles(colors: ThemeColors) {
     },
     moreMeta: {
       marginTop: 26,
-      textAlign: 'center',
-      fontSize: 12,
-      lineHeight: 20,
-      color: colors.textTertiary,
-    },
-    moreLogoNote: {
-      marginTop: 18,
-      marginHorizontal: 28,
-      textAlign: 'center',
-      fontSize: 11,
-      lineHeight: 16,
-      color: colors.textTertiary,
-      opacity: 0.85,
-    },
-    moreMetaTight: {
-      marginTop: 10,
       textAlign: 'center',
       fontSize: 12,
       lineHeight: 20,

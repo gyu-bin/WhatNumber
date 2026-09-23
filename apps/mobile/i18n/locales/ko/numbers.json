@@ -392,6 +392,48 @@
     "title": "KB손해보험 사고·긴급출동",
     "desc": "자동차 사고접수·고장출동"
   },
+  "org-ins-hyundai-auto": {
+    "title": "현대해상 자동차 사고·긴급출동",
+    "desc": "사고접수·고장출동 ARS",
+    "tip": "ARS 1번은 고장출동, 2번은 사고접수입니다."
+  },
+  "org-ins-meritz-auto": {
+    "title": "메리츠화재 자동차 사고·긴급출동",
+    "desc": "사고접수·긴급출동"
+  },
+  "org-ins-hanwha-auto": {
+    "title": "한화손해보험 사고·긴급출동",
+    "desc": "사고접수·고장출동",
+    "tip": "ARS에서 사고접수·긴급출동을 선택할 수 있어요."
+  },
+  "org-ins-lotte-auto": {
+    "title": "롯데손해보험 사고·긴급출동",
+    "desc": "사고접수·고장출동 24시간",
+    "tip": "ARS 1번은 고장출동, 2번은 사고접수입니다."
+  },
+  "org-ins-heungkuk-auto": {
+    "title": "흥국화재 자동차 사고·긴급출동",
+    "desc": "사고접수·고장출동 24시간",
+    "tip": "ARS 1번은 사고접수, 2번은 고장 긴급출동입니다."
+  },
+  "org-ins-mg-auto": {
+    "title": "MG손해보험 사고·긴급출동",
+    "desc": "자동차 사고접수·긴급출동"
+  },
+  "org-ins-axa-auto": {
+    "title": "AXA손해보험 사고·긴급출동",
+    "desc": "사고접수·고장출동 24시간",
+    "tip": "ARS 2번은 고장출동, 3번은 사고접수입니다."
+  },
+  "org-ins-hana-auto": {
+    "title": "하나손해보험 사고·긴급출동",
+    "desc": "사고접수·고장출동 24시간",
+    "tip": "ARS 1번은 고장출동, 2번은 사고접수입니다."
+  },
+  "org-ins-carrot-auto": {
+    "title": "캐롯손해보험 사고·긴급출동",
+    "desc": "자동차 사고접수·긴급출동"
+  },
   "org-card-hyundai-lost": {
     "title": "현대카드 도난·분실 신고",
     "desc": "카드 분실·도난·보이스피싱"

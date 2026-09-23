@@ -392,6 +392,48 @@
     "title": "KB Insurance — accident & roadside",
     "desc": "Auto accident reporting and breakdown dispatch"
   },
+  "org-ins-hyundai-auto": {
+    "title": "Hyundai Marine — accident & roadside",
+    "desc": "Accident reporting and roadside IVR",
+    "tip": "IVR 1: roadside; 2: accident report."
+  },
+  "org-ins-meritz-auto": {
+    "title": "Meritz Fire — accident & roadside",
+    "desc": "Accident reporting and emergency dispatch"
+  },
+  "org-ins-hanwha-auto": {
+    "title": "Hanwha General — accident & roadside",
+    "desc": "Accident reporting and breakdown dispatch",
+    "tip": "Use IVR to choose accident reporting or roadside help."
+  },
+  "org-ins-lotte-auto": {
+    "title": "Lotte Insurance — accident & roadside",
+    "desc": "Accident reporting and roadside, 24 hours",
+    "tip": "IVR 1: roadside; 2: accident report."
+  },
+  "org-ins-heungkuk-auto": {
+    "title": "Heungkuk Fire — accident & roadside",
+    "desc": "Accident reporting and roadside, 24 hours",
+    "tip": "IVR 1: accident report; 2: roadside breakdown."
+  },
+  "org-ins-mg-auto": {
+    "title": "MG Insurance — accident & roadside",
+    "desc": "Auto accident reporting and emergency dispatch"
+  },
+  "org-ins-axa-auto": {
+    "title": "AXA Insurance — accident & roadside",
+    "desc": "Accident reporting and roadside, 24 hours",
+    "tip": "IVR 2: roadside; 3: accident report."
+  },
+  "org-ins-hana-auto": {
+    "title": "Hana Insurance — accident & roadside",
+    "desc": "Accident reporting and roadside, 24 hours",
+    "tip": "IVR 1: roadside; 2: accident report."
+  },
+  "org-ins-carrot-auto": {
+    "title": "Carrot Insurance — accident & roadside",
+    "desc": "Auto accident reporting and emergency dispatch"
+  },
   "org-card-hyundai-lost": {
     "title": "Hyundai Card — lost or stolen",
     "desc": "Lost or stolen cards and voice phishing"

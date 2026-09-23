@@ -86,7 +86,7 @@
   },
   "situationTips": {
     "emergency": "💡 ERs must not refuse emergency care for lack of money. Call 129 first. For mental health: 109 · 1393.",
-    "car": "💡 If injured: 119 → report 112 → on expressways 1588-2504 (public tow). Insurance: 1566-8000.",
+    "car": "💡 If injured: 119 → report 112 → on expressways 1588-2504 (public tow). Call your insurer’s hotline.",
     "crime": "💡 Voice phishing 1398 · cybercrime 118 · espionage 111 (NIS) · 113 (police). Emergency: 112.",
     "home": "💡 National civil complaints 110 · local 0XX-120. Power outage 123 · gas 1670-1004 · address change 1588-1300.",
     "abroad": "💡 Overseas emergency: 02-3210-0404 (+82). Customs / direct import: 125.",
@@ -235,7 +235,7 @@
               "119 — injury, unconsciousness, bleeding",
               "112 — accident report, scene confirmation",
               "1588-2504 — expressway public tow (free)",
-              "1566-8000 — auto insurance emergency"
+              "Your insurer’s hotline — accident report & roadside"
             ]
           },
           {

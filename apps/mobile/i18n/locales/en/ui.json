@@ -179,7 +179,6 @@
     "websiteHint": "See more information online.",
     "feedbackTitle": "Help us improve",
     "feedbackHint": "We welcome your feedback.",
-    "logoNote": "Icons for card issuers and insurers are short labels for recognition, not official trademarks.",
     "metaBrand": "WhatNumber",
     "meta": "WhatNumber · v{{version}}\nThe number you need, now.",
     "themeLight": "Light",
@@ -223,7 +222,13 @@
     "openWeb": "View full policy on the web"
   },
   "categoryScreen": {
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "financeTab": "Finance",
+    "cardTab": "Cards",
+    "trafficTab": "Traffic",
+    "insuranceTab": "Insurance",
+    "cardLogoNote": "Card icons are short labels for recognition, not official trademarks.",
+    "insuranceLogoNote": "Insurer icons are short labels for recognition, not official trademarks."
   },
   "common": {
     "ad": "Ad",

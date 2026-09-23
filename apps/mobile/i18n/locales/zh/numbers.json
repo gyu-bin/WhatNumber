@@ -392,6 +392,48 @@
     "title": "KB损害保险事故·紧急出车",
     "desc": "汽车事故报案·故障出车"
   },
+  "org-ins-hyundai-auto": {
+    "title": "现代海上火灾事故·紧急出车",
+    "desc": "事故报案·故障出车 ARS",
+    "tip": "语音1：故障出车；2：事故报案。"
+  },
+  "org-ins-meritz-auto": {
+    "title": "Meritz火灾事故·紧急出车",
+    "desc": "事故报案·紧急出车"
+  },
+  "org-ins-hanwha-auto": {
+    "title": "韩华损害保险事故·紧急出车",
+    "desc": "事故报案·故障出车",
+    "tip": "语音菜单可选事故报案或紧急出车。"
+  },
+  "org-ins-lotte-auto": {
+    "title": "乐天损害保险事故·紧急出车",
+    "desc": "事故报案·故障出车 24小时",
+    "tip": "语音1：故障出车；2：事故报案。"
+  },
+  "org-ins-heungkuk-auto": {
+    "title": "兴国火灾事故·紧急出车",
+    "desc": "事故报案·故障出车 24小时",
+    "tip": "语音1：事故报案；2：故障出车。"
+  },
+  "org-ins-mg-auto": {
+    "title": "MG损害保险事故·紧急出车",
+    "desc": "汽车事故报案·紧急出车"
+  },
+  "org-ins-axa-auto": {
+    "title": "AXA损害保险事故·紧急出车",
+    "desc": "事故报案·故障出车 24小时",
+    "tip": "语音2：故障出车；3：事故报案。"
+  },
+  "org-ins-hana-auto": {
+    "title": "韩亚损害保险事故·紧急出车",
+    "desc": "事故报案·故障出车 24小时",
+    "tip": "语音1：故障出车；2：事故报案。"
+  },
+  "org-ins-carrot-auto": {
+    "title": "Carrot损害保险事故·紧急出车",
+    "desc": "汽车事故报案·紧急出车"
+  },
   "org-card-hyundai-lost": {
     "title": "现代卡盗失·遗失申报",
     "desc": "卡片遗失、盗用、语音钓鱼"

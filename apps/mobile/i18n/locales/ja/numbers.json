@@ -392,6 +392,48 @@
     "title": "KB損害保険事故・緊急出動",
     "desc": "自動車事故受付・故障出動"
   },
+  "org-ins-hyundai-auto": {
+    "title": "ヒョンデ海上火災事故・緊急出動",
+    "desc": "事故受付・故障出動 ARS",
+    "tip": "IVR 1：故障出動、2：事故受付。"
+  },
+  "org-ins-meritz-auto": {
+    "title": "メリッツ火災事故・緊急出動",
+    "desc": "事故受付・緊急出動"
+  },
+  "org-ins-hanwha-auto": {
+    "title": "ハンファ損害保険事故・緊急出動",
+    "desc": "事故受付・故障出動",
+    "tip": "IVRで事故受付・緊急出動を選択。"
+  },
+  "org-ins-lotte-auto": {
+    "title": "ロッテ損害保険事故・緊急出動",
+    "desc": "事故受付・故障出動 24時間",
+    "tip": "IVR 1：故障出動、2：事故受付。"
+  },
+  "org-ins-heungkuk-auto": {
+    "title": "興国火災事故・緊急出動",
+    "desc": "事故受付・故障出動 24時間",
+    "tip": "IVR 1：事故受付、2：故障出動。"
+  },
+  "org-ins-mg-auto": {
+    "title": "MG損害保険事故・緊急出動",
+    "desc": "自動車事故受付・緊急出動"
+  },
+  "org-ins-axa-auto": {
+    "title": "AXA損害保険事故・緊急出動",
+    "desc": "事故受付・故障出動 24時間",
+    "tip": "IVR 2：故障出動、3：事故受付。"
+  },
+  "org-ins-hana-auto": {
+    "title": "ハナ損害保険事故・緊急出動",
+    "desc": "事故受付・故障出動 24時間",
+    "tip": "IVR 1：故障出動、2：事故受付。"
+  },
+  "org-ins-carrot-auto": {
+    "title": "キャロット損害保険事故・緊急出動",
+    "desc": "自動車事故受付・緊急出動"
+  },
   "org-card-hyundai-lost": {
     "title": "ヒョンデカード盗難・紛失",
     "desc": "カード紛失、盗難、ボイスフィッシング"

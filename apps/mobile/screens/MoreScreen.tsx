@@ -1,7 +1,6 @@
 import Constants from 'expo-constants';
 import type { ComponentProps } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import * as Updates from 'expo-updates';
 import { Image, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from '../components/LanguageToggle';
@@ -36,12 +35,6 @@ export function MoreScreen({
 }: MoreScreenProps) {
   const { t } = useTranslation();
   const version = Constants.expoConfig?.version ?? '1.0.1';
-  // Visible proof that an OTA bundle (not the store embed) is running.
-  const updateStamp = !Updates.isEnabled
-    ? null
-    : Updates.isEmbeddedLaunch
-      ? 'store'
-      : `ota-${(Updates.updateId ?? 'x').slice(0, 8)}`;
 
   return (
     <ScrollView
@@ -131,11 +124,7 @@ export function MoreScreen({
         <Text style={styles.moreChevron}>›</Text>
       </Pressable>
 
-      <Text style={styles.moreLogoNote}>{t('settings.logoNote')}</Text>
-      <Text style={styles.moreMetaTight}>{t('settings.meta', { version })}</Text>
-      {updateStamp ? (
-        <Text style={styles.moreMetaTight}>{`update · ${updateStamp}`}</Text>
-      ) : null}
+      <Text style={styles.moreMeta}>{t('settings.meta', { version })}</Text>
     </ScrollView>
   );
 }

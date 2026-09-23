@@ -179,7 +179,6 @@
     "websiteHint": "查看更多信息。",
     "feedbackTitle": "帮助我们做得更好",
     "feedbackHint": "欢迎留下宝贵意见。",
-    "logoNote": "卡片、保险等企业图标不是官方商标，仅为便于区分的简称标识。",
     "metaBrand": "几号啊",
     "meta": "几号啊？ · v{{version}}\n需要的号码，马上。",
     "themeLight": "浅色",
@@ -223,7 +222,13 @@
     "openWeb": "在网页查看完整政策"
   },
   "categoryScreen": {
-    "backHome": "返回首页"
+    "backHome": "返回首页",
+    "financeTab": "金融",
+    "cardTab": "卡片",
+    "trafficTab": "交通",
+    "insuranceTab": "保险",
+    "cardLogoNote": "发卡机构图标不是官方商标，仅为便于区分的简称标识。",
+    "insuranceLogoNote": "保险公司图标不是官方商标，仅为便于区分的简称标识。"
   },
   "common": {
     "ad": "广告",

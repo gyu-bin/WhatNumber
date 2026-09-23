@@ -179,7 +179,6 @@
     "websiteHint": "詳しい情報を確認できます。",
     "feedbackTitle": "より良いアプリのために",
     "feedbackHint": "ご意見をお待ちしています。",
-    "logoNote": "カード・保険などの企業アイコンは公式ロゴではなく、区別用の略称表示です。",
     "metaBrand": "何番",
     "meta": "何番？ · v{{version}}\n必要な番号、すぐ。",
     "themeLight": "ライト",
@@ -223,7 +222,13 @@
     "openWeb": "ウェブで全文を見る"
   },
   "categoryScreen": {
-    "backHome": "ホームに戻る"
+    "backHome": "ホームに戻る",
+    "financeTab": "金融",
+    "cardTab": "カード",
+    "trafficTab": "交通",
+    "insuranceTab": "保険",
+    "cardLogoNote": "カード会社のアイコンは公式ロゴではなく、区別用の略称表示です。",
+    "insuranceLogoNote": "保険会社のアイコンは公式ロゴではなく、区別用の略称表示です。"
   },
   "common": {
     "ad": "広告",

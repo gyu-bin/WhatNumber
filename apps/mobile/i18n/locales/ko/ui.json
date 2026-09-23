@@ -179,7 +179,6 @@
     "websiteHint": "더 많은 정보를 확인해보세요.",
     "feedbackTitle": "더 나은 앱이 될 수 있도록",
     "feedbackHint": "소중한 의견을 기다리고 있어요.",
-    "logoNote": "카드·보험 등 기업 아이콘은 공식 상표 로고가 아니라, 구분을 위한 약칭 표시예요.",
     "metaBrand": "몇번이야",
     "meta": "몇번이야? · v{{version}}\n필요한 번호, 바로.",
     "themeLight": "라이트",
@@ -223,7 +222,13 @@
     "openWeb": "웹에서 전체 방침 보기"
   },
   "categoryScreen": {
-    "backHome": "홈으로 돌아가기"
+    "backHome": "홈으로 돌아가기",
+    "financeTab": "금융",
+    "cardTab": "카드",
+    "trafficTab": "교통",
+    "insuranceTab": "보험",
+    "cardLogoNote": "카드사 아이콘은 공식 상표 로고가 아니라, 구분을 위한 약칭 표시예요.",
+    "insuranceLogoNote": "보험사 아이콘은 공식 상표 로고가 아니라, 구분을 위한 약칭 표시예요."
   },
   "common": {
     "ad": "광고",
