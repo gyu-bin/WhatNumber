@@ -404,6 +404,28 @@
     "title": "乐天卡遗失·额度批准",
     "desc": "卡片遗失、盗用申报"
   },
+  "org-card-shinhan-lost": {
+    "title": "新韩卡遗失·盗用申报",
+    "desc": "卡片遗失、盗用、授权申报"
+  },
+  "org-card-kb-lost": {
+    "title": "KB国民卡遗失·商户授权",
+    "desc": "卡片遗失、盗用、商户授权"
+  },
+  "org-card-woori-lost": {
+    "title": "友利卡遗失申报",
+    "desc": "卡片遗失、盗用、语音钓鱼"
+  },
+  "org-card-hana-lost": {
+    "title": "韩亚卡遗失·盗用申报",
+    "desc": "卡片遗失、盗用、盗刷",
+    "tip": "遗失·盗用请直接拨打客服中心（1800-1111）。"
+  },
+  "org-card-nh-lost": {
+    "title": "NH农协卡遗失·盗用申报",
+    "desc": "卡片遗失、盗用申报",
+    "tip": "接通后按1-1可挂失（24小时）。"
+  },
   "org-bank-kb-incident": {
     "title": "KB国民银行遗失·事故申报",
     "desc": "存折、现金卡、OTP、KB卡",

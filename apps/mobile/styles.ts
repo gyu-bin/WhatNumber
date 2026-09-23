@@ -648,6 +648,22 @@ export function createStyles(colors: ThemeColors) {
       lineHeight: 20,
       color: colors.textTertiary,
     },
+    moreLogoNote: {
+      marginTop: 18,
+      marginHorizontal: 28,
+      textAlign: 'center',
+      fontSize: 11,
+      lineHeight: 16,
+      color: colors.textTertiary,
+      opacity: 0.85,
+    },
+    moreMetaTight: {
+      marginTop: 10,
+      textAlign: 'center',
+      fontSize: 12,
+      lineHeight: 20,
+      color: colors.textTertiary,
+    },
     feedbackCard: {
       flexDirection: 'row',
       alignItems: 'center',

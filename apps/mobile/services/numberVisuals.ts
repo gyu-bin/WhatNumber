@@ -112,6 +112,11 @@ const ORG_LOGO_BY_ORGANIZATION: Record<string, ImageSourcePropType> = {
   현대카드: require('../assets/org-logos/hyundai-card.png'),
   삼성카드: require('../assets/org-logos/samsung-card.png'),
   롯데카드: require('../assets/org-logos/lotte-card.png'),
+  신한카드: require('../assets/org-logos/shinhan-card.png'),
+  KB국민카드: require('../assets/org-logos/kb-card.png'),
+  우리카드: require('../assets/org-logos/woori-card.png'),
+  하나카드: require('../assets/org-logos/hana-card.png'),
+  NH농협카드: require('../assets/org-logos/nh-card.png'),
   KB국민은행: require('../assets/org-logos/kb-bank.png'),
   우리은행: require('../assets/org-logos/woori-bank.png'),
 };
