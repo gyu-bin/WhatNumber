@@ -27,6 +27,11 @@ const MARKS = [
   { key: 'hyundai-card', bg: '#1A1A1A', fg: '#FFFFFF', label: '현대', fontSize: 40 },
   { key: 'samsung-card', bg: '#1428A0', fg: '#FFFFFF', label: 'SC', fontSize: 48 },
   { key: 'lotte-card', bg: '#E60012', fg: '#FFFFFF', label: 'LC', fontSize: 48 },
+  { key: 'shinhan-card', bg: '#0046FF', fg: '#FFFFFF', label: '신한', fontSize: 40 },
+  { key: 'kb-card', bg: '#60584C', fg: '#FFCC00', label: 'KB', fontSize: 48 },
+  { key: 'woori-card', bg: '#0066B3', fg: '#FFFFFF', label: '우리', fontSize: 40 },
+  { key: 'hana-card', bg: '#009178', fg: '#FFFFFF', label: '하나', fontSize: 40 },
+  { key: 'nh-card', bg: '#1E8E3E', fg: '#FFFFFF', label: 'NH', fontSize: 48 },
   { key: 'kb-bank', bg: '#60584C', fg: '#FFCC00', label: 'KB', fontSize: 48 },
   { key: 'woori-bank', bg: '#0066B3', fg: '#FFFFFF', label: '우리', fontSize: 40 },
 

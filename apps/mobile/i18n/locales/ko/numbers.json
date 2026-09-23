@@ -404,6 +404,28 @@
     "title": "롯데카드 분실·한도승인",
     "desc": "카드 분실·도난 신고"
   },
+  "org-card-shinhan-lost": {
+    "title": "신한카드 분실·도난 신고",
+    "desc": "카드 분실·도난·승인 신고"
+  },
+  "org-card-kb-lost": {
+    "title": "KB국민카드 분실·가맹점승인",
+    "desc": "카드 분실·도난·가맹점 승인"
+  },
+  "org-card-woori-lost": {
+    "title": "우리카드 분실 신고",
+    "desc": "카드 분실·도난·보이스피싱"
+  },
+  "org-card-hana-lost": {
+    "title": "하나카드 분실·도난 신고",
+    "desc": "카드 분실·도난·부정사용",
+    "tip": "분실·도난은 전용 번호 없이 고객센터(1800-1111)로 바로 신고해요."
+  },
+  "org-card-nh-lost": {
+    "title": "NH농협카드 분실·도난 신고",
+    "desc": "카드 분실·도난 신고",
+    "tip": "ARS 연결 뒤 1-1번에서 분실신고할 수 있어요. 24시간 가능."
+  },
   "org-bank-kb-incident": {
     "title": "KB국민은행 분실·사고 신고",
     "desc": "통장·현금카드·OTP·KB카드",

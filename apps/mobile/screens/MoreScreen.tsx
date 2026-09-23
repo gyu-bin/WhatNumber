@@ -131,9 +131,10 @@ export function MoreScreen({
         <Text style={styles.moreChevron}>›</Text>
       </Pressable>
 
-      <Text style={styles.moreMeta}>{t('settings.meta', { version })}</Text>
+      <Text style={styles.moreLogoNote}>{t('settings.logoNote')}</Text>
+      <Text style={styles.moreMetaTight}>{t('settings.meta', { version })}</Text>
       {updateStamp ? (
-        <Text style={styles.moreMeta}>{`update · ${updateStamp}`}</Text>
+        <Text style={styles.moreMetaTight}>{`update · ${updateStamp}`}</Text>
       ) : null}
     </ScrollView>
   );

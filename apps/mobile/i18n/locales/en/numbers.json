@@ -404,6 +404,28 @@
     "title": "Lotte Card — lost card & limits",
     "desc": "Lost or stolen card reports"
   },
+  "org-card-shinhan-lost": {
+    "title": "Shinhan Card — lost or stolen",
+    "desc": "Lost or stolen cards and authorizations"
+  },
+  "org-card-kb-lost": {
+    "title": "KB Kookmin Card — lost & merchant auth",
+    "desc": "Lost or stolen cards and merchant approval"
+  },
+  "org-card-woori-lost": {
+    "title": "Woori Card — lost card",
+    "desc": "Lost or stolen cards and voice phishing"
+  },
+  "org-card-hana-lost": {
+    "title": "Hana Card — lost or stolen",
+    "desc": "Lost or stolen cards and unauthorized use",
+    "tip": "Report loss or theft through the main customer center (1800-1111)."
+  },
+  "org-card-nh-lost": {
+    "title": "NH Nonghyup Card — lost or stolen",
+    "desc": "Lost or stolen card reports",
+    "tip": "After IVR connects, press 1-1 for lost-card reporting (24 hours)."
+  },
   "org-bank-kb-incident": {
     "title": "KB Kookmin Bank — loss & fraud",
     "desc": "Passbook, debit card, OTP, KB Card",

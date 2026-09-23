@@ -404,6 +404,28 @@
     "title": "ロッテカード紛失・限度承認",
     "desc": "カード紛失、盗難通報"
   },
+  "org-card-shinhan-lost": {
+    "title": "新韓カード紛失・盗難",
+    "desc": "カード紛失、盗難、承認通報"
+  },
+  "org-card-kb-lost": {
+    "title": "KB国民カード紛失・加盟店承認",
+    "desc": "カード紛失、盗難、加盟店承認"
+  },
+  "org-card-woori-lost": {
+    "title": "ウリカード紛失通報",
+    "desc": "カード紛失、盗難、ボイスフィッシング"
+  },
+  "org-card-hana-lost": {
+    "title": "ハナカード紛失・盗難",
+    "desc": "カード紛失、盗難、不正利用",
+    "tip": "紛失・盗難は専用番号なしでカスタマーセンター（1800-1111）へ。"
+  },
+  "org-card-nh-lost": {
+    "title": "NH農協カード紛失・盗難",
+    "desc": "カード紛失、盗難通報",
+    "tip": "IVR後 1-1 で紛失通報（24時間）。"
+  },
   "org-bank-kb-incident": {
     "title": "KB国民銀行紛失・事故通報",
     "desc": "通帳、キャッシュカード、OTP、KBカード",
