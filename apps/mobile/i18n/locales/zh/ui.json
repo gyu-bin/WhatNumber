@@ -19,6 +19,23 @@
     "situationMoreTitle": "其他情况",
     "situationMoreA11y": "更多情况",
     "favoritesReorderHint": "长按可调整顺序",
+    "widgetBanner": "收藏也可在主屏幕小组件中使用！",
+    "widgetBannerA11y": "主屏幕小组件说明",
+    "widgetSheetTitle": "在主屏幕也能一键拨打",
+    "widgetSheetBody": "可将收藏的号码放在主屏幕小组件中，快速查看并直接拨打。",
+    "widgetHowToShow": "查看小组件用法",
+    "widgetHowToHide": "收起说明",
+    "widgetHowToIos": [
+      "长按主屏幕",
+      "点按左上角 +",
+      "搜索「몇번이야」",
+      "添加「즐겨찾기 전화」小组件"
+    ],
+    "widgetHowToAndroid": [
+      "长按主屏幕",
+      "选择小组件",
+      "找到并添加「몇번이야」小组件"
+    ],
     "empty": "没有匹配的号码"
   },
   "situations": {

@@ -19,6 +19,23 @@
     "situationMoreTitle": "その他の状況",
     "situationMoreA11y": "状況をもっと見る",
     "favoritesReorderHint": "長押しで順序を変更できます",
+    "widgetBanner": "お気に入りはホーム画面ウィジェットでも使えます！",
+    "widgetBannerA11y": "ホーム画面ウィジェット案内",
+    "widgetSheetTitle": "ホーム画面からもすぐ電話",
+    "widgetSheetBody": "お気に入りに保存した番号をホーム画面ウィジェットで確認し、すぐ電話できます。",
+    "widgetHowToShow": "ウィジェットの使い方",
+    "widgetHowToHide": "案内を閉じる",
+    "widgetHowToIos": [
+      "ホーム画面を長押しします",
+      "左上の + をタップします",
+      "「몇번이야」を検索します",
+      "「즐겨찾기 전화」ウィジェットを追加します"
+    ],
+    "widgetHowToAndroid": [
+      "ホーム画面を長押しします",
+      "ウィジェットを選びます",
+      "「몇번이야」ウィジェットを見つけて追加します"
+    ],
     "empty": "該当する番号がありません"
   },
   "situations": {

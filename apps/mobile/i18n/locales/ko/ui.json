@@ -10,7 +10,7 @@
     "favoritesWithCount": "즐겨찾기 {{count}}",
     "favoritesHeader": "내 즐겨찾기 · {{count}}개",
     "favoritesEmptyTitle": "아직 즐겨찾기가 없어요",
-    "favoritesEmptyBody": "자주 쓰는 번호를 ★로 저장해 보세요.",
+    "favoritesEmptyBody": "자주 쓰는 번호를 ★로 저장해 보세요. 홈 화면 위젯에서도 바로 전화할 수 있어요.",
     "moreSituations": "더보기",
     "categoriesTitle": "분야별 찾기",
     "settingsA11y": "설정",
@@ -19,6 +19,23 @@
     "situationMoreTitle": "다른 상황",
     "situationMoreA11y": "상황 더보기",
     "favoritesReorderHint": "길게 눌러 순서를 바꿀 수 있어요",
+    "widgetBanner": "즐겨찾기는 홈 화면 위젯에서도 사용할 수 있어요!",
+    "widgetBannerA11y": "홈 화면 위젯 안내",
+    "widgetSheetTitle": "홈 화면에서도 바로 전화하세요",
+    "widgetSheetBody": "즐겨찾기에 저장한 번호를 홈 화면 위젯에서 빠르게 확인하고 바로 전화할 수 있어요.",
+    "widgetHowToShow": "위젯 사용 방법 보기",
+    "widgetHowToHide": "안내 접기",
+    "widgetHowToIos": [
+      "홈 화면을 길게 누르세요",
+      "왼쪽 위 + 버튼을 누르세요",
+      "「몇번이야」를 검색하세요",
+      "「즐겨찾기 전화」 위젯을 추가하세요"
+    ],
+    "widgetHowToAndroid": [
+      "홈 화면을 길게 누르세요",
+      "위젯을 선택하세요",
+      "「몇번이야」 위젯을 찾아 추가하세요"
+    ],
     "empty": "해당하는 번호가 없어요"
   },
   "situations": {

@@ -19,6 +19,23 @@
     "situationMoreTitle": "More situations",
     "situationMoreA11y": "More situations",
     "favoritesReorderHint": "Press and hold to reorder",
+    "widgetBanner": "Favorites also work as a Home Screen widget!",
+    "widgetBannerA11y": "Home Screen widget guide",
+    "widgetSheetTitle": "Call right from your Home Screen",
+    "widgetSheetBody": "Check numbers you saved as favorites on a Home Screen widget and call in one tap.",
+    "widgetHowToShow": "How to add the widget",
+    "widgetHowToHide": "Hide guide",
+    "widgetHowToIos": [
+      "Press and hold the Home Screen",
+      "Tap the + button in the top left",
+      "Search for “몇번이야”",
+      "Add the “즐겨찾기 전화” widget"
+    ],
+    "widgetHowToAndroid": [
+      "Press and hold the Home Screen",
+      "Choose Widgets",
+      "Find and add the 몇번이야 widget"
+    ],
     "empty": "No matching numbers"
   },
   "situations": {

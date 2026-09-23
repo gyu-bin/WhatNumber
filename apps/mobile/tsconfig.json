@@ -1,5 +1,5 @@
 {
-  "extends": "../../node_modules/expo/tsconfig.base.json",
+  "extends": "./tsconfig.expo-base.json",
   "compilerOptions": {
     "strict": true,
     "resolveJsonModule": true,

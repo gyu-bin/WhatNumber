@@ -41,6 +41,7 @@ import { NumberRow } from './components/NumberCards';
 import { NumberVisualIcon } from './components/NumberVisualIcon';
 import { SplashAnimation } from './components/SplashAnimation';
 import { Toast } from './components/Toast';
+import { WidgetGuideBanner, WidgetGuideSheet } from './components/WidgetGuide';
 import { useAdMobInit } from './hooks/useAdMobInit';
 import { useFavorites } from './hooks/useFavorites';
 import { useOTAUpdates } from './hooks/useOTAUpdates';
@@ -228,6 +229,7 @@ export default function App() {
   const [showFavorites, setShowFavorites] = useState(false);
   const [activeSituation, setActiveSituation] = useState<Situation | null>(null);
   const [situationMoreOpen, setSituationMoreOpen] = useState(false);
+  const [widgetGuideOpen, setWidgetGuideOpen] = useState(false);
   const [selected, setSelected] = useState<NumberItem | null>(null);
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<'number' | 'feedback'>('number');
@@ -520,6 +522,11 @@ export default function App() {
           {t('home.favoritesHeader', { count: filtered.length })}
         </Text>
       </View>
+      <WidgetGuideBanner
+        styles={styles}
+        colors={themeColors}
+        onPress={() => setWidgetGuideOpen(true)}
+      />
       {filtered.length > 1 ? (
         <Text style={styles.favReorderHint}>{t('home.favoritesReorderHint')}</Text>
       ) : null}
@@ -719,6 +726,13 @@ export default function App() {
                   setSelectedCategoryLabel(null);
                 }
               }}
+              styles={styles}
+              colors={themeColors}
+            />
+
+            <WidgetGuideSheet
+              visible={widgetGuideOpen}
+              onClose={() => setWidgetGuideOpen(false)}
               styles={styles}
               colors={themeColors}
             />
