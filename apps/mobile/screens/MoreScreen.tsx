@@ -2,6 +2,7 @@ import Constants from 'expo-constants';
 import type { ComponentProps } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Image, Linking, Pressable, ScrollView, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { LanguageToggle } from '../components/LanguageToggle';
 import { ThemeToggle } from '../components/ThemeToggle';
@@ -34,12 +35,16 @@ export function MoreScreen({
   onOpenPrivacy,
 }: MoreScreenProps) {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const version = Constants.expoConfig?.version ?? '1.0.1';
 
   return (
     <ScrollView
       style={styles.moreScroll}
-      contentContainerStyle={styles.moreContent}
+      contentContainerStyle={[
+        styles.moreContent,
+        { paddingBottom: Math.max(88, insets.bottom + 72) },
+      ]}
       keyboardShouldPersistTaps="handled"
     >
       <View style={styles.moreHero}>

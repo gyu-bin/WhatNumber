@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Modal, Platform, Pressable, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import type { AppStyles } from '../styles';
 import type { ThemeColors } from '../theme';
@@ -44,11 +45,13 @@ export function WidgetGuideSheet({
   colors,
 }: WidgetGuideSheetProps) {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const [showHowTo, setShowHowTo] = useState(false);
   const stepsKey =
     Platform.OS === 'ios' ? 'home.widgetHowToIos' : 'home.widgetHowToAndroid';
   const steps = t(stepsKey, { returnObjects: true });
   const stepList = Array.isArray(steps) ? (steps as string[]) : [];
+  const sheetBottomPad = Math.max(insets.bottom, Platform.OS === 'android' ? 16 : 12);
 
   useEffect(() => {
     if (!visible) setShowHowTo(false);
@@ -62,7 +65,10 @@ export function WidgetGuideSheet({
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={close}>
       <Pressable style={styles.overlay} onPress={close}>
-        <Pressable style={styles.sheet} onPress={(e) => e.stopPropagation()}>
+        <Pressable
+          style={[styles.sheet, { paddingBottom: sheetBottomPad + 8 }]}
+          onPress={(e) => e.stopPropagation()}
+        >
           <View style={styles.handle} />
           <Pressable
             style={styles.widgetSheetClose}

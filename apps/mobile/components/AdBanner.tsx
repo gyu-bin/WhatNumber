@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import i18n from '../i18n';
 import { getBannerUnitId, isExpoGo } from '../services/ads/config';
 import type { ThemeColors } from '../theme';
@@ -24,7 +24,9 @@ function loadAdsModule(): AdsModule | null {
 }
 
 /**
- * 탭바 위 고정 배너. Expo Go / 로드 실패 시 공간을 차지하지 않습니다.
+ * 탭바 위 인라인 배너.
+ * ANCHORED_ADAPTIVE는 화면 맨 아래에 붙으려 해서 탭바와 겹칠 수 있어
+ * 일반 BANNER를 씁니다.
  */
 export function AdBanner({ colors }: { colors: ThemeColors }) {
   const ads = useMemo(() => loadAdsModule(), []);
@@ -42,7 +44,7 @@ export function AdBanner({ colors }: { colors: ThemeColors }) {
     >
       <BannerAd
         unitId={unitId}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+        size={BannerAdSize.BANNER}
         requestOptions={{ requestNonPersonalizedAdsOnly: true }}
         onAdFailedToLoad={() => setVisible(false)}
       />
@@ -55,8 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderTopWidth: StyleSheet.hairlineWidth,
-    // Android에서 배너 높이 예약 없이 로드 전 깜빡임을 줄입니다.
-    minHeight: Platform.OS === 'ios' ? 50 : 0,
+    minHeight: 50,
     overflow: 'hidden',
   },
 });

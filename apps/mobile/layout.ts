@@ -72,7 +72,7 @@ export function getHomeMetrics(density: HomeDensity = getHomeDensity()): HomeMet
         tileMinHeight: 62,
         tilePadVertical: 10,
         categoryBrowsePadTop: 2,
-        listPadBottom: 40,
+        listPadBottom: Platform.OS === 'android' ? 56 : 40,
       };
     case 'regular':
       return {
@@ -100,7 +100,7 @@ export function getHomeMetrics(density: HomeDensity = getHomeDensity()): HomeMet
         tileMinHeight: 70,
         tilePadVertical: 11,
         categoryBrowsePadTop: 4,
-        listPadBottom: 32,
+        listPadBottom: Platform.OS === 'android' ? 48 : 32,
       };
     default:
       return {
@@ -128,7 +128,7 @@ export function getHomeMetrics(density: HomeDensity = getHomeDensity()): HomeMet
         tileMinHeight: 76,
         tilePadVertical: 12,
         categoryBrowsePadTop: 4,
-        listPadBottom: 28,
+        listPadBottom: Platform.OS === 'android' ? 40 : 28,
       };
   }
 }

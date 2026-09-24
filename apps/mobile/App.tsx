@@ -3,6 +3,7 @@ import {
   Image,
   Linking,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   SectionList,
@@ -103,12 +104,17 @@ function DetailSheet({
   styles: AppStyles;
 }) {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const detail = localizeNumberDetail(item.id) ?? [];
+  const sheetBottomPad = Math.max(insets.bottom, Platform.OS === 'android' ? 16 : 12);
 
   return (
     <Modal visible animationType="slide" transparent onRequestClose={onClose}>
       <Pressable style={styles.overlay} onPress={onClose}>
-        <Pressable style={styles.sheet} onPress={(e) => e.stopPropagation()}>
+        <Pressable
+          style={[styles.sheet, { paddingBottom: sheetBottomPad + 8 }]}
+          onPress={(e) => e.stopPropagation()}
+        >
           <View style={styles.handle} />
           <ScrollView
             style={styles.sheetScroll}
@@ -177,9 +183,10 @@ function TabBar({
   const insets = useSafeAreaInsets();
   const homeActive = active === 'home';
   const settingsActive = active === 'settings';
+  const bottomPad = Math.max(insets.bottom, Platform.OS === 'android' ? 16 : 6);
 
   return (
-    <View style={[styles.tabBar, { paddingBottom: Math.max(insets.bottom, 6) }]}>
+    <View style={[styles.tabBar, { paddingBottom: bottomPad }]}>
       <Pressable
         style={[styles.tabItem, homeActive && styles.tabItemActive]}
         onPress={() => onChange('home')}
@@ -765,7 +772,7 @@ export default function App() {
                   style={styles.requestBackdrop}
                   onPress={() => setSituationMoreOpen(false)}
                 />
-                <View style={styles.situationMoreSheet}>
+                <SafeAreaView edges={['bottom']} style={styles.situationMoreSheet}>
                   <View style={styles.situationMoreHandle} />
                   <Text style={styles.situationMoreTitle}>{t('home.situationMoreTitle')}</Text>
                   {MORE_SITUATIONS.map((sit) => {
@@ -791,7 +798,7 @@ export default function App() {
                       </Pressable>
                     );
                   })}
-                </View>
+                </SafeAreaView>
               </View>
             </Modal>
 
