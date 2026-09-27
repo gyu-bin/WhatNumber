@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="favorite_widget_name">즐겨찾기 전화</string>
+  <string name="favorite_widget_description">몇번이야? 즐겨찾기 번호에 빠르게 전화하세요.</string>
+  <string name="favorite_widget_brand">몇번이야?</string>
+  <string name="favorite_widget_section">즐겨찾기</string>
+  <string name="favorite_widget_empty_title">아직 즐겨찾기가 없어요.</string>
+  <string name="favorite_widget_empty_body">자주 쓰는 번호를 저장해보세요.</string>
+  <string name="favorite_widget_open_app">앱 열기</string>
+  <string name="favorite_widget_manage">앱에서 관리하기</string>
+  <string name="favorite_widget_call">☎</string>
+</resources>

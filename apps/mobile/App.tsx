@@ -350,122 +350,125 @@ export default function App() {
     return [{ key: 'list', title: '', data: filtered }];
   }, [filtered, isFavoritesView, t]);
 
-  const listHeader = (
+  // Search chrome stays mounted across browse ↔ search ↔ favorites so the
+  // TextInput is not remounted (which would dismiss the keyboard mid-typing).
+  const homeChrome = (
     <View style={styles.listHeader}>
       <View style={styles.homeHero}>
-      <View style={styles.header}>
-        <View style={styles.headerText}>
-          <Image
-            source={require('./assets/brand/header-label-light.png')}
-            style={styles.logoWordmark}
-            resizeMode="contain"
-            accessibilityLabel={t('settings.metaBrand')}
-            accessibilityIgnoresInvertColors
+        <View style={styles.header}>
+          <View style={styles.headerText}>
+            <Image
+              source={require('./assets/brand/header-label-light.png')}
+              style={styles.logoWordmark}
+              resizeMode="contain"
+              accessibilityLabel={t('settings.metaBrand')}
+              accessibilityIgnoresInvertColors
+            />
+            <Text style={styles.headerSubtitle}>{t('home.subtitle')}</Text>
+          </View>
+        </View>
+
+        <View style={styles.searchShell}>
+          <Ionicons name="search-outline" size={23} color={themeColors.textTertiary} />
+          <TextInput
+            style={styles.search}
+            placeholder={t('home.searchPlaceholder')}
+            placeholderTextColor={themeColors.textTertiary}
+            value={query}
+            onChangeText={setQuery}
+            clearButtonMode="while-editing"
+            accessibilityLabel={t('home.searchA11y')}
           />
-          <Text style={styles.headerSubtitle}>{t('home.subtitle')}</Text>
         </View>
-      </View>
 
-      <View style={styles.searchShell}>
-        <Ionicons name="search-outline" size={23} color={themeColors.textTertiary} />
-        <TextInput
-          style={styles.search}
-          placeholder={t('home.searchPlaceholder')}
-          placeholderTextColor={themeColors.textTertiary}
-          value={query}
-          onChangeText={setQuery}
-          clearButtonMode="while-editing"
-          accessibilityLabel={t('home.searchA11y')}
-        />
-      </View>
-
-      {!isSearching && (
-        <View style={styles.filterPanel}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.situationScroll}
-          >
-            <Pressable
-              style={[
-                styles.situationChip,
-                styles.situationChipFav,
-                showFavorites && !activeSituation && styles.situationChipFavActive,
-              ]}
-              onPress={() => {
-                const next = !(showFavorites && !activeSituation);
-                setShowFavorites(next);
-                if (next) setActiveSituation(null);
-              }}
-              accessibilityLabel={t('home.favoritesA11y')}
-              accessibilityState={{ selected: showFavorites && !activeSituation }}
+        {!isSearching ? (
+          <View style={styles.filterPanel}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={styles.situationScroll}
             >
-              <Text
+              <Pressable
                 style={[
-                  styles.situationChipText,
-                  styles.situationChipFavTextActive,
+                  styles.situationChip,
+                  styles.situationChipFav,
+                  showFavorites && !activeSituation && styles.situationChipFavActive,
                 ]}
+                onPress={() => {
+                  const next = !(showFavorites && !activeSituation);
+                  setShowFavorites(next);
+                  if (next) setActiveSituation(null);
+                }}
+                accessibilityLabel={t('home.favoritesA11y')}
+                accessibilityState={{ selected: showFavorites && !activeSituation }}
               >
-                {favorites.length > 0
-                  ? `★ ${t('home.favoritesWithCount', { count: favorites.length })}`
-                  : `★ ${t('home.favorites')}`}
-              </Text>
-            </Pressable>
-
-            {PRIMARY_SITUATIONS.map((sit) => {
-              const isActive = activeSituation === sit.id;
-              return (
-                <Pressable
-                  key={sit.id}
-                  style={[styles.situationChip, isActive && styles.situationChipActive]}
-                  onPress={() => {
-                    const next = isActive ? null : sit.id;
-                    setActiveSituation(next);
-                    if (next) setShowFavorites(false);
-                  }}
-                  accessibilityState={{ selected: isActive }}
+                <Text
+                  style={[
+                    styles.situationChipText,
+                    styles.situationChipFavTextActive,
+                  ]}
                 >
-                  <Text style={styles.situationIcon}>{sit.icon}</Text>
-                  <Text
-                    style={[
-                      styles.situationChipText,
-                      isActive && styles.situationChipTextActive,
-                    ]}
+                  {favorites.length > 0
+                    ? `★ ${t('home.favoritesWithCount', { count: favorites.length })}`
+                    : `★ ${t('home.favorites')}`}
+                </Text>
+              </Pressable>
+
+              {PRIMARY_SITUATIONS.map((sit) => {
+                const isActive = activeSituation === sit.id;
+                return (
+                  <Pressable
+                    key={sit.id}
+                    style={[styles.situationChip, isActive && styles.situationChipActive]}
+                    onPress={() => {
+                      const next = isActive ? null : sit.id;
+                      setActiveSituation(next);
+                      if (next) setShowFavorites(false);
+                    }}
+                    accessibilityState={{ selected: isActive }}
                   >
-                    {t(`situations.${sit.id}`)}
-                  </Text>
-                </Pressable>
-              );
-            })}
+                    <Text style={styles.situationIcon}>{sit.icon}</Text>
+                    <Text
+                      style={[
+                        styles.situationChipText,
+                        isActive && styles.situationChipTextActive,
+                      ]}
+                    >
+                      {t(`situations.${sit.id}`)}
+                    </Text>
+                  </Pressable>
+                );
+              })}
 
-            <Pressable
-              style={[
-                styles.situationChip,
-                isMoreSituationActive && styles.situationChipActive,
-              ]}
-              onPress={() => setSituationMoreOpen(true)}
-              accessibilityLabel={t('home.situationMoreA11y')}
-              accessibilityState={{ selected: isMoreSituationActive }}
-            >
-              <Text style={styles.situationIcon}>•••</Text>
-              <Text
+              <Pressable
                 style={[
-                  styles.situationChipText,
-                  isMoreSituationActive && styles.situationChipTextActive,
+                  styles.situationChip,
+                  isMoreSituationActive && styles.situationChipActive,
                 ]}
+                onPress={() => setSituationMoreOpen(true)}
+                accessibilityLabel={t('home.situationMoreA11y')}
+                accessibilityState={{ selected: isMoreSituationActive }}
               >
-                {t('home.moreSituations')}
-              </Text>
-            </Pressable>
-          </ScrollView>
+                <Text style={styles.situationIcon}>•••</Text>
+                <Text
+                  style={[
+                    styles.situationChipText,
+                    isMoreSituationActive && styles.situationChipTextActive,
+                  ]}
+                >
+                  {t('home.moreSituations')}
+                </Text>
+              </Pressable>
+            </ScrollView>
 
-          {activeSituation ? (
-            <View style={styles.tipBanner}>
-              <Text style={styles.tipBannerText}>{t(`situationTips.${activeSituation}`)}</Text>
-            </View>
-          ) : null}
-        </View>
-      )}
+            {activeSituation ? (
+              <View style={styles.tipBanner}>
+                <Text style={styles.tipBannerText}>{t(`situationTips.${activeSituation}`)}</Text>
+              </View>
+            ) : null}
+          </View>
+        ) : null}
       </View>
     </View>
   );
@@ -489,9 +492,9 @@ export default function App() {
   const browseHome = (
     <ScrollView
       keyboardShouldPersistTaps="handled"
+      keyboardDismissMode="on-drag"
       contentContainerStyle={styles.listContent}
     >
-      {listHeader}
       <EmergencyFinderCard
         styles={styles}
         colors={themeColors}
@@ -522,7 +525,6 @@ export default function App() {
 
   const favoritesHeader = (
     <View>
-      {listHeader}
       <View style={styles.sectionHeader}>
         <Text style={styles.favHeader}>
           <Text style={styles.favHeaderStar}>★ </Text>
@@ -596,8 +598,10 @@ export default function App() {
             <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
 
             <View style={styles.main}>
-              {/* Browse Home은 언마운트하지 않아 탭/카테고리 왕복 시 스크롤 유지 */}
-              {isBrowseHome ? (
+              {showHomeNumbers ? homeChrome : null}
+
+              {/* Browse Home은 언마운트하지 않아 검색/카테고리 왕복 시 스크롤 유지 */}
+              {showHomeNumbers ? (
                 <View
                   style={
                     showBrowse
@@ -644,10 +648,12 @@ export default function App() {
                   onDragEnd={({ data }) => reorder(data.map((entry) => entry.id))}
                   activationDistance={8}
                   keyboardShouldPersistTaps="handled"
+                  keyboardDismissMode="on-drag"
                   contentContainerStyle={styles.listContent}
                   ListHeaderComponent={favoritesHeader}
                   ListEmptyComponent={emptyComponent}
                   renderItem={renderFavoriteItem}
+                  style={{ flex: 1 }}
                 />
               ) : null}
 
@@ -658,9 +664,10 @@ export default function App() {
                   extraData={listExtraData}
                   stickySectionHeadersEnabled={false}
                   keyboardShouldPersistTaps="handled"
+                  keyboardDismissMode="on-drag"
                   contentContainerStyle={styles.listContent}
-                  ListHeaderComponent={listHeader}
                   ListEmptyComponent={emptyComponent}
+                  style={{ flex: 1 }}
                   renderItem={({ item, index, section }) => (
                     <View
                       style={[

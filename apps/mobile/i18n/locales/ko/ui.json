@@ -10,7 +10,7 @@
     "favoritesWithCount": "즐겨찾기 {{count}}",
     "favoritesHeader": "내 즐겨찾기 · {{count}}개",
     "favoritesEmptyTitle": "아직 즐겨찾기가 없어요",
-    "favoritesEmptyBody": "자주 쓰는 번호를 ★로 저장해 보세요. 홈 화면 위젯에서도 바로 전화할 수 있어요.",
+    "favoritesEmptyBody": "자주 쓰는 번호를 ★로 저장해 보세요.",
     "moreSituations": "더보기",
     "categoriesTitle": "분야별 찾기",
     "settingsA11y": "설정",
@@ -34,7 +34,7 @@
     "widgetHowToAndroid": [
       "홈 화면을 길게 누르세요",
       "위젯을 선택하세요",
-      "「몇번이야」 위젯을 찾아 추가하세요"
+      "「몇번이야」에서 「즐겨찾기 전화」를 추가하세요"
     ],
     "empty": "해당하는 번호가 없어요"
   },

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>몇번이야 소개영상</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root { --coral:#FF5A55; --bg:#FCFBFA; --ink:#1A1A1A; --gray:#8A8581; --gray2:#5E5955; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:var(--bg); overflow:hidden; }
+  body { font-family:'Pretendard','Apple SD Gothic Neo',sans-serif; -webkit-font-smoothing:antialiased; }
+  #stage { position:relative; overflow:hidden; background:var(--bg); }
+  .abs { position:absolute; will-change:transform,opacity; }
+  .center-x { left:0; right:0; text-align:center; }
+  .txt { color:var(--ink); font-weight:800; letter-spacing:-0.035em; line-height:1.22; white-space:pre-line; }
+  .sub { color:var(--gray2); font-weight:600; letter-spacing:-0.03em; line-height:1.3; white-space:pre-line; }
+  .coral { color:var(--coral); }
+  #dot { background:var(--coral); left:0; top:0; }
+  #win { overflow:hidden; background:#fff; box-shadow:0 30px 80px rgba(80,40,30,.16), 0 6px 18px rgba(80,40,30,.08); }
+  #cam { position:absolute; left:0; top:0; width:1206px; height:2622px; transform-origin:0 0; }
+  #cam img.shot { position:absolute; left:0; top:0; width:1206px; height:2622px; }
+  .ring { position:absolute; border:10px solid var(--coral); border-radius:44px; box-shadow:0 0 0 14px rgba(255,90,85,.18); }
+  .ripple { position:absolute; width:160px; height:160px; margin:-80px 0 0 -80px; border-radius:50%; background:rgba(255,90,85,.28); border:4px solid rgba(255,90,85,.55); }
+  .typed { position:absolute; background:#fff; color:#1A1A1A; font-weight:500; font-size:44px; letter-spacing:-0.02em; display:flex; align-items:center; white-space:nowrap; }
+  .caret { display:inline-block; width:4px; height:52px; background:var(--coral); margin-left:4px; border-radius:2px; }
+  .chip { display:inline-block; padding:0 .1em; }
+  #feat span.sep { color:#CFC8C2; margin:0 .45em; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- Scene 1 / 7 brand -->
+  <div id="dot" class="abs"></div>
+  <img id="logo" class="abs" src="assets/logo.png">
+  <div id="tag" class="abs center-x txt"></div>
+  <div id="feat" class="abs center-x sub"></div>
+
+  <!-- Scene 2 situations -->
+  <div id="s2a" class="abs center-x sub">갑자기 아픈데...</div>
+  <div id="s2b" class="abs center-x sub">차가 고장났는데...</div>
+  <div id="s2c" class="abs center-x sub">카드를 잃어버렸는데...</div>
+  <div id="s2q" class="abs center-x txt">어디에 전화하지?</div>
+  <img id="qlogo" class="abs" src="assets/logo.png">
+
+  <!-- UI window -->
+  <div id="win" class="abs">
+    <div id="cam">
+      <img class="shot" id="im-home" src="assets/home.png">
+      <img class="shot" id="im-search" src="assets/search.png">
+      <img class="shot" id="im-er" src="assets/er.png">
+      <img class="shot" id="im-search2" src="assets/search.png">
+      <img class="shot" id="im-favon" src="assets/favon.png">
+      <img class="shot" id="im-widget" src="assets/widget.png">
+      <div id="typed" class="typed"><span id="typedText"></span><span class="caret" id="caret"></span></div>
+      <div id="ring" class="ring"></div>
+      <div id="rip" class="ripple"></div>
+    </div>
+  </div>
+
+  <!-- captions -->
+  <div id="cap" class="abs center-x txt"></div>
+</div>
+<script>
+const P = new URLSearchParams(location.search);
+const FMT = P.get('fmt') || 'portrait';
+const SQUARE = FMT === 'square', FEED = FMT === 'feed';
+const W = 1080, H = SQUARE ? 1080 : FEED ? 1350 : 1920;
+const $ = id => document.getElementById(id);
+const stage = $('stage'); stage.style.width = W + 'px'; stage.style.height = H + 'px';
+
+// ---------- layout ----------
+const L = FEED ? {
+  capY: 80, capSize: 62, winX: 210, winY: 300, winW: 660, winH: 960, radius: 46,
+  logoW: 700, logoY: 400, tagY: 720, tagSize: 62, featY: 930, featSize: 32,
+  s2Size: 58, s2Y: [440, 535, 630], qY: 535, qSize: 94, qLogoW: 330, qLogoY: 700,
+} : SQUARE ? {
+  capY: 64, capSize: 58, winX: 270, winY: 250, winW: 540, winH: 770, radius: 40,
+  logoW: 620, logoY: 330, tagY: 620, tagSize: 58, featY: 820, featSize: 30,
+  s2Size: 54, s2Y: [330, 420, 510], qY: 420, qSize: 88, qLogoW: 300, qLogoY: 580,
+} : {
+  capY: 200, capSize: 72, winX: 110, winY: 470, winW: 860, winH: 1160, radius: 56,
+  logoW: 780, logoY: 640, tagY: 990, tagSize: 68, featY: 1230, featSize: 34,
+  s2Size: 62, s2Y: [640, 740, 840], qY: 740, qSize: 100, qLogoW: 360, qLogoY: 920,
+};
+const LOGO_AR = 766 / 2053;
+
+// ---------- helpers ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const eOut = t => 1 - Math.pow(1 - t, 3);
+const eInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const eOutBack = t => { const c = 1.15, c3 = c + 1; return 1 + c3 * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+const k = (t, a, b, ease = eOut) => ease(clamp((t - a) / (b - a)));
+// fade in a..b, out c..d
+const vis = (t, a, b, c, d) => Math.min(k(t, a, b), 1 - k(t, c, d, eInOut));
+function set(el, o) {
+  const s = el.style;
+  if ('op' in o) s.opacity = o.op;
+  const tf = [];
+  if ('x' in o || 'y' in o) tf.push(`translate(${o.x || 0}px,${o.y || 0}px)`);
+  if ('sc' in o) tf.push(`scale(${o.sc})`);
+  s.transform = tf.join(' ');
+}
+
+// ---------- camera keyframes (screenshot px, 1206x2622) ----------
+// [time, fx, fy, z]: focus point kept at window centre; z = zoom relative to fit-width
+const CAM = [
+  [4.00, 603, 700, 1.00],
+  [4.35, 603, 700, 1.00],
+  [4.80, 603, 640, 1.08],   // search field
+  [5.80, 603, 640, 1.08],
+  [6.20, 603, 1150, 1.00],  // search results
+  [6.90, 603, 1150, 1.00],
+  [7.30, 603, 1340, 1.00],  // 119 / 112
+  [9.30, 603, 1340, 1.00],
+  [9.70, 603, 1030, 1.10],  // 내 주변 응급실 찾기
+  [10.30, 603, 1030, 1.10],
+  [10.60, 603, 700, 1.12],  // map
+  [11.30, 603, 700, 1.12],
+  [11.80, 603, 1910, 1.02], // nearest ER
+  [12.20, 603, 1910, 1.02],
+  [12.60, 603, 2050, 1.06], // 전화 / 길찾기
+  [13.00, 603, 2050, 1.06],
+  [13.30, 603, 1000, 1.06],  // search result row + star
+  [14.00, 603, 1000, 1.06],
+  [14.30, 603, 515, 1.05],  // widget
+  [16.00, 603, 515, 1.05],
+];
+function camAt(t) {
+  if (t <= CAM[0][0]) return CAM[0].slice(1);
+  for (let i = 0; i < CAM.length - 1; i++) {
+    const [t0, ...a] = CAM[i], [t1, ...b] = CAM[i + 1];
+    if (t <= t1) { const p = eInOut(clamp((t - t0) / (t1 - t0))); return a.map((v, j) => lerp(v, b[j], p)); }
+  }
+  return CAM[CAM.length - 1].slice(1);
+}
+const WIDGET_WIN_H = SQUARE ? 300 : FEED ? 370 : 470;
+
+function render(t) {
+  const cx = W / 2;
+  // ---------- Scene 1 & 7: brand ----------
+  const dot = $('dot'), logo = $('logo'), tag = $('tag'), feat = $('feat');
+  const logoH = L.logoW * LOGO_AR, logoCY = L.logoY + logoH / 2;
+  // coral dot grows, then stretches into the speech-bubble body before the real logo takes over
+  const grow = k(t, 0.0, 0.28, eOutBack), morph = k(t, 0.22, 0.62, eInOut);
+  const bw = lerp(40, L.logoW * 0.64, morph), bh = lerp(40, L.logoW * 0.25, morph);
+  dot.style.width = bw + 'px'; dot.style.height = bh + 'px'; dot.style.borderRadius = bh / 2 + 'px';
+  set(dot, { x: cx - bw / 2 - L.logoW * 0.09 * morph, y: logoCY - bh / 2 - L.logoW * 0.03 * morph, sc: grow, op: t < 1 ? 1 - k(t, 0.6, 0.78) : 0 });
+
+  logo.style.width = L.logoW + 'px';
+  const l1 = k(t, 0.5, 0.82), out1 = k(t, 1.28, 1.5, eInOut);
+  const l7 = k(t, 15.8, 16.25), out7 = k(t, 17.5, 17.95, eInOut);
+  if (t < 8) set(logo, { x: cx - L.logoW / 2, y: L.logoY - 30 * out1, sc: lerp(0.94, 1, l1), op: l1 * (1 - out1) });
+  else set(logo, { x: cx - L.logoW / 2, y: L.logoY, sc: lerp(0.94, 1, l7), op: l7 * (1 - out7) });
+
+  tag.style.fontSize = L.tagSize + 'px';
+  if (!tag.innerHTML) tag.innerHTML = '필요한 순간,\n필요한 번호를 <span class="coral">더 빠르게.</span>';
+  const tg1 = k(t, 0.78, 1.1), tg7 = k(t, 16.15, 16.5);
+  if (t < 8) set(tag, { y: L.tagY + 24 * (1 - tg1) - 30 * out1, op: tg1 * (1 - out1) });
+  else set(tag, { y: L.tagY + 24 * (1 - tg7), op: tg7 * (1 - out7) });
+
+  feat.style.fontSize = L.featSize + 'px';
+  if (!feat.innerHTML) feat.innerHTML = ['검색', '전화', '주변 응급실', '즐겨찾기'].join('<span class="sep">·</span>');
+  const f7 = k(t, 16.45, 16.8);
+  set(feat, { y: L.featY + 16 * (1 - f7), op: f7 * (1 - out7) });
+
+  // ---------- Scene 2: situations ----------
+  const starts = [1.55, 2.08, 2.61], s2out = k(t, 3.1, 3.28, eInOut);
+  ['s2a', 's2b', 's2c'].forEach((id, i) => {
+    const el = $(id); el.style.fontSize = L.s2Size + 'px';
+    const a = k(t, starts[i], starts[i] + 0.28);
+    const dim = i < 2 ? lerp(1, 0.38, k(t, starts[i + 1], starts[i + 1] + 0.25)) : 1;
+    set(el, { y: L.s2Y[i] + 30 * (1 - a) - 20 * s2out, op: a * dim * (1 - s2out) });
+  });
+  const q = $('s2q'); q.style.fontSize = L.qSize + 'px';
+  const qa = k(t, 3.2, 3.48), qout = k(t, 3.84, 4.02, eInOut);
+  set(q, { y: L.qY + 26 * (1 - qa) - 40 * qout, sc: lerp(0.96, 1, qa), op: qa * (1 - qout) });
+  const ql = $('qlogo'); ql.style.width = L.qLogoW + 'px';
+  const qla = k(t, 3.42, 3.7, eOutBack);
+  set(ql, { x: cx - L.qLogoW / 2, y: L.qLogoY - 40 * qout, sc: lerp(0.85, 1, qla), op: clamp(qla) * (1 - qout) });
+
+  // ---------- UI window ----------
+  const win = $('win');
+  const wIn = k(t, 3.9, 4.35), wOut = k(t, 15.45, 15.85, eInOut);
+  const shrink = k(t, 14.0, 14.3, eInOut);
+  const winH = lerp(L.winH, WIDGET_WIN_H, shrink);
+  const winY = L.winY + (L.winH - winH) / 2;
+  win.style.width = L.winW + 'px'; win.style.height = winH + 'px'; win.style.borderRadius = L.radius + 'px';
+  set(win, { x: L.winX, y: winY + 120 * (1 - wIn) + 40 * wOut, sc: lerp(1, 0.92, wOut), op: t < 10 ? wIn : 1 - wOut });
+
+  const [fx, fy, z] = camAt(t);
+  const s = (L.winW / 1206) * z;
+  let tx = L.winW / 2 - fx * s, ty = winH / 2 - fy * s;
+  tx = Math.min(0, Math.max(L.winW - 1206 * s, tx));
+  ty = Math.min(0, Math.max(winH - 2622 * s, ty));
+  $('cam').style.transform = `translate(${tx}px,${ty}px) scale(${s})`;
+
+  // screenshot layers (stacked; later layers cover earlier ones)
+  const op = {
+    home: 1,
+    search: k(t, 5.72, 5.95) * (1 - k(t, 6.85, 7.1)),
+    er: k(t, 10.22, 10.5, eInOut) * (1 - k(t, 13.0, 13.25)),
+    search2: k(t, 13.0, 13.25),
+    favon: k(t, 13.62, 13.7),
+    widget: k(t, 14.3, 14.5),
+  };
+  for (const n in op) $('im-' + n).style.opacity = op[n];
+  $('im-er').style.transform = `translateX(${(1 - k(t, 10.22, 10.55, eInOut)) * 420}px)`;
+
+  // typing on the real search field (covers the placeholder only until the real result screenshot fades in)
+  const word = '카드 분실', tStart = 5.0, per = 0.11;
+  const n = t < tStart ? 0 : clamp(Math.floor((t - tStart) / per) + 1, 0, word.length);
+  const typed = $('typed');
+  Object.assign(typed.style, { left: '200px', top: '588px', width: '860px', height: '90px', paddingLeft: '10px' });
+  typed.style.opacity = (t > 4.85 && t < 5.95) ? 1 : 0;
+  $('typedText').textContent = word.slice(0, n);
+  $('caret').style.opacity = (n < word.length || Math.floor(t * 3.2) % 2 === 0) ? 1 : 0;
+
+  // highlight rings
+  const ring = $('ring');
+  const rings = [
+    { a: 7.7, b: 8.9, box: [62, 1267, 586, 1727] },      // 119 card
+    { a: 12.35, b: 13.0, box: [89, 1995, 1116, 2105] },  // 전화 / 길찾기
+  ];
+  let rOp = 0;
+  for (const r of rings) {
+    const v = vis(t, r.a, r.a + 0.2, r.b - 0.2, r.b);
+    if (v > 0) {
+      const [x0, y0, x1, y1] = r.box, pad = 14;
+      Object.assign(ring.style, { left: x0 - pad + 'px', top: y0 - pad + 'px', width: x1 - x0 + 2 * pad + 'px', height: y1 - y0 + 2 * pad + 'px', transform: `scale(${lerp(1.05, 1, k(t, r.a, r.a + 0.25))})` });
+      rOp = v;
+    }
+  }
+  ring.style.opacity = rOp;
+
+  // tap ripples
+  const rip = $('rip');
+  const taps = [
+    [4.72, 420, 633],   // search field
+    [8.3, 324, 1637],   // 119 전화
+    [9.9, 1074, 1028],  // 내 주변 응급실 찾기
+    [13.5, 1071, 859],  // ☆ → ★
+  ];
+  let ripOp = 0;
+  for (const [tt, x, y] of taps) {
+    const p = (t - tt) / 0.45;
+    if (p >= 0 && p <= 1) {
+      Object.assign(rip.style, { left: x + 'px', top: y + 'px', transform: `scale(${lerp(0.4, 1.5, eOut(p))})` });
+      ripOp = (1 - p) * 0.95;
+    }
+  }
+  rip.style.opacity = ripOp;
+
+  // ---------- captions ----------
+  const cap = $('cap'); cap.style.fontSize = L.capSize + 'px';
+  const caps = [
+    [4.15, 6.85, '번호를 몰라도 괜찮아요.\n<span class="coral">상황으로 바로 검색.</span>'],
+    [7.05, 9.35, '긴급한 순간엔\n<span class="coral">더 빠르게.</span>'],
+    [9.5, 12.95, '가까운 응급실도\n<span class="coral">현재 위치에서 바로.</span>'],
+    [13.1, 15.45, '자주 쓰는 번호는\n<span class="coral">즐겨찾기와 위젯으로.</span>'],
+  ];
+  let cOp = 0;
+  for (const [a, b, html] of caps) {
+    if (t >= a && t <= b) {
+      if (cap.dataset.h !== html) { cap.innerHTML = html; cap.dataset.h = html; }
+      const i = k(t, a, a + 0.3), o = k(t, b - 0.18, b, eInOut);
+      cOp = i * (1 - o);
+      set(cap, { y: L.capY + 22 * (1 - i) - 14 * o, op: cOp });
+    }
+  }
+  if (!cOp) cap.style.opacity = 0;
+}
+
+window.ready = Promise.all([
+  document.fonts.ready,
+  ...[...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })),
+]);
+const T0 = P.get('t');
+if (T0 !== null) render(+T0);
+else if (!P.has('render')) {
+  // live preview loop
+  const st = performance.now();
+  const loop = () => { render(((performance.now() - st) / 1000) % 18.5); requestAnimationFrame(loop); };
+  window.ready.then(loop);
+}
+</script>
+</body>
+</html>

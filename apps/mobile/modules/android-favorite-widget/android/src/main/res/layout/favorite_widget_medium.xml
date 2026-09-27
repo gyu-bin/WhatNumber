@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/widget_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/widget_bg"
+  android:orientation="vertical"
+  android:padding="12dp">
+
+  <LinearLayout
+    android:id="@+id/widget_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+      android:id="@+id/widget_brand"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="@string/favorite_widget_brand"
+      android:textColor="@color/widget_accent"
+      android:textSize="13sp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:id="@+id/widget_section"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/favorite_widget_section"
+      android:textColor="@color/widget_text_secondary"
+      android:textSize="12sp" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/row_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <TextView
+      android:id="@+id/phone_0"
+      android:layout_width="88dp"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/widget_text"
+      android:textSize="14sp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:id="@+id/title_0"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/widget_text_secondary"
+      android:textSize="13sp" />
+
+    <TextView
+      android:id="@+id/call_0"
+      android:layout_width="28dp"
+      android:layout_height="28dp"
+      android:background="@drawable/widget_call_bg"
+      android:gravity="center"
+      android:text="@string/favorite_widget_call"
+      android:textColor="@color/widget_accent"
+      android:textSize="12sp" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/row_1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <TextView
+      android:id="@+id/phone_1"
+      android:layout_width="88dp"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/widget_text"
+      android:textSize="14sp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:id="@+id/title_1"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/widget_text_secondary"
+      android:textSize="13sp" />
+
+    <TextView
+      android:id="@+id/call_1"
+      android:layout_width="28dp"
+      android:layout_height="28dp"
+      android:background="@drawable/widget_call_bg"
+      android:gravity="center"
+      android:text="@string/favorite_widget_call"
+      android:textColor="@color/widget_accent"
+      android:textSize="12sp" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/row_2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <TextView
+      android:id="@+id/phone_2"
+      android:layout_width="88dp"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/widget_text"
+      android:textSize="14sp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:id="@+id/title_2"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/widget_text_secondary"
+      android:textSize="13sp" />
+
+    <TextView
+      android:id="@+id/call_2"
+      android:layout_width="28dp"
+      android:layout_height="28dp"
+      android:background="@drawable/widget_call_bg"
+      android:gravity="center"
+      android:text="@string/favorite_widget_call"
+      android:textColor="@color/widget_accent"
+      android:textSize="12sp" />
+  </LinearLayout>
+</LinearLayout>

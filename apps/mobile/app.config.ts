@@ -109,7 +109,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       {
         bundleIdentifier: 'kr.whatnumber.app.widgets',
         groupIdentifier: 'group.kr.whatnumber.app',
-        enableAndroid: true,
+            enableAndroid: false,
         widgets: [
           {
             name: 'FavoritesWidget',

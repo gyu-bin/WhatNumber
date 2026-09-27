@@ -182,7 +182,7 @@ PODS:
     - Yoga
   - ExpoAsset (56.0.24):
     - ExpoModulesCore
-  - ExpoDevice (57.0.2):
+  - ExpoDevice (56.0.4):
     - ExpoModulesCore
   - ExpoDomWebView (56.0.6):
     - ExpoModulesCore
@@ -191,6 +191,8 @@ PODS:
   - ExpoFont (56.0.7):
     - ExpoModulesCore
   - ExpoKeepAwake (56.0.3):
+    - ExpoModulesCore
+  - ExpoLocalization (57.0.2):
     - ExpoModulesCore
   - ExpoLocation (56.0.25):
     - ExpoModulesCore
@@ -272,7 +274,7 @@ PODS:
   - EXUpdatesInterface (56.0.2):
     - ExpoModulesCore
   - FBLazyVector (0.85.3)
-  - Google-Mobile-Ads-SDK (13.5.0):
+  - Google-Mobile-Ads-SDK (13.1.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleUserMessagingPlatform (3.1.0)
   - hermes-engine (250829098.0.10):
@@ -2224,8 +2226,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - RNGoogleMobileAds (16.5.0):
-    - Google-Mobile-Ads-SDK (= 13.5.0)
+  - RNGoogleMobileAds (16.3.4):
+    - Google-Mobile-Ads-SDK (= 13.1.0)
     - GoogleUserMessagingPlatform (= 3.1.0)
     - hermes-engine
     - RCTRequired
@@ -2406,11 +2408,12 @@ DEPENDENCIES:
   - expo-dev-menu (from `../../../node_modules/expo-dev-menu`)
   - expo-dev-menu-interface (from `../../../node_modules/expo-dev-menu-interface/ios`)
   - ExpoAsset (from `../../../node_modules/expo-asset/ios`)
-  - ExpoDevice (from `../../../node_modules/expo-device/ios`)
+  - ExpoDevice (from `../node_modules/expo-device/ios`)
   - "ExpoDomWebView (from `../../../node_modules/@expo/dom-webview/ios`)"
   - ExpoFileSystem (from `../../../node_modules/expo-file-system/ios/ExpoFileSystem.podspec`)
   - ExpoFont (from `../../../node_modules/expo-font/ios/ExpoFont.podspec`)
   - ExpoKeepAwake (from `../../../node_modules/expo-keep-awake/ios`)
+  - ExpoLocalization (from `../../../node_modules/expo-localization/ios`)
   - ExpoLocation (from `../../../node_modules/expo-location/ios/ExpoLocation.podspec`)
   - "ExpoLogBox (from `../../../node_modules/@expo/log-box`)"
   - ExpoModulesCore (from `../../../node_modules/expo-modules-core/ExpoModulesCore.podspec`)
@@ -2502,7 +2505,7 @@ DEPENDENCIES:
   - ReactNativeDependencies (from `../../../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec`)
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-async-storage/async-storage`)"
   - RNGestureHandler (from `../../../node_modules/react-native-gesture-handler`)
-  - RNGoogleMobileAds (from `../../../node_modules/react-native-google-mobile-ads`)
+  - RNGoogleMobileAds (from `../node_modules/react-native-google-mobile-ads`)
   - RNReanimated (from `../../../node_modules/react-native-reanimated`)
   - RNWorklets (from `../../../node_modules/react-native-worklets`)
   - Yoga (from `../../../node_modules/react-native/ReactCommon/yoga`)
@@ -2537,7 +2540,7 @@ EXTERNAL SOURCES:
   ExpoAsset:
     :path: "../../../node_modules/expo-asset/ios"
   ExpoDevice:
-    :path: "../../../node_modules/expo-device/ios"
+    :path: "../node_modules/expo-device/ios"
   ExpoDomWebView:
     :path: "../../../node_modules/@expo/dom-webview/ios"
   ExpoFileSystem:
@@ -2546,6 +2549,8 @@ EXTERNAL SOURCES:
     :podspec: "../../../node_modules/expo-font/ios/ExpoFont.podspec"
   ExpoKeepAwake:
     :path: "../../../node_modules/expo-keep-awake/ios"
+  ExpoLocalization:
+    :path: "../../../node_modules/expo-localization/ios"
   ExpoLocation:
     :podspec: "../../../node_modules/expo-location/ios/ExpoLocation.podspec"
   ExpoLogBox:
@@ -2728,7 +2733,7 @@ EXTERNAL SOURCES:
   RNGestureHandler:
     :path: "../../../node_modules/react-native-gesture-handler"
   RNGoogleMobileAds:
-    :path: "../../../node_modules/react-native-google-mobile-ads"
+    :path: "../node_modules/react-native-google-mobile-ads"
   RNReanimated:
     :path: "../../../node_modules/react-native-reanimated"
   RNWorklets:
@@ -2747,27 +2752,28 @@ SPEC CHECKSUMS:
   expo-dev-menu: 3fe6c13a34d8e9b37df14ed4c9188a1c985973c9
   expo-dev-menu-interface: 65402d4affb8b418aa6cec29b3abb0e313c8f443
   ExpoAsset: 3f825e3c30de2d3e8a280b97602a8a607ce864fe
-  ExpoDevice: 5c638e530304a51992263ab5c1cab726f992b9dc
+  ExpoDevice: f527f8bbefa6efa12f8ef63e9038dd1d5d903697
   ExpoDomWebView: 4e53b05879dc73ba374f76bff93dd64c8a0d91b3
   ExpoFileSystem: 9d47583cbcc53ab2411901c601cd0a7ca18b3c11
   ExpoFont: 274487aa78f8c65d6551e2558eca3ec6ce3432ce
   ExpoKeepAwake: 359c47a1d9ccc3a3c519bca6e39562cce230c5bb
+  ExpoLocalization: f204d4ca963bfcea932068a978247878f664f5a4
   ExpoLocation: c042f1cb4f7a8253cb42e877207fdbf7a6761eaf
   ExpoLogBox: cdad5c9402a186574fb5924ea91df1f08ba9a98a
-  ExpoModulesCore: 0c6cd0745ace48d5f9af76b6c04f0e790a73f3bf
+  ExpoModulesCore: c4f430b96c78724336c8a0a98d801f7e8336c7e3
   ExpoModulesJSI: abe8cd3e19c89b38c63426be235af5ef5ac9c1d1
   ExpoModulesWorklets: 19afe32682aa1d17fd0f73b3db85ae0850ed6431
   ExpoModulesWorkletsAdapter: fe79dc9cb66a3dac7441f86fef364bff6ef42c94
   ExpoSplashScreen: 06ea4c812a646bf65802fe0f87f5fcd8d68a22bf
   ExpoUI: 15c5293922df464aefcfb528396c4db211795322
-  ExpoWidgets: 4f16a5cb03b4c7cc56a23c6580772b5cad3bcc93
+  ExpoWidgets: 086ad323cb0b151bdbe10c3ba6c44ecae8995409
   EXStructuredHeaders: 9e89bcdd636ae2ecb59995cfba3230f5d7547c08
   EXUpdates: 6435091b0596fb4eabf14a0e51d9a18775d35b33
   EXUpdatesInterface: 25408a97d682355eb9fb37e5aa6e22caece1881f
   FBLazyVector: 24e62c765683b8d89006a88a2c8f5cf019f0074d
-  Google-Mobile-Ads-SDK: 2171620c6497804b57dc88b95644cc82e7dfb5b0
+  Google-Mobile-Ads-SDK: 8429bef6ee1a4e322b0a5571b64217ed8317a3d5
   GoogleUserMessagingPlatform: befe603da6501006420c206222acd449bba45a9c
-  hermes-engine: 717d52f7907c41d53a100bfb7c60d1cfc3fb14dd
+  hermes-engine: 30ad3f386f779f4d49afe0d26bd4e6b75a9c2135
   mj-studio-react-native-naver-map: a9218c5c11e4513744a67596d6404855d5ce1c74
   NMapsGeometry: 4e02554fa9880ef02ed96b075dc84355d6352479
   NMapsMap: 617b1cec04331deb72fb7553f791bfe7d6b27bb2
@@ -2780,7 +2786,7 @@ SPEC CHECKSUMS:
   React: e2dc35338068bbd299c66f043ae0d7f25de8499e
   React-callinvoker: 28b25d21b124c26cebaea713ba7d801b9351dc48
   React-Core: 02ed7d2ffb70437bdf2aba074a13078a7b0b9ff0
-  React-Core-prebuilt: a8b6b65029b4b4e9bada1b3f2515d2f26c975c63
+  React-Core-prebuilt: 526b65f451a566949f9b4b0f93dbaf3f22813fbc
   React-CoreModules: b3a5a42dadcde3b5d47b325bd912eb2ced89e146
   React-cxxreact: fe8f88dda044e5905e99a00f41b7a874c3908716
   React-debug: 92944dc4d89f56d640e75498266cbde557a48189
@@ -2844,10 +2850,10 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 25c9c516839be2c5e3d3344f95dc7da5f7e63fc2
   ReactCodegen: dfe41c3f92bdf782bcf9b2c9d7c12cb9cfd82cb7
   ReactCommon: 7dfc3250793bf36cf221096ff59e1179e13eef7f
-  ReactNativeDependencies: 371c9bfe7da6467a20797493059a59694e65c9fc
+  ReactNativeDependencies: 519b5824704956ab35cabaada79549c047701603
   RNCAsyncStorage: 2ad919e88b8bc2cd80e8697ce66d04d006743283
   RNGestureHandler: 2ff61eac036eaf89f6818bf4ed9c39771a17d134
-  RNGoogleMobileAds: e56168d95ca5ceb58f41169020e21412d02cfda4
+  RNGoogleMobileAds: cb927cb06a5fdaa6236c1a555cef45b6000e34fd
   RNReanimated: 07fe6682b1d90b9d536540614562850503c63dbb
   RNWorklets: 2b1732dea513e38333481dc919029c1e14dc647d
   Yoga: 77dfa8673de2874e1855002ae59c68b8be9b007b

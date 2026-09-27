@@ -1,0 +1,14 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'kr.whatnumber.app'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.androidfavoritewidget"
+  defaultConfig {
+    consumerProguardFiles("proguard-rules.pro")
+  }
+}
