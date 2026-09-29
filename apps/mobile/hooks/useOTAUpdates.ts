@@ -5,6 +5,8 @@ import i18n from '../i18n';
 
 /** Re-check while the app stays open, without hammering the update service. */
 const POLL_MS = 90_000;
+/** First paint + splash should finish before any network update work. */
+const AFTER_READY_MS = 2_500;
 /** Let the toast paint before `reloadAsync` tears down the JS runtime. */
 const TOAST_BEFORE_RELOAD_MS = 600;
 
@@ -14,28 +16,43 @@ const TOAST_BEFORE_RELOAD_MS = 600;
  * Native startup (`CheckOnLaunch`) must finish first — calling reload during
  * that race has crashed iOS release builds. After that, a new bundle is
  * fetched and `reloadAsync()` swaps it without the user killing the app.
+ *
+ * `enabled` should stay false until the cold-start splash is gone so update
+ * downloads do not compete with first paint on slow networks.
  */
-export function useOTAUpdates(onUpdateReady?: (message: string) => void) {
+export function useOTAUpdates(
+  onUpdateReady?: (message: string) => void,
+  enabled = true,
+) {
   const busyRef = useRef(false);
+  const lastCheckRef = useRef(0);
   const onUpdateReadyRef = useRef(onUpdateReady);
   onUpdateReadyRef.current = onUpdateReady;
   const { isStartupProcedureRunning, isUpdatePending } = Updates.useUpdates();
 
   useEffect(() => {
-    if (__DEV__ || !Updates.isEnabled || isStartupProcedureRunning) return;
+    if (!enabled || __DEV__ || !Updates.isEnabled || isStartupProcedureRunning) return;
 
     let cancelled = false;
 
-    const apply = async () => {
+    const apply = async (force = false) => {
       if (cancelled || busyRef.current) return;
       if (AppState.currentState !== 'active') return;
+
+      const now = Date.now();
+      // Pending updates should apply promptly; otherwise throttle checks.
+      if (!force && !isUpdatePending && now - lastCheckRef.current < POLL_MS) return;
+
       busyRef.current = true;
       try {
         if (!isUpdatePending) {
+          lastCheckRef.current = now;
           const check = await Updates.checkForUpdateAsync();
           if (cancelled || !check.isAvailable) return;
           const fetched = await Updates.fetchUpdateAsync();
           if (cancelled || !fetched.isNew) return;
+        } else {
+          lastCheckRef.current = now;
         }
         onUpdateReadyRef.current?.(i18n.t('ota.updating', { ns: 'ui' }));
         await new Promise((resolve) => setTimeout(resolve, TOAST_BEFORE_RELOAD_MS));
@@ -49,13 +66,13 @@ export function useOTAUpdates(onUpdateReady?: (message: string) => void) {
     };
 
     const first = setTimeout(() => {
-      void apply();
-    }, 1200);
+      void apply(true);
+    }, AFTER_READY_MS);
     const interval = setInterval(() => {
-      void apply();
+      void apply(false);
     }, POLL_MS);
     const sub = AppState.addEventListener('change', (state) => {
-      if (state === 'active') void apply();
+      if (state === 'active') void apply(false);
     });
 
     return () => {
@@ -64,5 +81,5 @@ export function useOTAUpdates(onUpdateReady?: (message: string) => void) {
       clearInterval(interval);
       sub.remove();
     };
-  }, [isStartupProcedureRunning, isUpdatePending]);
+  }, [enabled, isStartupProcedureRunning, isUpdatePending]);
 }

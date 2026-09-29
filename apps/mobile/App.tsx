@@ -231,7 +231,9 @@ export default function App() {
   const { t } = useTranslation();
   const { locale, setLocale, ready: localeReady } = useLocale();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  useOTAUpdates(setToastMessage);
+  /** Cold start only — never re-shown on background → foreground */
+  const [showSplash, setShowSplash] = useState(true);
+  useOTAUpdates(setToastMessage, !showSplash);
   useAdMobInit();
   const [tab, setTab] = useState<TabId>('home');
   const [settingsView, setSettingsView] = useState<SettingsView>('main');
@@ -245,8 +247,6 @@ export default function App() {
   const [selected, setSelected] = useState<NumberItem | null>(null);
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<'number' | 'feedback'>('number');
-  /** Cold start only — never re-shown on background → foreground */
-  const [showSplash, setShowSplash] = useState(true);
   const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
   const { favorites, toggle, reorder, isFavorite, ready: favoritesReady } = useFavorites();
   const { theme, toggle: toggleTheme, ready: themeReady } = useTheme();
