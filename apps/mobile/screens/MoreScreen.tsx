@@ -10,6 +10,7 @@ import { SITE_URL } from '../constants';
 import type { AppLocale } from '../i18n/types';
 import type { AppStyles } from '../styles';
 import type { Theme, ThemeColors } from '../theme';
+import { useGuideCopy } from '../components/guides/copy';
 
 interface MoreScreenProps {
   styles: AppStyles;
@@ -21,6 +22,9 @@ interface MoreScreenProps {
   onOpenRequest: () => void;
   onOpenFeedback: () => void;
   onOpenPrivacy: () => void;
+  onOpenGuide: () => void;
+  onOpenWidgetGuide: () => void;
+  widgetAvailable: boolean;
 }
 
 export function MoreScreen({
@@ -33,8 +37,12 @@ export function MoreScreen({
   onOpenRequest,
   onOpenFeedback,
   onOpenPrivacy,
+  onOpenGuide,
+  onOpenWidgetGuide,
+  widgetAvailable,
 }: MoreScreenProps) {
   const { t } = useTranslation();
+  const guideCopy = useGuideCopy();
   const insets = useSafeAreaInsets();
   const version = Constants.expoConfig?.version ?? '1.0.1';
 
@@ -94,6 +102,29 @@ export function MoreScreen({
           </View>
           <Text style={styles.moreChevron}>›</Text>
         </Pressable>
+      </View>
+
+      <Text style={styles.moreSectionLabel}>{guideCopy.helpTitle}</Text>
+      <View style={styles.moreSection}>
+        <Pressable style={styles.moreLinkRow} onPress={onOpenGuide} accessibilityRole="button" accessibilityLabel={guideCopy.basicGuide}>
+          <SettingIcon name="book-outline" styles={styles} colors={colors} />
+          <View style={styles.moreRowText}>
+            <Text style={styles.moreRowTitle}>{guideCopy.basicGuide}</Text>
+            <Text style={styles.moreRowHint}>{guideCopy.basicGuideDetail}</Text>
+          </View>
+          <Text style={styles.moreChevron}>›</Text>
+        </Pressable>
+        {widgetAvailable ? <>
+          <View style={styles.moreRowDivider} />
+          <Pressable style={styles.moreLinkRow} onPress={onOpenWidgetGuide} accessibilityRole="button" accessibilityLabel={guideCopy.widgetHowTo}>
+            <SettingIcon name="grid-outline" styles={styles} colors={colors} />
+            <View style={styles.moreRowText}>
+              <Text style={styles.moreRowTitle}>{guideCopy.widgetHowTo}</Text>
+              <Text style={styles.moreRowHint}>{guideCopy.widgetHowToDetail}</Text>
+            </View>
+            <Text style={styles.moreChevron}>›</Text>
+          </Pressable>
+        </> : null}
       </View>
 
       <Text style={styles.moreSectionLabel}>{t('settings.sectionInfo')}</Text>

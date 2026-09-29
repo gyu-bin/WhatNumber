@@ -42,7 +42,13 @@ import { NumberRow } from './components/NumberCards';
 import { NumberVisualIcon } from './components/NumberVisualIcon';
 import { SplashAnimation } from './components/SplashAnimation';
 import { Toast } from './components/Toast';
-import { WidgetGuideBanner, WidgetGuideSheet } from './components/WidgetGuide';
+import { WidgetGuideBanner } from './components/WidgetGuide';
+import { FirstLaunchGuide } from './components/guides/FirstLaunchGuide';
+import { WidgetIntroSheet } from './components/guides/WidgetIntroSheet';
+import { WidgetHowToSheet } from './components/guides/WidgetHowToSheet';
+import { EmergencyLocationGuide } from './components/guides/EmergencyLocationGuide';
+import { useGuides } from './hooks/useGuides';
+import { isWidgetGuideAvailable } from './services/guides/widgetAvailability';
 import { useAdMobInit } from './hooks/useAdMobInit';
 import { useFavorites } from './hooks/useFavorites';
 import { useOTAUpdates } from './hooks/useOTAUpdates';
@@ -223,7 +229,7 @@ function TabBar({
 
 export default function App() {
   const { t } = useTranslation();
-  const { locale, setLocale } = useLocale();
+  const { locale, setLocale, ready: localeReady } = useLocale();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   useOTAUpdates(setToastMessage);
   useAdMobInit();
@@ -236,7 +242,6 @@ export default function App() {
   const [showFavorites, setShowFavorites] = useState(false);
   const [activeSituation, setActiveSituation] = useState<Situation | null>(null);
   const [situationMoreOpen, setSituationMoreOpen] = useState(false);
-  const [widgetGuideOpen, setWidgetGuideOpen] = useState(false);
   const [selected, setSelected] = useState<NumberItem | null>(null);
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<'number' | 'feedback'>('number');
@@ -245,6 +250,15 @@ export default function App() {
   const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
   const { favorites, toggle, reorder, isFavorite, ready: favoritesReady } = useFavorites();
   const { theme, toggle: toggleTheme, ready: themeReady } = useTheme();
+  const widgetAvailable = useMemo(isWidgetGuideAvailable, []);
+  const enterEmergency = useCallback(() => setHomeView('emergency-finder'), []);
+  const guides = useGuides(widgetAvailable, enterEmergency);
+  const toggleFavorite = useCallback((id: string) => {
+    if (!favoritesReady) return;
+    const adding = !isFavorite(id);
+    toggle(id);
+    if (adding && guides.favoriteAdded()) setSelected(null);
+  }, [favoritesReady, isFavorite, toggle, guides.favoriteAdded]);
 
   const localizedNumbers = useMemo(
     () => localizeNumbers(ALL_NUMBERS, locale),
@@ -281,7 +295,8 @@ export default function App() {
   // background → foreground on iOS (white screen).
   const onSplashFinish = useCallback(() => {
     setShowSplash(false);
-  }, []);
+    guides.afterSplash();
+  }, [guides.afterSplash]);
   useEffect(() => {
     if (nativeSplashHidden) return;
     let cancelled = false;
@@ -498,7 +513,7 @@ export default function App() {
       <EmergencyFinderCard
         styles={styles}
         colors={themeColors}
-        onPress={() => setHomeView('emergency-finder')}
+        onPress={guides.openEmergency}
       />
       <ImmediateEmergency
         fireItem={fireItem}
@@ -531,11 +546,11 @@ export default function App() {
           {t('home.favoritesHeader', { count: filtered.length })}
         </Text>
       </View>
-      <WidgetGuideBanner
+      {widgetAvailable ? <WidgetGuideBanner
         styles={styles}
         colors={themeColors}
-        onPress={() => setWidgetGuideOpen(true)}
-      />
+        onPress={() => guides.openManual('widgetHowTo')}
+      /> : null}
       {filtered.length > 1 ? (
         <Text style={styles.favReorderHint}>{t('home.favoritesReorderHint')}</Text>
       ) : null}
@@ -558,7 +573,7 @@ export default function App() {
             <NumberRow
               item={item}
               isFavorite={isFavorite(item.id)}
-              onToggleFavorite={toggle}
+              onToggleFavorite={toggleFavorite}
               onOpen={setSelected}
               onDrag={drag}
               isActive={isActive}
@@ -569,7 +584,7 @@ export default function App() {
         </ScaleDecorator>
       );
     },
-    [filtered.length, isFavorite, styles, toggle],
+    [filtered.length, isFavorite, styles, toggleFavorite],
   );
 
   if (!themeReady) {
@@ -592,7 +607,7 @@ export default function App() {
       <View style={{ flex: 1, backgroundColor: themeColors.bg }}>
         <View
           style={{ flex: 1 }}
-          pointerEvents={showSplash ? 'none' : 'auto'}
+          pointerEvents={showSplash || guides.transitioning || guides.active !== null ? 'none' : 'auto'}
         >
           <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
             <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
@@ -631,7 +646,7 @@ export default function App() {
                   styles={styles}
                   colors={themeColors}
                   isFavorite={isFavorite}
-                  onToggleFavorite={toggle}
+                  onToggleFavorite={toggleFavorite}
                   onOpen={setSelected}
                   onBack={() => {
                     setHomeView('numbers');
@@ -679,7 +694,7 @@ export default function App() {
                       <NumberRow
                         item={item}
                         isFavorite={isFavorite(item.id)}
-                        onToggleFavorite={toggle}
+                        onToggleFavorite={toggleFavorite}
                         onOpen={setSelected}
                         styles={styles}
                       />
@@ -717,6 +732,9 @@ export default function App() {
                       setRequestOpen(true);
                     }}
                     onOpenPrivacy={() => setSettingsView('privacy')}
+                    onOpenGuide={() => guides.openManual('manual')}
+                    onOpenWidgetGuide={() => guides.openManual('widgetHowTo')}
+                    widgetAvailable={widgetAvailable}
                   />
                 )
               ) : null}
@@ -740,13 +758,6 @@ export default function App() {
                   setSelectedCategoryLabel(null);
                 }
               }}
-              styles={styles}
-              colors={themeColors}
-            />
-
-            <WidgetGuideSheet
-              visible={widgetGuideOpen}
-              onClose={() => setWidgetGuideOpen(false)}
               styles={styles}
               colors={themeColors}
             />
@@ -814,7 +825,7 @@ export default function App() {
                 item={selected}
                 isFavorite={isFavorite(selected.id)}
                 onClose={() => setSelected(null)}
-                onToggleFavorite={toggle}
+                onToggleFavorite={toggleFavorite}
                 styles={styles}
               />
             ) : null}
@@ -824,9 +835,21 @@ export default function App() {
         {showSplash ? (
           <SplashAnimation
             theme={theme}
-            active={nativeSplashHidden && themeReady}
+            active={nativeSplashHidden && themeReady && localeReady && favoritesReady && guides.ready}
             onFinish={onSplashFinish}
           />
+        ) : null}
+        {!showSplash && (guides.active === 'firstLaunch' || guides.active === 'manual') ? (
+          <FirstLaunchGuide colors={themeColors} theme={theme} mode={guides.active} widgetAvailable={widgetAvailable} onClose={guides.close} />
+        ) : null}
+        {!showSplash && guides.active === 'widgetIntro' ? (
+          <WidgetIntroSheet colors={themeColors} onClose={guides.close} onContinue={guides.showWidgetHowTo} />
+        ) : null}
+        {!showSplash && guides.active === 'widgetHowTo' ? (
+          <WidgetHowToSheet colors={themeColors} onClose={guides.close} />
+        ) : null}
+        {!showSplash && guides.active === 'emergency' ? (
+          <EmergencyLocationGuide colors={themeColors} onClose={guides.close} onContinue={guides.continueEmergency} />
         ) : null}
       </View>
     </SafeAreaProvider>
