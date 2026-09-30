@@ -10,15 +10,15 @@ export const GUIDES: GuideMeta[] = [
   },
   {
     slug: 'car-accident',
-    relatedIds: ['c1', 'c2', 'c3', 'c4', 'c6'],
+    relatedIds: ['c1', 'c3', 'c4', 'c6'],
   },
   {
     slug: 'housing',
-    relatedIds: ['h1', 'h2', 'h3', 'h4', 'g1'],
+    relatedIds: ['h1', 'h2', 'h3', 'h5', 'h6', 'g1'],
   },
   {
     slug: 'legal-finance',
-    relatedIds: ['l1', 'l3', 'l4', 'l5', 'l6', 'l2'],
+    relatedIds: ['l1', 'l3', 'l4', 'l5', 'l11', 'l2'],
   },
   {
     slug: 'civil-admin',

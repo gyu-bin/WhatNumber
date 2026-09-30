@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { NumberItem } from '@whatnumber/shared';
-import { iconBgColor, telHref } from '@whatnumber/shared';
+import { iconBgColor } from '@whatnumber/shared';
 import { numberPath } from '../utils/seo';
+import { callHref, handleRegionalCall } from '../lib/regionalCall';
 import styles from './NumberCard.module.css';
 
 interface NumberCardProps {
@@ -16,7 +17,7 @@ export function NumberCard({
   isFavorite,
   onToggleFavorite,
 }: NumberCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ export function NumberCard({
   };
 
   const handleCall = (e: React.MouseEvent) => {
-    e.stopPropagation();
+    handleRegionalCall(e, item.num, i18n.language);
   };
 
   return (
@@ -56,7 +57,7 @@ export function NumberCard({
           {isFavorite ? '★' : '☆'}
         </button>
         <a
-          href={telHref(item.num)}
+          href={callHref(item.num)}
           className={styles.num}
           onClick={handleCall}
           aria-label={t('card.callA11y', { num: item.num })}

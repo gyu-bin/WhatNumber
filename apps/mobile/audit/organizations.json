@@ -1,0 +1,892 @@
+{
+  "scope": "ORGANIZATION_CONTACTS 22 entries",
+  "checkedDate": "2026-09-30",
+  "method": "공식기업·규제기관·손해보험협회 페이지 본문을 열어 검증.검색snippet과비공식블로그는최종근거에서제외.unknown은추측으로채우지않음. sources evidence failed-open은본문확인불가.기존ID유지.",
+  "records": [
+    {
+      "id": "org-ins-samsung-auto",
+      "status": "VALID",
+      "number": "1588-5114",
+      "organization": "삼성화재",
+      "serviceName": "자동차 사고접수·고장출동",
+      "purpose": "자동차 사고접수·고장출동",
+      "hours": "자동차 사고접수 및 고장출동 365일 24시간",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "삼성화재 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://d.samsungfire.com/claim/submain.html",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "본문 ARS1 사고접수·상담, ARS2 고장출동; 자동차 외 보험금 신청은 평일09~18."
+        }
+      ],
+      "reason": "본문 ARS1 사고접수·상담, ARS2 고장출동; 자동차 외 보험금 신청은 평일09~18.",
+      "replacement": {
+        "source": "https://d.samsungfire.com/claim/submain.html",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1번 사고접수, 2번 고장출동.",
+        "available24h": true,
+        "details": {
+          "summary": "삼성화재의 자동차 사고접수·고장출동 창구입니다.",
+          "usage": [
+            "ARS 1번 사고접수, 2번 고장출동."
+          ],
+          "scope": "삼성화재의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-db-auto",
+      "status": "VALID_BUT_COPY_FIX",
+      "number": "1588-0100",
+      "organization": "DB손해보험",
+      "serviceName": "자동차 긴급출동·사고접수",
+      "purpose": "자동차 긴급출동·사고접수",
+      "hours": "unknown",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "DB손해보험 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.directdb.co.kr/mainView.do?cmd=main",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "현재 공식 본문 번호와 긴급출동/사고접수 확인. 현재24시간 표기는 본문 미확인; 2024 금융감독원 보도자료는24시간 긴급출동 명시."
+        },
+        {
+          "url": "https://kiri.or.kr/PDF/weeklytrend/20240213/trend20240213_19.pdf",
+          "type": "official-regulator-document-mirror",
+          "evidence": "opened-body",
+          "supports": "2024금융감독원긴급출동24h자료.현재운영시간검증에는한계가있음"
+        }
+      ],
+      "reason": "현재 공식 본문 번호와 긴급출동/사고접수 확인. 현재24시간 표기는 본문 미확인; 2024 금융감독원 보도자료는24시간 긴급출동 명시.",
+      "replacement": {
+        "source": "https://www.directdb.co.kr/mainView.do?cmd=main",
+        "verifiedAt": "2026-09-30",
+        "tip": "자동차 사고접수·고장출동은 해당 보험계약의 보장 조건을 확인하세요.",
+        "available24h": null,
+        "details": {
+          "summary": "DB손해보험의 자동차 긴급출동·사고접수 창구입니다.",
+          "usage": [
+            "자동차 사고접수·고장출동은 해당 보험계약의 보장 조건을 확인하세요."
+          ],
+          "scope": "DB손해보험의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-kb-auto",
+      "status": "VALID",
+      "number": "1544-0114",
+      "organization": "KB손해보험",
+      "serviceName": "자동차 사고접수·긴급출동",
+      "purpose": "자동차 사고접수·긴급출동",
+      "hours": "대표콜센터365일24시간",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "KB손해보험 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.kbinsure.co.kr/main.ec?jjout=Y",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "현재 공식 본문 대표콜센터1544-0114 24시간365일 확인. 사고/긴급출동 번호는 손해보험협회 공식 목록과 교차 확인."
+        },
+        {
+          "url": "https://carinfo.knia.or.kr/lmxsrv/cnswc/icnyCnswcList.do",
+          "type": "official-industry-association",
+          "evidence": "opened-body",
+          "supports": "KB손해보험1544-0114와기관명확인"
+        }
+      ],
+      "reason": "현재 공식 본문 대표콜센터1544-0114 24시간365일 확인. 사고/긴급출동 번호는 손해보험협회 공식 목록과 교차 확인.",
+      "replacement": {
+        "source": "https://www.kbinsure.co.kr/main.ec?jjout=Y",
+        "verifiedAt": "2026-09-30",
+        "available24h": true,
+        "details": {
+          "summary": "KB손해보험의 자동차 사고접수·긴급출동 창구입니다.",
+          "usage": [
+            "자동차 사고접수·긴급출동 업무를 문의할 수 있습니다."
+          ],
+          "scope": "KB손해보험의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-hyundai-auto",
+      "status": "VALID",
+      "number": "1588-5656",
+      "organization": "현대해상",
+      "serviceName": "자동차 사고접수·고장출동",
+      "purpose": "자동차 사고접수·고장출동",
+      "hours": "사고접수/고장출동24시간",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "현대해상 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://cardirect-direct.hi.co.kr/service.do?m=483ee197fc",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "현재 본문 ARS1고장출동,2사고접수 및24시간 확인."
+        }
+      ],
+      "reason": "현재 본문 ARS1고장출동,2사고접수 및24시간 확인.",
+      "replacement": {
+        "source": "https://cardirect-direct.hi.co.kr/service.do?m=483ee197fc",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1번은 고장출동, 2번은 사고접수입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "현대해상의 자동차 사고접수·고장출동 창구입니다.",
+          "usage": [
+            "ARS 1번은 고장출동, 2번은 사고접수입니다."
+          ],
+          "scope": "현대해상의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-meritz-auto",
+      "status": "VALID_BUT_COPY_FIX",
+      "number": "1566-7711",
+      "organization": "메리츠화재",
+      "serviceName": "자동차 사고접수·긴급출동",
+      "purpose": "자동차 사고접수·긴급출동",
+      "hours": "unknown",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "메리츠화재 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://store.meritzfire.com/main.do",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "현재 공식 본문 사고접수/긴급출동 번호 확인. 현재24시간 문구는 확인불가;2024 금융감독원 보도자료 긴급출동24시간 참조."
+        },
+        {
+          "url": "https://kiri.or.kr/PDF/weeklytrend/20240213/trend20240213_19.pdf",
+          "type": "official-regulator-document-mirror",
+          "evidence": "opened-body",
+          "supports": "2024금융감독원긴급출동24h자료.현재운영시간검증에는한계가있음"
+        }
+      ],
+      "reason": "현재 공식 본문 사고접수/긴급출동 번호 확인. 현재24시간 문구는 확인불가;2024 금융감독원 보도자료 긴급출동24시간 참조.",
+      "replacement": {
+        "source": "https://store.meritzfire.com/main.do",
+        "verifiedAt": "2026-09-30",
+        "available24h": null,
+        "details": {
+          "summary": "메리츠화재의 자동차 사고접수·긴급출동 창구입니다.",
+          "usage": [
+            "자동차 사고접수·긴급출동 업무를 문의할 수 있습니다."
+          ],
+          "scope": "메리츠화재의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-hanwha-auto",
+      "status": "UNVERIFIED",
+      "number": "1566-8000",
+      "organization": "한화손해보험",
+      "serviceName": "고객상담센터",
+      "purpose": "고객상담센터",
+      "hours": "unknown",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "한화손해보험 고객 및 해당 계약·상품 이용자",
+      "active": "unknown",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://carinfo.knia.or.kr/lmxsrv/cnswc/icnyCnswcList.do",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "손해보험협회 공식 현행 목록 번호 확인. 기업ARS본문이1줄/빈화면으로 조회돼 현재 사고ARS·24시간 미확정.2024 금융감독원 문서는 긴급출동24시간 해당번호 안내."
+        },
+        {
+          "url": "https://kiri.or.kr/PDF/weeklytrend/20240213/trend20240213_19.pdf",
+          "type": "official-regulator-document-mirror",
+          "evidence": "opened-body",
+          "supports": "2024금융감독원긴급출동24h자료.현재운영시간검증에는한계가있음"
+        },
+        {
+          "url": "https://play.google.com/store/apps/details?id=com.hanwha.hima",
+          "type": "official-company-app-listing",
+          "evidence": "opened-body",
+          "supports": "기업이 게시한 앱 설명(2026-09-03업데이트)에고객상담센터계약관리/사고접수/보상1566-8000 확인"
+        }
+      ],
+      "reason": "손해보험협회 공식 현행 목록 번호 확인. 기업ARS본문이1줄/빈화면으로 조회돼 현재 사고ARS·24시간 미확정.2024 금융감독원 문서는 긴급출동24시간 해당번호 안내. 현행기업공식Google Play 설명으로사고접수·보상1566-8000추가확인.24시간/고장출동 세부ARS는 여전히 미확정.",
+      "replacement": {
+        "source": "https://carinfo.knia.or.kr/lmxsrv/cnswc/icnyCnswcList.do",
+        "verifiedAt": "2026-09-30",
+        "tip": "현재 사고접수·긴급출동 메뉴와 운영시간은 공식 ARS 안내에서 확인이 필요합니다.",
+        "available24h": null,
+        "details": {
+          "summary": "한화손해보험 고객상담센터입니다.",
+          "usage": [
+            "자동차 사고·긴급출동 문의의 최신 메뉴와 운영시간은 공식 안내 확인이 필요합니다."
+          ]
+        }
+      }
+    },
+    {
+      "id": "org-ins-lotte-auto",
+      "status": "VALID",
+      "number": "1588-3344",
+      "organization": "롯데손해보험",
+      "serviceName": "자동차 사고접수·고장출동",
+      "purpose": "자동차 사고접수·고장출동",
+      "hours": "자동차 사고접수·고장출동365일24시간",
+      "cost": "일반전화시내요금;휴대폰/070해당요금제",
+      "scope": "organization",
+      "target": "롯데손해보험 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.lotteins.co.kr/web/C/D/I/popcdi010_ars.jsp",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "공식본문 ARS1고장출동2사고접수; 일반상담시간과 자동차24h 구분."
+        }
+      ],
+      "reason": "공식본문 ARS1고장출동2사고접수; 일반상담시간과 자동차24h 구분.",
+      "replacement": {
+        "source": "https://www.lotteins.co.kr/web/C/D/I/popcdi010_ars.jsp",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1번은 고장출동, 2번은 사고접수입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "롯데손해보험의 자동차 사고접수·고장출동 창구입니다.",
+          "usage": [
+            "ARS 1번은 고장출동, 2번은 사고접수입니다."
+          ],
+          "caution": "일반전화시내요금;휴대폰/070해당요금제",
+          "scope": "롯데손해보험의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-heungkuk-auto",
+      "status": "VALID",
+      "number": "1688-1688",
+      "organization": "흥국화재",
+      "serviceName": "자동차 사고접수·고장긴급출동",
+      "purpose": "자동차 사고접수·고장긴급출동",
+      "hours": "자동차 사고접수·긴급출동자동안내365일24시간;기타평일09~18",
+      "cost": "일반전화시내요금;휴대폰/070해당요금제",
+      "scope": "organization",
+      "target": "흥국화재 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://m.heungkukfire.co.kr/servicecenter/uinf/CCSIN0301_M01/CCSIN0301_M01.do",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "ARS1사고접수2고장긴급출동.24시간은 자동차 해당서비스;일반상담 아님."
+        }
+      ],
+      "reason": "ARS1사고접수2고장긴급출동.24시간은 자동차 해당서비스;일반상담 아님.",
+      "replacement": {
+        "source": "https://m.heungkukfire.co.kr/servicecenter/uinf/CCSIN0301_M01/CCSIN0301_M01.do",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1번은 사고접수, 2번은 고장 긴급출동입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "흥국화재의 자동차 사고접수·고장긴급출동 창구입니다.",
+          "usage": [
+            "ARS 1번은 사고접수, 2번은 고장 긴급출동입니다."
+          ],
+          "caution": "일반전화시내요금;휴대폰/070해당요금제",
+          "scope": "흥국화재의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-mg-auto",
+      "status": "OUTDATED",
+      "number": "1588-5959",
+      "organization": "예별손해보험",
+      "serviceName": "자동차 사고접수·조이카 긴급출동",
+      "purpose": "자동차 사고접수·조이카 긴급출동",
+      "hours": "사고·긴급출동24시간 unknown;조이카365일보상전문상담;일반평일09~18",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "예별손해보험 고객 및 해당 계약·상품 이용자",
+      "active": "successor-active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.yebyeol.co.kr/HP021250DM.scp?menuId=MN0603001",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "금융위2025-09-03 MG계약예별이전/영업정지 확인. 예별현행공식 사고접수·조이카 동일번호확인.특약가입자대상;24시간은 새회사본문확인불가."
+        },
+        {
+          "url": "https://www.fsc.go.kr/po010103/85232",
+          "type": "official-regulator",
+          "evidence": "opened-body",
+          "supports": "2025-09-03 MG손해보험 계약이전/영업정지 결정"
+        },
+        {
+          "url": "https://m.yebyeol.co.kr/RW121010MM.scp?menuId=MN5105002",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "현재예별자동차사고접수1588-5959"
+        }
+      ],
+      "reason": "금융위2025-09-03 MG계약예별이전/영업정지 확인. 예별현행공식 사고접수·조이카 동일번호확인.특약가입자대상;24시간은 새회사본문확인불가.",
+      "replacement": {
+        "source": "https://www.yebyeol.co.kr/HP021250DM.scp?menuId=MN0603001",
+        "verifiedAt": "2026-09-30",
+        "tip": "MG손해보험에서 이전된 보험계약은 예별손해보험으로 문의하세요. 고장출동은 가입 특약 조건에 따라 제공됩니다.",
+        "available24h": null,
+        "details": {
+          "summary": "예별손해보험의 자동차 사고접수·조이카 긴급출동 창구입니다.",
+          "usage": [
+            "MG손해보험에서 이전된 보험계약은 예별손해보험으로 문의하세요. 고장출동은 가입 특약 조건에 따라 제공됩니다."
+          ],
+          "scope": "예별손해보험의 계약·상품 관련 업무"
+        },
+        "title": "예별손해보험 사고·긴급출동",
+        "desc": "구 MG손보 계약 · 사고·고장출동",
+        "organization": "예별손해보험",
+        "keywords": [
+          "예별손해보험",
+          "예별손보",
+          "MG손해보험",
+          "MG손보",
+          "자동차 사고",
+          "긴급출동",
+          "보험 사고접수"
+        ]
+      }
+    },
+    {
+      "id": "org-ins-axa-auto",
+      "status": "VALID",
+      "number": "1566-1566",
+      "organization": "AXA손해보험",
+      "serviceName": "자동차 사고접수·고장출동",
+      "purpose": "자동차 사고접수·고장출동",
+      "hours": "자동차 사고접수/보상·고장출동365일24시간",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "AXA손해보험 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.axa.co.kr/cms/benefit/cyms0304/cyms030401/CMKBEI01M01_CMS001.html",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "ARS2고장출동3사고접수.일반보험상담 시간 별도."
+        }
+      ],
+      "reason": "ARS2고장출동3사고접수.일반보험상담 시간 별도.",
+      "replacement": {
+        "source": "https://www.axa.co.kr/cms/benefit/cyms0304/cyms030401/CMKBEI01M01_CMS001.html",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 2번은 고장출동, 3번은 사고접수입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "AXA손해보험의 자동차 사고접수·고장출동 창구입니다.",
+          "usage": [
+            "ARS 2번은 고장출동, 3번은 사고접수입니다."
+          ],
+          "scope": "AXA손해보험의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-hana-auto",
+      "status": "VALID",
+      "number": "1566-3000",
+      "organization": "하나손해보험",
+      "serviceName": "자동차 사고접수·고장출동",
+      "purpose": "자동차 사고접수·고장출동",
+      "hours": "사고접수/긴급출동24시간;일반평일09~18",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "하나손해보험 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.hanainsure.co.kr/w/customer/homepageInfo/customerWork",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "1566-3000/1644-3000.ARS1고장출동2사고접수."
+        }
+      ],
+      "reason": "1566-3000/1644-3000.ARS1고장출동2사고접수.",
+      "replacement": {
+        "source": "https://www.hanainsure.co.kr/w/customer/homepageInfo/customerWork",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1번은 고장출동, 2번은 사고접수입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "하나손해보험의 자동차 사고접수·고장출동 창구입니다.",
+          "usage": [
+            "ARS 1번은 고장출동, 2번은 사고접수입니다."
+          ],
+          "scope": "하나손해보험의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-ins-carrot-auto",
+      "status": "OUTDATED",
+      "number": "1566-0300",
+      "organization": "한화손해보험 캐롯",
+      "serviceName": "캐롯 자동차보험 고객센터",
+      "purpose": "캐롯 자동차보험 고객센터",
+      "hours": "unknown",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "한화손해보험 캐롯 고객 및 해당 계약·상품 이용자",
+      "active": "successor-active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.carrotins.com/",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "현행공식페이지제목 한화손보캐롯 확인.금감원2026-03-25자료2025-10합병 확인.본문0줄이라 합병후해당번호 사고/출동/시간 재확인불가;2024금감원자료 번호존재."
+        },
+        {
+          "url": "https://kiri.or.kr/PDF/weeklytrend/20260406/trend20260406_7.pdf",
+          "type": "official-regulator-document-mirror",
+          "evidence": "opened-body",
+          "supports": "금융감독원2026-03-25보도자료본문2025-10한화캐롯합병"
+        },
+        {
+          "url": "https://kiri.or.kr/PDF/weeklytrend/20240213/trend20240213_19.pdf",
+          "type": "official-regulator-document-mirror",
+          "evidence": "opened-body",
+          "supports": "2024금융감독원긴급출동24h자료.현재운영시간검증에는한계가있음"
+        }
+      ],
+      "reason": "현행공식페이지제목 한화손보캐롯 확인.금감원2026-03-25자료2025-10합병 확인.본문0줄이라 합병후해당번호 사고/출동/시간 재확인불가;2024금감원자료 번호존재.",
+      "replacement": {
+        "source": "https://www.carrotins.com/",
+        "verifiedAt": "2026-09-30",
+        "tip": "캐롯 자동차보험 전용 연락처의 최신 운영정보는 추가 확인이 필요합니다.",
+        "available24h": null,
+        "details": {
+          "summary": "한화손해보험 캐롯의 캐롯 자동차보험 고객센터 창구입니다.",
+          "usage": [
+            "캐롯 자동차보험 전용 연락처의 최신 운영정보는 추가 확인이 필요합니다."
+          ],
+          "scope": "한화손해보험 캐롯의 계약·상품 관련 업무"
+        },
+        "title": "한화손해보험 캐롯 고객센터",
+        "desc": "캐롯 자동차보험 문의",
+        "organization": "한화손해보험 캐롯",
+        "keywords": [
+          "캐롯",
+          "캐롯 자동차보험",
+          "한화손해보험 캐롯",
+          "자동차보험"
+        ]
+      }
+    },
+    {
+      "id": "org-card-hyundai-lost",
+      "status": "VALID",
+      "number": "1577-6200",
+      "organization": "현대카드",
+      "serviceName": "도난·분실 신고",
+      "purpose": "도난·분실 신고",
+      "hours": "카드 수령등록·이용·도난·분실 신고 365일24시간",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "현대카드 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://mycompany.hyundaicard.com/cs/cl/CSCL1002.do?_method=l",
+          "type": "official-first-party",
+          "evidence": "direct-http-body",
+          "supports": "1577-6200 카드 수령등록·이용·도난분실 신고365일24시간;도난분실/보이스피싱 신고 표"
+        }
+      ],
+      "reason": "web open 오류 후 공식 URL의 HTML을 직접 조회하여1577-6200·365일24시간·도난분실/보이스피싱신고 표를 확인했습니다.",
+      "replacement": {
+        "source": "https://mycompany.hyundaicard.com/cs/cl/CSCL1002.do?_method=l",
+        "verifiedAt": "2026-09-30",
+        "available24h": true,
+        "details": {
+          "summary": "현대카드의 도난·분실 및 보이스피싱 신고 창구입니다.",
+          "usage": [
+            "카드 도난·분실 신고·해제·접수 확인과 보이스피싱 신고를 문의할 수 있습니다."
+          ],
+          "scope": "현대카드 고객의 카드 관련 신고",
+          "hours": "카드 수령등록·이용·도난·분실 신고 365일24시간"
+        }
+      }
+    },
+    {
+      "id": "org-card-samsung-lost",
+      "status": "VALID",
+      "number": "1588-8900",
+      "organization": "삼성카드",
+      "serviceName": "분실신고·한도승인",
+      "purpose": "분실신고·한도승인",
+      "hours": "ARS24시간;일반상담직원평일09~18",
+      "cost": "유료;유선3분39원VAT별도;휴대폰해당통신사요금",
+      "scope": "organization",
+      "target": "삼성카드 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.samsungcard.com/personal/customer-service/ars/UHPPCC0221M0.jsp?click=gnb_customer_ars",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "ARS1분실/해제/조회,9보이스피싱등금융사고.ARS24시간과상담원시간구분."
+        }
+      ],
+      "reason": "ARS1분실/해제/조회,9보이스피싱등금융사고.ARS24시간과상담원시간구분.",
+      "replacement": {
+        "source": "https://www.samsungcard.com/personal/customer-service/ars/UHPPCC0221M0.jsp?click=gnb_customer_ars",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1번은 분실신고·해제·조회, 9번은 보이스피싱 등 금융사고 신고입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "삼성카드의 분실신고·한도승인 창구입니다.",
+          "usage": [
+            "ARS 1번은 분실신고·해제·조회, 9번은 보이스피싱 등 금융사고 신고입니다."
+          ],
+          "caution": "유료;유선3분39원VAT별도;휴대폰해당통신사요금",
+          "scope": "삼성카드의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-card-lotte-lost",
+      "status": "VALID_BUT_COPY_FIX",
+      "number": "1588-8300",
+      "organization": "롯데카드",
+      "serviceName": "분실신고·승인",
+      "purpose": "분실신고·승인",
+      "hours": "분실신고/승인365일24시간",
+      "cost": "유선3분39원;휴대폰해당통신사요금",
+      "scope": "organization",
+      "target": "롯데카드 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://mweb2.lottecard.co.kr/app/LPCSTEA_V100.lc",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "공식서비스명분실신고/승인.기존 title 한도승인보다승인정확.해외전용번호별도."
+        }
+      ],
+      "reason": "공식서비스명분실신고/승인.기존 title 한도승인보다승인정확.해외전용번호별도.",
+      "replacement": {
+        "source": "https://mweb2.lottecard.co.kr/app/LPCSTEA_V100.lc",
+        "verifiedAt": "2026-09-30",
+        "available24h": true,
+        "details": {
+          "summary": "롯데카드의 분실신고·승인 창구입니다.",
+          "usage": [
+            "분실신고·승인 업무를 문의할 수 있습니다."
+          ],
+          "caution": "유선3분39원;휴대폰해당통신사요금",
+          "scope": "롯데카드의 계약·상품 관련 업무"
+        },
+        "title": "롯데카드 분실·승인",
+        "desc": "카드 분실·도난 신고"
+      }
+    },
+    {
+      "id": "org-card-shinhan-lost",
+      "status": "VALID_BUT_COPY_FIX",
+      "number": "1544-7200",
+      "organization": "신한카드",
+      "serviceName": "승인·카드분실신고",
+      "purpose": "승인·카드분실신고",
+      "hours": "365일;24시간unknown;일부서비스이용시간제한",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "신한카드 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.shinhancard.com/conts/store/customor_center/ars_gu/cardLost.jsp",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "본문번호/서비스확인.365일만확인,모든상담24h미확인.보이스피싱키워드해당번호미확인."
+        }
+      ],
+      "reason": "본문번호/서비스확인.365일만확인,모든상담24h미확인.보이스피싱키워드해당번호미확인.",
+      "replacement": {
+        "source": "https://www.shinhancard.com/conts/store/customor_center/ars_gu/cardLost.jsp",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1번에서 카드분실신고·해제·분실접수 확인을 선택하세요.",
+        "available24h": null,
+        "details": {
+          "summary": "신한카드의 승인·카드분실신고 창구입니다.",
+          "usage": [
+            "ARS 1번에서 카드분실신고·해제·분실접수 확인을 선택하세요."
+          ],
+          "scope": "신한카드의 계약·상품 관련 업무"
+        },
+        "keywords": [
+          "신한카드",
+          "카드 분실",
+          "카드 도난",
+          "지갑 잃어버림",
+          "카드 정지",
+          "거래 승인"
+        ]
+      }
+    },
+    {
+      "id": "org-card-kb-lost",
+      "status": "VALID",
+      "number": "1588-1788",
+      "organization": "KB국민카드",
+      "serviceName": "분실신고·가맹점승인",
+      "purpose": "분실신고·가맹점승인",
+      "hours": "도난분실신고/해제24시간연중무휴;일반상담평일09~18",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "KB국민카드 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://card.kbcard.com/SVC/DVIEW/HSGMCXCRSCSC0030",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "본문ARS2도난분실신고/해제24시간.가맹점승인과일반카드상담구별."
+        }
+      ],
+      "reason": "본문ARS2도난분실신고/해제24시간.가맹점승인과일반카드상담구별.",
+      "replacement": {
+        "source": "https://card.kbcard.com/SVC/DVIEW/HSGMCXCRSCSC0030",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 2번은 도난·분실 신고 및 해제입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "KB국민카드의 분실신고·가맹점승인 창구입니다.",
+          "usage": [
+            "ARS 2번은 도난·분실 신고 및 해제입니다."
+          ],
+          "scope": "KB국민카드의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-card-woori-lost",
+      "status": "VALID",
+      "number": "1588-5300",
+      "organization": "우리카드",
+      "serviceName": "분실신고ARS",
+      "purpose": "분실신고ARS",
+      "hours": "365일24시간",
+      "cost": "유선3분39원VAT별도;휴대폰해당통신사요금",
+      "scope": "organization",
+      "target": "우리카드 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://pc.wooricard.com/dcpc/yh1/cct/cct04/H1CCT204S06.do",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "본문ARS1개인2기업분실0보이스피싱등금융사고신고 확인."
+        }
+      ],
+      "reason": "본문ARS1개인2기업분실0보이스피싱등금융사고신고 확인.",
+      "replacement": {
+        "source": "https://pc.wooricard.com/dcpc/yh1/cct/cct04/H1CCT204S06.do",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1번은 개인카드 분실, 2번은 기업카드 분실, 0번은 보이스피싱 등 금융사고 신고입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "우리카드의 분실신고ARS 창구입니다.",
+          "usage": [
+            "ARS 1번은 개인카드 분실, 2번은 기업카드 분실, 0번은 보이스피싱 등 금융사고 신고입니다."
+          ],
+          "caution": "유선3분39원VAT별도;휴대폰해당통신사요금",
+          "scope": "우리카드의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-card-hana-lost",
+      "status": "VALID_BUT_COPY_FIX",
+      "number": "1800-1111",
+      "organization": "하나카드",
+      "serviceName": "대표ARS의 카드분실신고",
+      "purpose": "대표ARS의 카드분실신고",
+      "hours": "대표ARS8분실/금융사고24시간;일반상담평일09~18",
+      "cost": "유료;유선3분39원VAT별도;휴대폰해당통신사요금",
+      "scope": "organization",
+      "target": "하나카드 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://www.hanacard.co.kr/jsp/wcms/scd/sa/OSA10200000P.jsp",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "현재번호로신고가능.전용번호없다는tip틀림:공식모바일 도난분실1599-1133,승인ARS1800-2000도24h분실신고."
+        },
+        {
+          "url": "https://m.hanacard.co.kr/MKCNSL6010M.web",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "도난분실1599-1133별도번호;대표1800-1111"
+        }
+      ],
+      "reason": "현재번호로신고가능.전용번호없다는tip틀림:공식모바일 도난분실1599-1133,승인ARS1800-2000도24h분실신고.",
+      "replacement": {
+        "source": "https://www.hanacard.co.kr/jsp/wcms/scd/sa/OSA10200000P.jsp",
+        "verifiedAt": "2026-09-30",
+        "tip": "대표번호 ARS 8번에서 분실·금융사고 신고를 선택하세요. 도난·분실 전용 번호는 1599-1133입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "하나카드의 대표ARS의 카드분실신고 창구입니다.",
+          "usage": [
+            "대표번호 ARS 8번에서 분실·금융사고 신고를 선택하세요. 도난·분실 전용 번호는 1599-1133입니다."
+          ],
+          "caution": "유료;유선3분39원VAT별도;휴대폰해당통신사요금",
+          "scope": "하나카드의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-card-nh-lost",
+      "status": "VALID",
+      "number": "1644-4000",
+      "organization": "NH농협카드",
+      "serviceName": "분실·금융사기신고ARS",
+      "purpose": "분실·금융사기신고ARS",
+      "hours": "분실/금융사기신고및상담사연결00~24연중무휴",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "NH농협카드 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://card.nonghyup.com/content/html/ip/ci/ipci1097c.html",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "ARS1분실/금융사기신고하위1분실;4금융사기신고;24h표확인."
+        }
+      ],
+      "reason": "ARS1분실/금융사기신고하위1분실;4금융사기신고;24h표확인.",
+      "replacement": {
+        "source": "https://card.nonghyup.com/content/html/ip/ci/ipci1097c.html",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 1-1번은 분실신고, 1-4번은 금융사기 신고입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "NH농협카드의 분실·금융사기신고ARS 창구입니다.",
+          "usage": [
+            "ARS 1-1번은 분실신고, 1-4번은 금융사기 신고입니다."
+          ],
+          "scope": "NH농협카드의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-bank-kb-incident",
+      "status": "VALID",
+      "number": "1588-9999",
+      "organization": "KB국민은행",
+      "serviceName": "ARS사고신고",
+      "purpose": "ARS사고신고",
+      "hours": "연중무휴24시간접수",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "KB국민은행 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://obank.kbstar.com/quics?page=C028064",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "본문대상통장/인감/현금·직불카드/KB카드/수표/보안카드OTP.ARS*확인.수표전화는예비신고."
+        }
+      ],
+      "reason": "본문대상통장/인감/현금·직불카드/KB카드/수표/보안카드OTP.ARS*확인.수표전화는예비신고.",
+      "replacement": {
+        "source": "https://obank.kbstar.com/quics?page=C028064",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS 연결 뒤 * 버튼에서 분실 대상에 맞는 신고 메뉴를 선택하세요.",
+        "available24h": true,
+        "details": {
+          "summary": "KB국민은행의 ARS사고신고 창구입니다.",
+          "usage": [
+            "ARS 연결 뒤 * 버튼에서 분실 대상에 맞는 신고 메뉴를 선택하세요."
+          ],
+          "scope": "KB국민은행의 계약·상품 관련 업무"
+        }
+      }
+    },
+    {
+      "id": "org-bank-woori-incident",
+      "status": "VALID",
+      "number": "1588-5000",
+      "organization": "우리은행",
+      "serviceName": "분실·금융사기사고신고",
+      "purpose": "분실·금융사기사고신고",
+      "hours": "사고신고연중무휴24시간;일반평일09~18",
+      "cost": "unknown",
+      "scope": "organization",
+      "target": "우리은행 고객 및 해당 계약·상품 이용자",
+      "active": "active",
+      "checkedDate": "2026-09-30",
+      "sources": [
+        {
+          "url": "https://spot.wooribank.com/pot/Dream?withyou=CQACR0001",
+          "type": "official-first-party",
+          "evidence": "opened-body",
+          "supports": "본문#1보이스피싱#2-3통장/인감#2-5보안카드OTP 확인.우리신용/체크카드는우리카드쪽."
+        }
+      ],
+      "reason": "본문#1보이스피싱#2-3통장/인감#2-5보안카드OTP 확인.우리신용/체크카드는우리카드쪽.",
+      "replacement": {
+        "source": "https://spot.wooribank.com/pot/Dream?withyou=CQACR0001",
+        "verifiedAt": "2026-09-30",
+        "tip": "ARS #-1은 보이스피싱, #-2-3은 통장·인감, #-2-5는 보안카드·OTP 분실 신고입니다.",
+        "available24h": true,
+        "details": {
+          "summary": "우리은행의 분실·금융사기사고신고 창구입니다.",
+          "usage": [
+            "ARS #-1은 보이스피싱, #-2-3은 통장·인감, #-2-5는 보안카드·OTP 분실 신고입니다."
+          ],
+          "scope": "우리은행의 계약·상품 관련 업무"
+        }
+      }
+    }
+  ]
+}

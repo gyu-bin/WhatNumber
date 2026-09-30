@@ -1,7 +1,6 @@
 import {
   CAT_COLOR,
   iconBgColor,
-  telHref,
 } from '@whatnumber/shared';
 import type { NumberItem } from '@whatnumber/shared';
 import { Link } from 'react-router-dom';
@@ -11,6 +10,7 @@ import { copyNumberShare, copyText } from '../utils/share';
 import { localizeNumberDetail } from '../i18n';
 import { useLocale } from '../hooks/useLocale';
 import { numberPath } from '../utils/seo';
+import { callHref, handleRegionalCall } from '../lib/regionalCall';
 import styles from './NumberDetail.module.css';
 
 interface NumberDetailProps {
@@ -122,7 +122,7 @@ export function NumberDetail({
           </div>
         )}
 
-        <a href={telHref(item.num)} className={styles.callBtn}>
+        <a href={callHref(item.num)} className={styles.callBtn} onClick={(event) => handleRegionalCall(event, item.num, locale)}>
           {t('detail.call', { num: item.num })}
         </a>
 

@@ -36,12 +36,12 @@
     "srTitle": "WhatNumber? — Public hotlines by emergency, traffic, housing, and legal situation",
     "faq": [
       {
-        "question": "Who do I call if I cannot pay for the ER?",
-        "answer": "Call 129 (Emergency Medical Support Center) for guidance on national advance payment for treatment."
+        "question": "Who can advise on medical cost support?",
+        "answer": "129 is the Health and Welfare Counseling Center for welfare and medical cost support programs. Eligibility and application procedures vary. For an urgent medical emergency, call 119 first."
       },
       {
-        "question": "Free towing after an expressway accident?",
-        "answer": "Call 1588-2504 (public tow truck) or 1588-2100 (emergency towing) first."
+        "question": "Who can advise on expressway emergency towing?",
+        "answer": "Call 1588-2504 and confirm eligibility and towing limits. On Korea Expressway Corporation roads, emergency towing supports eligible vehicles to the nearest safety area, not onward transport to a repair shop."
       },
       {
         "question": "Espionage or counterintelligence reporting numbers?",
@@ -51,7 +51,7 @@
   },
   "intro": {
     "heading": "Why WhatNumber?",
-    "paragraph1": "Ever needed 129 for ER costs, 1588-2504 for a public tow after a highway crash, or 1566-9009 before signing a jeonse lease—but did not know them? WhatNumber is a free guide that organizes public hotlines you will actually use, by situation.",
+    "paragraph1": "Need welfare advice at 129, expressway towing guidance at 1588-2504, or rental deposit guarantee information at 1566-9009? WhatNumber organizes useful public phone numbers by situation.",
     "paragraph1Strong": "public hotlines you will actually use",
     "paragraph2BeforeLink": "Each entry explains when to call and in what order. In a hurry, tap the number on a card to dial; to read ahead, see our",
     "paragraph2Link": "situation guides",
@@ -85,12 +85,12 @@
     "legal": "Legal / finance"
   },
   "situationTips": {
-    "emergency": "💡 ERs must not refuse emergency care for lack of money. Call 129 first. For mental health: 109 · 1393.",
-    "car": "💡 If injured: 119 → report 112 → on expressways 1588-2504 (public tow). Call your insurer’s hotline.",
-    "crime": "💡 Voice phishing 1398 · cybercrime 118 · espionage 111 (NIS) · 113 (police). Emergency: 112.",
-    "home": "💡 National civil complaints 110 · local 0XX-120. Power outage 123 · gas 1670-1004 · address change 1588-1300.",
-    "abroad": "💡 Overseas emergency: 02-3210-0404 (+82). Customs / direct import: 125.",
-    "legal": "💡 Free legal advice 132. Debt counseling 1600-5500, inclusive finance 1397."
+    "emergency": "💡 Urgent rescue or medical emergency: 119 first. Welfare support: 129. Suicide prevention counseling: 109.",
+    "car": "💡 Injuries: 119. Police emergencies: 112. Expressway towing guidance: 1588-2504. Check your insurer's policy coverage.",
+    "crime": "💡 Phishing advice and reports: 1394. Internet security incidents: 118. Urgent crime: 112. Security reports: 111 or 113.",
+    "home": "💡 Government inquiries: 110. Regional call centers have different coverage and hours. Power faults: area code + 123 from mobile phones. Postal forwarding: 1588-1300.",
+    "abroad": "💡 Overseas consular safety assistance: +82-2-3210-0404. Customs inquiries: 125.",
+    "legal": "💡 Legal counseling: 132. Debt adjustment: 1600-5500. Inclusive finance: 1397. Calling fees may apply."
   },
   "categories": {
     "all": "All",
@@ -191,135 +191,135 @@
     "items": {
       "emergency": {
         "title": "Who to call first in an emergency",
-        "summary": "The difference between 119, 112, 129, and 1339—and the order to call when you are sick or in danger.",
+        "summary": "Emergency response, welfare support, infectious disease advice, and suicide prevention counseling have different purposes.",
         "sections": [
           {
             "heading": "Decide if life is at risk",
             "paragraphs": [
-              "If someone is unconscious, struggling to breathe, or bleeding heavily, call 119 immediately. Fire, gas leaks, or smoke also mean 119. Give your location first (road name address, building, floor) so ambulances and fire trucks arrive faster.",
-              "If a crime is in progress or someone is being chased, call 112 first. You can also report by text when you cannot make noise."
+              "For urgent fire, rescue, or medical emergencies, call 119 from a safe place and give your location, situation, and the number of people needing help.",
+              "For urgent crime or threats to your safety, call 112. Text reporting is available if speaking is difficult."
             ]
           },
           {
-            "heading": "If the ER refuses care because of cost",
+            "heading": "Questions about medical cost support",
             "paragraphs": [
-              "Emergency patients have the right to care regardless of ability to pay. Being turned away with only “we cannot treat you without money” is often improper.",
-              "Call 129 (Emergency Medical Support Center) for guidance on state advance payment. Stay at the ER after calling so your condition does not worsen."
+              "129 is the Health and Welfare Counseling Center for welfare and medical cost support programs.",
+              "Ask about eligibility and application procedures. 129 is not an emergency medical dispatch service; for urgent rescue or medical care, call 119 first."
             ]
           },
           {
-            "heading": "Finding open hospitals and pharmacies at night or on holidays",
+            "heading": "Infectious disease advice",
             "paragraphs": [
-              "1339 (Ministry of Health & Welfare call center) lists emergency, night, and holiday clinics and pharmacies nationwide. Useful when you need care now—not just a cold—but for ongoing pain, high fever, or dizziness and you do not know what is open."
+              "1339 is the Korea Disease Control and Prevention Agency call center for infectious disease information, prevention, vaccination, and reporting. For urgent medical response, call 119."
             ]
           },
           {
-            "heading": "When it feels too heavy to cope alone",
+            "heading": "Suicide prevention support",
             "paragraphs": [
-              "109 (suicide prevention hotline) is anonymous 24/7. Even outside crisis, you can talk about anxiety, depression, or family conflict. Sharing with a professional often eases the load."
+              "109 provides suicide prevention counseling 24 hours a day. If someone's life or physical safety is in immediate danger, call 119 or 112 first."
             ]
           }
         ]
       },
       "car-accident": {
         "title": "Traffic accidents and car breakdowns: call order",
-        "summary": "Expressway crashes, shoulder breakdowns, insurance, and public vs private tow—practical steps in one guide.",
+        "summary": "Emergency response, expressway towing limits, insurance coverage, and government compensation guidance.",
         "sections": [
           {
-            "heading": "First 10 minutes after a crash",
+            "heading": "Request the right emergency response",
             "paragraphs": [
-              "If anyone is injured, call 119 first. If conscious and able to move, pull to a safe place (shoulder) and use hazard lights and a warning triangle.",
-              "Then report the accident to 112. If drunk driving, hit-and-run, or signal violations are possible, police confirmation helps later with insurance and settlement."
+              "For injuries or rescue, call 119 and follow the responder's instructions.",
+              "For a police emergency, call 112 and give the accident location and current dangers. Accident certificates and routine inquiries use separate police procedures."
             ],
             "bullets": [
-              "119 — injury, unconsciousness, bleeding",
-              "112 — accident report, scene confirmation",
-              "1588-2504 — expressway public tow (free)",
-              "Your insurer’s hotline — accident report & roadside"
+              "119 — rescue and medical emergencies",
+              "112 — police emergencies",
+              "1588-2504 — expressway towing guidance",
+              "Your insurer — reporting and assistance within policy coverage"
             ]
           },
           {
-            "heading": "On expressways, prefer public tow",
+            "heading": "Check expressway towing eligibility",
             "paragraphs": [
-              "Private tow trucks may arrive first after a breakdown or crash. Always confirm fees before use. The public tow (1588-2504) can move your vehicle free within designated sections—helpful when costs add stress.",
-              "If stopped on the shoulder, remember expressway emergency towing (1588-2100) for free help to a safe area in some cases."
+              "From a safe place, contact 1588-2504 with your road location and vehicle situation. Confirm eligibility and towing limits.",
+              "On Korea Expressway Corporation roads, emergency towing supports eligible vehicles at risk of secondary accidents to the nearest safety area. Further transport to a repair shop is not necessarily free; confirm charges before agreeing."
             ]
           },
           {
             "heading": "Uninsured or hit-and-run opponent",
             "paragraphs": [
-              "If the other driver is uninsured or you have no plate number, call 1544-0119 (uninsured motorist injury support) for compensation guidance. Gather scene photos, witness contacts, and dashcam footage quickly."
+              "For government compensation program inquiries, call the Automobile Compensation Promotion Institute at 1544-0049 and select 1. Ask about statutory eligibility and required documents for hit-and-run, uninsured vehicle, and other covered injury cases. Not every accident or property loss qualifies."
             ]
           }
         ]
       },
       "housing": {
         "title": "Jeonse, moving, noise, and housing issues",
-        "summary": "Jeonse fraud prevention, bulk address change after a move, noise mediation, gas leaks—numbers explained by situation.",
+        "summary": "Rental deposit guarantees, postal forwarding, neighbor noise support, and urgent household hazards.",
         "sections": [
           {
-            "heading": "Before signing a jeonse contract",
+            "heading": "Rental deposit guarantee inquiries",
             "paragraphs": [
-              "Jeonse deposit is often a household’s largest asset. 1566-9009 (HUG jeonse fraud support) explains registry checks and safe contract steps before you sign.",
-              "“Urgent sale” or “special studio” deals only, or meeting only a landlord’s agent, can be scam patterns. Get public counseling before transferring the deposit."
+              "1566-9009 is HUG's integrated call center for rental deposit return guarantees, rental loans, and Housing and Urban Fund products.",
+              "Check a guarantee's eligibility and coverage. This is not the dedicated rental fraud victim support channel."
             ]
           },
           {
-            "heading": "Change address in one go after moving",
+            "heading": "Forward mail after moving",
             "paragraphs": [
-              "1588-1300 (bulk address change) updates banks, cards, insurance, carriers, and more in one request—fewer missed mail and documents at your old address."
+              "Ask the postal customer center at 1588-1300 about mail forwarding conditions, duration, and fees. Bank, card, insurance, and other registered addresses must be updated separately."
             ]
           },
           {
-            "heading": "Floor noise and gas leaks",
+            "heading": "Neighbor noise and urgent hazards",
             "paragraphs": [
-              "For repeated floor noise, 1661-2642 (noise mediation) offers professional mediation—often faster than endless arguments.",
-              "If you smell gas, do not touch switches; open windows and call 1670-1004 (city gas emergency). They respond 24/7."
+              "1661-2642 is the Neighbor Noise Center for apartment noise counseling and on-site support. Ask about eligibility and procedures; binding mediation or a resolved dispute is not guaranteed.",
+              "For urgent fire, rescue, or other immediate danger, call 119. For non-emergency gas service matters, contact the gas supplier responsible for your area."
             ]
           }
         ]
       },
       "legal-finance": {
-        "title": "Voice phishing, consumer disputes, free legal help",
-        "summary": "Financial fraud, refund denials, medical cost refunds, and free legal counseling—numbers that actually connect.",
+        "title": "Phishing, consumer disputes, and legal counseling",
+        "summary": "Financial phishing reporting, consumer advice, legal aid eligibility, and health insurance inquiries.",
         "sections": [
           {
             "heading": "If you suspect voice phishing",
             "paragraphs": [
-              "Calls posing as prosecutors, police, or FSS, claims your account is tied to crime, or requests remote-control apps are classic patterns. Hang up and call 1398 (voice phishing report)—even while still on the suspicious call.",
-              "1332 (FSS complaints) also helps with illegal loans, investment pitches, and financial product harm."
+              "End a suspected phishing call, then contact 1394 for advice or integrated reporting. For immediate crime or threats to your safety, call 112.",
+              "1332 is the Financial Supervisory Service counseling line for financial products and harm from illegal financial activity."
             ]
           },
           {
             "heading": "Refunds and contract disputes",
             "paragraphs": [
-              "If an online shop, academy, or carrier refuses a refund, apply for mediation at 1544-0990 (Consumer Agency). Having contracts, payment records, and chat screenshots ready smooths the process."
+              "1372 provides consumer counseling on transactions, contracts, and consumer harm. Prepare contracts, payment records, and other relevant documents."
             ]
           },
           {
-            "heading": "Free legal advice and medical refunds",
+            "heading": "Legal counseling and health insurance",
             "paragraphs": [
-              "132 (Korean Legal Aid) offers free lawyer consultation on traffic accidents, damages, lease disputes, and more. Worth one call before litigation.",
-              "1577-1000 (HIRA) explains refunds when annual out-of-pocket costs exceed the cap. Ask if the hospital never mentioned a refund you may qualify for."
+              "132 is the Korea Legal Aid Corporation number for legal counseling and litigation support eligibility. Calling charges are paid by the caller.",
+              "1577-1000 is the National Health Insurance Service number for premiums, benefits, and reimbursement, including questions about the out-of-pocket ceiling. Ask about eligibility and procedures; refunds are not guaranteed."
             ]
           }
         ]
       },
       "civil-admin": {
         "title": "Civil complaints: 110 and regional 120",
-        "summary": "How national 110 and city/province 120 lines work—and which complaints go where.",
+        "summary": "National government inquiry guidance and regional call centers with their own coverage and hours.",
         "sections": [
           {
             "heading": "110 vs 0XX-120",
             "paragraphs": [
-              "110 (Government call center) connects central, local, and public agency complaints nationwide. When unsure where to call, start with 110.",
-              "If you know your region, the local center (e.g. Seoul 02-120, Gyeonggi 031-120) is often faster for daily issues—trash, road damage, parks."
+              "110 provides free government inquiry counseling 24 hours every day. Ask which office handles your issue.",
+              "For regional inquiries, use the relevant published number, such as Seoul 02-120 or Gyeonggi 031-120. Regional coverage, hours, and calling fees vary; not every area has an equivalent 120 service."
             ]
           },
           {
-            "heading": "Resident registration and family relations certificates",
+            "heading": "Gov24 online service help",
             "paragraphs": [
-              "1588-2188 (Gov24 call center) guides issuance of resident and family certificates and digital certificates. Many tasks no longer require a visit to the community office."
+              "1588-2188 is the Gov24 customer center for help using online government services and certificate issuance. Check the official service page for the documents and process relevant to your request."
             ]
           }
         ]
@@ -331,14 +331,14 @@
           {
             "heading": "School violence and domestic violence",
             "paragraphs": [
-              "117 (school violence) accepts text reports. If a child says they are bullied, do not rely on the school alone—know the public reporting path.",
-              "1366 (women’s emergency hotline) offers 24/7 counseling and protection linkage for domestic violence, sexual violence, and stalking."
+              "Report school violence by calling 117 or texting #0117. For immediate danger, call 112.",
+              "1366 provides emergency counseling and support referrals for violence against women, 24 hours every day. Calls are charged."
             ]
           },
           {
             "heading": "Illegal filming and digital sex crimes",
             "paragraphs": [
-              "1899-0088 (digital sex crime victim support) helps remove distributed content, explains investigation steps, and links counseling. Prepare screenshots, URLs, and how you found the material."
+              "02-735-8994 is the central digital sex crime victim support center. Ask about victim counseling, content removal assistance, and referrals. Hours: weekdays 08:00–22:00; weekends and public holidays 09:00–18:00."
             ]
           }
         ]
@@ -353,8 +353,8 @@
     "title": "Numbers you did not know you needed",
     "lead": "WhatNumber? is a free web service that lists public hotlines Koreans actually need in urgent and daily life, organized by situation.",
     "problemHeading": "What problem does it solve?",
-    "problemP1Before": "Many know 119 and 112, but numbers like 129 for ER costs, 1588-2504 for public tow after a highway crash, or 1566-9009 before jeonse—",
-    "problemP1Strong": "numbers that help immediately when you know them",
+    "problemP1Before": "Many know 119 and 112, but numbers like 129 for welfare support, 1588-2504 for expressway towing guidance, or 1566-9009 for rental deposit guarantees—",
+    "problemP1Strong": "useful numbers with different service scopes",
     "problemP1After": "— rarely show up in a quick search. In a rush there is no time to Google; hopping across government sites is hard.",
     "problemP2": "WhatNumber? gathers these in one place with situation filters, search, and favorites so you can find and dial quickly on mobile.",
     "selectionHeading": "How are numbers chosen?",
@@ -363,7 +363,7 @@
     "contentHeading": "Content and guides",
     "contentP1Before": "Beyond a flat list, our",
     "contentP1Link": "situation guides",
-    "contentP1After": " cover accident steps, voice phishing, ER costs, and more. Each number detail explains concrete situations for that hotline.",
+    "contentP1After": " explain emergency response, phishing reports, welfare support, and other service choices. Each number detail describes the hotline's purpose.",
     "opsHeading": "Operation and contact",
     "opsP1Before": "WhatNumber? is an individually operated information service. Ads (AdSense · AdMob) may appear on web and app. See our",
     "opsP1Link": "Privacy policy",

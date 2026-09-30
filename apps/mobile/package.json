@@ -12,6 +12,8 @@
     "web": "EXPO_NO_UPDATES=1 expo start --web",
     "prebuild": "expo prebuild",
     "lint:types": "tsc --noEmit",
+    "validate:phones": "node scripts/validate-phone-data.cjs",
+    "test:phones": "node scripts/test-phone-data.cjs",
     "eas:build:dev": "eas build --profile development",
     "eas:build:preview": "eas build --profile preview",
     "eas:build:prod": "eas build --profile production",

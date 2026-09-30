@@ -1,287 +1,419 @@
 {
   "e1": [
-    "129は救急医療支援センター。救急費用で治療を断られたり退院を拒否されたときに連絡。",
-    "経済的理由で適切な救急を拒否されてはいけません。129で国の先払い手続きを案内。",
-    "緊急時はまず119で搬送・救助。病院で費用問題なら129。"
+    "129 — 保健福祉相談。緊急福祉・医療費支援制度。",
+    "129は保健福祉相談センターです。保健医療・高額な医療費・基礎生活保障等を相談できます。一般相談は平日09:00–18:00、緊急福祉・支援漏れ・虐待・精神保健危機は24時間。全国無料です。",
+    "緊急の救助・救急は119へ。医療費支援の条件と手続は相談で確認してください。"
   ],
   "e2": [
-    "119は火災・救急・救助を統合処理する韓国の代表緊急番号。",
-    "「どこで・何が・何人」を順に伝える。煙なら低姿勢避難後に通報。"
+    "119 — 火災・救助・救急通報。火災・救助・救急出動の要請。",
+    "119救急状況管理センターは応急処置の指導と救急医療相談も提供します。",
+    "安全な場所から位置・状況・助けが必要な人数を伝えてください。"
   ],
   "e3": [
-    "112は警察緊急通報。進行中の犯罪、脅迫、交通事故、家庭内暴力など。",
-    "話せないときは112 SMS通報可。位置情報を許可すると出動が早い。"
+    "112 — 警察緊急通報。犯罪・脅迫の通報と警察出動。",
+    "112通報ポータルは電話・SMS・録音・映像の通報機能を案内しています。",
+    "位置と状況を伝えてください。話せない場合はSMS通報を利用できます。"
   ],
   "e4": [
-    "1339 is the health call center for after-hours ERs and 24-hour pharmacies.",
-    "Useful when you need a hospital you can reach now. Give area and symptoms for nearby options; infectious disease guidance is also available."
+    "1339 — 疾病管理庁1339。感染症・疾病の相談と届出。",
+    "疾病管理庁1339は年中無休24時間。韓国内通話は無料、海外からは国際通話料が発生します。",
+    "感染症・疾病・予防接種・届出手続を相談できます。"
   ],
   "e5": [
-    "1577-2584 is the Crime Victim Support Center—medical, counseling, and legal referrals after violence or robbery.",
-    "This is public recovery support separate from investigation—contact early rather than coping alone."
+    "1577-2584 — 検察庁犯罪被害者支援。被害回復の相談・支援機関の紹介。",
+    "1577-2584は検察庁の被害者支援室につながります。被害者・家族に事件手続や処分結果を案内し、被害回復の相談・支援機関の紹介を提供します。",
+    "緊急の犯罪・身の危険は112に通報してください。"
   ],
   "e6": [
-    "02-3210-0404 is the MOFA consular call center—24/7 Korean help for citizens abroad.",
-    "For passport loss, arrest, accidents, or disasters overseas, contact local police/hospital first, then call. From abroad: +82-2-3210-0404."
+    "02-3210-0404 — 領事安全コールセンター。海外の事件・事故・緊急時の支援。",
+    "外交部の領事安全コールセンターは年中無休24時間。海外からは+82-2-3210-0404へ。ネット接続時は公式無料通話アプリも利用できます。",
+    "緊急通訳の範囲や現地での対応は相談員に確認してください。"
   ],
   "e7": [
-    "109 is the 24/7 anonymous mental health crisis line.",
-    "You do not have to face severe anxiety, depression, or isolation alone. Counselors listen without judgment and can link local mental health or emergency services."
+    "109 — 自殺予防相談。24時間の自殺予防専門相談。",
+    "自殺予防相談は2024年1月1日から109に統合され、24時間対応です。他の精神保健相談番号はそれぞれの担当分野に対応します。",
+    "生命・身体に差し迫った危険がある場合は119または112へ。"
   ],
   "e8": [
-    "111 is the NIS reporting line for espionage, terror, North Korea-linked threats, and national security concerns.",
-    "Industrial technology leaks and counter-intelligence tips are included. Overlap with police 113—either line is fine."
+    "111 — 国家情報院安保通報。スパイ・テロ・産業スパイ等の情報。",
+    "北朝鮮のスパイ・関連勢力、国際犯罪、テロ、産業・防衛産業スパイ、外国スパイ、サイバー攻撃等の安保情報が対象です。",
+    "市外局番なしの111は無料です。SMS#0111や公式オンライン通報もあります。"
   ],
   "e9": [
-    "113 is police counter-espionage—for espionage, tech leaks, terror, and suspected spy activity.",
-    "If you see suspicious approaches or theft attempts, note time, place, and behavior when reporting."
+    "113 — 警察防諜通報。スパイ・産業技術流出・テロの通報。",
+    "緊急の犯罪や身の危険は112へ。"
   ],
   "e10": [
-    "1338 is integrated civil defense reporting—for drones, unknown vessels, suspicious military activity, and similar signs.",
-    "Record time and location if safe; evacuate first if there is danger."
-  ],
-  "e11": [
-    "1337 reports military secrets, military espionage, and defense-industry spying (Military Security Support Command).",
-    "Use for suspected leaks of military or defense technology; ordinary crimes go to 112."
-  ],
-  "e12": [
-    "122 is Korea Coast Guard emergency—for distress, accidents, illegal fishing, and marine pollution.",
-    "At sea, tidal flats, or islands, remember 122 with 119. Give precise location (island name, coordinates, buoys)."
-  ],
-  "e13": [
-    "1393 is the suicide prevention hotline—24/7 when you or someone nearby is at risk.",
-    "Can be used with 109. If life is in immediate danger, call 119 or 112 first."
+    "1338 — 軍関連の住民通報。軍関連の安保上の不審な状況。",
+    "1338は軍部隊への住民通報番号として自治体の公式案内に掲載されています。",
+    "不審な軍関連の状況を通報できます。緊急の犯罪・救助は112・119へ。"
   ],
   "e14": [
-    "128 handles environmental pollution complaints—odors, illegal dumping, water and air pollution.",
-    "State when, where, and what type of pollution to speed site checks."
+    "128 — 環境汚染通報。環境汚染行為の通報受付。",
+    "場所・時間・汚染の状況を準備してください。携帯電話では市外局番＋128を利用します。"
   ],
   "e15": [
-    "1399 is food safety counseling—for food poisoning, bad products, and mislabeled goods.",
-    "Have product name, store, expiry, and photos ready when reporting."
+    "1399 — 不正・不良食品通報。不良食品・表示広告違反の通報。",
+    "1399は食品安全情報院につながります。全国無料、平日09:00–18:00。製品・店舗情報や写真等の資料を準備してください。",
+    "医薬品・麻薬類・医療機器・化粧品の相談は各専用窓口へ。"
   ],
   "c1": [
-    "1588-2504 is KEX public tow on expressways—call before private tow to avoid overcharges after breakdowns or crashes.",
-    "Free distance may apply; use this first when confused right after an incident."
-  ],
-  "c2": [
-    "1588-2100 is expressway emergency tow to move vehicles from shoulders to safety.",
-    "Stopping on the highway is high risk—use hazards and a triangle, then call this, 119, or 112 as needed."
+    "1588-2504 — 高速道路の緊急牽引案内。故障・事故車両の安全地帯への移動。",
+    "1588-2504は高速道路の交通情報・通行料等の窓口です。韓国道路公社の緊急牽引は二次事故の危険がある車両を近くの安全地帯へ移す支援で、修理工場までの無料牽引を意味しません。",
+    "安全な場所へ避難し、道路上の位置と車両の状況を伝え、対象条件と牽引範囲を確認してください。"
   ],
   "c3": [
-    "112 can verify a traffic accident on scene—official record of investigation, alcohol tests, and statements.",
-    "Reporting right after a crash helps insurance and disputes; if injured, call 119 first."
+    "112 — 交通事故緊急通報。交通事故の通報・警察出動。",
+    "負傷者の救急・救助が必要な場合は119へ。",
+    "事故位置と現在の危険を伝えてください。事故証明書や一般行政手続は別途警察に確認してください。"
   ],
   "c4": [
-    "If anyone may be hurt after a crash, call 119 for an ambulance—even mild pain can worsen later."
-  ],
-  "c5": [
-    "1566-8000 is a major insurers’ accident line for roadside help, tow, and rental car links.",
-    "Save your own insurer’s number too; on expressways prefer public tow (1588-2504)."
+    "119 — 交通事故の救助・救急。事故の負傷者への救急出動。",
+    "位置・負傷者の状態・人数を伝え、応急処置の指示に従ってください。"
   ],
   "c6": [
-    "1544-0119 guides injury claims when the other driver is uninsured or flees."
+    "1544-0049 — ひき逃げ・無保険事故被害支援。政府保障事業の補償相談。",
+    "自動車損害賠償振興院の政府保障事業は1544-0049の1番です。無保険・ひき逃げ・盗難車や加害車両不明の落下物事故等、法定対象と申請条件を相談できます。",
+    "補償対象と必要書類は相談で確認してください。すべての事故・物損が対象ではありません。"
   ],
   "c7": [
-    "110 connects post-accident admin needs—fines, license, and civil complaints through the government helpline."
+    "110 — 交通行政の案内。交通・免許等の担当機関案内。",
+    "年中無休24時間の無料相談です。緊急事故の出動は112・119へ。"
   ],
   "c8": [
-    "182 helps find lost items on buses and subways and guides missing-person services.",
-    "Prepare time, route, seat, and item details; missing children/adults can also be reported here."
+    "182 — 警察の遺失物案内。LOST112の届出・検索案内。",
+    "LOST112で届出・検索、または182に問い合わせできます。交通事業者の遺失物窓口も確認してください。"
   ],
   "c9": [
-    "1544-7788 is Korail—trains, seats, lost items, and delay compensation.",
-    "For items lost on a train, give the train number, station where you got off, and time."
+    "1544-7788 — コレール鉄道お客様窓口。列車・乗車券の利用案内。",
+    "受付時間・遺失物・払戻しの手続はコレールの公式案内または電話案内で確認してください。"
   ],
   "h1": [
-    "1588-1300 updates bank, card, insurance, and telecom addresses in one request after a move.",
-    "Apply within 1–2 weeks of moving to reduce missed mail and notices."
+    "1588-1300 — 郵便局の転居郵便案内。転居後の郵便物転送サービス。",
+    "1588-1300は郵便局の相談番号です。郵便物転送は郵便局・ネット郵便局で申請でき、銀行・カード・保険の登録住所は自動変更されません。",
+    "転送の条件・期間・料金を確認してください。銀行・カード・保険の登録住所は別途変更が必要です。"
   ],
   "h2": [
-    "1661-2642 is the neighbor noise mediation center with on-site mediators.",
-    "Use when the building office cannot resolve conflict; logs and recordings help."
+    "1661-2642 — 上下階騒音の相談・測定。共同住宅の騒音相談・現場支援。",
+    "韓国環境公団の上下階騒音センターは全国の共同住宅住民に電話相談・現場測定等を提供します。平日09:00–18:00、土日祝休みです。",
+    "強制調停や解決は保証されません。対象・受付手続を確認してください。"
   ],
   "h3": [
-    "1566-9009 HUG center checks registry and rights before jeonse contracts to prevent deposit fraud.",
-    "Consult before sending deposit; urgent-only deals or agent-only meetings are red flags."
-  ],
-  "h4": [
-    "1670-1004 is city gas emergency—24/7 for smell or leaks.",
-    "Do not touch switches; ventilate, evacuate, then report. Follow local gas company guidance."
+    "1566-9009 — HUGチョンセ保証相談。保証金保証・住宅都市基金の相談。",
+    "1566-9009はHUG住宅都市保証公社の総合窓口です。チョンセ保証金返還保証・安心ローン・住宅都市基金の商品案内。平日09:00–18:00です。",
+    "チョンセ保証商品の加入条件・保障範囲を確認してください。被害支援は別の窓口です。"
   ],
   "h5": [
-    "123 is KEPCO for outages, line problems, and shock or fire risk from electricity.",
-    "Electrocution or fire risk: 119 first; simple outages: 123."
+    "123 — 韓国電力の故障・停電通報。電気相談・故障の通報。",
+    "韓国電力123は年中無休24時間、有料です。携帯電話では市外局番＋123を利用します。",
+    "火災・感電等の緊急の危険は119へ。"
   ],
   "h6": [
-    "1577-0600 is K-water for water, dams, quality, and some outage/leak guidance.",
-    "City water leaks may be faster via local 120; if unsure, 110 can route you."
+    "1577-0600 — K-waterお客様窓口。韓国水資源公社の水道関連案内。",
+    "水道・断水・漏水の担当窓口は地域の供給機関によって異なります。",
+    "K-waterの担当外地域は自治体の水道窓口へ。担当が分からない場合は110へ。"
   ],
   "h7": [
-    "131 is KMA weather—for typhoon, flood, heat, cold alerts and daily forecasts.",
-    "Check before hiking, boating, or outdoor plans."
+    "131 — 気象庁の天気相談。気象警報・予報の相談。",
+    "131は専門の気象相談員が年中無休24時間対応します。市内通話料金が適用され、別途の追加料金はありません。",
+    "台風・大雨・猛暑・寒波等の気象警報・予報を相談できます。"
   ],
   "l1": [
-    "132 Legal Aid offers free lawyer consults and litigation support by income.",
-    "Before suing on traffic, lease, labor, or family issues, 132 helps set direction cost-effectively."
+    "132 — 法律相談。法律相談・訴訟援助の条件案内。",
+    "大韓法律救助公団132は平日09:00–11:50、13:00–17:50。通話料は発信者負担で、相談手数料とは別です。"
   ],
   "l2": [
-    "1577-1000 NHIS-related line—for out-of-pocket cap refunds and similar.",
-    "Ask if you paid heavily in a year without refund notice."
+    "1577-1000 — 健康保険・自己負担上限制度。保険料・給付・還付の案内。",
+    "国民健康保険公団1577-1000。平日09:00–18:00、有料です。"
   ],
   "l3": [
-    "1332 FSS consumer protection—for voice phishing, illegal loans, and financial product harm.",
-    "Bank, insurance, card, and investment complaints accepted; if rushed to transfer, call 1398 first."
+    "1332 — 金融消費者相談。金融商品・違法金融被害の相談。",
+    "1332は金融監督院の金融相談窓口です。",
+    "金融商品・違法金融は1332、詐欺の相談・通報は1394、緊急犯罪は112へ。"
   ],
   "l4": [
-    "1398 is dedicated voice-phishing reporting—hang up on fake prosecutors/police/regulators and call immediately.",
-    "You can report during the call; before transferring money is the critical window."
+    "1394 — 電話・SMS詐欺の通報。フィッシング安心SOSの総合通報案内。",
+    "1394は警察庁の電気通信金融詐欺統合対応団の総合通報窓口です。",
+    "詐欺が疑われる場合は電話を切り1394へ。差し迫った犯罪被害・脅迫は112へ。"
   ],
   "l5": [
-    "1811-9000 personal data breach center—leaks, unauthorized collection, deletion and blocking steps.",
-    "ID/account leaks and marketing without consent count; for hacking/ransomware also use 118."
-  ],
-  "l6": [
-    "1544-0990 Consumer Agency mediates refund and contract disputes for free—bring contract, payment, and chat records."
+    "118 — 個人情報侵害の相談・通報。個人情報の漏えい・侵害相談。",
+    "韓国インターネット振興院118の個人情報一般相談は平日09:00–18:00、無料です。",
+    "個人情報の漏えい・侵害の経緯と資料を準備してください。"
   ],
   "l7": [
-    "126 National Tax Service—for income/VAT filing, notices, refunds, and Hometax questions."
-  ],
-  "l8": [
-    "1661-7600 local tax line—for vehicle, property, and local income tax."
+    "126 — 国税相談。所得税・付加価値税等の相談。",
+    "国税庁126の一般相談は平日09:00–18:00、脱税情報は24時間。通話料は発信者負担です。"
   ],
   "l9": [
-    "118 is KISA cyber security—for hacking, ransomware, phishing sites, and illegal spam.",
-    "Voice phishing: 1398; personal data: 1811-9000; money fraud: 112 and 1332."
+    "118 — ハッキング・ネット侵害相談。ランサムウェア・ハッキング・詐欺サイト。",
+    "韓国インターネット振興院118は緊急のハッキング・ウイルス相談を年中無休24時間、一般相談を平日09:00–18:00に無料で受け付けます。",
+    "118はネット侵害の相談窓口です。緊急犯罪は112、詐欺の総合通報は1394へ。"
   ],
   "l10": [
-    "1301 Prosecution Service—for drugs, public corruption, and special investigation tips.",
-    "For theft or assault needing immediate police, use 112."
+    "1301 — 検察の行政相談。事件・罰金等の検察業務案内。",
+    "大検察庁1301は平日09:00–18:00、時間外は検察状況室へ。通話料は発信者負担です。"
   ],
   "l11": [
-    "1372 Fair Trade Commission—for collusion, unfair terms, ads, franchise and distribution issues.",
-    "Individual refund fights are often better at Consumer Agency 1544-0990."
+    "1372 — 消費者相談センター。取引・契約・消費者被害の相談。",
+    "1372消費者相談は平日09:00–18:00、昼休み12:00–13:00。有料です。",
+    "取引記録・契約書等の資料を準備してください。"
   ],
   "l12": [
-    "1600-5500 Credit Counseling & Recovery—for arrears, debt adjustment, and personal rehabilitation links.",
-    "With multiple debts, try public counseling before illegal lenders."
+    "1600-5500 — 信用回復・債務調整相談。債務調整制度・申請の案内。",
+    "信用回復委員会1600-5500。韓国時間09:00–18:00です。"
   ],
   "l13": [
-    "1397 MFC policy finance—including Sunshine loans and financial counseling.",
-    "Check eligibility before high-interest emergency loans."
+    "1397 — 庶民金融相談。政策的庶民金融商品・支援の案内。",
+    "庶民金融振興院1397。平日09:00–18:00、無料（受信者負担）です。"
   ],
   "l14": [
-    "1331 National Human Rights Commission—for discrimination and human rights complaints and procedures."
+    "1331 — 人権相談。人権侵害・差別の相談と申立案内。",
+    "国家人権委員会1331。平日09:00–18:00です。"
   ],
   "f1": [
-    "1661-2129 senior care counseling—welfare checks and visit care links for seniors living alone.",
-    "Local services may also route via municipal 120 or 110."
+    "1661-2129 — 高齢者のケア支援案内。中央高齢者ケア支援機関への問い合わせ。",
+    "1661-2129は独居高齢者総合支援センター（中央高齢者ケア支援機関）の窓口です。"
   ],
   "f2": [
-    "117 school violence reporting by phone or text—consider public report alongside school steps to protect students."
+    "117 — 学校暴力通報。電話117・SMS#0117。",
+    "警察の学校暴力通報117は年中無休24時間。SMSの宛先は#0117です。",
+    "電話117、SMS#0117へ。差し迫った危険は112へ。"
   ],
   "f3": [
-    "1366 women’s emergency line—24/7 for domestic/sexual violence and stalking; shelter links.",
-    "If in immediate danger, also call 112; counseling is confidential."
+    "1366 — 女性緊急電話。女性への暴力の緊急相談・支援紹介。",
+    "女性緊急電話1366は年中無休24時間、有料です。",
+    "身の危険が迫る場合は112へ。"
   ],
   "f4": [
-    "1899-0088 digital sex crime victim support—illegal filming takedown and investigation/counseling links.",
-    "Do not destroy evidence; follow guidance for deletion and investigation together."
+    "02-735-8994 — デジタル性犯罪被害支援。被害相談・削除支援・機関紹介。",
+    "02-735-8994は韓国女性人権振興院の中央デジタル性犯罪被害者支援センターです。平日08:00–22:00、土日祝09:00–18:00です。"
   ],
   "f5": [
-    "1345 immigration help center—visa, stay, and daily life in multiple languages; useful for foreign family and friends."
+    "1345 — 外国人総合案内。ビザ・在留・出入国の多言語相談。",
+    "法務部1345は平日09:00–22:00。18時以降は韓国語・英語・中国語のみ。有料です。"
   ],
   "f6": [
-    "1388 youth counseling—anonymous help with school, family, friends, and career; crisis links to 109 and 1393."
+    "1388 — 青少年相談。青少年・保護者の悩み相談。",
+    "韓国青少年相談福祉開発院の1388は青少年・保護者向けで、年中無休24時間です。"
   ],
   "f7": [
-    "1355 National Pension Service—pension receipt, enrollment, contributions, and estimates."
+    "1355 — 国民年金相談。加入・納付・受給の問い合わせ。",
+    "国民年金公団1355は平日09:00–18:00、有料です。"
   ],
   "f8": [
-    "1389 elder abuse reporting—physical, emotional, financial abuse and neglect.",
-    "Urgent danger: 112."
+    "1577-1389 — 高齢者虐待の通報・相談。虐待・放置の通報と保護案内。",
+    "1577-1389は中央・地域の高齢者保護専門機関による虐待通報・相談窓口です。",
+    "虐待・放置が疑われる場合は相談してください。差し迫った危険は112へ。"
   ],
   "f9": [
-    "182 also guides missing children and missing persons—report quickly after disappearance.",
-    "Prepare recent photos, clothing, and last seen location; clear danger also warrants 112."
+    "182 — 行方不明者の案内。行方不明に関する警察相談。",
+    "182は警察の行方不明届・予防案内の窓口です。"
   ],
   "w1": [
-    "1350 MOEL helpline—unemployment benefits, employment aid, contracts, and wage arrears.",
-    "Unpaid wages and unfair dismissal procedures can be explained here."
+    "1350 — 雇用・労働相談。失業給付・労働基準・雇用支援。",
+    "雇用労働部1350。平日09:00–18:00、有料です。"
   ],
   "w2": [
-    "1588-0075 KCOMWEL—industrial accidents, employment insurance, and vocational rehab.",
-    "After a workplace injury, ask about filing deadlines and documents."
+    "1588-0075 — 労災・雇用保険相談。勤労福祉公団の制度案内。",
+    "1588-0075は勤労福祉公団の労災・雇用保険窓口です。"
   ],
   "w3": [
-    "1644-8000 training and “Tomorrow Learning Card” counseling for job change and certifications."
+    "1350 — 国民ネイルペウムカード・職業訓練。職業訓練カード制度の案内。",
+    "雇用労働部1350は国民ネイルペウムカードの制度を案内します。平日09:00–18:00、有料です。"
   ],
   "w4": [
-    "1544-4140 equal employment counseling—workplace harassment, discrimination, and relief steps.",
-    "Use when internal reporting is hard or retaliation is a concern."
+    "1350 — 職場いじめ・労働相談。雇用労働部の労働基準相談。",
+    "1350は雇用労働部のお客様相談センターです。職場いじめ・セクハラ等の相談と届出手続を案内します。平日09:00–18:00、有料です。"
   ],
   "g1": [
-    "110 government civil helpline routes central, local, and public agency services nationwide—call when unsure who to contact."
+    "110 — 政府行政の案内。政府業務・行政の相談。",
+    "国民権益委員会の政府行政相談110は年中無休24時間、無料です。"
   ],
   "g2": [
-    "02-120 Seoul Dasan Call Center—Seoul life, transport, and environment services; reachable from outside Seoul on mobile."
+    "02-120 — ソウル市タサンコールセンター。ソウルの生活・行政案内。",
+    "ソウル120タサンコール財団02-120は年中無休24時間、有料です。"
   ],
   "g3": [
-    "1588-2188 Gov24 call center—resident registration, family relations certificates, and digital ID issuance."
+    "1588-2188 — 政府24利用案内。オンライン行政手続・証明書の利用案内。",
+    "1588-2188は政府24の利用案内です。証明書ごとの発行機関は別途確認してください。"
   ],
   "g4": [
-    "031-120 Gyeonggi Province call center handles local administration and daily civil services for residents."
+    "031-120 — 京畿道コールセンター。京畿道の生活・道政相談。",
+    "京畿道031-120は年中無休24時間です。"
   ],
   "g5": [
-    "032-120 Incheon call center handles local administration and daily civil services for residents."
+    "032-120 — 仁川市ミチュホルコールセンター。仁川の生活・行政相談。",
+    "032-120は仁川ミチュホルコールセンターです。"
   ],
   "g6": [
-    "051-120 Busan call center handles local administration and daily civil services for residents."
+    "051-120 — 釜山市120コールセンター。釜山の生活・行政相談。",
+    "釜山051-120は平日08:30–18:30、時間外は当直室へ。有料です。"
   ],
   "g7": [
-    "053-120 Daegu call center handles local administration and daily civil services for residents."
+    "053-120 — 大邱市タルグボルコールセンター。大邱の生活・行政相談。",
+    "大邱053-120は平日08:00–22:00、土日祝09:00–18:00。有料です。"
   ],
   "g8": [
-    "062-120 Gwangju call center handles local administration and daily civil services for residents."
+    "062-120 — ピッコウルコールセンター。光州地域の生活・行政案内。",
+    "062-120はピッコウルコールセンターで、光州地域の案内を提供します。"
   ],
   "g9": [
-    "042-120 Daejeon call center handles local administration and daily civil services for residents."
+    "042-120 — 大田市120コールセンター。大田の生活・行政相談。",
+    "大田042-120は平日08:00–21:00、土日祝09:00–18:00。通常の通話料がかかります。"
   ],
   "g10": [
-    "052-120 Ulsan call center handles local administration and daily civil services for residents."
+    "052-120 — 蔚山市120行政窓口。蔚山の生活・行政相談。",
+    "蔚山052-120は平日09:00–20:00、土日祝休みです。"
   ],
   "g11": [
-    "044-120 Sejong call center handles local administration and daily civil services for residents."
+    "044-120 — 世宗市行政コールセンター。世宗の生活・行政相談。",
+    "044-120は世宗市行政コールセンターです。"
   ],
   "g12": [
-    "033-120 Gangwon call center handles local administration and daily civil services for residents."
-  ],
-  "g13": [
-    "043-120 North Chungcheong call center handles local administration and daily civil services for residents."
-  ],
-  "g14": [
-    "041-120 South Chungcheong call center handles local administration and daily civil services for residents."
-  ],
-  "g15": [
-    "063-120 Jeollabuk (Jeonbuk) call center handles local administration and daily civil services for residents."
-  ],
-  "g16": [
-    "061-120 South Jeolla call center handles local administration and daily civil services for residents."
-  ],
-  "g17": [
-    "054-120 North Gyeongsang call center handles local administration and daily civil services for residents."
+    "033-120 — 江原特別自治道コールセンター。江原の生活・道政相談。",
+    "江原特別自治道033-120は毎日08:30–18:30、有料です。"
   ],
   "g18": [
-    "055-120 South Gyeongsang call center handles local administration and daily civil services for residents."
+    "055-120 — 慶尚南道120コールセンター。慶南の生活・道政相談。",
+    "慶尚南道055-120は平日09:00–18:00、時間外は災害状況室へ。"
   ],
   "g19": [
-    "064-120 Jeju call center handles local administration and daily civil services for residents."
+    "064-120 — 済州特別自治道コールセンター。済州の生活・行政相談。",
+    "064-120は済州120コールセンターです。"
   ],
   "g20": [
-    "125 Customs—cross-border shopping clearance, duties, prohibited items, and declarations.",
-    "If held at customs, have tracking number and item description ready."
+    "125 — 関税・海外通販の通関。通関・関税・密輸通報の案内。",
+    "関税庁125の関税相談は平日09:00–18:00です。"
   ],
   "g21": [
-    "1588-9090 Military Manpower Administration—conscription, enlistment, discharge, and duty questions."
+    "1588-9090 — 兵務庁相談。兵役判定・入営・兵務案内。",
+    "兵務庁1588-9090は平日09:00–18:00、有料です。"
+  ],
+  "d1": [
+    "1335 — 科学技術情報通信部の案内。情報通信等の所管業務案内。",
+    "1335は科学技術情報通信部の所管業務の案内です。あらゆる放送料金紛争の共通窓口ではありません。"
+  ],
+  "d2": [
+    "114 — 携帯電話会社のお客様窓口。契約中の通信会社の料金・サービス。",
+    "114は契約中の携帯電話会社の窓口で、全国電話番号検索ではありません。韓国大手3社の携帯114は無料。受付時間は会社・業務によって異なります。",
+    "契約中の携帯電話から市外局番なしの114へ。格安SIMは事業者の案内を確認してください。"
+  ],
+  "d3": [
+    "1377 — 放送・通信の審議通報。有害・違法放送通信の審議案内。",
+    "1377は放送メディア通信審議委員会の審議通報窓口です。"
+  ],
+  "d4": [
+    "118 — 迷惑SMS・電話の通報。迷惑メッセージ・電話の通報案内。",
+    "韓国インターネット振興院118の迷惑情報一般相談は平日09:00–18:00、緊急ハッキング相談は別途24時間。無料です。",
+    "迷惑メッセージは118、詐欺の相談・通報は1394、緊急犯罪は112へ。"
+  ],
+  "org-ins-samsung-auto": [
+    "Samsung Fire — 自動車事故受付・故障出動。",
+    "ARS1番は事故受付、2番は故障出動。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-ins-db-auto": [
+    "DB Insurance — 自動車事故受付・故障出動。",
+    "事故受付・故障出動は保険契約の保障条件を確認してください。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-ins-kb-auto": [
+    "KB Insurance — 自動車事故受付・故障出動。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-ins-hyundai-auto": [
+    "Hyundai Marine — 自動車事故受付・故障出動。",
+    "ARS1番は故障出動、2番は事故受付。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-ins-meritz-auto": [
+    "Meritz Fire — 自動車事故受付・故障出動。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-ins-hanwha-auto": [
+    "Hanwha General Insurance — 同社契約者の事故・補償案内。",
+    "ハンファ損害保険の事故・補償業務を問い合わせ、保険契約の保障条件を確認してください。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-ins-lotte-auto": [
+    "Lotte Insurance — 自動車事故受付・故障出動。",
+    "ARS1番は故障出動、2番は事故受付。",
+    "同社の契約・商品・顧客に関する業務が対象です。",
+    "固定電話は市内通話料、携帯・070電話は契約プランの料金が適用されます。"
+  ],
+  "org-ins-heungkuk-auto": [
+    "Heungkuk Fire — 自動車事故受付・故障出動。",
+    "ARS1番は事故受付、2番は故障緊急出動。",
+    "同社の契約・商品・顧客に関する業務が対象です。",
+    "固定電話は市内通話料、携帯・070電話は契約プランの料金が適用されます。"
+  ],
+  "org-ins-mg-auto": [
+    "Yebyeol Insurance — 自動車事故受付・故障出動。",
+    "MG損害保険から移管された契約はイェビョル損害保険へ。故障出動は加入特約の条件に従います。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-ins-axa-auto": [
+    "AXA Insurance — 自動車事故受付・故障出動。",
+    "ARS2番は故障出動、3番は事故受付。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-ins-hana-auto": [
+    "Hana Insurance — 自動車事故受付・故障出動。",
+    "ARS1番は故障出動、2番は事故受付。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-card-hyundai-lost": [
+    "Hyundai Card — 同社顧客のカード関連通報。",
+    "同社の契約・商品・顧客に関する業務が対象です。",
+    "カード受取登録・利用・盗難・紛失届は年中無休24時間。電話詐欺の通報も受け付けます。"
+  ],
+  "org-card-samsung-lost": [
+    "Samsung Card — 同社顧客のカード関連通報。",
+    "ARS1番は紛失届・解除・照会、9番は電話詐欺等の金融事故通報。",
+    "同社の契約・商品・顧客に関する業務が対象です。",
+    "固定電話は3分39ウォン、携帯は通信会社の料金。VAT別です。"
+  ],
+  "org-card-lotte-lost": [
+    "Lotte Card — 同社顧客のカード関連通報。",
+    "同社の契約・商品・顧客に関する業務が対象です。",
+    "固定電話は3分39ウォン、携帯は通信会社の料金。"
+  ],
+  "org-card-shinhan-lost": [
+    "Shinhan Card — 同社顧客のカード関連通報。",
+    "ARS1番からカード紛失届・解除・受付確認を選択してください。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-card-kb-lost": [
+    "KB Kookmin Card — 同社顧客のカード関連通報。",
+    "ARS2番は盗難・紛失届と解除です。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-card-woori-lost": [
+    "Woori Card — 同社顧客のカード関連通報。",
+    "ARS1番は個人カード紛失、2番は法人カード紛失、0番は電話詐欺等の金融事故通報。",
+    "同社の契約・商品・顧客に関する業務が対象です。",
+    "固定電話は3分39ウォン、携帯は通信会社の料金。VAT別です。"
+  ],
+  "org-card-hana-lost": [
+    "Hana Card — 同社顧客のカード関連通報。",
+    "代表番号のARS8番で紛失・金融事故通報を選択。盗難・紛失専用番号は1599-1133です。",
+    "同社の契約・商品・顧客に関する業務が対象です。",
+    "固定電話は3分39ウォン、携帯は通信会社の料金。VAT別です。"
+  ],
+  "org-card-nh-lost": [
+    "NH Nonghyup Card — 同社顧客のカード関連通報。",
+    "ARS1-1番は紛失届、1-4番は金融詐欺通報。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-bank-kb-incident": [
+    "KB Kookmin Bank — 同行顧客の紛失・金融事故通報。",
+    "ARS接続後に*を押し、紛失対象に合う通報メニューを選択してください。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
+  ],
+  "org-bank-woori-incident": [
+    "Woori Bank — 同行顧客の紛失・金融事故通報。",
+    "ARS#-1は電話詐欺、#-2-3は通帳・印鑑、#-2-5はセキュリティカード・OTP紛失届。",
+    "同社の契約・商品・顧客に関する業務が対象です。"
   ]
 }

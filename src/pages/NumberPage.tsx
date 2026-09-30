@@ -5,9 +5,9 @@ import {
   CAT_COLOR,
   getNumberById,
   iconBgColor,
-  telHref,
 } from '@whatnumber/shared';
 import { JsonLd } from '../components/JsonLd';
+import { callHref, handleRegionalCall } from '../lib/regionalCall';
 import { Footer } from '../components/Footer';
 import { PageTopBar } from '../components/PageTopBar';
 import { usePageSeo } from '../hooks/usePageSeo';
@@ -93,7 +93,7 @@ export function NumberPage() {
           </p>
           <h1 className={styles.title}>{item.title}</h1>
           <p className={styles.lead}>{item.desc}</p>
-          <a href={telHref(item.num)} className={styles.callLink}>
+          <a href={callHref(item.num)} className={styles.callLink} onClick={(event) => handleRegionalCall(event, item.num, locale)}>
             {t('detail.call', { num: item.num })}
           </a>
         </header>

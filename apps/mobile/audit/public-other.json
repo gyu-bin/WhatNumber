@@ -1,0 +1,2034 @@
+{
+  "scope": "법률/금융14·가족/복지9·고용/노동4·민원/행정21·통신/디지털4(52개ID);l5,l9는통신/디지털분류",
+  "checkedAt": "2026-09-30",
+  "methodology": {
+    "sources": "공식 기관·정부 문서 웹 검색 및 본문 open",
+    "dateCoverage": "기간제한없이 현행페이지우선;최신성제한 개별기록",
+    "excluded": "블로그·커뮤니티·전화번호 SEO페이지 제외; snippet만 근거로 확정하지 않음",
+    "limitations": "전화 발신 미실시. 직접open실패의공식검색전체본문이용은readMethod별도표기. 기관·시간·요금 미확인UNKNOWN.정확한기관전화없는지역번호는격리."
+  },
+  "records": [
+    {
+      "id": "l1",
+      "originalTitle": "무료 법률 상담",
+      "originalNumber": "132",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "대한법률구조공단",
+      "officialServiceName": "법률 상담",
+      "purpose": "법률상담 · 소송구조 요건 안내",
+      "hours": "평일09:00–11:50/13:00–17:50",
+      "fee": "통화료 발신자부담; 상담수수료와 구분",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.klac.or.kr/legalstruct/telephoneConsultation.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "전화상담은 간단한 법률문제 대상. 소송구조는 별도 요건 심사. 모든 상담이 변호사상담/무료소송보장이라는 표현 제거.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "무료 법률 상담",
+        "desc": "법률상담 · 소송구조 요건 안내",
+        "num": "132",
+        "situation": [
+          "legal",
+          "car"
+        ],
+        "tip": null,
+        "details": [
+          "132는 대한법률구조공단의 법률 상담 번호입니다. 법률상담 · 소송구조 요건 안내에 이용하세요.",
+          "운영시간: 평일09:00–11:50/13:00–17:50.",
+          "통화요금: 통화료 발신자부담; 상담수수료와 구분."
+        ]
+      }
+    },
+    {
+      "id": "l2",
+      "originalTitle": "병원비 환급받기",
+      "originalNumber": "1577-1000",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "국민건강보험공단",
+      "officialServiceName": "건강보험 상담",
+      "purpose": "보험료·급여·환급 안내",
+      "hours": "평일09:00–18:00",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.nhis.or.kr/nhis/index.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "본인부담상한제 대상·환급 여부를 문의. 모든 의료비환급 또는 환급보장 표현 금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "건강보험·본인부담상한제",
+        "desc": "보험료·급여·환급 안내",
+        "num": "1577-1000",
+        "situation": [
+          "legal",
+          "emergency"
+        ],
+        "tip": null,
+        "details": [
+          "1577-1000는 국민건강보험공단의 건강보험 상담 번호입니다. 보험료·급여·환급 안내에 이용하세요.",
+          "운영시간: 평일09:00–18:00.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "l3",
+      "originalTitle": "금융 소비자 보호",
+      "originalNumber": "1332",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "금융감독원",
+      "officialServiceName": "금융민원 상담",
+      "purpose": "금융상품·불법금융 피해 상담",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.klac.or.kr/legalstruct/telephoneConsultation.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공단 공식 전문상담표1332금융분쟁. 상세 운영시간·비용미확인.1398보이스피싱 verwij 제거.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "금융 소비자 상담",
+        "desc": "금융상품·불법금융 피해 상담",
+        "num": "1332",
+        "situation": [
+          "crime",
+          "legal"
+        ],
+        "tip": "금융 상품·불법금융은1332, 피싱 상담·제보는1394로 문의하세요. 긴급 범죄는112입니다.",
+        "details": [
+          "1332는 금융감독원의 금융민원 상담 번호입니다. 금융상품·불법금융 피해 상담에 이용하세요.",
+          "금융 상품·불법금융은1332, 피싱 상담·제보는1394로 문의하세요. 긴급 범죄는112입니다."
+        ]
+      }
+    },
+    {
+      "id": "l4",
+      "originalTitle": "보이스피싱 신고",
+      "originalNumber": "1398",
+      "classification": "WRONG_NUMBER",
+      "organization": "경찰청 전기통신금융사기 통합대응단",
+      "officialServiceName": "피싱 통합 제보",
+      "purpose": "피싱안심SOS 통합 제보 안내",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.counterscam112.go.kr/board/CONTENT_000000000010.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.korea.kr/multi/mediaNewsView.do?newsId=148972664&pWise=sub&pWiseSub=C4",
+          "tier": "금융위원회 정부 정책브리핑 2026-09-28",
+          "readMethod": "부모 에이전트 web open 본문 교차확인",
+          "weight": "현행1394교차확인"
+        },
+        {
+          "url": "https://www.acrc.go.kr/board.es?bid=CDNS&mid=a30103000000",
+          "tier": "국민권익위원회 공식",
+          "readMethod": "web open 본문",
+          "weight": "기존1398이부패·공익신고임을확인"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "1398은 권익위 부패·공익신고. 현재 공식피싱안심SOS1394본문/전화footer확인. 이전112단일신고안내보다 최신현행. 긴급 범죄위험112. 부패신고로title전환은 저장번호원래목적바꾸므로 비권고.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "보이스피싱·스미싱 신고",
+        "desc": "피싱안심SOS 통합 제보 안내",
+        "num": "1394",
+        "situation": [
+          "crime"
+        ],
+        "tip": "피싱이 의심되면 통화를 종료하고 1394로 상담·제보하세요. 당장 범죄 피해나 위협이 있으면 112로 신고하세요.",
+        "details": [
+          "1394는 경찰청 전기통신금융사기 통합대응단의 피싱 통합 제보 번호입니다. 피싱안심SOS 통합 제보 안내에 이용하세요.",
+          "피싱이 의심되면 통화를 종료하고 1394로 상담·제보하세요. 당장 범죄 피해나 위협이 있으면 112로 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "l5",
+      "originalTitle": "개인정보 침해 신고",
+      "originalNumber": "1811-9000",
+      "classification": "WRONG_NUMBER",
+      "organization": "한국인터넷진흥원",
+      "officialServiceName": "개인정보 침해 상담",
+      "purpose": "개인정보 유출·침해 상담",
+      "hours": "평일09:00–18:00 일반상담",
+      "fee": "무료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kisa.kr/118",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "1811-9000의 현재 개인정보신고기관 연계 미확인; 실제 공식118개인정보상담확인. 삭제·차단자동보장 제거.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "개인정보 침해 상담·신고",
+        "desc": "개인정보 유출·침해 상담",
+        "num": "118",
+        "situation": [
+          "crime",
+          "legal"
+        ],
+        "tip": "개인정보 유출·침해 사실과 관련 자료를 준비해 상담하세요.",
+        "details": [
+          "118는 한국인터넷진흥원의 개인정보 침해 상담 번호입니다. 개인정보 유출·침해 상담에 이용하세요.",
+          "운영시간: 평일09:00–18:00 일반상담.",
+          "통화요금: 무료.",
+          "개인정보 유출·침해 사실과 관련 자료를 준비해 상담하세요."
+        ]
+      }
+    },
+    {
+      "id": "l6",
+      "originalTitle": "소비자 분쟁 조정",
+      "originalNumber": "1544-0990",
+      "classification": "OUTDATED",
+      "organization": "1372소비자상담센터",
+      "officialServiceName": "소비자 상담",
+      "purpose": "환불·계약·거래 분쟁 상담",
+      "hours": "평일09:00–18:00/점심12:00–13:00",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kca.go.kr/odr/pg/ma/cnsutInfo1.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식 소비자원 본문검색결과 전체상담안내 확인; 직접open502.1544-0990현재근거없음. 상담후 피해구제절차, 즉시분쟁조정보장 아님.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "소비자 상담·피해구제 안내",
+        "desc": "환불·계약·거래 분쟁 상담",
+        "num": "1372",
+        "situation": [
+          "legal"
+        ],
+        "tip": null,
+        "details": [
+          "1372는 1372소비자상담센터의 소비자 상담 번호입니다. 환불·계약·거래 분쟁 상담에 이용하세요.",
+          "운영시간: 평일09:00–18:00/점심12:00–13:00.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "l7",
+      "originalTitle": "세금 문의 (국세청)",
+      "originalNumber": "126",
+      "classification": "VALID",
+      "organization": "국세청",
+      "officialServiceName": "국세 상담",
+      "purpose": "소득세·부가세·국세 문의",
+      "hours": "평일09:00–18:00;탈세제보24시간",
+      "fee": "통화료 발신자부담",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7848",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "일반상담과24시간탈세제보를분리.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "국세 상담",
+        "desc": "소득세·부가세·국세 문의",
+        "num": "126",
+        "situation": [
+          "legal"
+        ],
+        "tip": null,
+        "details": [
+          "126는 국세청의 국세 상담 번호입니다. 소득세·부가세·국세 문의에 이용하세요.",
+          "운영시간: 평일09:00–18:00;탈세제보24시간.",
+          "통화요금: 통화료 발신자부담."
+        ]
+      }
+    },
+    {
+      "id": "l8",
+      "originalTitle": "지방세 문의",
+      "originalNumber": "1661-7600",
+      "classification": "UNVERIFIED",
+      "organization": "unknown",
+      "officialServiceName": "지방세 상담 미확인",
+      "purpose": "공식 연락처 확인 필요",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "UNKNOWN",
+      "operatingStatus": "UNVERIFIED;전화발신미실시",
+      "sources": [],
+      "checkedAt": "2026-09-30",
+      "notes": "정확한1661-7600공식기관현재연결근거없음.비공식blog제외.안전한대안110(정부민원)은 다른번호이므로자동치환보다격리.",
+      "action": "quarantine",
+      "canonicalId": null,
+      "replacement": {
+        "title": "지방세 문의",
+        "desc": "공식 연락처 확인 필요",
+        "num": null,
+        "situation": [
+          "legal"
+        ],
+        "tip": null,
+        "details": [
+          "이 항목의 현재 공식 번호·서비스는 확인하지 못했습니다. 검증 전 전화 연결에서 제외하는 것을 권고합니다."
+        ]
+      }
+    },
+    {
+      "id": "l9",
+      "originalTitle": "사이버범죄·해킹 신고",
+      "originalNumber": "118",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "한국인터넷진흥원",
+      "officialServiceName": "인터넷 침해사고 상담",
+      "purpose": "랜섬웨어·해킹·피싱사이트 상담",
+      "hours": "긴급해킹·바이러스365일24시간;일반상담평일09:00–18:00",
+      "fee": "무료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kisa.kr/118",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "전체사이버범죄수사접수기관으로표현금지.모든서비스24h표현금지.1398피싱표현삭제.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "해킹·인터넷 침해 상담",
+        "desc": "랜섬웨어·해킹·피싱사이트 상담",
+        "num": "118",
+        "situation": [
+          "crime"
+        ],
+        "tip": "118은 인터넷 침해사고 상담입니다. 긴급 범죄 신고는112, 피싱 통합 제보는1394입니다.",
+        "details": [
+          "118는 한국인터넷진흥원의 인터넷 침해사고 상담 번호입니다. 랜섬웨어·해킹·피싱사이트 상담에 이용하세요.",
+          "운영시간: 긴급해킹·바이러스365일24시간;일반상담평일09:00–18:00.",
+          "통화요금: 무료.",
+          "118은 인터넷 침해사고 상담입니다. 긴급 범죄 신고는112, 피싱 통합 제보는1394입니다."
+        ]
+      }
+    },
+    {
+      "id": "l10",
+      "originalTitle": "마약·검찰 범죄신고",
+      "originalNumber": "1301",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "대검찰청 검찰콜센터",
+      "officialServiceName": "검찰 민원 상담",
+      "purpose": "사건·벌과금 등 검찰 업무 안내",
+      "hours": "평일09:00–18:00;이후검찰상황실",
+      "fee": "통화료 발신자부담",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.spo.go.kr/site/spo/06/10614020000002019093006.jsp",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "마약전용신고창구라는title축소.범죄긴급신고112.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "검찰 민원 상담",
+        "desc": "사건·벌과금 등 검찰 업무 안내",
+        "num": "1301",
+        "situation": [
+          "crime"
+        ],
+        "tip": null,
+        "details": [
+          "1301는 대검찰청 검찰콜센터의 검찰 민원 상담 번호입니다. 사건·벌과금 등 검찰 업무 안내에 이용하세요.",
+          "운영시간: 평일09:00–18:00;이후검찰상황실.",
+          "통화요금: 통화료 발신자부담."
+        ]
+      }
+    },
+    {
+      "id": "l11",
+      "originalTitle": "공정거래 상담",
+      "originalNumber": "1372",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "1372소비자상담센터",
+      "officialServiceName": "소비자 상담",
+      "purpose": "거래·계약·소비자 피해 상담",
+      "hours": "평일09:00–18:00/점심12:00–13:00",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kca.go.kr/odr/pg/ma/cnsutInfo1.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "가맹사업·모든불공정거래상담센터로확대금지.l6같은번호지만서로다른기관이라는설명제거.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "소비자 상담센터",
+        "desc": "거래·계약·소비자 피해 상담",
+        "num": "1372",
+        "situation": [
+          "legal"
+        ],
+        "tip": "거래내역·계약서 등 관련 자료를 준비하세요.",
+        "details": [
+          "1372는 1372소비자상담센터의 소비자 상담 번호입니다. 거래·계약·소비자 피해 상담에 이용하세요.",
+          "운영시간: 평일09:00–18:00/점심12:00–13:00.",
+          "통화요금: 유료.",
+          "거래내역·계약서 등 관련 자료를 준비하세요."
+        ]
+      }
+    },
+    {
+      "id": "l12",
+      "originalTitle": "신용회복·채무조정",
+      "originalNumber": "1600-5500",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "신용회복위원회",
+      "officialServiceName": "채무조정 상담",
+      "purpose": "채무조정 제도·신청 안내",
+      "hours": "한국시간09:00–18:00(외교부공식안내)",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://overseas.mofa.go.kr/us-atlanta-ko/brd/m_20614/view.do?seq=9",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "2025외교부공식본문검색전체확인/직접403.채무감면확정·개인회생자동연계보장금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "신용회복·채무조정 상담",
+        "desc": "채무조정 제도·신청 안내",
+        "num": "1600-5500",
+        "situation": [
+          "legal"
+        ],
+        "tip": null,
+        "details": [
+          "1600-5500는 신용회복위원회의 채무조정 상담 번호입니다. 채무조정 제도·신청 안내에 이용하세요.",
+          "운영시간: 한국시간09:00–18:00(외교부공식안내)."
+        ]
+      }
+    },
+    {
+      "id": "l13",
+      "originalTitle": "서민금융 상담",
+      "originalNumber": "1397",
+      "classification": "VALID",
+      "organization": "서민금융진흥원",
+      "officialServiceName": "정책서민금융 상담",
+      "purpose": "정책서민금융 상품·지원 안내",
+      "hours": "평일09:00–18:00",
+      "fee": "무료(수신자부담)",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kinfa.or.kr/main.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재2026공식본문검색전체footer확인;직접opentimeout.상품자격·승인보장금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "서민금융 상담",
+        "desc": "정책서민금융 상품·지원 안내",
+        "num": "1397",
+        "situation": [
+          "legal"
+        ],
+        "tip": null,
+        "details": [
+          "1397는 서민금융진흥원의 정책서민금융 상담 번호입니다. 정책서민금융 상품·지원 안내에 이용하세요.",
+          "운영시간: 평일09:00–18:00.",
+          "통화요금: 무료(수신자부담)."
+        ]
+      }
+    },
+    {
+      "id": "l14",
+      "originalTitle": "인권 상담",
+      "originalNumber": "1331",
+      "classification": "VALID",
+      "organization": "국가인권위원회",
+      "officialServiceName": "인권 상담",
+      "purpose": "인권침해·차별 상담·진정 안내",
+      "hours": "평일09:00–18:00(공식다국어가이드)",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.humanrights.go.kr/base/contents/view?contentsNo=15&menuLevel=2&menuNo=108",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재공식연락처본문1331확인.법률대리·구제보장금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "인권 상담",
+        "desc": "인권침해·차별 상담·진정 안내",
+        "num": "1331",
+        "situation": [
+          "legal"
+        ],
+        "tip": null,
+        "details": [
+          "1331는 국가인권위원회의 인권 상담 번호입니다. 인권침해·차별 상담·진정 안내에 이용하세요.",
+          "운영시간: 평일09:00–18:00(공식다국어가이드)."
+        ]
+      }
+    },
+    {
+      "id": "f1",
+      "originalTitle": "부모님 돌봄 상담",
+      "originalNumber": "1661-2129",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "독거노인종합지원센터(중앙노인돌봄지원기관)",
+      "officialServiceName": "노인돌봄 지원기관 문의",
+      "purpose": "중앙노인돌봄지원기관 안내",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.1661-2129.or.kr/",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식대표번호확인.임의부모님안부·방문돌봄확정서비스보장삭제.신청·대상지역은기관확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "노인 돌봄 지원 문의",
+        "desc": "중앙노인돌봄지원기관 안내",
+        "num": "1661-2129",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1661-2129는 독거노인종합지원센터(중앙노인돌봄지원기관)의 노인돌봄 지원기관 문의 번호입니다. 중앙노인돌봄지원기관 안내에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "f2",
+      "originalTitle": "학교폭력 신고",
+      "originalNumber": "117",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "경찰청 학교폭력 신고센터",
+      "officialServiceName": "학교폭력 신고",
+      "purpose": "전화117 · 문자#0117",
+      "hours": "365일24시간",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://theyouthacademy.police.go.kr/bbs/view.do?bbsId=cardnews&pageNum=10&wr_id=160",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "2026경찰공식본문검색전체전화117문자#0117확인;직접timeout.문자수신처117아님.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "학교폭력 신고",
+        "desc": "전화117 · 문자#0117",
+        "num": "117",
+        "situation": [
+          "crime"
+        ],
+        "tip": "전화117, 문자#0117로 신고하세요. 당장 위험하면112로 신고하세요.",
+        "details": [
+          "117는 경찰청 학교폭력 신고센터의 학교폭력 신고 번호입니다. 전화117 · 문자#0117에 이용하세요.",
+          "운영시간: 365일24시간.",
+          "전화117, 문자#0117로 신고하세요. 당장 위험하면112로 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "f3",
+      "originalTitle": "여성긴급전화",
+      "originalNumber": "1366",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "여성긴급전화1366",
+      "officialServiceName": "여성폭력 긴급 상담",
+      "purpose": "여성폭력 긴급 상담·지원 연계",
+      "hours": "365일24시간",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.women1366.kr/?menuno=227",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식footer1366유료.가정폭력성폭력스토킹등대상.무조건비밀보장·무료추측삭제.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "여성긴급전화",
+        "desc": "여성폭력 긴급 상담·지원 연계",
+        "num": "1366",
+        "situation": [
+          "emergency",
+          "crime"
+        ],
+        "tip": "당장 신변이 위험하면112로 신고하세요.",
+        "details": [
+          "1366는 여성긴급전화1366의 여성폭력 긴급 상담 번호입니다. 여성폭력 긴급 상담·지원 연계에 이용하세요.",
+          "운영시간: 365일24시간.",
+          "통화요금: 유료.",
+          "당장 신변이 위험하면112로 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "f4",
+      "originalTitle": "불법촬영 피해 지원",
+      "originalNumber": "1899-0088",
+      "classification": "WRONG_NUMBER",
+      "organization": "한국여성인권진흥원 중앙디지털성범죄피해자지원센터",
+      "officialServiceName": "디지털성범죄 피해지원",
+      "purpose": "피해 상담·삭제지원·기관 연계",
+      "hours": "평일08:00–22:00;주말공휴일09:00–18:00",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://d4u.stop.or.kr/ko/main",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재중앙센터공식번호확인.1899-0088중앙센터아님.삭제성공·수사완료보장금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "디지털성범죄 피해 지원",
+        "desc": "피해 상담·삭제지원·기관 연계",
+        "num": "02-735-8994",
+        "situation": [
+          "crime"
+        ],
+        "tip": null,
+        "details": [
+          "02-735-8994는 한국여성인권진흥원 중앙디지털성범죄피해자지원센터의 디지털성범죄 피해지원 번호입니다. 피해 상담·삭제지원·기관 연계에 이용하세요.",
+          "운영시간: 평일08:00–22:00;주말공휴일09:00–18:00."
+        ]
+      }
+    },
+    {
+      "id": "f5",
+      "originalTitle": "외국인 종합 안내",
+      "originalNumber": "1345",
+      "classification": "VALID",
+      "organization": "법무부 외국인종합안내센터",
+      "officialServiceName": "체류·출입국 상담",
+      "purpose": "비자·체류·출입국 다국어 상담",
+      "hours": "평일09:00–22:00;18시이후한국어영어중국어",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.immigration.go.kr/moj/196/subview.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "외국인종합안내체류·생활행정정보안내.비자승인보장없음.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "외국인 종합 안내",
+        "desc": "비자·체류·출입국 다국어 상담",
+        "num": "1345",
+        "situation": [
+          "abroad"
+        ],
+        "tip": null,
+        "details": [
+          "1345는 법무부 외국인종합안내센터의 체류·출입국 상담 번호입니다. 비자·체류·출입국 다국어 상담에 이용하세요.",
+          "운영시간: 평일09:00–22:00;18시이후한국어영어중국어.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "f6",
+      "originalTitle": "청소년 상담",
+      "originalNumber": "1388",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "한국청소년상담복지개발원·청소년상담1388",
+      "officialServiceName": "청소년 상담",
+      "purpose": "청소년·보호자 고민 상담",
+      "hours": "365일24시간",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kyci.or.kr/userSite/sub02_1_cont.asp",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식본문검색전체24h1388확인직접timeout.1393현재중복안내제거.휴대폰지역번호필요여부최신근거확인필요.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "청소년 상담",
+        "desc": "청소년·보호자 고민 상담",
+        "num": "1388",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1388는 한국청소년상담복지개발원·청소년상담1388의 청소년 상담 번호입니다. 청소년·보호자 고민 상담에 이용하세요.",
+          "운영시간: 365일24시간."
+        ]
+      }
+    },
+    {
+      "id": "f7",
+      "originalTitle": "국민연금 상담",
+      "originalNumber": "1355",
+      "classification": "VALID",
+      "organization": "국민연금공단",
+      "officialServiceName": "국민연금 상담",
+      "purpose": "가입·납부·연금 수급 문의",
+      "hours": "평일09:00–18:00",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.nps.or.kr/pbcpgdnc/ognzprsn/getOHAG0013M0List.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "국민연금자격·수급요건상담.자동수급확정표현금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "국민연금 상담",
+        "desc": "가입·납부·연금 수급 문의",
+        "num": "1355",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1355는 국민연금공단의 국민연금 상담 번호입니다. 가입·납부·연금 수급 문의에 이용하세요.",
+          "운영시간: 평일09:00–18:00.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "f8",
+      "originalTitle": "노인학대 신고·상담",
+      "originalNumber": "1389",
+      "classification": "OUTDATED",
+      "organization": "중앙노인보호전문기관·지역노인보호전문기관",
+      "officialServiceName": "노인학대 신고 상담",
+      "purpose": "학대·방임 신고와 보호 안내",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://noinboho1389.or.kr/",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현행공식대표학대신고전화1577-1389.단축번호1389이전번호.긴급위험112.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "노인학대 신고·상담",
+        "desc": "학대·방임 신고와 보호 안내",
+        "num": "1577-1389",
+        "situation": [
+          "crime",
+          "emergency"
+        ],
+        "tip": "학대·방임이 의심되면 상담하세요. 당장 위험하면112로 신고하세요.",
+        "details": [
+          "1577-1389는 중앙노인보호전문기관·지역노인보호전문기관의 노인학대 신고 상담 번호입니다. 학대·방임 신고와 보호 안내에 이용하세요.",
+          "학대·방임이 의심되면 상담하세요. 당장 위험하면112로 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "f9",
+      "originalTitle": "실종아동·실종자",
+      "originalNumber": "182",
+      "classification": "VALID",
+      "organization": "경찰청",
+      "officialServiceName": "실종 신고·예방 안내",
+      "purpose": "실종 관련 경찰 상담",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.safe182.go.kr/cont/homeContents.do?contentsNm=182_miss_main",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식본문실종상황182/112연락확인.긴급현장대응112.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "실종아동·실종자 안내",
+        "desc": "실종 관련 경찰 상담",
+        "num": "182",
+        "situation": [
+          "crime",
+          "emergency"
+        ],
+        "tip": null,
+        "details": [
+          "182는 경찰청의 실종 신고·예방 안내 번호입니다. 실종 관련 경찰 상담에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "w1",
+      "originalTitle": "실업급여·고용지원금",
+      "originalNumber": "1350",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "고용노동부 고객상담센터",
+      "officialServiceName": "고용·노동 상담",
+      "purpose": "실업급여·근로기준·고용지원 안내",
+      "hours": "평일09:00–18:00",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://1350.moel.go.kr/home/",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "부당해고는노동위원회구제대상일수있어모든문제노동청진정이라는설명삭제.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "고용·노동 상담",
+        "desc": "실업급여·근로기준·고용지원 안내",
+        "num": "1350",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1350는 고용노동부 고객상담센터의 고용·노동 상담 번호입니다. 실업급여·근로기준·고용지원 안내에 이용하세요.",
+          "운영시간: 평일09:00–18:00.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "w2",
+      "originalTitle": "산재·고용보험",
+      "originalNumber": "1588-0075",
+      "classification": "VALID",
+      "organization": "근로복지공단",
+      "officialServiceName": "산재·고용보험 상담",
+      "purpose": "근로복지공단 제도 안내",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kawf.kr/aei/empNoticeView.do?selIdx=19465",
+          "tier": "한국예술인복지재단 공공기관",
+          "readMethod": "web open 본문",
+          "weight": "2026근로복지공단고용산재보험과납금안내문의1588-0075"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "2026년고용산재보험과납금공식공단안내를공공기관한국예술인복지재단게시본문확인.보상·승인보장금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "산재·고용보험 상담",
+        "desc": "근로복지공단 제도 안내",
+        "num": "1588-0075",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1588-0075는 근로복지공단의 산재·고용보험 상담 번호입니다. 근로복지공단 제도 안내에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "w3",
+      "originalTitle": "내일배움카드·직업교육",
+      "originalNumber": "1644-8000",
+      "classification": "WRONG_NUMBER",
+      "organization": "고용노동부 고객상담센터",
+      "officialServiceName": "국민내일배움카드 상담",
+      "purpose": "국민내일배움카드 제도 안내",
+      "hours": "평일09:00–18:00",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://1350.moel.go.kr/rtmview.do?id=1000314576&page=1&type=ALL",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "2026-01-16공식1350내일배움카드자격및고용24신청답변확인.1644-8000은한국산업인력공단대표번호여서목적오류.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "내일배움카드·직업훈련",
+        "desc": "국민내일배움카드 제도 안내",
+        "num": "1350",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1350는 고용노동부 고객상담센터의 국민내일배움카드 상담 번호입니다. 국민내일배움카드 제도 안내에 이용하세요.",
+          "운영시간: 평일09:00–18:00.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "w4",
+      "originalTitle": "직장 내 괴롭힘·성희롱",
+      "originalNumber": "1544-4140",
+      "classification": "UNVERIFIED",
+      "organization": "unknown",
+      "officialServiceName": "현재전화 운영 미확인",
+      "purpose": "고용노동부 상담 안내",
+      "hours": "평일09:00–18:00(대안1350)",
+      "fee": "유료(대안1350)",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "UNKNOWN",
+      "operatingStatus": "UNVERIFIED;전화발신미실시",
+      "sources": [
+        {
+          "url": "https://1350.moel.go.kr/home/",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "1544-4140최신공식번호확인불가.검증된고용노동1350대체권고이나원래기관동일성미확인;별도정정으로기록.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "직장 내 괴롭힘·성희롱",
+        "desc": "고용노동부 상담 안내",
+        "num": "1350",
+        "situation": [
+          "legal"
+        ],
+        "tip": null,
+        "details": [
+          "1350는 unknown의 현재전화 운영 미확인 번호입니다. 고용노동부 상담 안내에 이용하세요.",
+          "운영시간: 평일09:00–18:00(대안1350).",
+          "통화요금: 유료(대안1350)."
+        ]
+      }
+    },
+    {
+      "id": "g1",
+      "originalTitle": "정부 민원 콜센터",
+      "originalNumber": "110",
+      "classification": "VALID",
+      "organization": "국민권익위원회 정부민원안내콜센터",
+      "officialServiceName": "정부민원 안내",
+      "purpose": "정부 업무·민원 상담",
+      "hours": "365일24시간",
+      "fee": "무료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.110.go.kr/start.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "모든지자체직접전화전환보장금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "정부 민원 안내",
+        "desc": "정부 업무·민원 상담",
+        "num": "110",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "110는 국민권익위원회 정부민원안내콜센터의 정부민원 안내 번호입니다. 정부 업무·민원 상담에 이용하세요.",
+          "운영시간: 365일24시간.",
+          "통화요금: 무료."
+        ]
+      }
+    },
+    {
+      "id": "g2",
+      "originalTitle": "서울시 다산콜센터",
+      "originalNumber": "02-120",
+      "classification": "REGIONAL",
+      "organization": "서울120다산콜재단",
+      "officialServiceName": "서울시 민원 안내",
+      "purpose": "서울 생활·행정 민원 안내",
+      "hours": "365일24시간",
+      "fee": "유료",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.seoul.go.kr/seoul/seoul.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "서울지역서비스.다른지역도서울민원은02-120.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "서울시 다산콜센터",
+        "desc": "서울 생활·행정 민원 안내",
+        "num": "02-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "02-120는 서울120다산콜재단의 서울시 민원 안내 번호입니다. 서울 생활·행정 민원 안내에 이용하세요.",
+          "운영시간: 365일24시간.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "g3",
+      "originalTitle": "주민등록·가족관계",
+      "originalNumber": "1588-2188",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "정부24 고객센터",
+      "officialServiceName": "정부24 이용 안내",
+      "purpose": "온라인 민원·증명 발급 이용 문의",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://plus.gov.kr/",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "가족관계증명전부정부24발급·콜센터소관이라는표현삭제.현재gov.kr→plus.gov.krredirect확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "정부24 이용 안내",
+        "desc": "온라인 민원·증명 발급 이용 문의",
+        "num": "1588-2188",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1588-2188는 정부24 고객센터의 정부24 이용 안내 번호입니다. 온라인 민원·증명 발급 이용 문의에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "g4",
+      "originalTitle": "경기도 콜센터",
+      "originalNumber": "031-120",
+      "classification": "REGIONAL",
+      "organization": "경기도 콜센터",
+      "officialServiceName": "경기도 민원 안내",
+      "purpose": "경기도 생활·도정 민원",
+      "hours": "365일24시간",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.gg.go.kr/",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재경기도청공식footer031-120(365일24시간)확인.지역민원범위로표현.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "경기도 콜센터",
+        "desc": "경기도 생활·도정 민원",
+        "num": "031-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "031-120는 경기도 콜센터의 경기도 민원 안내 번호입니다. 경기도 생활·도정 민원에 이용하세요.",
+          "운영시간:365일24시간."
+        ]
+      }
+    },
+    {
+      "id": "g5",
+      "originalTitle": "인천시 콜센터",
+      "originalNumber": "032-120",
+      "classification": "REGIONAL",
+      "organization": "인천 미추홀콜센터",
+      "officialServiceName": "인천시 민원 안내",
+      "purpose": "인천 생활·행정 민원",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://bizok.incheon.go.kr/open_content/manage/tel.jsp",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재공식전화안내시내120외부032-120확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "인천시 미추홀콜센터",
+        "desc": "인천 생활·행정 민원",
+        "num": "032-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "032-120는 인천 미추홀콜센터의 인천시 민원 안내 번호입니다. 인천 생활·행정 민원에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "g6",
+      "originalTitle": "부산시 민원120",
+      "originalNumber": "051-120",
+      "classification": "REGIONAL",
+      "organization": "부산120바로콜센터",
+      "officialServiceName": "부산시 민원 안내",
+      "purpose": "부산 생활·행정 민원",
+      "hours": "평일08:30–18:30;이외당직실",
+      "fee": "유료",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.busan.go.kr/minwon/5",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식본문검색전체전화·시간확인직접opentimeout.상담원24h라고표현금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "부산시120바로콜센터",
+        "desc": "부산 생활·행정 민원",
+        "num": "051-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "051-120는 부산120바로콜센터의 부산시 민원 안내 번호입니다. 부산 생활·행정 민원에 이용하세요.",
+          "운영시간: 평일08:30–18:30;이외당직실.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "g7",
+      "originalTitle": "대구시 콜센터",
+      "originalNumber": "053-120",
+      "classification": "REGIONAL",
+      "organization": "대구 달구벌콜센터",
+      "officialServiceName": "대구시 민원 안내",
+      "purpose": "대구 생활·행정 민원",
+      "hours": "평일08:00–22:00;주말공휴일09:00–18:00",
+      "fee": "유료",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://smart.daegu.go.kr/cllctr/cllCtrCnsTp.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재공식본문확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "대구시 달구벌콜센터",
+        "desc": "대구 생활·행정 민원",
+        "num": "053-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "053-120는 대구 달구벌콜센터의 대구시 민원 안내 번호입니다. 대구 생활·행정 민원에 이용하세요.",
+          "운영시간: 평일08:00–22:00;주말공휴일09:00–18:00.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "g8",
+      "originalTitle": "광주시 콜센터",
+      "originalNumber": "062-120",
+      "classification": "REGIONAL",
+      "organization": "빛고을콜센터",
+      "officialServiceName": "광주 지역 민원 안내",
+      "purpose": "광주 지역 생활·행정 문의",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://120.gwangju.go.kr/selectBoardList.do?bbsId=BFAQ",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재공식footer전화062-120;footer기관전남광주통합특별시표기.광주시/도정임의명칭금지.최신소관범위추가확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "빛고을콜센터",
+        "desc": "광주 지역 생활·행정 문의",
+        "num": "062-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "062-120는 빛고을콜센터의 광주 지역 민원 안내 번호입니다. 광주 지역 생활·행정 문의에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "g9",
+      "originalTitle": "대전시 콜센터",
+      "originalNumber": "042-120",
+      "classification": "REGIONAL",
+      "organization": "대전120콜센터",
+      "officialServiceName": "대전시 민원 안내",
+      "purpose": "대전 생활·행정 민원",
+      "hours": "평일08:00–21:00;주말공휴일09:00–18:00",
+      "fee": "일반통화료",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://daejeon.go.kr/drh/DrhContentsHtmlView.do?menuSeq=1759",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재공식본문확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "대전시120콜센터",
+        "desc": "대전 생활·행정 민원",
+        "num": "042-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "042-120는 대전120콜센터의 대전시 민원 안내 번호입니다. 대전 생활·행정 민원에 이용하세요.",
+          "운영시간: 평일08:00–21:00;주말공휴일09:00–18:00.",
+          "통화요금: 일반통화료."
+        ]
+      }
+    },
+    {
+      "id": "g10",
+      "originalTitle": "울산시 콜센터",
+      "originalNumber": "052-120",
+      "classification": "REGIONAL",
+      "organization": "울산120해울이콜센터",
+      "officialServiceName": "울산시 민원 안내",
+      "purpose": "울산 생활·행정 민원",
+      "hours": "평일09:00–20:00;주말공휴일휴무",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.ulsan.go.kr/u/rep/contents.ulsan?mId=001001013000000000",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재공식본문운영시간·업무확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "울산시120민원센터",
+        "desc": "울산 생활·행정 민원",
+        "num": "052-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "052-120는 울산120해울이콜센터의 울산시 민원 안내 번호입니다. 울산 생활·행정 민원에 이용하세요.",
+          "운영시간: 평일09:00–20:00;주말공휴일휴무."
+        ]
+      }
+    },
+    {
+      "id": "g11",
+      "originalTitle": "세종시 민원콜센터",
+      "originalNumber": "044-120",
+      "classification": "REGIONAL",
+      "organization": "세종시 민원콜센터",
+      "officialServiceName": "세종시 민원 안내",
+      "purpose": "세종 생활·행정 민원",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://bis.sejong.go.kr/ext/w/parkingInfo.view",
+          "tier": "세종시공식교통정보",
+          "readMethod": "web open 본문",
+          "weight": "044-120배차노선문의번호확인"
+        },
+        {
+          "url": "https://aichat.sejong.go.kr/",
+          "tier": "세종시공식AI충녕",
+          "readMethod": "공식검색전체본문/직접open빈본문",
+          "weight": "시대표전화044-120확인"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식AI충녕본문검색전체044120전화·운영확인.시간직접본문추가확인미완료.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "세종시 민원콜센터",
+        "desc": "세종 생활·행정 민원",
+        "num": "044-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "044-120는 세종시 민원콜센터의 세종시 민원 안내 번호입니다. 세종 생활·행정 민원에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "g12",
+      "originalTitle": "강원도 콜센터",
+      "originalNumber": "033-120",
+      "classification": "REGIONAL",
+      "organization": "강원특별자치도 콜센터",
+      "officialServiceName": "강원 지역 민원 안내",
+      "purpose": "강원 생활·도정 민원",
+      "hours": "매일08:30–18:30",
+      "fee": "유료",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://state.gwd.go.kr/portal/minwon/guide/callCenter",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재공식번호시간본문확인.강원도→강원특별자치도명칭수정.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "강원특별자치도 콜센터",
+        "desc": "강원 생활·도정 민원",
+        "num": "033-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "033-120는 강원특별자치도 콜센터의 강원 지역 민원 안내 번호입니다. 강원 생활·도정 민원에 이용하세요.",
+          "운영시간: 매일08:30–18:30.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "g13",
+      "originalTitle": "충청북도 콜센터",
+      "originalNumber": "043-120",
+      "classification": "UNVERIFIED",
+      "organization": "unknown",
+      "officialServiceName": "충북도 통합콜센터 미확인",
+      "purpose": "공식 연락처 확인 필요",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "UNKNOWN",
+      "operatingStatus": "UNVERIFIED;전화발신미실시",
+      "sources": [],
+      "checkedAt": "2026-09-30",
+      "notes": "공식충북도웹현재043-120통합콜센터본문미확인.지역번호+120자동조합금지.검색노출·타기관오래된목록만근거불가.",
+      "action": "quarantine",
+      "canonicalId": null,
+      "replacement": {
+        "title": "충청북도 문의",
+        "desc": "공식 연락처 확인 필요",
+        "num": null,
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "이 항목의 현재 공식 번호·서비스는 확인하지 못했습니다. 검증 전 전화 연결에서 제외하는 것을 권고합니다."
+        ]
+      }
+    },
+    {
+      "id": "g14",
+      "originalTitle": "충청남도 콜센터",
+      "originalNumber": "041-120",
+      "classification": "UNVERIFIED",
+      "organization": "unknown",
+      "officialServiceName": "충남도 통합콜센터 미확인",
+      "purpose": "공식 연락처 확인 필요",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "UNKNOWN",
+      "operatingStatus": "UNVERIFIED;전화발신미실시",
+      "sources": [],
+      "checkedAt": "2026-09-30",
+      "notes": "충남공식관광불편신고041+120표기만발견.도정민원콜센터전범위동일성불충분.",
+      "action": "quarantine",
+      "canonicalId": null,
+      "replacement": {
+        "title": "충청남도 문의",
+        "desc": "공식 연락처 확인 필요",
+        "num": null,
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "이 항목의 현재 공식 번호·서비스는 확인하지 못했습니다. 검증 전 전화 연결에서 제외하는 것을 권고합니다."
+        ]
+      }
+    },
+    {
+      "id": "g15",
+      "originalTitle": "전북특별자치도 콜센터",
+      "originalNumber": "063-120",
+      "classification": "UNVERIFIED",
+      "organization": "unknown",
+      "officialServiceName": "전북도 통합콜센터 미확인",
+      "purpose": "공식 연락처 확인 필요",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "UNKNOWN",
+      "operatingStatus": "UNVERIFIED;전화발신미실시",
+      "sources": [],
+      "checkedAt": "2026-09-30",
+      "notes": "공식검색자동완성등만발견;최신기관서비스본문미확인.",
+      "action": "quarantine",
+      "canonicalId": null,
+      "replacement": {
+        "title": "전북특별자치도 문의",
+        "desc": "공식 연락처 확인 필요",
+        "num": null,
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "이 항목의 현재 공식 번호·서비스는 확인하지 못했습니다. 검증 전 전화 연결에서 제외하는 것을 권고합니다."
+        ]
+      }
+    },
+    {
+      "id": "g16",
+      "originalTitle": "전라남도 콜센터",
+      "originalNumber": "061-120",
+      "classification": "UNVERIFIED",
+      "organization": "unknown",
+      "officialServiceName": "전남도 통합콜센터 미확인",
+      "purpose": "공식 연락처 확인 필요",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "UNKNOWN",
+      "operatingStatus": "UNVERIFIED;전화발신미실시",
+      "sources": [],
+      "checkedAt": "2026-09-30",
+      "notes": "타지자체2023전화목록만으로현재전남도통합콜센터확정못함.",
+      "action": "quarantine",
+      "canonicalId": null,
+      "replacement": {
+        "title": "전라남도 문의",
+        "desc": "공식 연락처 확인 필요",
+        "num": null,
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "이 항목의 현재 공식 번호·서비스는 확인하지 못했습니다. 검증 전 전화 연결에서 제외하는 것을 권고합니다."
+        ]
+      }
+    },
+    {
+      "id": "g17",
+      "originalTitle": "경상북도 콜센터",
+      "originalNumber": "054-120",
+      "classification": "UNVERIFIED",
+      "organization": "unknown",
+      "officialServiceName": "경북도 통합콜센터 미확인",
+      "purpose": "공식 연락처 확인 필요",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "UNKNOWN",
+      "operatingStatus": "UNVERIFIED;전화발신미실시",
+      "sources": [],
+      "checkedAt": "2026-09-30",
+      "notes": "공식경북도현행054-120전화·서비스본문미확인.",
+      "action": "quarantine",
+      "canonicalId": null,
+      "replacement": {
+        "title": "경상북도 문의",
+        "desc": "공식 연락처 확인 필요",
+        "num": null,
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "이 항목의 현재 공식 번호·서비스는 확인하지 못했습니다. 검증 전 전화 연결에서 제외하는 것을 권고합니다."
+        ]
+      }
+    },
+    {
+      "id": "g18",
+      "originalTitle": "경상남도 콜센터",
+      "originalNumber": "055-120",
+      "classification": "REGIONAL",
+      "organization": "경상남도120민원콜센터",
+      "officialServiceName": "경남도 민원 안내",
+      "purpose": "경남 생활·도정 민원",
+      "hours": "평일09:00–18:00;이외재난상황실",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.gyeongnam.go.kr/120/index.gyeong",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식본문검색전체전화/시간확인직접timeout.24h상담원운영아님.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "경상남도120콜센터",
+        "desc": "경남 생활·도정 민원",
+        "num": "055-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "055-120는 경상남도120민원콜센터의 경남도 민원 안내 번호입니다. 경남 생활·도정 민원에 이용하세요.",
+          "운영시간: 평일09:00–18:00;이외재난상황실."
+        ]
+      }
+    },
+    {
+      "id": "g19",
+      "originalTitle": "제주특별자치도 콜센터",
+      "originalNumber": "064-120",
+      "classification": "REGIONAL",
+      "organization": "제주120콜센터",
+      "officialServiceName": "제주도 민원 안내",
+      "purpose": "제주 생활·행정 민원",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "해당 지자체 지역 민원",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://parking.jeju.go.kr/main.cs",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식현재footer064120확인.주차업무body외도정전반시간추가확인필요.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "제주특별자치도 콜센터",
+        "desc": "제주 생활·행정 민원",
+        "num": "064-120",
+        "situation": [
+          "home"
+        ],
+        "tip": null,
+        "details": [
+          "064-120는 제주120콜센터의 제주도 민원 안내 번호입니다. 제주 생활·행정 민원에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "g20",
+      "originalTitle": "관세·해외직구 통관",
+      "originalNumber": "125",
+      "classification": "VALID",
+      "organization": "관세청 고객지원센터",
+      "officialServiceName": "관세 상담",
+      "purpose": "통관·관세·밀수신고 안내",
+      "hours": "평일09:00–18:00 상담",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.customs.go.kr/kcs/cm/cntnts/cntntsView.do?cntntsId=854&mi=2882",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식125ARS밀수신고10/상담20확인.ARS번호는UI상불필요.세금자동면제안내금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "관세·해외직구 통관",
+        "desc": "통관·관세·밀수신고 안내",
+        "num": "125",
+        "situation": [
+          "abroad"
+        ],
+        "tip": null,
+        "details": [
+          "125는 관세청 고객지원센터의 관세 상담 번호입니다. 통관·관세·밀수신고 안내에 이용하세요.",
+          "운영시간: 평일09:00–18:00 상담."
+        ]
+      }
+    },
+    {
+      "id": "g21",
+      "originalTitle": "병무청 상담",
+      "originalNumber": "1588-9090",
+      "classification": "VALID",
+      "organization": "병무청 병무민원상담소",
+      "officialServiceName": "병무 민원 안내",
+      "purpose": "병역판정·입영·병무 민원",
+      "hours": "평일09:00–18:00",
+      "fee": "유료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.mma.go.kr/minwon/index.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "웹 검색 결과의 공식 전체 본문 읽음; 직접 open 실패/빈 본문, snippet만 사용하지 않음",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식현재본문검색전체footer전화시간확인직접open본문없음.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "병무청 상담",
+        "desc": "병역판정·입영·병무 민원",
+        "num": "1588-9090",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1588-9090는 병무청 병무민원상담소의 병무 민원 안내 번호입니다. 병역판정·입영·병무 민원에 이용하세요.",
+          "운영시간: 평일09:00–18:00.",
+          "통화요금: 유료."
+        ]
+      }
+    },
+    {
+      "id": "d1",
+      "originalTitle": "방송통신 민원",
+      "originalNumber": "1335",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "과학기술정보통신부",
+      "officialServiceName": "과기정통부 민원 안내",
+      "purpose": "정보통신 등 소관 업무 문의",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.emsit.go.kr/cp/ci/LstRelatdOrg.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공식기관목록1335확인.방송통신위원회전화별도02-500-9000.모든방송·통신사요금분쟁처리보장삭제.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "과기정통부 민원 안내",
+        "desc": "정보통신 등 소관 업무 문의",
+        "num": "1335",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1335는 과학기술정보통신부의 과기정통부 민원 안내 번호입니다. 정보통신 등 소관 업무 문의에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "d2",
+      "originalTitle": "전화번호 안내",
+      "originalNumber": "114",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "가입 이동통신사 고객센터",
+      "officialServiceName": "모바일 통신사 상담",
+      "purpose": "가입 통신사의 요금·서비스 문의",
+      "hours": "통신사·업무별상이",
+      "fee": "휴대폰해당통신사114무료(3사공식안내)",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.tworld.co.kr/web/info/refund",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.lguplus.com/support",
+          "tier": "공식 통신사/번호안내기관",
+          "readMethod": "web open 본문;SKT/LGU+부모에이전트확인",
+          "weight": "모바일114통신사상담과지역번호+114전화번호안내구분"
+        },
+        {
+          "url": "https://www.ktcs.co.kr/biz114.do",
+          "tier": "공식 통신사/번호안내기관",
+          "readMethod": "web open 본문;SKT/LGU+부모에이전트확인",
+          "weight": "모바일114통신사상담과지역번호+114전화번호안내구분"
+        },
+        {
+          "url": "https://ktis.co.kr/directoryAssistance.kt",
+          "tier": "공식 통신사/번호안내기관",
+          "readMethod": "web open 본문;SKT/LGU+부모에이전트확인",
+          "weight": "모바일114통신사상담과지역번호+114전화번호안내구분"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "기존전국전화번호안내개념과다른서비스로수정명시.휴대폰지역번호없이114는가입통신사상담.전화번호안내는지역번호+114(ktcs공식).MVNO요금·114기능은업체별확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "휴대폰 통신사 고객센터",
+        "desc": "가입 통신사의 요금·서비스 문의",
+        "num": "114",
+        "situation": [],
+        "tip": "가입한 휴대폰에서 지역번호 없이114로 문의하세요. 알뜰폰은 해당 사업자 안내를 확인하세요.",
+        "details": [
+          "114는 가입 이동통신사 고객센터의 모바일 통신사 상담 번호입니다. 가입 통신사의 요금·서비스 문의에 이용하세요.",
+          "운영시간: 통신사·업무별상이.",
+          "통화요금: 휴대폰해당통신사114무료(3사공식안내).",
+          "가입한 휴대폰에서 지역번호 없이114로 문의하세요. 알뜰폰은 해당 사업자 안내를 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "d3",
+      "originalTitle": "방송통신 심의 민원",
+      "originalNumber": "1377",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "방송미디어통신심의위원회",
+      "officialServiceName": "방송·통신 심의 신고",
+      "purpose": "유해·불법 방송·통신 심의 안내",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.safenet.ne.kr/dsystem.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "현재공식기관명변경확인.요금분쟁창구아님.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "방송·통신 심의 신고",
+        "desc": "유해·불법 방송·통신 심의 안내",
+        "num": "1377",
+        "situation": [],
+        "tip": null,
+        "details": [
+          "1377는 방송미디어통신심의위원회의 방송·통신 심의 신고 번호입니다. 유해·불법 방송·통신 심의 안내에 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "d4",
+      "originalTitle": "불법스팸 신고",
+      "originalNumber": "118",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "한국인터넷진흥원",
+      "officialServiceName": "불법스팸 신고 상담",
+      "purpose": "스팸문자·스팸전화 신고 안내",
+      "hours": "일반상담평일09:00–18:00;긴급해킹24h별도",
+      "fee": "무료",
+      "scope": "전국(모바일114는가입통신사)",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kisa.kr/118",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·서비스 확인; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "보이스피싱1398표현삭제.피싱통합안내1394/긴급범죄112.스팸신고즉시차단보장없음.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "불법스팸 신고·상담",
+        "desc": "스팸문자·스팸전화 신고 안내",
+        "num": "118",
+        "situation": [
+          "crime"
+        ],
+        "tip": "스팸은118, 피싱 상담·제보는1394입니다. 당장 범죄 위험이 있으면112로 신고하세요.",
+        "details": [
+          "118는 한국인터넷진흥원의 불법스팸 신고 상담 번호입니다. 스팸문자·스팸전화 신고 안내에 이용하세요.",
+          "운영시간: 일반상담평일09:00–18:00;긴급해킹24h별도.",
+          "통화요금: 무료.",
+          "스팸은118, 피싱 상담·제보는1394입니다. 당장 범죄 위험이 있으면112로 신고하세요."
+        ]
+      }
+    }
+  ]
+}

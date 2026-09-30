@@ -1,8 +1,9 @@
 import { AppState } from 'react-native';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
-import { ALL_NUMBERS } from '@whatnumber/shared';
+import { getContactById, normalizeFavoriteIds } from '@whatnumber/shared';
 import { localizeNumber } from '../../i18n';
 import type { AppLocale } from '../../i18n/types';
+import { requiresRegionalDialing } from '../../utils/regionalDialing';
 import {
   syncAndroidFavoriteWidget,
   type AndroidFavoriteWidgetSnapshotItem,
@@ -38,10 +39,11 @@ export function syncFavoritesWidget(
 
   try {
     const items: AndroidFavoriteWidgetSnapshotItem[] = [];
-    for (const id of favoriteIds) {
+    for (const id of normalizeFavoriteIds(favoriteIds)) {
       if (items.length >= MAX_ITEMS) break;
-      const number = ALL_NUMBERS.find((entry) => entry.id === id);
-      if (!number) continue;
+      const number = getContactById(id);
+      // A widget cannot ask for an area code; never dial an ambiguous short code.
+      if (!number || requiresRegionalDialing(number.num)) continue;
       const localized = localizeNumber(number, locale);
       items.push({
         id: number.id,

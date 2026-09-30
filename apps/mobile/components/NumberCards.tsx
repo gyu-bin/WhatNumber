@@ -1,7 +1,8 @@
-import { Linking, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { telHref, type NumberItem } from '@whatnumber/shared';
+import { type NumberItem } from '@whatnumber/shared';
+import { callPhoneNumber } from '../utils/phoneCall';
 import type { AppStyles } from '../styles';
 import { NumberVisualIcon } from './NumberVisualIcon';
 
@@ -51,7 +52,7 @@ export function NumberRow({
           </Text>
         </Pressable>
         <Pressable
-          onPress={() => void Linking.openURL(telHref(item.num))}
+          onPress={() => callPhoneNumber(item.num)}
           style={styles.callBtn}
         >
           <Ionicons name="call" size={13} color={styles.callText.color} />
@@ -112,7 +113,7 @@ export function NumberGridCard({
         {item.desc}
       </Text>
       <Pressable
-        onPress={() => void Linking.openURL(telHref(item.num))}
+        onPress={() => callPhoneNumber(item.num)}
         style={styles.gridCallBtn}
       >
         <Ionicons name="call" size={13} color={styles.gridCallText.color} />

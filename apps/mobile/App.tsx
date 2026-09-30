@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Image,
-  Linking,
   Modal,
   Platform,
   Pressable,
@@ -31,9 +30,11 @@ import {
   type NumberItem,
   type Situation,
   searchNumbers,
-  telHref,
 } from '@whatnumber/shared';
 import { NumberRequestModal } from './components/NumberRequest';
+import { RegionalCallContent, RegionalCallSheet } from './components/RegionalCallSheet';
+import { callPhoneNumber, registerRegionalCallHandler } from './utils/phoneCall';
+import { requiresRegionalDialing } from './utils/regionalDialing';
 import { AdBanner } from './components/AdBanner';
 import { CategoryBrowse } from './components/CategoryBrowse';
 import { EmergencyFinderCard } from './components/EmergencyFinderCard';
@@ -102,14 +103,17 @@ function DetailSheet({
   onClose,
   onToggleFavorite,
   styles,
+  colors,
 }: {
   item: NumberItem;
   isFavorite: boolean;
   onClose: () => void;
   onToggleFavorite: (id: string) => void;
   styles: AppStyles;
+  colors: ThemeColors;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [showRegionalCall, setShowRegionalCall] = useState(false);
   const insets = useSafeAreaInsets();
   const detail = localizeNumberDetail(item.id) ?? [];
   const sheetBottomPad = Math.max(insets.bottom, Platform.OS === 'android' ? 16 : 12);
@@ -117,6 +121,15 @@ function DetailSheet({
   return (
     <Modal visible animationType="slide" transparent onRequestClose={onClose}>
       <Pressable style={styles.overlay} onPress={onClose}>
+        {showRegionalCall ? (
+          <RegionalCallContent
+            number={item.num}
+            locale={i18n.language}
+            colors={colors}
+            onClose={onClose}
+            onCancel={() => setShowRegionalCall(false)}
+          />
+        ) : (
         <Pressable
           style={[styles.sheet, { paddingBottom: sheetBottomPad + 8 }]}
           onPress={(e) => e.stopPropagation()}
@@ -163,12 +176,16 @@ function DetailSheet({
             </Pressable>
             <Pressable
               style={styles.primaryBtn}
-              onPress={() => void Linking.openURL(telHref(item.num))}
+              onPress={() => {
+                if (requiresRegionalDialing(item.num)) setShowRegionalCall(true);
+                else callPhoneNumber(item.num);
+              }}
             >
               <Text style={styles.primaryBtnText}>{t('detail.call', { num: item.num })}</Text>
             </Pressable>
           </View>
         </Pressable>
+        )}
       </Pressable>
     </Modal>
   );
@@ -230,6 +247,8 @@ function TabBar({
 export default function App() {
   const { t } = useTranslation();
   const { locale, setLocale, ready: localeReady } = useLocale();
+  const [regionalCallNumber, setRegionalCallNumber] = useState<string | null>(null);
+  useEffect(() => registerRegionalCallHandler(setRegionalCallNumber), []);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   /** Cold start only — never re-shown on background → foreground */
   const [showSplash, setShowSplash] = useState(true);
@@ -320,6 +339,10 @@ export default function App() {
   }, [nativeSplashHidden]);
 
   const isSearching = query.trim().length > 0;
+  const visibleFavoritesCount = useMemo(
+    () => favorites.filter((id) => localizedNumbers.some((n) => n.id === id)).length,
+    [favorites, localizedNumbers],
+  );
 
   const filtered = useMemo(() => {
     if (isSearching) {
@@ -424,8 +447,8 @@ export default function App() {
                     styles.situationChipFavTextActive,
                   ]}
                 >
-                  {favorites.length > 0
-                    ? `★ ${t('home.favoritesWithCount', { count: favorites.length })}`
+                  {visibleFavoritesCount > 0
+                    ? `★ ${t('home.favoritesWithCount', { count: visibleFavoritesCount })}`
                     : `★ ${t('home.favorites')}`}
                 </Text>
               </Pressable>
@@ -827,11 +850,15 @@ export default function App() {
                 onClose={() => setSelected(null)}
                 onToggleFavorite={toggleFavorite}
                 styles={styles}
+                colors={themeColors}
               />
             ) : null}
           </SafeAreaView>
         </View>
 
+        {regionalCallNumber ? (
+          <RegionalCallSheet number={regionalCallNumber} locale={locale} colors={themeColors} onClose={() => setRegionalCallNumber(null)} />
+        ) : null}
         {showSplash ? (
           <SplashAnimation
             theme={theme}

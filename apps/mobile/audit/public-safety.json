@@ -1,0 +1,1269 @@
+{
+  "scope": "numbers.ts 긴급/안전15·교통/차량8·주거/생활7 = 30개 및 numberDetails.ts 해당 설명",
+  "checkedAt": "2026-09-30",
+  "methodology": {
+    "sources": "공식 기관·정부 문서 웹 검색 및 본문 open",
+    "dateCoverage": "기간 제한 없이 현행 서비스페이지 우선; 통합 이력은 2024년 문서도 포함",
+    "excluded": "블로그·커뮤니티·전화번호 SEO 사이트 제외; 공식 결과라도 시간/비용 추론 제외",
+    "limitations": "실제 전화 발신 미실시; 접근 실패 페이지의 검색 전체 본문 사용 여부를 sources.readMethod에 구분; 일부 필드 UNKNOWN. VALID은 모든 내용 확인된 경우만 사용."
+  },
+  "records": [
+    {
+      "id": "e1",
+      "originalNumber": "129",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "보건복지부 보건복지상담센터",
+      "officialServiceName": "보건복지 상담",
+      "purpose": "긴급복지·의료비 지원제도 상담",
+      "hours": "일반 평일09:00~18:00; 긴급지원24시간",
+      "fee": "무료",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://129.go.kr/counsel/counsel01.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "응급의료지원센터라는 상세 설명과 국가가 먼저 지급/소득에 따라 정산 보장은 근거와 기관 혼동이므로 삭제.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "보건복지 상담",
+        "desc": "긴급복지·의료비 지원제도 상담",
+        "num": "129",
+        "situation": [
+          "emergency"
+        ],
+        "tip": "긴급한 구조·구급 상황은 119에 먼저 신고하세요. 의료비 지원 여부와 절차는 상담을 통해 확인하세요.",
+        "details": [
+          "129는 보건복지상담센터입니다. 보건의료, 재난적의료비, 기초생활보장 등 지원제도를 상담합니다.",
+          "일반 상담은 평일 09:00~18:00이며 긴급복지·복지사각지대·학대·정신건강 위기 상담은 24시간입니다. 전국 무료 전화입니다.",
+          "긴급한 구조·구급 상황은 119에 먼저 신고하세요. 의료비 지원 여부와 절차는 상담을 통해 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "e2",
+      "originalNumber": "119",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "소방청·시도 소방본부",
+      "officialServiceName": "화재·구조·구급 신고",
+      "purpose": "화재·구조·응급환자 출동 요청",
+      "hours": "긴급신고 상시; 시간·요금 개별 본문 미명시",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.nfa.go.kr/nfa/news/pressrelease/press/?cntId=1851&mode=view",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "신고 행동요령 일부는 별도 안전 가이드 검증 없이 구체적인 단정 제외.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "화재·구조·구급 신고",
+        "desc": "화재·구조·응급환자 출동 요청",
+        "num": "119",
+        "situation": [
+          "emergency"
+        ],
+        "tip": "안전한 곳에서 위치와 상황, 도움이 필요한 인원을 알려주세요.",
+        "details": [
+          "119는 화재·구조·구급 상황의 긴급 신고 번호입니다.",
+          "119 구급상황관리센터에서는 응급처치 지도와 응급의료 상담도 제공합니다.",
+          "안전한 곳에서 위치와 상황, 도움이 필요한 인원을 알려주세요."
+        ]
+      }
+    },
+    {
+      "id": "e3",
+      "originalNumber": "112",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "경찰청",
+      "officialServiceName": "경찰 긴급신고",
+      "purpose": "범죄·위협 신고 및 경찰 출동 요청",
+      "hours": "긴급신고 상시; 본문 개별 시간 미명시",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.112.go.kr/",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "앱 위치권한만 켜면 경찰 출동이 빨라진다는 인과 단정 삭제.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "경찰 긴급신고",
+        "desc": "범죄·위협 신고 및 경찰 출동 요청",
+        "num": "112",
+        "situation": [
+          "crime"
+        ],
+        "tip": "신고할 때 위치와 상황을 알려주세요. 말하기 어려운 경우 문자 신고를 이용할 수 있습니다.",
+        "details": [
+          "112는 범죄나 위협 등 긴급 상황에서 경찰에 신고하는 번호입니다.",
+          "112신고포털은 전화·문자·녹음·영상 신고 기능을 안내합니다.",
+          "신고할 때 위치와 상황을 알려주세요. 말하기 어려운 경우 문자 신고를 이용할 수 있습니다."
+        ]
+      }
+    },
+    {
+      "id": "e4",
+      "originalNumber": "1339",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "질병관리청",
+      "officialServiceName": "질병관리청 1339 콜센터",
+      "purpose": "감염병·질병 상담 및 신고",
+      "hours": "365일24시간",
+      "fee": "국내 무료; 해외 국제전화 요금",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kdca.go.kr/kdca/2777/subview.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.kdca.go.kr/eng/4276/subview.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "기존 title/desc/tip/details 전체 응급기관 안내 오연결.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "질병관리청 1339 콜센터",
+        "desc": "감염병·질병 상담 및 신고",
+        "num": "1339",
+        "situation": [
+          "emergency"
+        ],
+        "tip": "응급출동과 응급의료 상담은 119를 이용하세요. 1339를 문 연 병원·약국 안내 번호로 표시하지 않습니다.",
+        "details": [
+          "1339는 질병관리청 콜센터로 감염병과 질병 정보, 예방 및 신고 절차를 상담합니다.",
+          "365일 24시간 운영하며 국내 통화는 무료입니다. 해외에서는 국제전화 요금이 발생합니다.",
+          "응급출동과 응급의료 상담은 119를 이용하세요. 1339를 문 연 병원·약국 안내 번호로 표시하지 않습니다."
+        ]
+      }
+    },
+    {
+      "id": "e5",
+      "originalNumber": "1577-2584",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "대검찰청·각 검찰청 피해자지원실",
+      "officialServiceName": "검찰청 범죄피해자 지원",
+      "purpose": "피해 회복 상담·지원기관 연계",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.spo.go.kr/site/spo/02/10211020100002018100812.jsp",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "민간 범죄피해자지원센터(1577-1295)와 기관 혼동 정정.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "검찰청 범죄피해자 지원",
+        "desc": "피해 회복 상담·지원기관 연계",
+        "num": "1577-2584",
+        "situation": [
+          "crime"
+        ],
+        "tip": "긴급한 범죄·신변 위협은 112에 먼저 신고하세요.",
+        "details": [
+          "1577-2584는 검찰청 피해자지원실로 연결되는 범죄피해자 상담 번호입니다.",
+          "범죄피해자와 가족에게 사건 절차·처분 결과 안내 및 피해 회복 상담을 제공하고 다른 지원기관도 연결합니다.",
+          "긴급한 범죄·신변 위협은 112에 먼저 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "e6",
+      "originalNumber": "02-3210-0404",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "외교부",
+      "officialServiceName": "영사안전콜센터",
+      "purpose": "해외 사건·사고 및 긴급상황 지원",
+      "hours": "24시간 연중무휴",
+      "fee": "일반 전화요금 UNKNOWN; 공식 앱 인터넷 전화 무료",
+      "scope": "해외 체류 우리 국민",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.0404.go.kr/bbs/bbsPst/MST0000000000039/ATC0000000048212/detail",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "2025-12-30 영사안전콜센터 개칭 확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "영사안전콜센터",
+        "desc": "해외 사건·사고 및 긴급상황 지원",
+        "num": "02-3210-0404",
+        "situation": [
+          "abroad"
+        ],
+        "tip": "긴급 통역 지원 범위와 현지 대응은 상담원의 안내를 확인하세요.",
+        "details": [
+          "외교부 영사안전콜센터는 해외 사건·사고 접수와 안전정보 상담을 연중무휴 24시간 제공합니다.",
+          "해외에서는 +82-2-3210-0404로 연락하세요. 인터넷 연결 시 공식 무료전화 앱도 이용할 수 있습니다.",
+          "긴급 통역 지원 범위와 현지 대응은 상담원의 안내를 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "e7",
+      "originalNumber": "109",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "보건복지부 자살예방상담센터",
+      "officialServiceName": "자살예방 상담",
+      "purpose": "24시간 자살예방 전문 상담",
+      "hours": "24시간",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.129.go.kr/faq/faq06.do?searchConsultingKeyword=F01&sn=15221",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.mohw.go.kr/menu.es?mid=a10716040000",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "109를 정신건강위기상담전화라고 명명하거나 1393 병행 이용 권유 삭제.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "자살예방 상담",
+        "desc": "24시간 자살예방 전문 상담",
+        "num": "109",
+        "situation": [
+          "emergency"
+        ],
+        "tip": "당장 생명이나 신체가 위험한 상황은 119 또는 112에 먼저 도움을 요청하세요.",
+        "details": [
+          "109는 자살예방 상담전화입니다. 2024년 1월 1일부터 자살예방 상담이 109로 통합되었습니다.",
+          "24시간 자살예방 상담을 운영합니다. 정신건강상담전화 등 다른 번호는 본연의 담당 분야 상담을 수행합니다.",
+          "당장 생명이나 신체가 위험한 상황은 119 또는 112에 먼저 도움을 요청하세요."
+        ]
+      }
+    },
+    {
+      "id": "e13",
+      "originalNumber": "1393",
+      "classification": "OUTDATED",
+      "organization": "보건복지부",
+      "officialServiceName": "자살예방 상담",
+      "purpose": "109로 통합된 이전 상담번호",
+      "hours": "새 번호109 24시간",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "통합된 구번호",
+      "sources": [
+        {
+          "url": "https://www.129.go.kr/faq/faq06.do?searchConsultingKeyword=F01&sn=15221",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.mohw.go.kr/menu.es?mid=a10716040000",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "실제1393의 현재 연결·폐선 여부 미시험. 별도 현행 서비스로 노출하지 말 것.",
+      "action": "alias",
+      "canonicalId": "e7",
+      "replacement": {
+        "title": "자살예방 상담",
+        "desc": "109로 통합된 이전 상담번호",
+        "num": "109",
+        "situation": [
+          "emergency"
+        ],
+        "tip": "자살예방 상담은 109를 이용하고 당장 생명이 위급하면 119 또는 112에 신고하세요.",
+        "details": [
+          "이전 자살예방 상담번호 1393은 자살예방 상담전화 109로 통합되었습니다.",
+          "자살예방 상담은 109를 이용하고 당장 생명이 위급하면 119 또는 112에 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "e8",
+      "originalNumber": "111",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "국가정보원",
+      "officialServiceName": "국가정보원 안보 신고",
+      "purpose": "간첩·테러·산업스파이 등 안보 제보",
+      "hours": "UNKNOWN",
+      "fee": "무료",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.nis.go.kr/CM/1_7_2.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "경찰113과 동일/아무데나 신고하라는 설명보다 기관별 공식 범위로 명시.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "국가정보원 안보 신고",
+        "desc": "간첩·테러·산업스파이 등 안보 제보",
+        "num": "111",
+        "situation": [
+          "crime"
+        ],
+        "tip": "국번 없이 111은 무료이며 문자 #0111과 공식 온라인 신고도 안내합니다.",
+        "details": [
+          "111은 국가정보원 국가안보 관련 범죄·활동 신고 번호입니다.",
+          "북한 간첩 및 연계세력, 국제범죄, 테러, 산업·방산스파이, 외국스파이, 사이버공격 등이 신고 대상입니다.",
+          "국번 없이 111은 무료이며 문자 #0111과 공식 온라인 신고도 안내합니다."
+        ]
+      }
+    },
+    {
+      "id": "e9",
+      "originalNumber": "113",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "경찰청",
+      "officialServiceName": "경찰 방첩 신고",
+      "purpose": "간첩·산업기술 유출·테러 신고",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.korea.kr/news/policyNewsView.do?newsId=148951821",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "2025-07-30 경찰청 정부 게시 본문 확인. 수사 부서명 변경 미확인이라 부서명 미노출.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "경찰 방첩 신고",
+        "desc": "간첩·산업기술 유출·테러 신고",
+        "num": "113",
+        "situation": [
+          "crime"
+        ],
+        "tip": "긴급한 범죄나 신변 위협은 112로 신고하세요.",
+        "details": [
+          "113은 경찰청 방첩 신고 번호입니다. 경찰청 공식 홍보에서 간첩·산업기술 유출·테러·방첩 신고를 안내합니다.",
+          "긴급한 범죄나 신변 위협은 112로 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "e10",
+      "originalNumber": "1338",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "군부대 주민신고 체계",
+      "officialServiceName": "군부대 주민 신고",
+      "purpose": "군 관련 안보 위해 의심상황 신고",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국 군부대 신고 체계",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.ansan.go.kr/www/common/cntnts/selectContents.do?cntnts_id=C0001373",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://note.gwgs.go.kr/board/notice/view.php?ntt_id=B000000077350Dr8jR1q",
+          "tier": "공식 지자체 2026-05-08 공지",
+          "readMethod": "web open 본문",
+          "weight": "2026년 현행 군부대 주민신고 1338 안내; 민통선 지뢰·폭발물 의심 발견 신고 목적 확인"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "안산 페이지의 삭제 제목만으로 현행 판단하지 않고, 2026-05-08 고성군 공식 민통선 출입절차 공지에서 1338 현행 번호를 교차 확인. 중앙 운영기관·시간·요금 미확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "군부대 주민 신고",
+        "desc": "군 관련 안보 위해 의심상황 신고",
+        "num": "1338",
+        "situation": [
+          "crime"
+        ],
+        "tip": "수상한 군 관련 상황을 신고하고 긴급 범죄·구조 상황은 112·119에 신고하세요.",
+        "details": [
+          "1338은 군부대 주민 신고 번호로 지자체 공식 주민신고 안내에 게시되어 있습니다.",
+          "수상한 군 관련 상황을 신고하고 긴급 범죄·구조 상황은 112·119에 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "e11",
+      "originalNumber": "1337",
+      "classification": "UNVERIFIED",
+      "organization": "현재 운영기관 UNKNOWN",
+      "officialServiceName": "군사안보 신고 (검증 필요)",
+      "purpose": "현재 운영기관·전화 운영 재확인 필요",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "UNKNOWN",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "UNKNOWN",
+      "sources": [],
+      "checkedAt": "2026-09-30",
+      "notes": "공식 군 홈페이지 접근 실패. 기존 군사안보지원사령부 기관명은 최신 기관으로 사용 불가. 과거 권익위 문서는 국군기무사령부 표기라 현재 증거 제외.",
+      "action": "hide",
+      "canonicalId": null,
+      "replacement": {
+        "title": "군사안보 신고 (검증 필요)",
+        "desc": "현재 운영기관·전화 운영 재확인 필요",
+        "num": "1337",
+        "situation": [
+          "crime"
+        ],
+        "tip": "긴급 범죄는 112, 국가안보 제보는 공식 확인된 111·113 안내를 이용하세요.",
+        "details": [
+          "1337의 현재 운영기관과 신고 범위를 공식 최신 본문으로 확인하지 못했습니다.",
+          "긴급 범죄는 112, 국가안보 제보는 공식 확인된 111·113 안내를 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "e12",
+      "originalNumber": "122",
+      "classification": "OUTDATED",
+      "organization": "행정안전부 긴급신고 통합체계",
+      "officialServiceName": "해양 사고 긴급신고",
+      "purpose": "119로 통합된 해양 긴급신고",
+      "hours": "119긴급신고 상시",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "통합된 구번호",
+      "sources": [
+        {
+          "url": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "122 자체 폐선 여부 미시험. 독립 현행 해경 긴급번호처럼 권유 금지.",
+      "action": "alias",
+      "canonicalId": "e2",
+      "replacement": {
+        "title": "해양 사고 긴급신고",
+        "desc": "119로 통합된 해양 긴급신고",
+        "num": "119",
+        "situation": [
+          "emergency"
+        ],
+        "tip": "해상 조난·구조 등 긴급 상황은 119로 신고하고 범죄 등 경찰 대응은 112로 신고하세요.",
+        "details": [
+          "행정안전부는 해양사고 등 신고전화가 긴급신고 112·119와 민원상담 110으로 통합되었다고 안내합니다.",
+          "해상 조난·구조 등 긴급 상황은 119로 신고하고 범죄 등 경찰 대응은 112로 신고하세요."
+        ]
+      }
+    },
+    {
+      "id": "e14",
+      "originalNumber": "128",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "관할 지자체 환경 신고창구",
+      "officialServiceName": "환경오염 신고",
+      "purpose": "환경오염행위 신고 접수",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국; 관할 지역 신고창구",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://me.go.kr/home/web/board/read.do?boardId=1840940&boardMasterId=1&menuId=286",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "검색 결과에서 반환된 전체 공식 본문; 별도 open 재시도 실패",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://eng.me.go.kr/home/web/board/read.do?boardCategoryId=&boardId=1653650&boardMasterId=939&decorator=&maxIndexPages=10&maxPageItems=10&menuId=10598&orgCd=&pagerOffset=2300&searchKey=&searchValue=",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "검색 결과에서 반환된 2024년 공식 보도자료 전체 본문; 별도 open 실패",
+          "weight": "휴대전화 지역번호+128 발신 안내 확인; 현재 개별 지자체 운영시간 확인 아님"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "2026 공식 검색 전체 본문 확인, open 접근 실패. 운영시간/무료 단정 금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "환경오염 신고",
+        "desc": "환경오염행위 신고 접수",
+        "num": "128",
+        "situation": [
+          "home"
+        ],
+        "tip": "발생 장소·시간·오염 현상을 준비하세요. 휴대전화는 지역번호와 128을 함께 누르도록 공식 안내되어 있습니다.",
+        "details": [
+          "128은 환경오염행위 신고 창구입니다. 환경 당국은 환경오염 발견 시 신고할 수 있다고 안내합니다.",
+          "발생 장소·시간·오염 현상을 준비하세요. 휴대전화는 지역번호와 128을 함께 누르도록 공식 안내되어 있습니다."
+        ]
+      }
+    },
+    {
+      "id": "e15",
+      "originalNumber": "1399",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "식품안전정보원·식품의약품안전처 신고체계",
+      "officialServiceName": "부정·불량식품 신고",
+      "purpose": "불량식품·표시광고 위반 신고",
+      "hours": "평일09:00~18:00",
+      "fee": "무료",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.foodsafetykorea.go.kr/portal/complain/complainIntro.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "식중독 진료/응급 상담처럼 오해되는 일반 식품안전 소비자상담 문구 좁힘.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "부정·불량식품 신고",
+        "desc": "불량식품·표시광고 위반 신고",
+        "num": "1399",
+        "situation": [
+          "home"
+        ],
+        "tip": "의약품·마약류·의료기기·화장품 민원은 해당 전용 창구를 이용하세요.",
+        "details": [
+          "1399는 부정·불량식품 신고 전화로 식품안전정보원에 연결됩니다.",
+          "전국 무료 전화이며 평일 09:00~18:00 상담합니다. 제품·업소 정보와 사진 등 증거를 준비하세요.",
+          "의약품·마약류·의료기기·화장품 민원은 해당 전용 창구를 이용하세요."
+        ]
+      }
+    },
+    {
+      "id": "c1",
+      "originalNumber": "1588-2504",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "한국도로공사·한국도로공사서비스",
+      "officialServiceName": "고속도로 긴급견인 안내",
+      "purpose": "고장·사고 차량 안전지대 이동 안내",
+      "hours": "24시간 연중무휴",
+      "fee": "전화 일반 통화요금; 대상 차량 안전지대 구간 견인 무료, 이후 운전자 부담",
+      "scope": "한국도로공사 관리 고속도로; 민자도로는 해당 운영사 확인",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.exservice.co.kr/service/callcenter_new.php",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "검색 결과에서 반환된 전체 공식 본문; 별도 open 재시도 실패",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.molit.go.kr/upload/portal/DextUpload/201501/20150113_175930_963.pdf",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "검색 결과에서 반환된 전체 공식 본문; 별도 open 재시도 실패",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "공공렉카/바가지NO 표현 삭제. 대상 차종·중량은 최신 공식 본문 확인 부족으로 구체 숫자 미노출.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "고속도로 긴급견인 안내",
+        "desc": "고장·사고 차량 안전지대 이동 안내",
+        "num": "1588-2504",
+        "situation": [
+          "car"
+        ],
+        "tip": "안전한 곳으로 대피한 뒤 도로 위치와 차량 상황을 알리고 서비스 대상·견인 범위를 확인하세요.",
+        "details": [
+          "1588-2504는 고속도로 콜센터로 교통정보·통행료 및 고속도로 문의를 안내합니다.",
+          "긴급견인은 고속도로에서 2차 사고 위험 차량을 가까운 안전지대까지 옮기는 지원입니다. 정비소 등 이후 이동까지 무료라는 의미는 아닙니다.",
+          "안전한 곳으로 대피한 뒤 도로 위치와 차량 상황을 알리고 서비스 대상·견인 범위를 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "c2",
+      "originalNumber": "1588-2100",
+      "classification": "WRONG_NUMBER",
+      "organization": "한국도로공사·한국도로공사서비스",
+      "officialServiceName": "고속도로 긴급견인 안내",
+      "purpose": "고장·사고 차량 안전지대 이동 안내",
+      "hours": "1588-2504 24시간",
+      "fee": "1588-2504 일반 통화요금",
+      "scope": "고속도로 서비스 범위",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.nhbank.com/goSubPage.do?srchGb=KO_NHCP_09_07&srchSiteGb=KR",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문; 텔레뱅킹 번호 직접 확인",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.exservice.co.kr/service/callcenter_new.php",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "검색 결과에서 반환된 전체 공식 본문; 별도 open 재시도 실패",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.molit.go.kr/upload/portal/DextUpload/201501/20150113_175930_963.pdf",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "검색 결과에서 반환된 전체 공식 본문; 별도 open 재시도 실패",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "c1과 동일 서비스. 수정 번호를 가진 중복 c2를 추가 노출하기보다 c2→c1 canonical alias가 권고.",
+      "action": "alias",
+      "canonicalId": "c1",
+      "replacement": {
+        "title": "고속도로 긴급견인 안내",
+        "desc": "고장·사고 차량 안전지대 이동 안내",
+        "num": "1588-2504",
+        "situation": [
+          "car"
+        ],
+        "tip": "가까운 안전지대까지의 지원 범위는 콜센터에서 확인하세요.",
+        "details": [
+          "고속도로 긴급견인 안내는 1588-2504를 이용합니다.",
+          "1588-2100은 농협 텔레뱅킹·공용 대표번호로 공식 안내되어 고속도로 긴급견인 번호가 아닙니다.",
+          "가까운 안전지대까지의 지원 범위는 콜센터에서 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "originalNumber": "112",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "경찰청",
+      "officialServiceName": "교통사고 긴급 신고",
+      "purpose": "교통사고 경찰 출동·현장 신고",
+      "hours": "긴급신고 상시",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.112.go.kr/",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "112 신고만으로 합의서 작성/분쟁에 유리/사실확인원 보장이라는 기존 상세 단정 삭제.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "교통사고 긴급 신고",
+        "desc": "교통사고 경찰 출동·현장 신고",
+        "num": "112",
+        "situation": [
+          "car",
+          "crime"
+        ],
+        "tip": "사고 위치와 현재 위험 상황을 알리세요. 사실확인원 발급과 일반 민원은 별도 경찰 민원 절차를 확인하세요.",
+        "details": [
+          "112는 교통사고 등 긴급 상황에서 경찰에 신고하는 번호입니다.",
+          "부상이나 구조가 필요하면 119에 먼저 도움을 요청하세요.",
+          "사고 위치와 현재 위험 상황을 알리세요. 사실확인원 발급과 일반 민원은 별도 경찰 민원 절차를 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "c4",
+      "originalNumber": "119",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "소방청·시도 소방본부",
+      "officialServiceName": "교통사고 구조·구급",
+      "purpose": "사고 부상자 응급출동 요청",
+      "hours": "긴급신고 상시",
+      "fee": "UNKNOWN",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.nfa.go.kr/nfa/news/pressrelease/press/?cntId=1851&mode=view",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "119 동일 서비스의 상황별 항목. 의학적 통증 예후 단정 제외.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "교통사고 구조·구급",
+        "desc": "사고 부상자 응급출동 요청",
+        "num": "119",
+        "situation": [
+          "car",
+          "emergency"
+        ],
+        "tip": "위치·부상자 상태·인원을 알리고 응급처치 안내를 따르세요.",
+        "details": [
+          "교통사고로 부상자가 있거나 구조가 필요하면 119에 신고하세요.",
+          "위치·부상자 상태·인원을 알리고 응급처치 안내를 따르세요."
+        ]
+      }
+    },
+    {
+      "id": "c6",
+      "originalNumber": "1544-0119",
+      "classification": "WRONG_NUMBER",
+      "organization": "자동차손해배상진흥원",
+      "officialServiceName": "뺑소니·무보험 사고 피해 지원",
+      "purpose": "정부보장사업 보상 상담",
+      "hours": "UNKNOWN",
+      "fee": "전화요금 UNKNOWN; 지원요건 충족 시 제도 보상",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://tacss.or.kr/notification/board_view.jsp?no=132&page=pressrelease&pagenum=2&tname=tb_reporting",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.korea.kr/news/policyNewsView.do?newsId=148931290",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "1544-0119 해당 용도 공식 근거 없고 올바른 번호1544-0049 2개 공식 본문 확인.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "뺑소니·무보험 사고 피해 지원",
+        "desc": "정부보장사업 보상 상담",
+        "num": "1544-0049",
+        "situation": [
+          "car",
+          "legal"
+        ],
+        "tip": "보상 여부와 필요 서류는 상담을 통해 확인하세요. 모든 사고나 재산 피해를 보상한다는 의미는 아닙니다.",
+        "details": [
+          "자동차손해배상진흥원 정부보장사업 보상안내는 1544-0049 연결 후 1번입니다.",
+          "무보험·뺑소니·도난 자동차 및 가해자를 알 수 없는 차량 낙하물 사고 피해 등 법정 지원 대상과 신청 요건을 상담합니다.",
+          "보상 여부와 필요 서류는 상담을 통해 확인하세요. 모든 사고나 재산 피해를 보상한다는 의미는 아닙니다."
+        ]
+      }
+    },
+    {
+      "id": "c7",
+      "originalNumber": "110",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "국민권익위원회 정부민원안내콜센터",
+      "officialServiceName": "교통 행정·민원 안내",
+      "purpose": "교통·면허 등 관련 기관 상담 안내",
+      "hours": "365일24시간",
+      "fee": "무료",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.110.go.kr/consult/manual.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.110.go.kr/start.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "정확히 과태료/면허/보험 직접 처리하는 기관이라는 의미는 금지.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "교통 행정·민원 안내",
+        "desc": "교통·면허 등 관련 기관 상담 안내",
+        "num": "110",
+        "situation": [
+          "car"
+        ],
+        "tip": "365일24시간 무료 전화상담을 제공하며 긴급 사고 출동은 112·119로 요청하세요.",
+        "details": [
+          "110은 정부민원안내콜센터로 교통·건설, 금융·보험, 치안 등 다양한 정부 민원 분야를 안내합니다.",
+          "365일24시간 무료 전화상담을 제공하며 긴급 사고 출동은 112·119로 요청하세요."
+        ]
+      }
+    },
+    {
+      "id": "c8",
+      "originalNumber": "182",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "경찰청",
+      "officialServiceName": "경찰 유실물 문의",
+      "purpose": "LOST112 분실물 신고·조회 안내",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국 경찰 유실물 문의",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoP.do?cgmExpcDatSeq=384398&mode=2&ofiClsCd=350128",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "182를 대중교통 전국 통합콜센터로 명명하지 않음.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "경찰 유실물 문의",
+        "desc": "LOST112 분실물 신고·조회 안내",
+        "num": "182",
+        "situation": [],
+        "tip": "경찰청 공식 답변은 관련 문의를 182로 안내합니다. 대중교통 운영사의 자체 분실물센터도 확인하세요.",
+        "details": [
+          "경찰청 유실물 통합포털 LOST112에서 분실물 신고와 조회를 할 수 있습니다.",
+          "경찰청 공식 답변은 관련 문의를 182로 안내합니다. 대중교통 운영사의 자체 분실물센터도 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "c9",
+      "originalNumber": "1544-7788",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "한국철도공사",
+      "officialServiceName": "코레일 철도 고객센터",
+      "purpose": "열차·승차권 이용 문의",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "전국 코레일 이용자",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.korail.com/ticket/guest/notice/22481",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "검색 결과에서 반환된 공식 공지 전체 본문; open은 JavaScript shell만 반환",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://info.korail.com/info/selectBbsNttView.do?bbsNo=199&key=911&nttNo=3589",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "검색 결과에서 반환된 전체 공식 본문; 별도 open 재시도 실패",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "최근 공식 2025-11-28 검색 전체 본문 번호 확인, open은 JS shell만 반환. 06~22·24 서로 다른 비공식 시간은 채택 안함.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "코레일 철도 고객센터",
+        "desc": "열차·승차권 이용 문의",
+        "num": "1544-7788",
+        "situation": [
+          "car"
+        ],
+        "tip": "상담 운영시간과 유실물·환불 절차는 코레일 공식 안내 또는 연결 시 안내를 확인하세요.",
+        "details": [
+          "1544-7788은 코레일 철도 고객센터 번호입니다. 열차 이용과 승차권 관련 문의를 안내합니다.",
+          "상담 운영시간과 유실물·환불 절차는 코레일 공식 안내 또는 연결 시 안내를 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "h1",
+      "originalNumber": "1588-1300",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "우정사업본부 우체국",
+      "officialServiceName": "우체국 주거이전 우편 안내",
+      "purpose": "이사 후 우편물 전송서비스 안내",
+      "hours": "UNKNOWN",
+      "fee": "전화요금 UNKNOWN; 전송서비스 수수료·조건 확인",
+      "scope": "전국 우편서비스",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.koreapost.go.kr/kpost/subIndex/225.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "서비스 자체 완전 오인. ID는 유지하며 title/desc/details 수정.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "우체국 주거이전 우편 안내",
+        "desc": "이사 후 우편물 전송서비스 안내",
+        "num": "1588-1300",
+        "situation": [
+          "home"
+        ],
+        "tip": "은행·카드·보험의 등록주소가 자동 변경되는 서비스라는 설명은 삭제합니다.",
+        "details": [
+          "1588-1300은 우체국 고객상담 번호로 주거이전 우편물 전송서비스를 문의할 수 있습니다.",
+          "주거이전 신고는 우체국이나 인터넷우체국에서 신청하며, 전송서비스 조건·기간·수수료를 확인하세요.",
+          "은행·카드·보험의 등록주소가 자동 변경되는 서비스라는 설명은 삭제합니다."
+        ]
+      }
+    },
+    {
+      "id": "h2",
+      "originalNumber": "1661-2642",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "한국환경공단 층간소음 이웃사이센터",
+      "officialServiceName": "층간소음 상담·측정",
+      "purpose": "공동주택 층간소음 상담·현장 지원",
+      "hours": "평일09:00~18:00",
+      "fee": "UNKNOWN",
+      "scope": "전국 공동주택 거주자",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://namc.molit.go.kr/board/boardRead.do?boardGroup=faq&boardNum=248&menu=2&searchKeyWord=",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "전문 중재인 방문 조정 보장 수정.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "층간소음 상담·측정",
+        "desc": "공동주택 층간소음 상담·현장 지원",
+        "num": "1661-2642",
+        "situation": [
+          "home"
+        ],
+        "tip": "강제 조정이나 분쟁 해결을 보장하지 않습니다. 접수 가능 대상·절차를 상담에서 확인하세요.",
+        "details": [
+          "1661-2642는 한국환경공단 층간소음 이웃사이센터 대표전화입니다.",
+          "전국 공동주택 거주자를 대상으로 전화상담과 현장 소음측정 등 서비스를 제공합니다. 평일09:00~18:00이며 토·일·공휴일 제외입니다.",
+          "강제 조정이나 분쟁 해결을 보장하지 않습니다. 접수 가능 대상·절차를 상담에서 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "h3",
+      "originalNumber": "1566-9009",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "주택도시보증공사 HUG",
+      "officialServiceName": "HUG 전세보증 상담",
+      "purpose": "전세보증·주택도시기금 상담",
+      "hours": "평일09:00~18:00",
+      "fee": "UNKNOWN",
+      "scope": "전국 HUG 고객",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://onestop.khug.or.kr/webView/webBiz/common/callCenterInfo",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "HUG 전세사기피해지원센터/계약 전 등기 확인 전담번호라는 기존 설명 수정.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "HUG 전세보증 상담",
+        "desc": "전세보증·주택도시기금 상담",
+        "num": "1566-9009",
+        "situation": [
+          "home"
+        ],
+        "tip": "전세피해지원센터의 전용 피해상담과 HUG 보증상품 상담을 동일 서비스로 표시하지 않습니다.",
+        "details": [
+          "1566-9009는 HUG 주택도시보증공사 통합콜센터입니다.",
+          "전세보증금반환보증·전세안심대출과 주택도시기금 등 상품 문의를 안내합니다. 평일09:00~18:00 상담합니다.",
+          "전세피해지원센터의 전용 피해상담과 HUG 보증상품 상담을 동일 서비스로 표시하지 않습니다."
+        ]
+      }
+    },
+    {
+      "id": "h4",
+      "originalNumber": "1670-1004",
+      "classification": "UNVERIFIED",
+      "organization": "UNKNOWN",
+      "officialServiceName": "가스 누출 긴급 (검증 필요)",
+      "purpose": "등록 번호의 공식 운영기관 미확인",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "UNKNOWN",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "UNKNOWN",
+      "sources": [
+        {
+          "url": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "기존 번호 숨김 권고. ID를 무조건119로 바꾸면 기존 지역서비스 즐겨찾기를 다른 기관으로 바꾸는 혼동. 삭제+긴급119(e2) 안내 권장. 지역 공급사 목록 검증 전 새 번호 추정 금지.",
+      "action": "hide",
+      "canonicalId": null,
+      "replacement": {
+        "title": "가스 누출 긴급 (검증 필요)",
+        "desc": "등록 번호의 공식 운영기관 미확인",
+        "num": "1670-1004",
+        "situation": [
+          "home",
+          "emergency"
+        ],
+        "tip": "가스사고 등 긴급 위험은 안전한 곳에서119에 신고하고 지역 도시가스 공급사의 공식 긴급번호를 확인하세요.",
+        "details": [
+          "1670-1004를 전국 도시가스 긴급번호로 확인할 공식 근거를 찾지 못했습니다.",
+          "가스사고 등 긴급 위험은 안전한 곳에서119에 신고하고 지역 도시가스 공급사의 공식 긴급번호를 확인하세요."
+        ]
+      }
+    },
+    {
+      "id": "h5",
+      "originalNumber": "123",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "한국전력공사",
+      "officialServiceName": "한전 전기 고장·정전 신고",
+      "purpose": "전기상담·고장 신고",
+      "hours": "365일24시간",
+      "fee": "유료",
+      "scope": "전국; 휴대전화 지역번호+123",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kepco.co.kr/home/service/errorinquiry/conts.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.kepco.co.kr/home/index.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "모바일 tel:123 자동연결 신뢰 문제. 사용자 지역선택 CTA 필요.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "한전 전기 고장·정전 신고",
+        "desc": "전기상담·고장 신고",
+        "num": "123",
+        "situation": [
+          "home",
+          "emergency"
+        ],
+        "tip": "화재·감전 등 긴급한 위험은119에 먼저 도움을 요청하세요.",
+        "details": [
+          "123은 한국전력공사 전기상담·고장 신고 번호입니다.365일24시간 운영합니다.",
+          "휴대전화는 지역번호+123으로 연결하도록 한전이 안내합니다. 전화는 유료입니다.",
+          "화재·감전 등 긴급한 위험은119에 먼저 도움을 요청하세요."
+        ]
+      }
+    },
+    {
+      "id": "h6",
+      "originalNumber": "1577-0600",
+      "classification": "REGIONAL",
+      "organization": "한국수자원공사 K-water",
+      "officialServiceName": "K-water 고객센터",
+      "purpose": "수자원공사 수도 관련 문의",
+      "hours": "UNKNOWN",
+      "fee": "UNKNOWN",
+      "scope": "기관 대표번호는 전국; 지방상수도 서비스는 K-water 위탁지역 등 담당범위",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kwater.or.kr/main.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        },
+        {
+          "url": "https://www.110.go.kr/consult/manual.do",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "전국 단수·누수 해결번호로 오해되지 않도록 공급기관 범위 강조.",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "K-water 고객센터",
+        "desc": "수자원공사 수도 관련 문의",
+        "num": "1577-0600",
+        "situation": [
+          "home"
+        ],
+        "tip": "K-water가 담당하지 않는 지역은 관할 지자체 상수도 창구를 확인하고 담당 기관을 모르면110에 문의하세요.",
+        "details": [
+          "1577-0600은 한국수자원공사 K-water 고객센터입니다.",
+          "수도·단수·누수 민원은 거주 지역의 수도 공급기관에 따라 담당 창구가 다릅니다.",
+          "K-water가 담당하지 않는 지역은 관할 지자체 상수도 창구를 확인하고 담당 기관을 모르면110에 문의하세요."
+        ]
+      }
+    },
+    {
+      "id": "h7",
+      "originalNumber": "131",
+      "classification": "VALID_BUT_COPY_FIX",
+      "organization": "기상청",
+      "officialServiceName": "기상청 날씨 상담",
+      "purpose": "기상특보·예보 상담",
+      "hours": "365일24시간; 영어·중국어09:00~18:00",
+      "fee": "유료 시내전화 요금",
+      "scope": "전국",
+      "audience": "해당 서비스 이용자",
+      "operatingStatus": "공식 안내에 게시 중; 실제 전화 연결 미시험",
+      "sources": [
+        {
+          "url": "https://www.kma.go.kr/kma/citizen/minwon_03.jsp",
+          "tier": "공식 기관/정부 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·용도 확인에 사용; 명시되지 않은 시간·요금 추론 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "notes": "",
+      "action": "update",
+      "canonicalId": null,
+      "replacement": {
+        "title": "기상청 날씨 상담",
+        "desc": "기상특보·예보 상담",
+        "num": "131",
+        "situation": [
+          "home"
+        ],
+        "tip": "태풍·호우·폭염·한파 등 기상특보와 예보를 문의할 수 있습니다.",
+        "details": [
+          "131은 기상청 기상콜센터입니다.전문 기상상담사가365일24시간 상담합니다.",
+          "전국 시내전화 요금 기준으로 이용하며 별도 추가 요금은 없다고 안내합니다.",
+          "태풍·호우·폭염·한파 등 기상특보와 예보를 문의할 수 있습니다."
+        ]
+      }
+    }
+  ]
+}

@@ -47,12 +47,12 @@
     "legal": "Legal / finance"
   },
   "situationTips": {
-    "emergency": "In a life-threatening emergency call 119; for hospital guidance try 1339.",
-    "car": "On expressways, call the public tow service first.",
-    "crime": "If it's voice phishing, hang up and call 1398.",
-    "home": "For gas leaks, outages, or lease scams, call the matching number right away.",
-    "abroad": "Overseas, the consular call center can help in Korean.",
-    "legal": "Before a lawsuit, try free legal advice at 132."
+    "emergency": "For a life-threatening emergency, call 119 first. For suicide prevention counseling, call 109.",
+    "car": "For injuries, call 119. For expressway towing guidance, call 1588-2504 and confirm eligibility and limits.",
+    "crime": "End suspected phishing calls. Contact 1394 for advice or reporting; for immediate crime, call 112.",
+    "home": "For government inquiry guidance, call 110. For power faults, call 123; mobile callers need the area code.",
+    "abroad": "For overseas consular safety assistance, call +82-2-3210-0404.",
+    "legal": "For legal counseling, call 132; debt adjustment, 1600-5500; inclusive finance, 1397. Calling fees may apply."
   },
   "categories": {
     "긴급/안전": "Emergency / Safety",
@@ -65,14 +65,38 @@
     "통신/디지털": "Telecom / Digital"
   },
   "categoryTiles": {
-    "traffic": { "label": "Traffic / Vehicles", "subtitle": "Accidents · breakdowns · traffic info" },
-    "finance": { "label": "Finance / Cards", "subtitle": "Loss · fraud · financial help" },
-    "housing": { "label": "Home / Housing", "subtitle": "Rent · housing support" },
-    "family": { "label": "Family / Welfare", "subtitle": "Children · teens · seniors · mental health" },
-    "civic": { "label": "Daily / Civic", "subtitle": "Admin · tax · public services" },
-    "labor": { "label": "Jobs / Labor", "subtitle": "Unemployment · labor advice" },
-    "digital": { "label": "Telecom / Digital", "subtitle": "Hacking · spam · phone service" },
-    "other": { "label": "Other", "subtitle": "Emergency · reports · overseas help" }
+    "traffic": {
+      "label": "Traffic / Vehicles",
+      "subtitle": "Accidents · breakdowns · traffic info"
+    },
+    "finance": {
+      "label": "Finance / Cards",
+      "subtitle": "Loss · fraud · financial help"
+    },
+    "housing": {
+      "label": "Home / Housing",
+      "subtitle": "Rent · housing support"
+    },
+    "family": {
+      "label": "Family / Welfare",
+      "subtitle": "Children · teens · seniors · mental health"
+    },
+    "civic": {
+      "label": "Daily / Civic",
+      "subtitle": "Admin · tax · public services"
+    },
+    "labor": {
+      "label": "Jobs / Labor",
+      "subtitle": "Unemployment · labor advice"
+    },
+    "digital": {
+      "label": "Telecom / Digital",
+      "subtitle": "Hacking · spam · phone service"
+    },
+    "other": {
+      "label": "Other",
+      "subtitle": "Emergency · reports · overseas help"
+    }
   },
   "categorySubtitles": {
     "긴급/안전": "When you need help right now",

@@ -73,10 +73,6 @@ export function HomePage() {
     showToast(ok ? t('header.copySiteOk') : t('common.copyFail'));
   }, [showToast, t]);
 
-  if (legacyItem) {
-    return <Navigate to={numberPath(legacyItem.id)} replace />;
-  }
-
   const isSearching = query.trim().length > 0;
 
   const handleSituation = useCallback((id: Situation | null) => {
@@ -128,6 +124,11 @@ export function HomePage() {
 
   const isFavoritesView = activeCategory === 'favorites' && !isSearching;
 
+  // Keep hook order stable when a saved legacy link resolves to a canonical ID.
+  if (legacyItem) {
+    return <Navigate to={numberPath(legacyItem.id)} replace />;
+  }
+
   return (
     <div className="app">
       <JsonLd id="website" data={websiteJsonLd} />
@@ -152,7 +153,7 @@ export function HomePage() {
               active={activeCategory}
               onSelect={handleCategory}
               situationActive={!!activeSituation}
-              favoritesCount={favorites.length}
+              favoritesCount={favoriteItems.length}
             />
           </>
         )}

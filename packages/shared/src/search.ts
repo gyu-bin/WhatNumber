@@ -19,12 +19,9 @@ const SITUATION_KEYWORDS: Record<Situation, string[]> = {
     '화재',
     '119',
     '129',
-    '1339',
     '응급실',
     '자살',
-    '1393',
     '해경',
-    '122',
   ],
   car: [
     '차',
@@ -47,7 +44,7 @@ const SITUATION_KEYWORDS: Record<Situation, string[]> = {
     '도난',
     '신고',
     '112',
-    '1398',
+    '1394',
     '피해',
     '간첩',
     '111',
@@ -60,7 +57,6 @@ const SITUATION_KEYWORDS: Record<Situation, string[]> = {
     '사이버',
     '마약',
     '1301',
-    '1337',
     '1338',
     '드론',
     '스파이',
@@ -154,10 +150,10 @@ const ITEM_ALIASES: Record<string, string[]> = {
     '내린역',
     '좌석',
   ],
-  c1: ['공공렉카', '고속도로렉카', '사설렉카'],
-  c2: ['갓길', '긴급견인'],
+  c1: ['공공렉카', '고속도로렉카', '사설렉카', '갓길', '긴급견인', '한국도로공사'],
   e2: ['불', '화재신고', '구급차'],
   e3: ['경찰청', '경찰서'],
+  e4: ['감염병', '질병', '예방접종', '질병관리청', 'KDCA'],
 };
 
 /** 쿼리 단어 → 확장 토큰 (동의어) */
@@ -408,6 +404,13 @@ function scoreItem(item: NumberItem, query: string, tokens: string[]): number {
 
   if (!q) return 0;
 
+  // Number-only searches match dialing values, not unrelated advice or situation keywords.
+  if (/^[+\d\s()-]+$/.test(q)) {
+    const digits = q.replace(/\D/g, '');
+    const number = item.num.replace(/\D/g, '');
+    return digits && number.includes(digits) ? (digits === number ? 200 : 100) : 0;
+  }
+
   // 전체 구문 / 번호 직접 일치
   if (item.title.toLowerCase().includes(q)) score += 120;
   const digitsQ = q.replace(/-/g, '');
@@ -435,7 +438,7 @@ function scoreItem(item: NumberItem, query: string, tokens: string[]): number {
         score += 24;
       }
     }
-  } else if (item.situation.includes('emergency') || item.situation.includes('crime')) {
+  } else if (score > 0 && (item.situation.includes('emergency') || item.situation.includes('crime'))) {
     score += 6;
   }
 

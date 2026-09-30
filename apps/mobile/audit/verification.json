@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-09-30",
+  "staticValidator": { "status": "passed", "contacts": 91, "errors": 0, "warnings": 0 },
+  "offlineRegressions": { "status": "passed", "groups": 13, "command": "npm run test:phones --workspace=mobile" },
+  "mobileTypecheck": { "status": "passed", "command": "npm run lint:types --workspace=mobile" },
+  "webTypecheck": { "status": "passed", "command": "tsc -p tsconfig.app.json --noEmit --incremental false" },
+  "changedSharedWebESLint": { "status": "passed_with_warning", "errors": 0, "warnings": 1, "warning": "HomePage useMemo unnecessary locale dependency (pre-existing)" },
+  "webProductionBuild": { "status": "passed", "artifactDirectory": "/private/tmp/whatnumber-phone-audit-web-final", "warning": "bundle exceeds 500kB" },
+  "expoIOSAndroidExport": { "status": "passed", "artifactDirectory": "/private/tmp/whatnumber-phone-audit-final", "kind": "JavaScript/Hermes and assets, not native signed binaries" },
+  "widgetSnapshotTests": { "status": "passed", "kind": "actual iOS/Android snapshot module execution with mocked native widget APIs and localized bundles" },
+  "regionalDialTests": { "status": "passed", "combinations": 34, "includes": ["mobile handler", "web handler", "cancellation", "invalid area code", "ordinary call URI"] },
+  "codeReview": { "status": "passed_after_fixes", "fixed": ["hidden favorites counted as visible", "two-modal iOS transition race"] },
+  "whitespaceCheck": { "status": "passed", "command": "git diff --check" },
+  "actualPhoneCalls": "not_performed",
+  "nativeDeviceLayoutAndWidgetRendering": "not_verified",
+  "productionDeployment": "not_performed"
+}
