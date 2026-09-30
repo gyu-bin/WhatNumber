@@ -10,9 +10,11 @@
     "VALID": 24
   },
   "finalCounts": {
-    "reviewed": 104,
-    "visible": 91,
-    "public": 70,
+    "reviewed": 108,
+    "baselineReviewed": 104,
+    "newlyAdded": 4,
+    "visible": 95,
+    "public": 74,
     "organizations": 21,
     "directlyCorrectedNumbers": 7,
     "aliases": 4,
@@ -114,6 +116,211 @@
     }
   ],
   "records": [
+    {
+      "id": "e16",
+      "verifiedAt": "2026-09-30",
+      "before": null,
+      "initialAuditClassification": "VALID",
+      "verificationStatus": "VERIFIED",
+      "finalAction": "add-verified-public-contact",
+      "canonicalId": "e16",
+      "after": {
+        "title": "국방헬프콜",
+        "number": "1303",
+        "category": "긴급/안전",
+        "situation": []
+      },
+      "organization": "국방부조사본부 국방헬프콜센터",
+      "serviceName": "국방헬프콜",
+      "purpose": "군 생활 고충·군 관련 범죄 신고와 상담",
+      "hours": "24시간 365일",
+      "cost": "무료",
+      "scope": "전국",
+      "audience": "현역장병, 가족, 친구, 입대예정자, 예비역, 일반 국민 누구나",
+      "operatingStatus": "현행 공식 안내 운영 중; 실제 전화 연결 미시험",
+      "sourceURLs": [
+        "https://www.korea.kr/news/policyNewsView.do?newsId=148965395",
+        "https://news.seoul.go.kr/economy/archives/566787"
+      ],
+      "sources": [
+        {
+          "url": "https://www.korea.kr/news/policyNewsView.do?newsId=148965395",
+          "title": "군생활 고충 혼자 끙끙 앓지 마세요",
+          "publishedAt": "2026-06-05",
+          "tier": "공식 정부 서비스 안내(정책주간지 K-공감); 운영기관 자체 페이지보다는 한 단계 간접",
+          "readMethod": "web open HTML 본문, lines 232~239",
+          "support": "국방부조사본부 운영, 병영생활고충/군범죄/성폭력/마약/방위사업비리/병영안전 신고상담, 누구나 이용, 1303 무료, 24시간 365일 명시",
+          "weight": "주 근거; 현행 서비스에 관한 정부 안내, 실제 통화시험 아님"
+        },
+        {
+          "url": "https://news.seoul.go.kr/economy/archives/566787",
+          "title": "군인, 군부대 사칭 사기범죄 예방 공고",
+          "publishedAt": "2025-07-10",
+          "tier": "지자체 공식 서비스 안내; 국방기관 안내 재게시 성격",
+          "readMethod": "web open HTML 본문, lines 373~389",
+          "support": "국방헬프콜 국번 없이 1303, 24시간 상담, 군인·군부대 사칭 확인 문의 및 피해신고 112 구분",
+          "weight": "번호·24시간 상담 교차확인; 전체 상담범위·요금에는 사용하지 않음"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "note": "모든 군 관련 요청의 즉시 출동 번호로 설명하지 말 것. 신고 및 상담 창구임. 자체 누리집과 2025 국방부 PDF는 검색 본문에 상세 정보가 있지만 open 실패하여 확정 근거에서 제외."
+    },
+    {
+      "id": "f10",
+      "verifiedAt": "2026-09-30",
+      "before": null,
+      "initialAuditClassification": "VALID",
+      "verificationStatus": "VERIFIED",
+      "finalAction": "add-verified-public-contact",
+      "canonicalId": "f10",
+      "after": {
+        "title": "정신건강 위기상담",
+        "number": "1577-0199",
+        "category": "가족/복지",
+        "situation": []
+      },
+      "organization": "보건복지부 정책 / 기초·광역 정신건강복지센터",
+      "serviceName": "정신건강 위기상담",
+      "purpose": "정신건강 고민과 위기상황 상담",
+      "hours": "365일 24시간",
+      "cost": "UNKNOWN",
+      "scope": "전국",
+      "audience": "정신건강 상담이 필요한 국민",
+      "operatingStatus": "현행 공식 안내 운영 중; 실제 전화 연결 미시험",
+      "sourceURLs": [
+        "https://www.mohw.go.kr/menu.es?mid=a10706040100",
+        "https://www.129.go.kr/109",
+        "https://news.seoul.go.kr/welfare/archives/561837"
+      ],
+      "sources": [
+        {
+          "url": "https://www.mohw.go.kr/menu.es?mid=a10706040100",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·목적·시간 확인; 통화료 미확인"
+        },
+        {
+          "url": "https://www.129.go.kr/109",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·목적·시간 확인; 통화료 미확인"
+        },
+        {
+          "url": "https://news.seoul.go.kr/welfare/archives/561837",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·목적·시간 확인; 통화료 미확인"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "note": "자살예방 상담은 2024년부터109로 통합.1577-0199는 정신건강 본연의 상담 유지. 상담료·통화료 미확인."
+    },
+    {
+      "id": "f11",
+      "verifiedAt": "2026-09-30",
+      "before": null,
+      "initialAuditClassification": "VALID",
+      "verificationStatus": "VERIFIED",
+      "finalAction": "add-verified-public-contact",
+      "canonicalId": "f11",
+      "after": {
+        "title": "치매상담콜센터",
+        "number": "1899-9988",
+        "category": "가족/복지",
+        "situation": []
+      },
+      "organization": "국립중앙의료원 중앙치매센터",
+      "serviceName": "치매상담콜센터",
+      "purpose": "치매 정보와 환자·가족 돌봄 상담",
+      "hours": "07:00~22:00",
+      "cost": "UNKNOWN",
+      "scope": "전국",
+      "audience": "치매환자·가족·유관기관 종사자 및 치매에 궁금한 국민 누구나",
+      "operatingStatus": "현행 공식 안내 운영 중; 실제 전화 연결 미시험",
+      "sourceURLs": [
+        "https://www.data.go.kr/data/15114357/fileData.do",
+        "https://www.gunsan.go.kr/upload_data/board_data/BBS_0000391/177424508156428.pdf",
+        "https://www.korea.kr/news/customizedNewsView.do?newsId=148930507"
+      ],
+      "sources": [
+        {
+          "url": "https://www.data.go.kr/data/15114357/fileData.do",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "현행 운영시간 최우선 근거: 운영기관 제공2026-06-01 본문07:00~22:00; 요금 근거 아님"
+        },
+        {
+          "url": "https://www.gunsan.go.kr/upload_data/board_data/BBS_0000391/177424508156428.pdf",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "2026 공식PDF 07:00~22:00 교차 확인; 독립 운영시험 아님"
+        },
+        {
+          "url": "https://www.korea.kr/news/customizedNewsView.do?newsId=148930507",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "2024 정부 안내: 번호·대상·상담 목적 교차 확인만; 과거 운영시간 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "note": "2026-06-01 운영기관 제공 공공데이터 본문7~22시 우선. 과거24시간 안내 채택하지 않음. 데이터 페이지 무료는 자료 이용료여서 전화요금 근거 아님. 상담료·통화료·주말공휴일 미확인."
+    },
+    {
+      "id": "f12",
+      "verifiedAt": "2026-09-30",
+      "before": null,
+      "initialAuditClassification": "VALID",
+      "verificationStatus": "VERIFIED",
+      "finalAction": "add-verified-public-contact",
+      "canonicalId": "f12",
+      "after": {
+        "title": "도박문제 상담",
+        "number": "1336",
+        "category": "가족/복지",
+        "situation": []
+      },
+      "organization": "한국도박문제예방치유원",
+      "serviceName": "도박문제 상담",
+      "purpose": "본인·가족의 도박문제 상담과 치유기관 안내",
+      "hours": "365일 연중무휴 09:00~22:00 (현재 운영기관 안내 우선)",
+      "cost": "무료",
+      "scope": "전국",
+      "audience": "도박문제로 어려움을 겪는 당사자 및 가족; 청소년 및 보호자 포함",
+      "operatingStatus": "현행 공식 안내 운영 중; 실제 전화 연결 미시험",
+      "sourceURLs": [
+        "https://www.kcgp.or.kr/portal/main/contents.do?menuNo=200062",
+        "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/06/2ce30fa8-b23a-431d-8abc-3ed31dce9b1c.pdf",
+        "https://www.ngcc.go.kr/NGCC.do"
+      ],
+      "sources": [
+        {
+          "url": "https://www.kcgp.or.kr/portal/main/contents.do?menuNo=200062",
+          "title": "헬프라인 1336 상담안내",
+          "tier": "운영기관 1차 공식 서비스 안내",
+          "readMethod": "web open HTML 본문, lines 427~493 및 footer line 511",
+          "support": "당사자 및 가족 대상, 전화 1336 무료, 365일 09:00~22:00, 정보제공·일반상담·접수상담·위기상담, 지역센터/전문기관 연계 명시",
+          "weight": "최우선 근거; 현재 운영시간 결정에 사용"
+        },
+        {
+          "url": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/06/2ce30fa8-b23a-431d-8abc-3ed31dce9b1c.pdf",
+          "title": "문제행동별 개인상담 개입 지도서(중·고등)",
+          "tier": "교육청 공식 안내 PDF; 서비스 운영기관 안내의 재게시",
+          "readMethod": "web open PDF 텍스트 본문, PDF page 164 / 인쇄 page 159, lines 4913~4921; screenshot cache miss",
+          "support": "당사자 및 가족 치유·재활 서비스와 국번없이 1336(무료), 365일 연중무휴 09:00~22:00 명시",
+          "weight": "번호·시간·비용·대상 교차확인; 독립 운영검증은 아님"
+        },
+        {
+          "url": "https://www.ngcc.go.kr/NGCC.do",
+          "title": "사행산업통합감독위원회 도박중독치유 상담",
+          "tier": "정부 감독기관 공식 안내",
+          "readMethod": "web open HTML 본문, lines 373~377",
+          "support": "헬프라인 1336은 전국단위 도박문제 전화상담, 당사자·가족·지인, 365일, 통신요금 무료 명시",
+          "weight": "보조; 같은 문단에 1366 오타가 있어 번호 확정은 운영기관과 교육청 자료에 의존"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "note": "24시간으로 작성하지 말 것. 2022 교육청 안내 등 과거 자료 및 2026년 일부 언론 보도에는 24시간 표기가 있으나 현행 운영기관 본문은 09:00~22:00. 변경 시행일은 확인하지 못함. 채팅은 현재 본문상 평일 09:00~18:00(주말/공휴일 제외)이므로 전화시간과 혼동 금지."
+    },
     {
       "id": "e1",
       "before": {

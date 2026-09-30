@@ -21,8 +21,8 @@ function mockLoad(file, mocks) {
   return module.exports;
 }
 test('static data and details have no errors', () => assert.deepEqual(validate().errors, []));
-test('91 visible contacts, 70 public and 21 organizations', () => {
-  assert.equal(data.ALL_NUMBERS.length, 91); assert.equal(data.NUMBERS.length, 70); assert.equal(data.ORGANIZATION_CONTACTS.length, 21);
+test('95 visible contacts, 74 public and 21 organizations', () => {
+  assert.equal(data.ALL_NUMBERS.length, 95); assert.equal(data.NUMBERS.length, 74); assert.equal(data.ORGANIZATION_CONTACTS.length, 21);
 });
 test('every correction matches the implementation', () => {
   for (const [id, change] of Object.entries({ ...manifest.public, ...manifest.organizations })) {
@@ -132,6 +132,56 @@ test('actual iOS/Android snapshot code handles aliases, corrections, deletions a
       result.forEach((row, index) => { const n = data.getContactById(expected[index]); assert.equal(platform === 'ios' ? row.num : row.phone, n.num); if (platform === 'ios') assert.equal(row.tel, data.telWidgetHref(n.num)); else assert.equal(row.id, n.id); });
       assert.deepEqual(widgetSnapshot(platform, [], locale), []);
       assert.equal(widgetSnapshot(platform, input, locale, true), null);
+    }
+  }
+});
+test('new public contacts are unique, searchable and keep existing IDs', () => {
+  const additions = require('../audit/additions.json');
+  const ids = additions.items.map((n) => n.id);
+  assert.deepEqual(plain(data.normalizeFavoriteIds([...ids, ...ids])), ids);
+  for (const expected of additions.items) {
+    const actual = data.getContactById(expected.id);
+    assert.deepEqual(plain(actual), expected);
+    assert.equal(data.ALL_NUMBERS.filter((n) => n.num === expected.num).length, 1);
+    assert.deepEqual(plain(actual.situation), []);
+    assert.deepEqual(plain(data.getNumberDetail(expected.id)), additions.locales.ko.details[expected.id]);
+    assert.equal(data.searchNumbers(data.ALL_NUMBERS, expected.num)[0].id, expected.id);
+    assert.equal(data.telHref(expected.num), 'tel:' + expected.num.replace(/-/g, ''));
+    assert(!regional.requiresRegionalDialing(expected.num));
+  }
+  for (const [query, id] of [['군생활', 'e16'], ['군 고충', 'e16'], ['정신건강', 'f10'], ['심리상담', 'f10'], ['치매', 'f11'], ['기억력', 'f11'], ['도박', 'f12'], ['단도박', 'f12']]) {
+    assert(data.searchNumbers(data.ALL_NUMBERS, query).some((n) => n.id === id), query);
+  }
+  assert.equal(data.getContactById('e7').num, '109');
+  assert.notEqual(data.getContactById('f10').id, data.getContactById('e7').id);
+  assert.match(data.getNumberDetail('f10').join(' '), /109/);
+  assert.match(data.getNumberDetail('f11').join(' '), /07:00~22:00/);
+  assert.match(data.getNumberDetail('f12').join(' '), /09:00~22:00/);
+});
+test('new contacts use real mobile dialing and localized widget snapshots on both platforms', () => {
+  const additions = require('../audit/additions.json');
+  const calls = [];
+  const handler = mockLoad(path.join(mobile, 'utils/phoneCall.ts'), {
+    'react-native': { Linking: { openURL: (url) => { calls.push(url); return Promise.resolve(); } } },
+    '@whatnumber/shared': data, './regionalDialing': regional,
+  });
+  for (const n of additions.items) handler.callPhoneNumber(n.num);
+  assert.deepEqual(calls, additions.items.map((n) => data.telHref(n.num)));
+  for (const locale of ['ko', 'en', 'zh', 'ja']) {
+    for (const name of ['numbers', 'details']) {
+      const bundle = JSON.parse(fs.readFileSync(path.join(mobile, `i18n/locales/${locale}/${name}.json`), 'utf8'));
+      for (const n of additions.items) assert.deepEqual(bundle[n.id], additions.locales[locale][name][n.id]);
+    }
+    for (const platform of ['ios', 'android']) {
+      const rows = widgetSnapshot(platform, additions.items.map((n) => n.id), locale);
+      assert.equal(rows.length, 4);
+      rows.forEach((row, index) => {
+        const n = additions.items[index];
+        assert.equal(row.title, additions.locales[locale].numbers[n.id].title);
+        assert.equal(platform === 'ios' ? row.num : row.phone, n.num);
+        if (platform === 'ios') assert.equal(row.tel, data.telWidgetHref(n.num));
+        else assert.equal(row.id, n.id);
+      });
     }
   }
 });

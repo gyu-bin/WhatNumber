@@ -1,0 +1,441 @@
+{
+  "items": [
+    {
+      "id": "e16",
+      "cat": "긴급/안전",
+      "icon": "🪖",
+      "title": "국방헬프콜",
+      "desc": "군 생활 고충·군 관련 범죄 신고와 상담",
+      "num": "1303",
+      "situation": [],
+      "tip": "군 관련 상담 창구입니다. 긴급한 신변 위협이나 구조는 112·119에 요청하세요."
+    },
+    {
+      "id": "f10",
+      "cat": "가족/복지",
+      "icon": "💚",
+      "title": "정신건강 위기상담",
+      "desc": "정신건강 고민과 위기상황 상담",
+      "num": "1577-0199",
+      "situation": [],
+      "tip": "자살예방 상담은 109, 당장 생명·신체가 위험하면 119 또는 112에 연락하세요."
+    },
+    {
+      "id": "f11",
+      "cat": "가족/복지",
+      "icon": "🧠",
+      "title": "치매상담콜센터",
+      "desc": "치매 정보와 환자·가족 돌봄 상담",
+      "num": "1899-9988",
+      "situation": [],
+      "tip": "치매 정보와 돌봄에 대해 상담하세요. 운영시간은 07:00~22:00입니다."
+    },
+    {
+      "id": "f12",
+      "cat": "가족/복지",
+      "icon": "🤝",
+      "title": "도박문제 상담",
+      "desc": "본인·가족의 도박문제 상담과 치유기관 안내",
+      "num": "1336",
+      "situation": [],
+      "tip": "본인과 가족이 이용할 수 있습니다. 365일 09:00~22:00 무료 전화상담입니다."
+    }
+  ],
+  "locales": {
+    "ko": {
+      "numbers": {
+        "e16": {
+          "title": "국방헬프콜",
+          "desc": "군 생활 고충·군 관련 범죄 신고와 상담",
+          "tip": "군 관련 상담 창구입니다. 긴급한 신변 위협이나 구조는 112·119에 요청하세요."
+        },
+        "f10": {
+          "title": "정신건강 위기상담",
+          "desc": "정신건강 고민과 위기상황 상담",
+          "tip": "자살예방 상담은 109, 당장 생명·신체가 위험하면 119 또는 112에 연락하세요."
+        },
+        "f11": {
+          "title": "치매상담콜센터",
+          "desc": "치매 정보와 환자·가족 돌봄 상담",
+          "tip": "치매 정보와 돌봄에 대해 상담하세요. 운영시간은 07:00~22:00입니다."
+        },
+        "f12": {
+          "title": "도박문제 상담",
+          "desc": "본인·가족의 도박문제 상담과 치유기관 안내",
+          "tip": "본인과 가족이 이용할 수 있습니다. 365일 09:00~22:00 무료 전화상담입니다."
+        }
+      },
+      "details": {
+        "e16": [
+          "국방부조사본부가 운영하는 군 관련 신고·상담 창구입니다. 병영생활 고충, 군범죄·성폭력·마약범죄, 방위사업비리와 병영안전을 상담합니다.",
+          "장병, 가족, 입대예정자, 예비역과 일반 국민 누구나 이용할 수 있습니다. 국번 없이 1303, 365일 24시간 무료입니다.",
+          "군 관련 상담 창구입니다. 긴급한 신변 위협이나 구조는 112·119에 요청하세요."
+        ],
+        "f10": [
+          "정신건강 상담과 지지, 관련 정보 및 정신의료기관 안내를 받을 수 있습니다. 전국 동일번호 1577-0199를 이용합니다.",
+          "365일 24시간 운영합니다. 지역 정신건강복지센터로 연결되며 야간·공휴일에는 광역센터로 연결됩니다.",
+          "자살예방 상담은 109, 당장 생명·신체가 위험하면 119 또는 112에 연락하세요."
+        ],
+        "f11": [
+          "국립중앙의료원 중앙치매센터에서 운영합니다. 치매환자와 가족, 치매에 대해 궁금한 누구나 전문상담사의 상담을 받을 수 있습니다.",
+          "운영시간은 07:00~22:00입니다. 치매 정보와 환자 돌봄, 가족의 심리상담을 제공합니다.",
+          "상담료·통화료와 주말·공휴일 운영 여부는 연결 시 안내를 확인하세요."
+        ],
+        "f12": [
+          "한국도박문제예방치유원이 운영하는 도박문제 전문 상담전화입니다. 본인과 가족에게 도박문제 대처와 치유기관·프로그램을 안내합니다.",
+          "국번 없이 1336, 365일 연중무휴 09:00~22:00 무료 전화상담입니다. 필요한 경우 지역센터나 전문상담기관으로 연계합니다.",
+          "긴급한 생명·신체 위험은 119 또는 112, 자살예방 상담은 109에 연락하세요."
+        ]
+      }
+    },
+    "en": {
+      "numbers": {
+        "e16": {
+          "title": "Military help line",
+          "desc": "Military-life concerns and military-related reports",
+          "tip": "For immediate threats or rescue, call 112 or 119."
+        },
+        "f10": {
+          "title": "Mental health crisis counseling",
+          "desc": "Support for mental health concerns and crises",
+          "tip": "Call 109 for suicide prevention. For immediate danger, call 119 or 112."
+        },
+        "f11": {
+          "title": "Dementia counseling",
+          "desc": "Dementia information and support for patients and families",
+          "tip": "Information and care counseling, 07:00–22:00."
+        },
+        "f12": {
+          "title": "Gambling problem counseling",
+          "desc": "Support and treatment referrals for individuals and families",
+          "tip": "Free phone counseling, every day 09:00–22:00."
+        }
+      },
+      "details": {
+        "e16": [
+          "Operated by 국방부조사본부. Reports and counseling cover military-life concerns, military crimes, sexual violence, drugs, defense procurement corruption and military safety.",
+          "Service members, families, prospective recruits, veterans and the public may call 1303 without an area code. Free, 24 hours a day, 365 days a year.",
+          "For immediate threats or rescue, call 112 or 119."
+        ],
+        "f10": [
+          "Call 1577-0199 nationwide for mental health support, information and referrals to mental health care providers.",
+          "Available 24 hours a day, 365 days a year. Calls connect to local mental health welfare centers, or metropolitan/provincial centers at night and on holidays.",
+          "Call 109 for suicide prevention. For immediate danger to life or physical safety, call 119 or 112."
+        ],
+        "f11": [
+          "Operated by 국립중앙의료원 중앙치매센터. Professional counselors support patients, families and anyone with questions about dementia.",
+          "Hours: 07:00–22:00. Provides dementia information, patient care advice and psychological support for families.",
+          "Confirm counseling/call charges and weekend/holiday availability when contacting the service."
+        ],
+        "f12": [
+          "Operated by 한국도박문제예방치유원. Individuals and families can receive advice and information about gambling treatment services and programs.",
+          "Call 1336 without an area code. Free phone counseling every day, 09:00–22:00, with referrals to regional or specialist centers when needed.",
+          "For immediate danger, call 119 or 112. For suicide prevention counseling, call 109."
+        ]
+      }
+    },
+    "zh": {
+      "numbers": {
+        "e16": {
+          "title": "军队求助热线",
+          "desc": "军营生活困扰及军队相关举报咨询",
+          "tip": "紧急人身威胁或救援请拨打112或119。"
+        },
+        "f10": {
+          "title": "精神健康危机咨询",
+          "desc": "精神健康困扰与危机咨询",
+          "tip": "自杀预防咨询请拨109；生命或人身紧急危险请拨119或112。"
+        },
+        "f11": {
+          "title": "认知症咨询中心",
+          "desc": "认知症信息与患者、家属照护咨询",
+          "tip": "提供信息与照护咨询，服务时间07:00～22:00。"
+        },
+        "f12": {
+          "title": "赌博问题咨询",
+          "desc": "为本人及家属提供咨询与治疗机构指引",
+          "tip": "全年每天09:00～22:00提供免费电话咨询。"
+        }
+      },
+      "details": {
+        "e16": [
+          "由국방부조사본부运营，受理军营生活困扰、军队犯罪、性暴力、毒品、国防采购腐败及军营安全相关举报和咨询。",
+          "军人、家属、准备入伍者、退伍人员及普通公众均可不加区号拨打1303。全年365天24小时免费服务。",
+          "紧急人身威胁或救援请拨打112或119。"
+        ],
+        "f10": [
+          "全国拨打1577-0199可获得精神健康咨询、支持、相关信息及精神医疗机构指引。",
+          "全年365天24小时运营，连接当地精神健康福利中心；夜间及节假日连接广域中心。",
+          "自杀预防咨询请拨109；生命或人身紧急危险请拨119或112。"
+        ],
+        "f11": [
+          "由국립중앙의료원 중앙치매센터运营。患者、家属及任何有认知症疑问的人均可咨询专业人员。",
+          "服务时间07:00～22:00。提供认知症信息、患者照护建议及家属心理咨询。",
+          "咨询费、通话费及周末、节假日服务情况请在联系时确认。"
+        ],
+        "f12": [
+          "由한국도박문제예방치유원运营，为本人及家属提供赌博问题应对、治疗机构及项目指引。",
+          "不加区号拨打1336，全年每天09:00～22:00免费电话咨询。必要时转介地区中心或专业咨询机构。",
+          "生命或人身紧急危险请拨119或112；自杀预防咨询请拨109。"
+        ]
+      }
+    },
+    "ja": {
+      "numbers": {
+        "e16": {
+          "title": "軍関連ヘルプライン",
+          "desc": "軍生活の悩み・軍関連の通報と相談",
+          "tip": "緊急の身の危険や救助は112・119へ。"
+        },
+        "f10": {
+          "title": "メンタルヘルス危機相談",
+          "desc": "こころの悩みや危機についての相談",
+          "tip": "自殺予防相談は109、生命・身体の緊急危険は119・112へ。"
+        },
+        "f11": {
+          "title": "認知症相談コールセンター",
+          "desc": "認知症の情報と患者・家族の介護相談",
+          "tip": "情報・介護相談の受付時間は07:00～22:00です。"
+        },
+        "f12": {
+          "title": "ギャンブル問題相談",
+          "desc": "本人・家族の相談と治療機関の案内",
+          "tip": "毎日09:00～22:00、無料の電話相談です。"
+        }
+      },
+      "details": {
+        "e16": [
+          "국방부조사본부が運営。軍生活の悩み、軍犯罪・性暴力・薬物犯罪、防衛調達の不正や軍の安全に関する通報・相談窓口です。",
+          "軍人、家族、入隊予定者、退役者、一般の方が市外局番なしの1303で利用できます。年中無休24時間、無料です。",
+          "緊急の身の危険や救助は112・119へ。"
+        ],
+        "f10": [
+          "全国共通の1577-0199で、こころの相談・支援、情報や精神医療機関の案内を受けられます。",
+          "年中無休24時間。地域の精神健康福祉センターにつながり、夜間・祝日は広域センターにつながります。",
+          "自殺予防相談は109、生命・身体の緊急危険は119・112へ。"
+        ],
+        "f11": [
+          "국립중앙의료원 중앙치매센터が運営。患者、家族、認知症について質問がある方が専門相談員に相談できます。",
+          "受付時間は07:00～22:00。認知症の情報、患者の介護や家族の心理相談を提供します。",
+          "相談料・通話料と週末・祝日の受付については連絡時に確認してください。"
+        ],
+        "f12": [
+          "한국도박문제예방치유원が運営。本人・家族に問題への対処と治療機関・プログラムを案内します。",
+          "市外局番なしの1336。年中無休09:00～22:00、無料の電話相談です。必要に応じ地域センター・専門相談機関につなぎます。",
+          "生命・身体の緊急危険は119・112、自殺予防相談は109へ。"
+        ]
+      }
+    }
+  },
+  "checkedAt": "2026-09-30",
+  "records": [
+    {
+      "id": "e16",
+      "before": null,
+      "initialAuditClassification": "VALID",
+      "verificationStatus": "VERIFIED",
+      "finalAction": "add-verified-public-contact",
+      "canonicalId": "e16",
+      "after": {
+        "title": "국방헬프콜",
+        "number": "1303",
+        "category": "긴급/안전",
+        "situation": []
+      },
+      "organization": "국방부조사본부 국방헬프콜센터",
+      "serviceName": "국방헬프콜",
+      "purpose": "군 생활 고충·군 관련 범죄 신고와 상담",
+      "hours": "24시간 365일",
+      "cost": "무료",
+      "scope": "전국",
+      "audience": "현역장병, 가족, 친구, 입대예정자, 예비역, 일반 국민 누구나",
+      "operatingStatus": "현행 공식 안내 운영 중; 실제 전화 연결 미시험",
+      "sourceURLs": [
+        "https://www.korea.kr/news/policyNewsView.do?newsId=148965395",
+        "https://news.seoul.go.kr/economy/archives/566787"
+      ],
+      "sources": [
+        {
+          "url": "https://www.korea.kr/news/policyNewsView.do?newsId=148965395",
+          "title": "군생활 고충 혼자 끙끙 앓지 마세요",
+          "publishedAt": "2026-06-05",
+          "tier": "공식 정부 서비스 안내(정책주간지 K-공감); 운영기관 자체 페이지보다는 한 단계 간접",
+          "readMethod": "web open HTML 본문, lines 232~239",
+          "support": "국방부조사본부 운영, 병영생활고충/군범죄/성폭력/마약/방위사업비리/병영안전 신고상담, 누구나 이용, 1303 무료, 24시간 365일 명시",
+          "weight": "주 근거; 현행 서비스에 관한 정부 안내, 실제 통화시험 아님"
+        },
+        {
+          "url": "https://news.seoul.go.kr/economy/archives/566787",
+          "title": "군인, 군부대 사칭 사기범죄 예방 공고",
+          "publishedAt": "2025-07-10",
+          "tier": "지자체 공식 서비스 안내; 국방기관 안내 재게시 성격",
+          "readMethod": "web open HTML 본문, lines 373~389",
+          "support": "국방헬프콜 국번 없이 1303, 24시간 상담, 군인·군부대 사칭 확인 문의 및 피해신고 112 구분",
+          "weight": "번호·24시간 상담 교차확인; 전체 상담범위·요금에는 사용하지 않음"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "note": "모든 군 관련 요청의 즉시 출동 번호로 설명하지 말 것. 신고 및 상담 창구임. 자체 누리집과 2025 국방부 PDF는 검색 본문에 상세 정보가 있지만 open 실패하여 확정 근거에서 제외.",
+      "verifiedAt": "2026-09-30"
+    },
+    {
+      "id": "f10",
+      "before": null,
+      "initialAuditClassification": "VALID",
+      "verificationStatus": "VERIFIED",
+      "finalAction": "add-verified-public-contact",
+      "canonicalId": "f10",
+      "after": {
+        "title": "정신건강 위기상담",
+        "number": "1577-0199",
+        "category": "가족/복지",
+        "situation": []
+      },
+      "organization": "보건복지부 정책 / 기초·광역 정신건강복지센터",
+      "serviceName": "정신건강 위기상담",
+      "purpose": "정신건강 고민과 위기상황 상담",
+      "hours": "365일 24시간",
+      "cost": "UNKNOWN",
+      "scope": "전국",
+      "audience": "정신건강 상담이 필요한 국민",
+      "operatingStatus": "현행 공식 안내 운영 중; 실제 전화 연결 미시험",
+      "sourceURLs": [
+        "https://www.mohw.go.kr/menu.es?mid=a10706040100",
+        "https://www.129.go.kr/109",
+        "https://news.seoul.go.kr/welfare/archives/561837"
+      ],
+      "sources": [
+        {
+          "url": "https://www.mohw.go.kr/menu.es?mid=a10706040100",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·목적·시간 확인; 통화료 미확인"
+        },
+        {
+          "url": "https://www.129.go.kr/109",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·목적·시간 확인; 통화료 미확인"
+        },
+        {
+          "url": "https://news.seoul.go.kr/welfare/archives/561837",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "번호·목적·시간 확인; 통화료 미확인"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "note": "자살예방 상담은 2024년부터109로 통합.1577-0199는 정신건강 본연의 상담 유지. 상담료·통화료 미확인.",
+      "verifiedAt": "2026-09-30"
+    },
+    {
+      "id": "f11",
+      "before": null,
+      "initialAuditClassification": "VALID",
+      "verificationStatus": "VERIFIED",
+      "finalAction": "add-verified-public-contact",
+      "canonicalId": "f11",
+      "after": {
+        "title": "치매상담콜센터",
+        "number": "1899-9988",
+        "category": "가족/복지",
+        "situation": []
+      },
+      "organization": "국립중앙의료원 중앙치매센터",
+      "serviceName": "치매상담콜센터",
+      "purpose": "치매 정보와 환자·가족 돌봄 상담",
+      "hours": "07:00~22:00",
+      "cost": "UNKNOWN",
+      "scope": "전국",
+      "audience": "치매환자·가족·유관기관 종사자 및 치매에 궁금한 국민 누구나",
+      "operatingStatus": "현행 공식 안내 운영 중; 실제 전화 연결 미시험",
+      "sourceURLs": [
+        "https://www.data.go.kr/data/15114357/fileData.do",
+        "https://www.gunsan.go.kr/upload_data/board_data/BBS_0000391/177424508156428.pdf",
+        "https://www.korea.kr/news/customizedNewsView.do?newsId=148930507"
+      ],
+      "sources": [
+        {
+          "url": "https://www.data.go.kr/data/15114357/fileData.do",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "현행 운영시간 최우선 근거: 운영기관 제공2026-06-01 본문07:00~22:00; 요금 근거 아님"
+        },
+        {
+          "url": "https://www.gunsan.go.kr/upload_data/board_data/BBS_0000391/177424508156428.pdf",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "2026 공식PDF 07:00~22:00 교차 확인; 독립 운영시험 아님"
+        },
+        {
+          "url": "https://www.korea.kr/news/customizedNewsView.do?newsId=148930507",
+          "tier": "공식 정부/운영기관 원문",
+          "readMethod": "web open 본문",
+          "weight": "2024 정부 안내: 번호·대상·상담 목적 교차 확인만; 과거 운영시간 제외"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "note": "2026-06-01 운영기관 제공 공공데이터 본문7~22시 우선. 과거24시간 안내 채택하지 않음. 데이터 페이지 무료는 자료 이용료여서 전화요금 근거 아님. 상담료·통화료·주말공휴일 미확인.",
+      "verifiedAt": "2026-09-30"
+    },
+    {
+      "id": "f12",
+      "before": null,
+      "initialAuditClassification": "VALID",
+      "verificationStatus": "VERIFIED",
+      "finalAction": "add-verified-public-contact",
+      "canonicalId": "f12",
+      "after": {
+        "title": "도박문제 상담",
+        "number": "1336",
+        "category": "가족/복지",
+        "situation": []
+      },
+      "organization": "한국도박문제예방치유원",
+      "serviceName": "도박문제 상담",
+      "purpose": "본인·가족의 도박문제 상담과 치유기관 안내",
+      "hours": "365일 연중무휴 09:00~22:00 (현재 운영기관 안내 우선)",
+      "cost": "무료",
+      "scope": "전국",
+      "audience": "도박문제로 어려움을 겪는 당사자 및 가족; 청소년 및 보호자 포함",
+      "operatingStatus": "현행 공식 안내 운영 중; 실제 전화 연결 미시험",
+      "sourceURLs": [
+        "https://www.kcgp.or.kr/portal/main/contents.do?menuNo=200062",
+        "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/06/2ce30fa8-b23a-431d-8abc-3ed31dce9b1c.pdf",
+        "https://www.ngcc.go.kr/NGCC.do"
+      ],
+      "sources": [
+        {
+          "url": "https://www.kcgp.or.kr/portal/main/contents.do?menuNo=200062",
+          "title": "헬프라인 1336 상담안내",
+          "tier": "운영기관 1차 공식 서비스 안내",
+          "readMethod": "web open HTML 본문, lines 427~493 및 footer line 511",
+          "support": "당사자 및 가족 대상, 전화 1336 무료, 365일 09:00~22:00, 정보제공·일반상담·접수상담·위기상담, 지역센터/전문기관 연계 명시",
+          "weight": "최우선 근거; 현재 운영시간 결정에 사용"
+        },
+        {
+          "url": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/06/2ce30fa8-b23a-431d-8abc-3ed31dce9b1c.pdf",
+          "title": "문제행동별 개인상담 개입 지도서(중·고등)",
+          "tier": "교육청 공식 안내 PDF; 서비스 운영기관 안내의 재게시",
+          "readMethod": "web open PDF 텍스트 본문, PDF page 164 / 인쇄 page 159, lines 4913~4921; screenshot cache miss",
+          "support": "당사자 및 가족 치유·재활 서비스와 국번없이 1336(무료), 365일 연중무휴 09:00~22:00 명시",
+          "weight": "번호·시간·비용·대상 교차확인; 독립 운영검증은 아님"
+        },
+        {
+          "url": "https://www.ngcc.go.kr/NGCC.do",
+          "title": "사행산업통합감독위원회 도박중독치유 상담",
+          "tier": "정부 감독기관 공식 안내",
+          "readMethod": "web open HTML 본문, lines 373~377",
+          "support": "헬프라인 1336은 전국단위 도박문제 전화상담, 당사자·가족·지인, 365일, 통신요금 무료 명시",
+          "weight": "보조; 같은 문단에 1366 오타가 있어 번호 확정은 운영기관과 교육청 자료에 의존"
+        }
+      ],
+      "checkedAt": "2026-09-30",
+      "note": "24시간으로 작성하지 말 것. 2022 교육청 안내 등 과거 자료 및 2026년 일부 언론 보도에는 24시간 표기가 있으나 현행 운영기관 본문은 09:00~22:00. 변경 시행일은 확인하지 못함. 채팅은 현재 본문상 평일 09:00~18:00(주말/공휴일 제외)이므로 전화시간과 혼동 금지.",
+      "verifiedAt": "2026-09-30"
+    }
+  ],
+  "baselineCommit": "2603931",
+  "baselineVisible": 91,
+  "finalVisible": 95
+}

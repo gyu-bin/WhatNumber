@@ -1,6 +1,10 @@
 /* Generate audit artifacts from evidence + final code. Outputs a patch, never writes files. */
 const fs = require('node:fs');
 const path = require('node:path');
+// Historical 104-contact generator must not overwrite subsequently verified additions.
+if (fs.existsSync(path.join(__dirname, '../audit/additions.json'))) {
+  throw Error('Historical audit generator is frozen after additions. Maintain contact-audit.json and REPORT.md with the additions evidence.');
+}
 const vm = require('node:vm');
 const ts = require('typescript');
 const { execFileSync } = require('node:child_process');

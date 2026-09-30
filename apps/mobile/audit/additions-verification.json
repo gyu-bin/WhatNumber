@@ -1,0 +1,52 @@
+{
+  "checkedAt": "2026-09-30",
+  "baselineCommit": "2603931",
+  "scope": "신규 공공 연락처4종 검증 후 추가",
+  "counts": {
+    "before": 91,
+    "added": 4,
+    "after": 95,
+    "public": 74,
+    "organizations": 21,
+    "auditRecords": 108
+  },
+  "results": {
+    "officialSourceBodies": "PASS: 정부·운영기관 HTML/PDF 본문",
+    "duplicateServiceCheck": "PASS: 동일번호/기관·목적 중복 없음; 109와 정신건강 상담 역할 구분",
+    "validator": "PASS: errors0/warnings0",
+    "offlineRegressionGroups": 15,
+    "sharedTypeScript": "PASS: TypeScript6 --ignoreConfig 명시",
+    "mobileTypeScript": "PASS",
+    "webTypeScript": "PASS: app/node configs",
+    "relevantESLint": "PASS: shared numbers/details/search",
+    "scriptSyntax": "PASS",
+    "auditConsistency": "PASS:108records/4addition evidence",
+    "codeReview": "PASS: blocker없음, f11시간 근거 구분 개선 반영",
+    "webProductionBuild": "PASS",
+    "expoIOSExport": "PASS",
+    "expoAndroidExport": "PASS",
+    "gitDiffCheck": "PASS"
+  },
+  "artifacts": {
+    "web": "/private/tmp/whatnumber-new-contacts-final-web",
+    "expo": "/private/tmp/whatnumber-new-contacts-final-export"
+  },
+  "warnings": [
+    "Vite 단일JS chunk 약610kB 경고; 빌드 성공",
+    "Expo NO_COLOR/FORCE_COLOR 환경 경고; 두 플랫폼 번들 성공"
+  ],
+  "limitations": [
+    "실제 전화 발신/기관응답 미시험; 전화 처리 함수는 Linking 모의 환경으로검증",
+    "실기기/시뮬레이터 화면과 네이티브 위젯 렌더링 미검증; 실제 snapshot생성코드를 mocknativeAPI로실행",
+    "정신건강·치매 상담료/통화료 UNKNOWN; 치매 주말공휴일 미확인",
+    "서명된앱빌드·배포·스토어업로드 미수행",
+    "웹 prebuild의 기존번역/에셋생성기는 재실행하지 않음; 별도tsc+Vite프로덕션빌드검증"
+  ],
+  "preserved": [
+    "홈UI·주요상황카드",
+    "기존ID/favoritesstorage/alias",
+    "보류9개",
+    "1339감염병·질병역할",
+    "1394피싱신고역할"
+  ]
+}

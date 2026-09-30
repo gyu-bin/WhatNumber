@@ -1,4 +1,24 @@
 {
+  "e16": {
+    "title": "Military help line",
+    "desc": "Military-life concerns and military-related reports",
+    "tip": "For immediate threats or rescue, call 112 or 119."
+  },
+  "f10": {
+    "title": "Mental health crisis counseling",
+    "desc": "Support for mental health concerns and crises",
+    "tip": "Call 109 for suicide prevention. For immediate danger, call 119 or 112."
+  },
+  "f11": {
+    "title": "Dementia counseling",
+    "desc": "Dementia information and support for patients and families",
+    "tip": "Information and care counseling, 07:00–22:00."
+  },
+  "f12": {
+    "title": "Gambling problem counseling",
+    "desc": "Support and treatment referrals for individuals and families",
+    "tip": "Free phone counseling, every day 09:00–22:00."
+  },
   "e1": {
     "title": "Health & welfare counseling",
     "desc": "Emergency welfare and medical cost support",
