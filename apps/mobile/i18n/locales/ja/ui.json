@@ -239,6 +239,8 @@
     "restartToApply": "アップデートの準備ができました。アプリを終了してから再度開いてください。"
   },
   "maps": {
+    "naverRequiredTitle": "NAVERマップを開けません",
+    "naverRequiredBody": "NAVERマップをインストールまたは更新してから、もう一度お試しください。",
     "currentLocation": "現在地",
     "emergencyRoom": "救急室",
     "previewTitle": "地図プレビュー",

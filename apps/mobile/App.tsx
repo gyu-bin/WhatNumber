@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Image,
   Linking,
+  BackHandler,
   Modal,
   Platform,
   Pressable,
@@ -29,15 +30,16 @@ import {
   ALL_NUMBERS,
   type Category,
   type NumberItem,
-  type Situation,
-  searchNumbers,
   telHref,
 } from '@whatnumber/shared';
 import { NumberRequestModal } from './components/NumberRequest';
 import { AdBanner } from './components/AdBanner';
 import { CategoryBrowse } from './components/CategoryBrowse';
-import { EmergencyFinderCard } from './components/EmergencyFinderCard';
-import { ImmediateEmergency } from './components/ImmediateEmergency';
+import { SituationHome } from './components/home/SituationHome';
+import { useHomeCopy } from './components/home/copy';
+import { getSituationNumbers, getSeasonNumbers, SEASONAL_CONTACTS, type HomeSituationId } from './data/homeContent';
+import { SavedNumberEditor } from './components/SavedNumberEditor';
+import { searchHomeNumbers } from './services/homeSearch';
 import { NumberRow } from './components/NumberCards';
 import { NumberVisualIcon } from './components/NumberVisualIcon';
 import { SplashAnimation } from './components/SplashAnimation';
@@ -73,19 +75,7 @@ const SPLASH_BG_DARK = '#171717';
 
 type TabId = 'home' | 'settings';
 type SettingsView = 'main' | 'privacy';
-type HomeView = 'numbers' | 'emergency-finder' | 'category';
-
-const PRIMARY_SITUATIONS: { id: Situation; icon: string }[] = [
-  { id: 'emergency', icon: '🚑' },
-  { id: 'car', icon: '🚗' },
-  { id: 'crime', icon: '🛡' },
-  { id: 'home', icon: '🏠' },
-];
-
-const MORE_SITUATIONS: { id: Situation; icon: string }[] = [
-  { id: 'abroad', icon: '✈️' },
-  { id: 'legal', icon: '⚖️' },
-];
+type HomeView = 'numbers' | 'emergency-finder' | 'category' | 'categories' | 'seasons';
 
 type ListSection = {
   key: string;
@@ -242,50 +232,47 @@ export default function App() {
   const [selectedCategoryLabel, setSelectedCategoryLabel] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [showFavorites, setShowFavorites] = useState(false);
-  const [activeSituation, setActiveSituation] = useState<Situation | null>(null);
-  const [situationMoreOpen, setSituationMoreOpen] = useState(false);
+  const [activeSituation, setActiveSituation] = useState<HomeSituationId | null>(null);
+  const [activeSeason, setActiveSeason] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [editor, setEditor] = useState<NumberItem | 'new' | null>(null);
+  const homeCopy = useHomeCopy();
   const [selected, setSelected] = useState<NumberItem | null>(null);
   const [requestOpen, setRequestOpen] = useState(false);
   const [requestMode, setRequestMode] = useState<'number' | 'feedback'>('number');
   const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
-  const { favorites, toggle, reorder, isFavorite, ready: favoritesReady } = useFavorites();
+  const { favorites, customNumbers, saveCustom, removeCustom, storageAvailable, error: favoritesError, toggle, reorder, isFavorite, ready: favoritesReady } = useFavorites();
   const { theme, toggle: toggleTheme, ready: themeReady } = useTheme();
   const widgetAvailable = useMemo(isWidgetGuideAvailable, []);
   const enterEmergency = useCallback(() => setHomeView('emergency-finder'), []);
   const guides = useGuides(widgetAvailable, enterEmergency);
   const toggleFavorite = useCallback((id: string) => {
-    if (!favoritesReady) return;
-    const adding = !isFavorite(id);
-    toggle(id);
-    if (adding && guides.favoriteAdded()) setSelected(null);
-  }, [favoritesReady, isFavorite, toggle, guides.favoriteAdded]);
+    if (!favoritesReady || !storageAvailable) return;
+    void toggle(id).then((adding) => {
+      if (adding && guides.favoriteAdded()) setSelected(null);
+    }).catch(() => { /* useFavorites exposes the persistence error. */ });
+  }, [favoritesReady, storageAvailable, toggle, guides.favoriteAdded]);
 
   const localizedNumbers = useMemo(
-    () => localizeNumbers(ALL_NUMBERS, locale),
-    [locale],
+    () => [...localizeNumbers(ALL_NUMBERS, locale), ...customNumbers],
+    [locale, customNumbers],
   );
 
-  const fireItem = useMemo(
-    () => localizedNumbers.find((n) => n.id === 'e2')!,
-    [localizedNumbers],
-  );
-  const policeItem = useMemo(
-    () => localizedNumbers.find((n) => n.id === 'e3')!,
-    [localizedNumbers],
-  );
+  const savedItems = useMemo(() => favorites.map((id) => localizedNumbers.find((item) => item.id === id)).filter((item): item is NumberItem => Boolean(item)), [favorites, localizedNumbers]);
 
   useEffect(() => {
     registerFavoritesWidgetLayout();
   }, []);
 
   useEffect(() => {
-    if (!favoritesReady) return;
-    syncFavoritesWidget(favorites, locale);
+    if (!favoritesReady || !storageAvailable) return;
+    syncFavoritesWidget(favorites, locale, customNumbers);
     ensureWidgetSyncOnForeground(
       () => favorites,
       () => locale,
+      () => customNumbers,
     );
-  }, [favorites, favoritesReady, locale]);
+  }, [favorites, favoritesReady, storageAvailable, locale, customNumbers]);
 
   const themeColors = getThemeColors(theme);
   const styles = useMemo(() => createStyles(themeColors), [theme]);
@@ -323,22 +310,27 @@ export default function App() {
 
   const filtered = useMemo(() => {
     if (isSearching) {
-      return searchNumbers(localizedNumbers, query);
+      return searchHomeNumbers(localizedNumbers, query, homeCopy.searchSuggestions);
     }
     if (activeSituation) {
-      return localizedNumbers.filter((n) => n.situation.includes(activeSituation));
+      const ids = new Set(getSituationNumbers(activeSituation).map((n) => n.id));
+      return localizedNumbers.filter((n) => ids.has(n.id));
+    }
+    if (activeSeason) {
+      const ids = new Set(getSeasonNumbers(activeSeason).map((n) => n.id));
+      return localizedNumbers.filter((n) => ids.has(n.id));
     }
     if (showFavorites) {
       return favorites
         .map((id) => localizedNumbers.find((n) => n.id === id))
         .filter((n): n is NumberItem => n !== undefined);
     }
-    return localizedNumbers;
-  }, [query, isSearching, activeSituation, showFavorites, favorites, localizedNumbers]);
+    return searchOpen ? [] : localizedNumbers;
+  }, [query, isSearching, activeSituation, activeSeason, searchOpen, showFavorites, favorites, localizedNumbers, homeCopy.searchSuggestions]);
 
-  const groupByCategory = !isSearching && !activeSituation && !showFavorites;
+  const groupByCategory = !searchOpen && !isSearching && !activeSituation && !activeSeason && !showFavorites;
   const isBrowseHome = groupByCategory;
-  const isFavoritesView = showFavorites && !isSearching && !activeSituation;
+  const isFavoritesView = showFavorites && !isSearching && !activeSituation && !activeSeason;
 
   const openCategory = useCallback((category: Category, label?: string) => {
     setSelectedCategory(category);
@@ -346,7 +338,27 @@ export default function App() {
     setHomeView('category');
   }, []);
 
-  const isMoreSituationActive = MORE_SITUATIONS.some((sit) => sit.id === activeSituation);
+  const resetHome = useCallback(() => {
+    setQuery(''); setSearchOpen(false); setActiveSituation(null); setActiveSeason(null);
+    setShowFavorites(false); setHomeView('numbers'); setSelectedCategory(null);
+  }, []);
+  const openItem = useCallback((item: NumberItem) => {
+    if (item.id.startsWith('custom:')) setEditor(item); else setSelected(item);
+  }, []);
+  const callItem = useCallback((item: NumberItem) => {
+    void Linking.openURL(telHref(item.num)).catch(() => setToastMessage(t('home.callFailed', { defaultValue: '전화를 연결할 수 없어요.' })));
+  }, [t]);
+  useEffect(() => {
+    if (favoritesError) setToastMessage(homeCopy.saveError);
+  }, [favoritesError, homeCopy.saveError]);
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (tab === 'home' && (homeView !== 'numbers' || !isBrowseHome)) { resetHome(); return true; }
+      return false;
+    });
+    return () => subscription.remove();
+  }, [tab, homeView, isBrowseHome, resetHome]);
+
 
   const sections = useMemo((): ListSection[] => {
     if (filtered.length === 0) return [];
@@ -365,126 +377,32 @@ export default function App() {
     return [{ key: 'list', title: '', data: filtered }];
   }, [filtered, isFavoritesView, t]);
 
-  // Search chrome stays mounted across browse ↔ search ↔ favorites so the
-  // TextInput is not remounted (which would dismiss the keyboard mid-typing).
+  // Keep the input mounted while typing; search focus must not reset per keystroke.
   const homeChrome = (
-    <View style={styles.listHeader}>
-      <View style={styles.homeHero}>
-        <View style={styles.header}>
-          <View style={styles.headerText}>
-            <Image
-              source={require('./assets/brand/header-label-light.png')}
-              style={styles.logoWordmark}
-              resizeMode="contain"
-              accessibilityLabel={t('settings.metaBrand')}
-              accessibilityIgnoresInvertColors
-            />
-            <Text style={styles.headerSubtitle}>{t('home.subtitle')}</Text>
-          </View>
-        </View>
-
-        <View style={styles.searchShell}>
-          <Ionicons name="search-outline" size={23} color={themeColors.textTertiary} />
-          <TextInput
-            style={styles.search}
-            placeholder={t('home.searchPlaceholder')}
-            placeholderTextColor={themeColors.textTertiary}
-            value={query}
-            onChangeText={setQuery}
-            clearButtonMode="while-editing"
-            accessibilityLabel={t('home.searchA11y')}
-          />
-        </View>
-
-        {!isSearching ? (
-          <View style={styles.filterPanel}>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-              contentContainerStyle={styles.situationScroll}
-            >
-              <Pressable
-                style={[
-                  styles.situationChip,
-                  styles.situationChipFav,
-                  showFavorites && !activeSituation && styles.situationChipFavActive,
-                ]}
-                onPress={() => {
-                  const next = !(showFavorites && !activeSituation);
-                  setShowFavorites(next);
-                  if (next) setActiveSituation(null);
-                }}
-                accessibilityLabel={t('home.favoritesA11y')}
-                accessibilityState={{ selected: showFavorites && !activeSituation }}
-              >
-                <Text
-                  style={[
-                    styles.situationChipText,
-                    styles.situationChipFavTextActive,
-                  ]}
-                >
-                  {favorites.length > 0
-                    ? `★ ${t('home.favoritesWithCount', { count: favorites.length })}`
-                    : `★ ${t('home.favorites')}`}
-                </Text>
-              </Pressable>
-
-              {PRIMARY_SITUATIONS.map((sit) => {
-                const isActive = activeSituation === sit.id;
-                return (
-                  <Pressable
-                    key={sit.id}
-                    style={[styles.situationChip, isActive && styles.situationChipActive]}
-                    onPress={() => {
-                      const next = isActive ? null : sit.id;
-                      setActiveSituation(next);
-                      if (next) setShowFavorites(false);
-                    }}
-                    accessibilityState={{ selected: isActive }}
-                  >
-                    <Text style={styles.situationIcon}>{sit.icon}</Text>
-                    <Text
-                      style={[
-                        styles.situationChipText,
-                        isActive && styles.situationChipTextActive,
-                      ]}
-                    >
-                      {t(`situations.${sit.id}`)}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-
-              <Pressable
-                style={[
-                  styles.situationChip,
-                  isMoreSituationActive && styles.situationChipActive,
-                ]}
-                onPress={() => setSituationMoreOpen(true)}
-                accessibilityLabel={t('home.situationMoreA11y')}
-                accessibilityState={{ selected: isMoreSituationActive }}
-              >
-                <Text style={styles.situationIcon}>•••</Text>
-                <Text
-                  style={[
-                    styles.situationChipText,
-                    isMoreSituationActive && styles.situationChipTextActive,
-                  ]}
-                >
-                  {t('home.moreSituations')}
-                </Text>
-              </Pressable>
-            </ScrollView>
-
-            {activeSituation ? (
-              <View style={styles.tipBanner}>
-                <Text style={styles.tipBannerText}>{t(`situationTips.${activeSituation}`)}</Text>
-              </View>
-            ) : null}
-          </View>
-        ) : null}
+    <View style={{ paddingHorizontal: 20, paddingTop: 8, paddingBottom: 12, backgroundColor: themeColors.bg }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 44 }}>
+        {isBrowseHome ? <Image
+          source={theme === 'dark' ? require('./assets/brand/header-label-dark.png') : require('./assets/brand/header-label-light.png')}
+          style={{ width: 108, height: 42 }} resizeMode="contain" accessibilityLabel={t('settings.metaBrand')}
+        /> : <Pressable onPress={resetHome} accessibilityRole="button" accessibilityLabel={t('tabs.home')} style={{ minWidth: 44, minHeight: 44, justifyContent: 'center' }}><Ionicons name="chevron-back" size={24} color={themeColors.textPrimary} /></Pressable>}
+        <Pressable onPress={() => setTab('settings')} accessibilityRole="button" accessibilityLabel={t('tabs.settings')} style={{ minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center' }}><Ionicons name="settings-outline" size={23} color={themeColors.textSecondary} /></Pressable>
       </View>
+      <Text accessibilityRole="header" style={{ color: themeColors.textPrimary, fontSize: isBrowseHome ? 24 : 21, fontWeight: '800', marginTop: 8, marginBottom: 14 }}>
+        {isBrowseHome ? (savedItems.length ? homeCopy.returnHeading : homeCopy.firstHeading) : isFavoritesView ? homeCopy.saved : activeSituation ? homeCopy.situations[activeSituation].title : activeSeason ? homeCopy.seasons[activeSeason as keyof typeof homeCopy.seasons]?.title : homeCopy.searchTitle}
+      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 9, paddingHorizontal: 14, minHeight: 50, borderRadius: 17, borderWidth: 1, borderColor: themeColors.border, backgroundColor: themeColors.surface }}>
+        <Ionicons name="search-outline" size={21} color={themeColors.textSecondary} />
+        <TextInput style={{ flex: 1, minHeight: 50, fontSize: 15, color: themeColors.textPrimary }}
+          placeholder={homeCopy.search} placeholderTextColor={themeColors.textTertiary}
+          value={query} onChangeText={setQuery} onFocus={() => { setSearchOpen(true); setShowFavorites(false); setActiveSituation(null); setActiveSeason(null); }}
+          clearButtonMode="while-editing" accessibilityLabel={homeCopy.search} returnKeyType="search" />
+      </View>
+      {searchOpen || activeSituation ? <View style={{ marginTop: 14 }}>
+        <Text style={{ color: themeColors.textSecondary, fontSize: 13, fontWeight: '600', marginBottom: 8 }}>{homeCopy.suggestions}</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled" contentContainerStyle={{ gap: 8 }}>
+          {homeCopy.searchSuggestions.map((word) => <Pressable key={word} accessibilityRole="button" onPress={() => { setQuery(word); setSearchOpen(true); }} style={{ backgroundColor: themeColors.surface, borderColor: themeColors.border, borderWidth: 1, borderRadius: 13, minHeight: 44, paddingHorizontal: 13, justifyContent: 'center' }}><Text style={{ color: themeColors.textSecondary }}>{word}</Text></Pressable>)}
+        </ScrollView>
+      </View> : null}
     </View>
   );
 
@@ -508,25 +426,13 @@ export default function App() {
     <ScrollView
       keyboardShouldPersistTaps="handled"
       keyboardDismissMode="on-drag"
-      contentContainerStyle={styles.listContent}
+      contentContainerStyle={[styles.listContent, { paddingHorizontal: 20 }]}
     >
-      <EmergencyFinderCard
-        styles={styles}
-        colors={themeColors}
-        onPress={guides.openEmergency}
-      />
-      <ImmediateEmergency
-        fireItem={fireItem}
-        policeItem={policeItem}
-        styles={styles}
-        colors={themeColors}
-        onOpen={setSelected}
-      />
-      <CategoryBrowse
-        styles={styles}
-        colors={themeColors}
-        onOpenCategory={openCategory}
-      />
+      <SituationHome colors={themeColors} items={savedItems} onSelectItem={openItem} onCall={callItem}
+        onAdd={() => setEditor('new')} onShowSaved={() => setShowFavorites(true)}
+        onSituation={(id) => { setActiveSituation(id); setShowFavorites(false); }}
+        onEmergency={guides.openEmergency} onSeason={(id) => setActiveSeason(id)}
+        onAllSeasons={() => setHomeView('seasons')} onCategories={() => setHomeView('categories')} />
     </ScrollView>
   );
 
@@ -543,9 +449,10 @@ export default function App() {
       <View style={styles.sectionHeader}>
         <Text style={styles.favHeader}>
           <Text style={styles.favHeaderStar}>★ </Text>
-          {t('home.favoritesHeader', { count: filtered.length })}
+          {homeCopy.saved}
         </Text>
       </View>
+      <Pressable accessibilityRole="button" onPress={() => setEditor('new')} style={{ padding: 16, marginHorizontal: 20, marginBottom: 12, borderRadius: 16, backgroundColor: themeColors.accentMuted }}><Text style={{ color: themeColors.accent, fontWeight: '700' }}>＋ {homeCopy.addNumber}</Text></Pressable>
       {widgetAvailable ? <WidgetGuideBanner
         styles={styles}
         colors={themeColors}
@@ -574,7 +481,7 @@ export default function App() {
               item={item}
               isFavorite={isFavorite(item.id)}
               onToggleFavorite={toggleFavorite}
-              onOpen={setSelected}
+              onOpen={openItem}
               onDrag={drag}
               isActive={isActive}
               styles={styles}
@@ -584,7 +491,7 @@ export default function App() {
         </ScaleDecorator>
       );
     },
-    [filtered.length, isFavorite, styles, toggleFavorite],
+    [filtered.length, isFavorite, styles, toggleFavorite, openItem],
   );
 
   if (!themeReady) {
@@ -614,6 +521,24 @@ export default function App() {
 
             <View style={styles.main}>
               {showHomeNumbers ? homeChrome : null}
+
+              {tab === 'home' && (homeView === 'categories' || homeView === 'seasons') ? (
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, gap: 12 }}>
+                    <Pressable onPress={resetHome} accessibilityRole="button" accessibilityLabel={t('tabs.home')} style={{ minWidth: 44, minHeight: 52, justifyContent: 'center' }}><Ionicons name="chevron-back" size={24} color={themeColors.textPrimary} /></Pressable>
+                    <Text accessibilityRole="header" style={{ fontSize: 21, fontWeight: '800', color: themeColors.textPrimary }}>{homeView === 'categories' ? homeCopy.categories : homeCopy.seasonal}</Text>
+                  </View>
+                  <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
+                    {homeView === 'categories' ? <CategoryBrowse styles={styles} colors={themeColors} onOpenCategory={openCategory} /> : SEASONAL_CONTACTS.map((season) => (
+                      <Pressable key={season.id} accessibilityRole="button" onPress={() => { setActiveSeason(season.id); setHomeView('numbers'); }} style={{ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 20, marginHorizontal: 20, marginTop: 12, borderRadius: 18, backgroundColor: themeColors.surface }}>
+                        <Ionicons name={season.icon} size={26} color={season.accent} />
+                        <View style={{ flex: 1 }}><Text style={{ color: themeColors.textPrimary, fontSize: 16, fontWeight: '700' }}>{homeCopy.seasons[season.id].title}</Text><Text style={{ color: themeColors.textSecondary, marginTop: 5 }}>{homeCopy.seasons[season.id].detail}</Text></View>
+                        <Ionicons name="chevron-forward" size={18} color={themeColors.textTertiary} />
+                      </Pressable>
+                    ))}
+                  </ScrollView>
+                </View>
+              ) : null}
 
               {/* Browse Home은 언마운트하지 않아 검색/카테고리 왕복 시 스크롤 유지 */}
               {showHomeNumbers ? (
@@ -647,7 +572,7 @@ export default function App() {
                   colors={themeColors}
                   isFavorite={isFavorite}
                   onToggleFavorite={toggleFavorite}
-                  onOpen={setSelected}
+                  onOpen={openItem}
                   onBack={() => {
                     setHomeView('numbers');
                     setSelectedCategory(null);
@@ -666,7 +591,7 @@ export default function App() {
                   keyboardDismissMode="on-drag"
                   contentContainerStyle={styles.listContent}
                   ListHeaderComponent={favoritesHeader}
-                  ListEmptyComponent={emptyComponent}
+                  ListEmptyComponent={searchOpen && !isSearching ? null : emptyComponent}
                   renderItem={renderFavoriteItem}
                   style={{ flex: 1 }}
                 />
@@ -681,7 +606,7 @@ export default function App() {
                   keyboardShouldPersistTaps="handled"
                   keyboardDismissMode="on-drag"
                   contentContainerStyle={styles.listContent}
-                  ListEmptyComponent={emptyComponent}
+                  ListEmptyComponent={searchOpen && !isSearching ? null : emptyComponent}
                   style={{ flex: 1 }}
                   renderItem={({ item, index, section }) => (
                     <View
@@ -695,7 +620,7 @@ export default function App() {
                         item={item}
                         isFavorite={isFavorite(item.id)}
                         onToggleFavorite={toggleFavorite}
-                        onOpen={setSelected}
+                        onOpen={openItem}
                         styles={styles}
                       />
                       {index < section.data.length - 1 ? (
@@ -742,7 +667,7 @@ export default function App() {
 
             {!(
               tab === 'home' &&
-              (homeView === 'emergency-finder' || homeView === 'category')
+              homeView !== 'numbers'
             ) ? (
               <AdBanner colors={themeColors} />
             ) : null}
@@ -751,6 +676,7 @@ export default function App() {
               active={tab}
               onChange={(next) => {
                 setTab(next);
+                if (next === 'home') resetHome();
                 if (next !== 'settings') setSettingsView('main');
                 if (next !== 'home') {
                   setHomeView('numbers');
@@ -779,46 +705,10 @@ export default function App() {
               durationMs={4000}
             />
 
-            <Modal
-              visible={situationMoreOpen}
-              transparent
-              animationType="slide"
-              onRequestClose={() => setSituationMoreOpen(false)}
-            >
-              <View style={styles.requestOverlay}>
-                <Pressable
-                  style={styles.requestBackdrop}
-                  onPress={() => setSituationMoreOpen(false)}
-                />
-                <SafeAreaView edges={['bottom']} style={styles.situationMoreSheet}>
-                  <View style={styles.situationMoreHandle} />
-                  <Text style={styles.situationMoreTitle}>{t('home.situationMoreTitle')}</Text>
-                  {MORE_SITUATIONS.map((sit) => {
-                    const isActive = activeSituation === sit.id;
-                    return (
-                      <Pressable
-                        key={sit.id}
-                        style={styles.situationMoreRow}
-                        onPress={() => {
-                          setActiveSituation(isActive ? null : sit.id);
-                          if (!isActive) setShowFavorites(false);
-                          setSituationMoreOpen(false);
-                        }}
-                        accessibilityState={{ selected: isActive }}
-                      >
-                        <Text style={styles.situationIcon}>{sit.icon}</Text>
-                        <Text style={styles.situationMoreRowText}>
-                          {t(`situations.${sit.id}`)}
-                        </Text>
-                        {isActive ? (
-                          <Ionicons name="checkmark" size={18} color={themeColors.accent} />
-                        ) : null}
-                      </Pressable>
-                    );
-                  })}
-                </SafeAreaView>
-              </View>
-            </Modal>
+            {editor ? <SavedNumberEditor item={editor === 'new' ? undefined : editor} colors={themeColors} onClose={() => setEditor(null)}
+              onSave={async (input, id) => { await saveCustom(input, id); setEditor(null); if (!id) guides.favoriteAdded(); }}
+              onRemove={async (id) => { await removeCustom(id); setEditor(null); }}
+            /> : null}
 
             {selected ? (
               <DetailSheet

@@ -239,6 +239,8 @@
     "restartToApply": "업데이트를 준비했어요. 앱을 종료한 뒤 다시 열어주세요."
   },
   "maps": {
+    "naverRequiredTitle": "네이버 지도를 열 수 없어요",
+    "naverRequiredBody": "네이버 지도 앱을 설치하거나 업데이트한 후 다시 시도해주세요.",
     "currentLocation": "현재 위치",
     "emergencyRoom": "응급실",
     "previewTitle": "지도 미리보기",

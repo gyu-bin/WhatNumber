@@ -239,6 +239,8 @@
     "restartToApply": "Update ready. Close the app fully, then open it again."
   },
   "maps": {
+    "naverRequiredTitle": "NAVER Map is unavailable",
+    "naverRequiredBody": "Install or update NAVER Map, then try again.",
     "currentLocation": "Current location",
     "emergencyRoom": "Emergency room",
     "previewTitle": "Map preview",

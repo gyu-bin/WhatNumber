@@ -1,4 +1,5 @@
 import type { AppLocale } from '../../i18n/types';
+import type { NumberItem } from '@whatnumber/shared';
 
 export type FavoriteWidgetItem = {
   icon: string;
@@ -11,6 +12,7 @@ export type FavoriteWidgetItem = {
 export function syncFavoritesWidget(
   _favoriteIds: string[],
   _locale?: AppLocale,
+  _customNumbers: NumberItem[] = [],
 ): void {
   // no-op
 }
@@ -22,6 +24,7 @@ export function registerFavoritesWidgetLayout(): void {
 export function ensureWidgetSyncOnForeground(
   _getFavorites: () => string[],
   _getLocale: () => AppLocale | undefined,
+  _getCustomNumbers: () => NumberItem[] = () => [],
 ): void {
   // no-op
 }

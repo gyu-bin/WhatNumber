@@ -3,6 +3,7 @@ import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { ALL_NUMBERS, telWidgetHref } from '@whatnumber/shared';
 import { localizeNumber } from '../../i18n';
 import type { AppLocale } from '../../i18n/types';
+import type { NumberItem } from '@whatnumber/shared';
 
 const MAX_ITEMS = 6;
 
@@ -60,6 +61,7 @@ function reloadAllWidgetsNative(): void {
 export function syncFavoritesWidget(
   favoriteIds: string[],
   locale?: AppLocale,
+  customNumbers: NumberItem[] = [],
 ): void {
   if (!canSyncWidget()) return;
 
@@ -70,9 +72,10 @@ export function syncFavoritesWidget(
     const items: FavoriteWidgetItem[] = [];
     for (const id of favoriteIds) {
       if (items.length >= MAX_ITEMS) break;
-      const number = ALL_NUMBERS.find((entry) => entry.id === id);
+      const custom = customNumbers.find((entry) => entry.id === id);
+      const number = custom ?? ALL_NUMBERS.find((entry) => entry.id === id);
       if (!number) continue;
-      const localized = localizeNumber(number, locale);
+      const localized = custom ? number : localizeNumber(number, locale);
       items.push({
         icon: localized.icon || '📞',
         title: localized.title,
@@ -98,18 +101,21 @@ export function registerFavoritesWidgetLayout(): void {
 let appStateHooked = false;
 let favoritesRef: () => string[] = () => [];
 let localeRef: () => AppLocale | undefined = () => undefined;
+let customNumbersRef: () => NumberItem[] = () => [];
 
 /** Re-sync whenever the app becomes active (covers OTA → next foreground). */
 export function ensureWidgetSyncOnForeground(
   getFavorites: () => string[],
   getLocale: () => AppLocale | undefined,
+  getCustomNumbers: () => NumberItem[] = () => [],
 ): void {
   favoritesRef = getFavorites;
   localeRef = getLocale;
+  customNumbersRef = getCustomNumbers;
   if (appStateHooked || !canSyncWidget()) return;
   appStateHooked = true;
   AppState.addEventListener('change', (state) => {
     if (state !== 'active') return;
-    syncFavoritesWidget(favoritesRef(), localeRef());
+    syncFavoritesWidget(favoritesRef(), localeRef(), customNumbersRef());
   });
 }

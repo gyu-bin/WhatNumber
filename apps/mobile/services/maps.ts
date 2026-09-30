@@ -1,4 +1,4 @@
-import { Linking } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import i18n from '../i18n';
 import type { Coordinate } from './emergency/types';
 
@@ -21,8 +21,8 @@ type OpenDirectionsOptions = {
 
 async function tryOpenUrl(url: string): Promise<boolean> {
   try {
-    const supported = await Linking.canOpenURL(url);
-    if (!supported) return false;
+    // Attempt launch directly: Android package visibility can make canOpenURL
+    // return false even when NAVER Map is installed in an existing app binary.
     await Linking.openURL(url);
     return true;
   } catch {
@@ -56,36 +56,7 @@ function buildNaverDirectionsUrl(options: OpenDirectionsOptions): string {
   return `nmap://route/car?${parts.join('&')}`;
 }
 
-function buildKakaoDirectionsUrl({
-  destination,
-  origin,
-}: OpenDirectionsOptions): string {
-  if (origin) {
-    return (
-      `kakaomap://route?sp=${origin.latitude},${origin.longitude}` +
-      `&ep=${destination.latitude},${destination.longitude}&by=CAR`
-    );
-  }
-  return `kakaomap://look?p=${destination.latitude},${destination.longitude}`;
-}
-
-function buildKakaoWebDirectionsUrl(options: OpenDirectionsOptions): string {
-  const { destination, origin, originName } = options;
-  const dname = encodeURIComponent(resolveDestinationLabel(options));
-  if (origin) {
-    const sname = encodeURIComponent(originName?.trim() || tMaps('maps.currentLocation'));
-    return (
-      `https://map.kakao.com/link/from/${sname},${origin.latitude},${origin.longitude}` +
-      `/to/${dname},${destination.latitude},${destination.longitude}`
-    );
-  }
-  return `https://map.kakao.com/link/to/${dname},${destination.latitude},${destination.longitude}`;
-}
-
-/**
- * Opens turn-by-turn directions: Naver Map app → Kakao Map app → Kakao Map web.
- * Uses the already-fetched user location as the route start when available.
- */
+/** Open only NAVER Map using its documented route/car scheme. */
 export async function openDirections(
   destination: Coordinate,
   options?: Omit<OpenDirectionsOptions, 'destination'>,
@@ -99,7 +70,5 @@ export async function openDirections(
   };
 
   if (await tryOpenUrl(buildNaverDirectionsUrl(payload))) return;
-  if (await tryOpenUrl(buildKakaoDirectionsUrl(payload))) return;
-
-  await Linking.openURL(buildKakaoWebDirectionsUrl(payload));
+  Alert.alert(tMaps('maps.naverRequiredTitle'), tMaps('maps.naverRequiredBody'));
 }

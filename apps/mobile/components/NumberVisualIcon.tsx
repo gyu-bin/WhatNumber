@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { CAT_COLOR, type NumberItem } from '@whatnumber/shared';
 import { getNumberIonicon, getNumberLogoSource } from '../services/numberVisuals';
@@ -15,6 +15,10 @@ export function NumberVisualIcon({
   const logo = getNumberLogoSource(item);
   const radius = Math.round(size * 0.32);
   const glyph = iconSize ?? Math.round(size * 0.45);
+
+  if (item.id.startsWith('custom:')) {
+    return <View style={[styles.wrap, { width: size, height: size, borderRadius: radius, backgroundColor: '#FF5A5514' }]}><Text style={{ fontSize: glyph }}>{item.icon}</Text></View>;
+  }
 
   if (logo) {
     return (
