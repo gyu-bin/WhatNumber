@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import i18n from '../i18n';
 import { getBannerUnitId, isExpoGo } from '../services/ads/config';
@@ -28,9 +28,21 @@ function loadAdsModule(): AdsModule | null {
  * ANCHORED_ADAPTIVE는 화면 맨 아래에 붙으려 해서 탭바와 겹칠 수 있어
  * 일반 BANNER를 씁니다.
  */
+const MAX_AD_ATTEMPTS = 4;
+const AD_RETRY_MS = 20_000;
+
 export function AdBanner({ colors }: { colors: ThemeColors }) {
   const ads = useMemo(() => loadAdsModule(), []);
+  const [requestKey, setRequestKey] = useState(0);
   const [visible, setVisible] = useState(true);
+  const retries = useRef(0);
+  const retryTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (retryTimer.current) clearTimeout(retryTimer.current);
+    };
+  }, []);
 
   if (!ads || !visible) return null;
 
@@ -43,10 +55,19 @@ export function AdBanner({ colors }: { colors: ThemeColors }) {
       accessibilityLabel={i18n.t('common.ad', { ns: 'ui' })}
     >
       <BannerAd
+        key={requestKey}
         unitId={unitId}
         size={BannerAdSize.BANNER}
-        requestOptions={{ requestNonPersonalizedAdsOnly: true }}
-        onAdFailedToLoad={() => setVisible(false)}
+        requestOptions={{ requestNonPersonalizedAdsOnly: false }}
+        onAdFailedToLoad={() => {
+          if (retries.current >= MAX_AD_ATTEMPTS - 1) {
+            setVisible(false);
+            return;
+          }
+          retries.current += 1;
+          if (retryTimer.current) clearTimeout(retryTimer.current);
+          retryTimer.current = setTimeout(() => setRequestKey((key) => key + 1), AD_RETRY_MS);
+        }}
       />
     </View>
   );

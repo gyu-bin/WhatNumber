@@ -1,5 +1,6 @@
 import type { ConfigContext, ExpoConfig } from 'expo/config';
 import { withAppBuildGradle } from 'expo/config-plugins';
+import skAdNetworkItems from './ads/skadnetwork.json';
 
 const APP_VERSION = '1.0.1';
 const PRIVACY_POLICY_URL = 'https://whatnumber-mu.vercel.app/privacy';
@@ -116,6 +117,7 @@ export default ({ config }: ConfigContext): ExpoConfig => withReleaseR8({
       {
         androidAppId: ADMOB_ANDROID_APP_ID,
         iosAppId: ADMOB_IOS_APP_ID,
+        skAdNetworkItems,
       },
     ],
     [
