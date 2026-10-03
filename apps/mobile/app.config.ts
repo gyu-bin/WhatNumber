@@ -1,4 +1,5 @@
 import type { ConfigContext, ExpoConfig } from 'expo/config';
+import { withAppBuildGradle } from 'expo/config-plugins';
 
 const APP_VERSION = '1.0.1';
 const PRIVACY_POLICY_URL = 'https://whatnumber-mu.vercel.app/privacy';
@@ -13,7 +14,20 @@ const ADMOB_ANDROID_APP_ID =
 const ADMOB_IOS_APP_ID =
   process.env.ADMOB_IOS_APP_ID?.trim() || 'ca-app-pub-2202662035854210~3472673239';
 
-export default ({ config }: ConfigContext): ExpoConfig => ({
+/** Play의 DEX 난독화·최적화·축소 기준은 R8이 최적화 규칙으로 돌아가야 채워집니다. */
+function withReleaseR8(config: ExpoConfig): ExpoConfig {
+  return withAppBuildGradle(config, (mod) => {
+    if (mod.modResults.language === 'groovy') {
+      mod.modResults.contents = mod.modResults.contents.replaceAll(
+        'getDefaultProguardFile("proguard-android.txt")',
+        'getDefaultProguardFile("proguard-android-optimize.txt")',
+      );
+    }
+    return mod;
+  });
+}
+
+export default ({ config }: ConfigContext): ExpoConfig => withReleaseR8({
   ...config,
   name: '몇번이야',
   slug: 'whatnumber',
@@ -138,6 +152,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'expo-build-properties',
       {
         android: {
+          enableMinifyInReleaseBuilds: true,
+          enableShrinkResourcesInReleaseBuilds: true,
           extraMavenRepos: ['https://repository.map.naver.com/archive/maven'],
           extraProguardRules: [
             '-keep class com.naver.maps.** { *; }',
