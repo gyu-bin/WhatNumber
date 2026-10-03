@@ -36,6 +36,7 @@ export function AdBanner({ colors }: { colors: ThemeColors }) {
   const [requestKey, setRequestKey] = useState(0);
   const [visible, setVisible] = useState(true);
   const retries = useRef(0);
+  const hasLoaded = useRef(false);
   const retryTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -59,7 +60,11 @@ export function AdBanner({ colors }: { colors: ThemeColors }) {
         unitId={unitId}
         size={BannerAdSize.BANNER}
         requestOptions={{ requestNonPersonalizedAdsOnly: false }}
+        onAdLoaded={() => {
+          hasLoaded.current = true;
+        }}
         onAdFailedToLoad={() => {
+          if (hasLoaded.current) return;
           if (retries.current >= MAX_AD_ATTEMPTS - 1) {
             setVisible(false);
             return;
