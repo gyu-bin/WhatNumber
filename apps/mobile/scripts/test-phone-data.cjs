@@ -53,6 +53,22 @@ test('1339 is not mapped to ER or pharmacy searches or emergency situations', ()
   assert.deepEqual(plain(data.getContactById('e4').situation), []);
   assert.equal(data.searchNumbers(data.ALL_NUMBERS, 'zzzzzzzzz').length, 0);
 });
+test('specific searches stay on the contact that actually owns the word', () => {
+  const ids = (query) => plain(data.searchNumbers(data.ALL_NUMBERS, query).map((item) => item.id));
+  assert.deepEqual(ids('층간소음'), ['h2']);
+  assert.deepEqual(ids('전기'), ['h5']);
+  assert.deepEqual(ids('전세'), ['h3']);
+  assert.deepEqual(ids('비자'), ['f5']);
+  assert.deepEqual(ids('화재'), ['e2']);
+  assert.deepEqual(ids('자살'), ['e7']);
+  assert.deepEqual(ids('119'), ['e2', 'c4']);
+  assert.deepEqual(ids('112'), ['e3', 'c3']);
+  assert.deepEqual(ids('129'), ['e1']);
+  assert.ok(ids('120').includes('g2'));
+  assert.equal(ids('해경').length, 0);
+  assert.ok(ids('사기').includes('l4'));
+  assert.equal(ids('버스에서 물건을 놓고 내렸다')[0], 'c8');
+});
 test('all categories, scopes and details remain usable', () => {
   for (const category of data.CATEGORIES.filter((c) => c.id !== 'all')) assert(data.ALL_NUMBERS.some((n) => n.cat === category.id), category.id);
   for (const item of data.ALL_NUMBERS) assert(data.getNumberDetail(item.id).length > 0, item.id);

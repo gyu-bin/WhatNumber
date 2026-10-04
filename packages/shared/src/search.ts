@@ -1,105 +1,11 @@
-import type {
-  ContactPurpose,
-  NumberItem,
-  OrganizationContact,
-  Situation,
-} from './numbers';
-import { getNumberDetail } from './numberDetails';
-import { CATEGORIES, SITUATION_LABELS } from './numbers';
-
-/** 상황 버튼·자연어 검색용 키워드 (항목 situation에만 주입 — 과도한 오염 주의) */
-const SITUATION_KEYWORDS: Record<Situation, string[]> = {
-  emergency: [
-    '응급',
-    '아파',
-    '아픔',
-    '아프',
-    '병원',
-    '구급',
-    '화재',
-    '119',
-    '129',
-    '응급실',
-    '자살',
-    '해경',
-  ],
-  car: [
-    '차',
-    '자동차',
-    '교통',
-    '사고',
-    '고장',
-    '렉카',
-    '견인',
-    '고속도로',
-    '탁송',
-    '보험',
-    '운전',
-  ],
-  crime: [
-    '범죄',
-    '사기',
-    '피싱',
-    '보이스피싱',
-    '도난',
-    '신고',
-    '112',
-    '1394',
-    '피해',
-    '간첩',
-    '111',
-    '113',
-    '국정원',
-    '테러',
-    '방첩',
-    '해킹',
-    '118',
-    '사이버',
-    '마약',
-    '1301',
-    '1338',
-    '드론',
-    '스파이',
-    '학대',
-  ],
-  home: [
-    '집',
-    '주거',
-    '이사',
-    '층간소음',
-    '전세',
-    '가스',
-    '민원',
-    '월세',
-    '전기',
-    '정전',
-    '수도',
-    '날씨',
-    '오염',
-    '식품',
-  ],
-  abroad: ['해외', '외국', '여행', '출국', '비자', '통관', '직구'],
-  legal: [
-    '법률',
-    '변호사',
-    '소송',
-    '세금',
-    '환불',
-    '소비자',
-    '132',
-    '신용',
-    '채무',
-    '인권',
-    '공정거래',
-  ],
-};
+import type { ContactPurpose, NumberItem, OrganizationContact } from './numbers';
 
 /**
  * 공공번호별 구어체·상황 별칭.
  * 기업 contacts의 keywords와 같은 역할 — blob에만 들어가고 화면에 안 보입니다.
  */
 const ITEM_ALIASES: Record<string, string[]> = {
-  e16: ['국방헬프콜', '군대', '장병', '군생활', '병영생활', '군범죄', '병영안전', '군 고충'],
+  e16: ['국방헬프콜', '군대', '장병', '군생활', '병영생활', '군범죄', '병영안전', '군 고충', '마약'],
   f10: ['정신건강', '위기상담', '마음', '심리상담', '정신건강복지센터'],
   f11: ['치매', '기억력', '치매환자', '돌봄', '중앙치매센터', '치매상담'],
   f12: ['도박', '도박문제', '도박중독', '도박상담', '단도박', '청소년 도박', '한국도박문제예방치유원'],
@@ -155,9 +61,23 @@ const ITEM_ALIASES: Record<string, string[]> = {
     '좌석',
   ],
   c1: ['공공렉카', '고속도로렉카', '사설렉카', '갓길', '긴급견인', '한국도로공사'],
-  e2: ['불', '화재신고', '구급차'],
-  e3: ['경찰청', '경찰서'],
+  e2: ['불', '화재신고', '구급차', '아파', '아픔', '아프', '응급실', '응급', '병원'],
+  e3: ['경찰청', '경찰서', '도난', '절도', '사기'],
   e4: ['감염병', '질병', '예방접종', '질병관리청', 'KDCA'],
+  e6: ['여행', '해외'],
+  e7: ['자살'],
+  h1: ['집', '주거'],
+  h2: ['소음', '집', '주거'],
+  h3: ['집', '주거'],
+  h5: ['집', '주거'],
+  h6: ['집', '주거'],
+  h7: ['집', '주거'],
+  f5: ['여행'],
+  f8: ['학대'],
+  c7: ['운전', '면허'],
+  l4: ['피싱', '스미싱', '사기'],
+  l7: ['세금'],
+  l9: ['사이버'],
 };
 
 /** 쿼리 단어 → 확장 토큰 (동의어) */
@@ -189,7 +109,7 @@ const TERM_EXPANSIONS: Record<string, string[]> = {
   두고: ['두고내림', '분실', '분실물', '유실물'],
   내림: ['놓고내림', '분실', '분실물'],
   내렸: ['놓고내림', '분실', '분실물'],
-  차: ['차', '자동차', '고장', '사고'],
+  차: ['차', '자동차'],
   자동차: ['차', '자동차'],
   고장: ['고장', '긴급출동', '견인'],
   렉카: ['렉카', '견인', '공공렉카'],
@@ -280,11 +200,6 @@ const PARTICLES = [
   '에',
 ];
 
-function categoryLabels(cat: string): string {
-  const chip = CATEGORIES.find((c) => c.id === cat);
-  return chip ? `${cat} ${chip.label}` : cat;
-}
-
 const CONTACT_PURPOSE_LABELS: Record<ContactPurpose, string> = {
   general: '대표 고객센터',
   lost: '분실 도난 정지',
@@ -359,91 +274,102 @@ export function expandQueryTokens(query: string): string[] {
   return [...expanded];
 }
 
-function buildSearchBlob(item: NumberItem): string {
-  const situationLabels = item.situation.map((s) => SITUATION_LABELS[s]).join(' ');
-  const situationKeys = item.situation
-    .flatMap((s) => SITUATION_KEYWORDS[s])
-    .join(' ');
+function hangulWords(text: string): string[] {
+  return text.toLowerCase().split(/[^0-9a-z가-힣]+/).filter(Boolean);
+}
 
+/** 긴 단어 끝에만 허용하는 두 글자. "비자"⊂"소비자", "화재"⊂"삼성화재"는 제외합니다. */
+const COMPOUND_SUFFIXES = new Set(['사기', '오염', '식품', '학대', '소음']);
+
+/**
+ * 두 글자는 같은 단어이거나, 그 단어로 시작하는 복합어만 맞습니다.
+ * 세 글자 이상은 포함을 허용합니다.
+ */
+function wordHit(words: string[], token: string): boolean {
+  if (!token) return false;
+  return words.some((word) => {
+    if (word === token) return true;
+    if (token.length < 2) return false;
+    if (token.length >= 3 && word.includes(token)) return true;
+    if (word.startsWith(token) && word.length > token.length) return true;
+    return COMPOUND_SUFFIXES.has(token) && word.endsWith(token) && word.length > token.length;
+  });
+}
+
+function directHit(words: string[], token: string): boolean {
+  return words.some((word) => word === token || (token.length >= 3 && word.includes(token)));
+}
+function dialingMatches(numberDigits: string, queryDigits: string): boolean {
+  if (!queryDigits || !numberDigits) return false;
+  if (numberDigits === queryDigits) return true;
+  if (queryDigits.length <= 3) {
+    const extra = numberDigits.length - queryDigits.length;
+    return numberDigits.endsWith(queryDigits) && extra >= 2 && extra <= 3;
+  }
+  return numberDigits.includes(queryDigits);
+}
+
+function itemSearchWords(item: NumberItem): {
+  title: string[];
+  alias: string[];
+  keyword: string[];
+  body: string[];
+} {
+  const aliases = ITEM_ALIASES[item.id] ?? [];
   const organizationTerms = isOrganizationContact(item)
     ? [
         item.organization,
-        item.organizationType,
         CONTACT_PURPOSE_LABELS[item.purpose],
         ...item.keywords,
-        item.available24h ? '24시간 연중무휴' : '',
+        item.available24h ? '24시간' : '',
       ]
     : [];
 
-  const aliases = ITEM_ALIASES[item.id] ?? [];
-
-  return [
-    item.title,
-    item.desc,
-    item.num,
-    item.tip,
-    ...getNumberDetail(item.id),
-    categoryLabels(item.cat),
-    situationLabels,
-    situationKeys,
-    ...organizationTerms,
-    ...aliases,
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase();
-}
-
-function blobHasToken(blob: string, token: string): boolean {
-  if (!token) return false;
-  if (blob.includes(token)) return true;
-  // 짧은 한글 조사 붙인 형태도 허용 (blob 원문에 조사가 남은 경우)
-  return false;
+  return {
+    title: hangulWords(item.title),
+    alias: hangulWords(aliases.join(' ')),
+    keyword: hangulWords(organizationTerms.join(' ')),
+    body: hangulWords(`${item.desc} ${item.num}`),
+  };
 }
 
 function scoreItem(item: NumberItem, query: string, tokens: string[]): number {
   const q = query.trim().toLowerCase();
-  const blob = buildSearchBlob(item);
+  const fields = itemSearchWords(item);
+  const all = [...fields.title, ...fields.alias, ...fields.keyword, ...fields.body];
   let score = 0;
 
   if (!q) return 0;
 
-  // Number-only searches match dialing values, not unrelated advice or situation keywords.
+  // Number-only searches match dialing values, not advice text.
   if (/^[+\d\s()-]+$/.test(q)) {
     const digits = q.replace(/\D/g, '');
     const number = item.num.replace(/\D/g, '');
-    return digits && number.includes(digits) ? (digits === number ? 200 : 100) : 0;
+    return dialingMatches(number, digits) ? (digits === number ? 200 : 100) : 0;
   }
 
-  // 전체 구문 / 번호 직접 일치
-  if (item.title.toLowerCase().includes(q)) score += 120;
-  const digitsQ = q.replace(/-/g, '');
-  if (digitsQ && item.num.replace(/-/g, '').includes(digitsQ)) score += 100;
-  if (blob.includes(q)) score += 40;
+  if (wordHit(fields.title, q)) score += 120;
+  const digitGroups = q.match(/\d{3,}/g) ?? [];
+  const number = item.num.replace(/\D/g, '');
+  if (digitGroups.some((digits) => dialingMatches(number, digits))) score += 100;
+  if (wordHit(all, q)) score += 40;
 
-  // 확장 토큰 매칭 (OR — 하나라도 맞으면 가산)
   let hitCount = 0;
   for (const token of tokens) {
-    if (token.length < 2 && !/[0-9]/.test(token)) continue;
-    if (!blobHasToken(blob, token)) continue;
+    if (!wordHit(all, token)) continue;
     hitCount += 1;
 
-    if (item.title.toLowerCase().includes(token)) score += 28;
-    else if ((ITEM_ALIASES[item.id] ?? []).some((a) => a.toLowerCase() === token)) score += 22;
+    if (wordHit(fields.title, token)) score += 28;
+    else if (wordHit(fields.alias, token) || wordHit(fields.keyword, token)) score += 22;
     else score += 12;
   }
 
   if (isOrganizationContact(item)) {
-    if (item.organization.toLowerCase().includes(q)) score += 110;
-    score +=
-      item.keywords.filter((keyword) => keyword.toLowerCase().includes(q)).length * 80;
+    if (directHit(hangulWords(item.organization), q)) score += 110;
+    score += item.keywords.filter((keyword) => directHit(hangulWords(keyword), q)).length * 80;
     for (const token of tokens) {
-      if (item.keywords.some((keyword) => keyword.toLowerCase().includes(token))) {
-        score += 24;
-      }
+      if (item.keywords.some((keyword) => directHit(hangulWords(keyword), token))) score += 24;
     }
-  } else if (score > 0 && (item.situation.includes('emergency') || item.situation.includes('crime'))) {
-    score += 6;
   }
 
   // 분실 의도 + 교통수단이 같이 있으면 대중교통/철도 분실 항목 강하게 부스트
@@ -468,7 +394,7 @@ function scoreItem(item: NumberItem, query: string, tokens: string[]): number {
   return score;
 }
 
-/** 제목·설명·번호·카테고리·상황·상세·꿀팁·별칭 통합 검색 */
+/** 제목·설명·번호·기업 키워드·별칭으로 검색합니다. */
 export function matchesSearch(item: NumberItem, query: string): boolean {
   const q = query.trim();
   if (!q) return true;

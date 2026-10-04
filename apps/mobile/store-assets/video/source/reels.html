@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>몇번이야 릴스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root { --coral:#FF5A55; --coralBg:#FFEDEB; --bg:#FCFBFA; --ink:#1A1A1A; --gray:#8A8581; --gray2:#5E5955; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { background:var(--bg); overflow:hidden; }
+body { font-family:'Pretendard',sans-serif; -webkit-font-smoothing:antialiased; color:var(--ink); }
+#stage { position:relative; width:1080px; height:1920px; overflow:hidden; background:var(--bg); }
+.abs { position:absolute; will-change:transform,opacity; }
+.cx { left:0; right:0; text-align:center; }
+.coral { color:var(--coral); }
+.scene { position:absolute; inset:0; opacity:0; }
+.txt { font-weight:800; letter-spacing:-0.04em; line-height:1.24; white-space:pre-line; }
+.sub { color:var(--gray2); font-weight:600; letter-spacing:-0.03em; line-height:1.35; white-space:pre-line; }
+#badge { top:236px; left:50%; transform:translateX(-50%); }
+#badge span { display:inline-block; background:var(--ink); color:#fff; font-weight:700; font-size:34px; letter-spacing:-0.02em; padding:14px 30px; border-radius:999px; white-space:nowrap; }
+#badge b { color:var(--coral); font-weight:800; margin-left:8px; }
+.hook { font-size:96px; }
+.num { font-size:200px; font-weight:900; letter-spacing:-0.045em; color:var(--coral); font-variant-numeric:tabular-nums; line-height:1; }
+.numcard { left:90px; right:90px; background:#fff; border-radius:56px; padding:70px 50px 64px; box-shadow:0 30px 80px rgba(80,40,30,.12), 0 6px 18px rgba(80,40,30,.06); text-align:center; }
+.pill { display:inline-flex; align-items:center; gap:14px; background:var(--coralBg); color:var(--coral); font-weight:800; font-size:44px; padding:22px 44px; border-radius:999px; letter-spacing:-0.02em; }
+.steps { left:90px; right:90px; }
+.step { display:flex; align-items:center; gap:30px; background:#fff; border-radius:40px; padding:40px 44px; margin-bottom:26px; box-shadow:0 14px 40px rgba(80,40,30,.08); }
+.step i { flex:none; width:76px; height:76px; border-radius:50%; background:var(--coral); color:#fff; font-style:normal; font-weight:800; font-size:40px; display:flex; align-items:center; justify-content:center; }
+.step p { font-size:48px; font-weight:700; letter-spacing:-0.035em; line-height:1.3; }
+.note { font-size:36px; font-weight:600; color:var(--gray2); }
+.warn { display:inline-block; background:var(--coral); color:#fff; font-weight:800; font-size:38px; padding:18px 36px; border-radius:999px; }
+#win { overflow:hidden; background:#fff; box-shadow:0 30px 80px rgba(80,40,30,.16), 0 6px 18px rgba(80,40,30,.08); opacity:0; }
+#cam { position:absolute; left:0; top:0; width:1206px; height:2622px; transform-origin:0 0; }
+#cam img { position:absolute; left:0; top:0; width:1206px; height:2622px; opacity:0; }
+.ring { position:absolute; border:10px solid var(--coral); border-radius:44px; box-shadow:0 0 0 14px rgba(255,90,85,.18); opacity:0; }
+.ripple { position:absolute; width:160px; height:160px; margin:-80px 0 0 -80px; border-radius:50%; background:rgba(255,90,85,.28); border:4px solid rgba(255,90,85,.55); opacity:0; }
+.typed { position:absolute; background:#fff; color:#1A1A1A; font-weight:500; font-size:44px; letter-spacing:-0.02em; display:flex; align-items:center; white-space:nowrap; opacity:0; }
+.caret { display:inline-block; width:4px; height:52px; background:var(--coral); margin-left:4px; border-radius:2px; }
+#cap { top:330px; font-size:70px; }
+#wwin { left:90px; width:900px; overflow:hidden; border-radius:48px; box-shadow:0 30px 80px rgba(40,20,10,.22); opacity:0; }
+#wwin img { position:absolute; width:1206px; height:2622px; transform-origin:0 0; }
+#logo { width:760px; left:160px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="badge" class="abs"><span>몰라서 못 쓴 번호 <b id="epn"></b></span></div>
+  <div id="scenes"></div>
+  <div id="win" class="abs"><div id="cam"></div></div>
+  <div id="cap" class="abs cx txt"></div>
+  <div id="wwin" class="abs"><img src="assets/widget.png"></div>
+  <img id="logo" class="abs" src="assets/logo.png" style="opacity:0">
+  <div id="tag" class="abs cx txt" style="font-size:66px;opacity:0"></div>
+  <div id="cta" class="abs cx" style="opacity:0"><span class="pill" style="font-size:42px">🔍 ‘몇번이야’ 검색해서 받아두기</span></div>
+</div>
+<script>
+const P = new URLSearchParams(location.search);
+const $ = id => document.getElementById(id);
+const clamp = (x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const eOut=t=>1-Math.pow(1-t,3);
+const eInOut=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const eOutBack=t=>{const c=1.4,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2);};
+const k=(t,a,b,e=eOut)=>e(clamp((t-a)/(b-a)));
+const kf=(t,arr)=>{ if(t<=arr[0][0])return arr[0][1]; for(let i=0;i<arr.length-1;i++){const[a,va]=arr[i],[b,vb]=arr[i+1]; if(t<=b)return lerp(va,vb,eInOut(clamp((t-a)/(b-a))));} return arr[arr.length-1][1]; };
+
+// ---------------- episodes ----------------
+const OUT = 3.9; // outro length
+const EPS = {
+ 1: { n:'#1', dur: 7.6+OUT,
+   scenes:[
+     {t0:0, t1:2.15, html:`<div class="abs cx txt hook" style="top:720px">지갑 잃어버렸을 때\n<span class="coral">카드사 번호</span>\n알아요?</div>`},
+   ],
+   phone:{ t0:2.0, t1:7.6, maxY:2190,
+     layers:[['home',[[0,1]]],['search',[[3.45,0],[3.7,1]]]],
+     cam:[[2.0,640,1.0],[2.6,640,1.08],[3.7,640,1.08],[4.3,1000,1.0],[5.3,1000,1.0],[6.2,1480,1.0],[7.6,1480,1.0]],
+     typed:{word:'카드 분실', t:2.85, per:0.11, show:[2.75,3.7], box:[200,588,860,90]},
+     rings:[{a:4.6,b:5.6,box:[40,790,1166,1010]}],
+     taps:[[2.55,420,633],[5.2,918,949]],
+   },
+   caps:[[2.2,4.4,'검색 한 번이면\n<span class="coral">카드사별 분실신고 번호</span>'],[4.5,7.45,'누르면 바로 전화.\n<span class="coral">외울 필요 없어요.</span>']],
+ },
+ 2: { n:'#2', dur: 9.6+OUT,
+   scenes:[
+     {t0:0, t1:2.2, html:`<div class="abs cx txt hook" style="top:700px">고속도로에서\n차가 <span class="coral">갑자기\n멈췄다면?</span></div>`},
+     {t0:2.2, t1:4.9, html:`<div class="abs numcard" style="top:560px"><div class="it sub" style="font-size:42px">한국도로공사 고속도로 콜센터</div><div class="it num" data-d=".12" style="margin:34px 0 30px;font-size:132px;white-space:nowrap">1588-2504</div><div class="it" data-d=".3"><span class="pill">🚛 긴급견인 안내</span></div><div class="it note" data-d=".45" style="margin-top:36px">2차 사고 위험 차량을\n가까운 안전지대까지 옮기는 지원</div></div>`},
+     {t0:4.9, t1:7.7, html:`<div class="abs cx txt it" style="top:420px;font-size:74px">전화 걸기 전에 <span class="coral">먼저</span></div><div class="abs steps" style="top:620px"><div class="step it" data-d=".1"><i>1</i><p>안전한 곳으로 먼저 대피</p></div><div class="step it" data-d=".25"><i>2</i><p>도로 위치·차량 상황 알리기</p></div><div class="step it" data-d=".4"><i>3</i><p>서비스 대상·견인 범위 확인</p></div></div><div class="abs cx it" data-d=".6" style="top:1290px"><span class="warn">부상자가 있으면 119 먼저</span></div>`},
+   ],
+   phone:{ t0:7.6, t1:9.6, maxY:2190,
+     layers:[['home',[[0,1]]]],
+     cam:[[7.6,820,1.0],[9.6,820,1.0]],
+     rings:[{a:8.2,b:9.45,box:[762,752,1168,858]}],
+     taps:[[8.9,960,805]],
+   },
+   caps:[[7.7,9.45,'번호 몰라도 괜찮아요.\n<span class="coral">‘차가 고장났어요’</span> 한 번']],
+ },
+ 3: { n:'#3', dur: 8.6+OUT,
+   scenes:[
+     {t0:0, t1:2.2, html:`<div class="abs cx txt hook" style="top:700px">새벽에 갑자기 아프면\n<span class="coral">지금 갈 수 있는\n응급실</span>은?</div>`},
+   ],
+   phone:{ t0:2.1, t1:8.6, maxY:2380,
+     layers:[['er_beds',[[0,1]]]],
+     cam:[[2.1,720,1.0],[3.5,720,1.0],[4.0,1200,1.0],[4.9,1200,1.0],[5.5,1900,1.0],[8.6,1900,1.0]],
+     rings:[{a:4.05,b:4.95,box:[48,1140,1157,1262]},{a:5.75,b:7.0,box:[89,1858,580,1924]}],
+     taps:[[7.5,340,2004]],
+   },
+   caps:[[2.2,3.75,'현재 위치에서\n<span class="coral">가까운 응급실</span>을 지도로'],[3.85,5.05,'위급하면\n<span class="coral">119가 먼저</span>예요'],[5.15,8.45,'<span class="coral">이용 가능한 병상 수</span>까지\n보고 바로 전화·길찾기']],
+   foot:[5.3,8.4,'응급실 정보: 국립중앙의료원 제공'],
+ },
+ 4: { n:'#4', dur: 7.6+OUT,
+   scenes:[
+     {t0:0, t1:2.2, html:`<div class="abs cx txt hook" style="top:720px">지하철에\n<span class="coral">가방을 두고\n내렸다면?</span></div>`},
+     {t0:2.2, t1:4.9, html:`<div class="abs numcard" style="top:600px"><div class="it sub" style="font-size:42px">경찰 유실물 문의</div><div class="it num" data-d=".12" style="margin:30px 0 34px;font-size:240px">182</div><div class="it" data-d=".3"><span class="pill">🧳 LOST112 분실물 신고·조회</span></div></div>`},
+     {t0:4.9, t1:7.6, html:`<div class="abs cx txt it" style="top:470px;font-size:74px">같이 확인하면 <span class="coral">더 빨라요</span></div><div class="abs steps" style="top:680px"><div class="step it" data-d=".1"><i>1</i><p>LOST112에서 분실물 신고·조회</p></div><div class="step it" data-d=".25"><i>2</i><p>182로 유실물 문의</p></div><div class="step it" data-d=".4"><i>3</i><p>지하철·버스 운영사\n분실물센터도 확인</p></div></div>`},
+   ],
+   caps:[],
+ },
+ 5: { n:null, dur: 14.7+OUT,
+   scenes:[
+     {t0:0, t1:0.55, html:`<div class="abs cx txt hook" style="top:820px;font-size:104px">갑자기 아플 때</div>`},
+     {t0:0.55, t1:1.1, html:`<div class="abs cx txt hook" style="top:820px;font-size:104px">차가 멈췄을 때</div>`},
+     {t0:1.1, t1:1.65, html:`<div class="abs cx txt hook" style="top:820px;font-size:104px">카드 잃어버렸을 때</div>`},
+     {t0:1.65, t1:2.75, html:`<div class="abs cx txt hook" style="top:760px;font-size:120px"><span class="coral">몇 번</span>에\n전화하지?</div>`},
+     {t0:11.8, t1:14.7, html:`<div class="abs cx txt it" style="top:400px;font-size:84px">8개 분야\n<span class="coral">공공·생활 번호 95개</span></div>
+       <div class="abs it" data-d=".15" style="left:90px;right:90px;top:690px;display:flex;flex-wrap:wrap;gap:20px;justify-content:center">${['🚨 긴급/안전','🚗 교통/차량','🏠 주거/생활','💳 법률/금융','👨‍👩‍👧 가족/복지','💼 고용/노동','📄 민원/행정','📶 통신/디지털'].map(c=>`<span style="background:#fff;border-radius:999px;padding:22px 34px;font-size:40px;font-weight:700;box-shadow:0 10px 30px rgba(80,40,30,.08)">${c}</span>`).join('')}</div>
+       <div class="abs cx it" data-d=".35" style="top:1080px"><span class="pill" style="font-size:40px">한국어 · English · 日本語 · 中文</span></div>
+       <div class="abs cx it note" data-d=".5" style="top:1220px">모든 번호를 공식 출처와 직접 대조했어요</div>`},
+   ],
+   phone:{ t0:2.65, t1:11.85, maxY:2190,
+     layers:[['home',[[0,1]]],['search',[[5.9,0],[6.15,1],[7.75,1],[7.95,0]]],['er_beds',[[7.75,0],[8.0,1]]]],
+     cam:[[2.65,1340,1.0],[4.4,1340,1.0],[4.8,640,1.08],[5.9,640,1.08],[6.5,1000,1.0],[7.7,1000,1.0],[7.8,720,1.0],[8.9,720,1.0],[9.5,1900,1.0],[11.85,1900,1.0]],
+     typed:{word:'카드 분실', t:5.15, per:0.11, show:[5.05,6.15], box:[200,588,860,90]},
+     rings:[{a:3.0,b:4.3,box:[62,1267,586,1727]},{a:6.6,b:7.6,box:[40,790,1166,1010]},{a:9.7,b:11.4,box:[89,1858,580,1924]}],
+     taps:[[3.8,324,1637],[4.95,420,633],[7.2,918,949],[11.0,340,2004]],
+   },
+   caps:[[2.75,4.55,'급할 땐\n<span class="coral">119·112 바로 전화</span>'],[4.65,7.65,'번호를 몰라도\n<span class="coral">상황으로 검색</span>'],[7.8,11.7,'가까운 응급실과\n<span class="coral">이용 가능한 병상 수</span>']],
+   foot:[9.6,11.7,'위급하면 먼저 119 · 응급실 정보: 국립중앙의료원 제공'],
+ },
+};
+const EP = EPS[P.get('ep')||'1'];
+window.DUR = EP.dur;
+if(EP.n) $('epn').textContent = EP.n; else $('badge').style.display='none';
+
+// build scenes
+const sc = $('scenes');
+const SCN = EP.scenes.map(s=>{ const d=document.createElement('div'); d.className='scene'; d.innerHTML=s.html; sc.appendChild(d);
+  d.querySelectorAll('.abs:not(.it)').forEach(()=>{}); return {...s, el:d, its:[...d.querySelectorAll('.it')]}; });
+// make top-level children of scenes (that are not inside numcard etc.) animate too if they are .abs and have no .it
+SCN.forEach(s=>{ [...s.el.children].forEach(c=>{ if(!c.classList.contains('it') && !c.querySelector('.it')) { c.classList.add('it'); s.its.push(c);} }); });
+
+// phone
+const PH = EP.phone;
+const WIN = {x:160, y:560, w:760, h:950, r:56};
+const layerEls = {};
+if (PH) {
+  const cam=$('cam');
+  PH.layers.forEach(([n])=>{ const im=document.createElement('img'); im.src=`assets/${n}.png`; cam.appendChild(im); layerEls[n]=im; });
+  if (PH.typed){ const d=document.createElement('div'); d.className='typed'; d.id='typed'; d.innerHTML='<span id="tt"></span><span class="caret" id="caret"></span>'; cam.appendChild(d);
+    const [x,y,w,h]=PH.typed.box; Object.assign(d.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px',paddingLeft:'10px'}); }
+  const r=document.createElement('div'); r.className='ring'; r.id='ring'; cam.appendChild(r);
+  const p=document.createElement('div'); p.className='ripple'; p.id='rip'; cam.appendChild(p);
+  const w=$('win'); Object.assign(w.style,{width:WIN.w+'px',height:WIN.h+'px',borderRadius:WIN.r+'px'});
+}
+if (EP.foot){ const f=document.createElement('div'); f.className='abs cx note'; f.id='foot'; f.style.top=(WIN.y+WIN.h+40)+'px'; f.style.fontSize='32px'; f.textContent=EP.foot[2]; $('stage').appendChild(f); }
+
+function set(el,o){ if('op' in o) el.style.opacity=o.op; const tf=[]; if(o.tx!==undefined) tf.push(o.tx); if('x' in o||'y' in o) tf.push(`translate(${o.x||0}px,${o.y||0}px)`); if('sc' in o) tf.push(`scale(${o.sc})`); el.style.transform=tf.join(' '); }
+
+function render(t){
+  // badge
+  set($('badge'),{tx:'translateX(-50%)', y:-20*(1-k(t,0,0.3)), op:k(t,0,0.3)});
+  // scenes
+  for(const s of SCN){
+    const a=k(t,s.t0,s.t0+0.25), o=k(t,s.t1-0.22,s.t1,eInOut);
+    const isFirst = s.t0===0;
+    s.el.style.opacity = (isFirst?1:a)*(1-o);
+    s.el.style.transform = `translateY(${-30*o}px)`;
+    for(const it of s.its){ const d=+(it.dataset.d||0); const p=isFirst&&!d ? k(t,0.05,0.4,eOutBack) : k(t,s.t0+d+0.05,s.t0+d+0.42,eOutBack);
+      it.style.opacity = clamp(p*1.4); it.style.transform = (it.style.transform.includes('translateX')?'':'') + `translateY(${40*(1-p)}px) scale(${lerp(0.96,1,clamp(p))})`; }
+  }
+  // phone
+  if (PH){
+    const win=$('win');
+    const wi=k(t,PH.t0,PH.t0+0.4), wo=k(t,PH.t1-0.3,PH.t1,eInOut);
+    set(win,{x:WIN.x, y:WIN.y+100*(1-wi)+30*wo, sc:lerp(1,0.94,wo), op:wi*(1-wo)});
+    const fy=kf(t,PH.cam.map(c=>[c[0],c[1]])), z=kf(t,PH.cam.map(c=>[c[0],c[2]]));
+    const s=(WIN.w/1206)*z; let tx=WIN.w/2-603*s, ty=WIN.h/2-fy*s;
+    tx=Math.min(0,Math.max(WIN.w-1206*s,tx)); ty=Math.min(0,Math.max(WIN.h-PH.maxY*s,ty));
+    $('cam').style.transform=`translate(${tx}px,${ty}px) scale(${s})`;
+    for(const [n,ops] of PH.layers) layerEls[n].style.opacity = ops.length===1?ops[0][1]:kf(t,ops);
+    if (PH.typed){ const T=PH.typed; const n=t<T.t?0:clamp(Math.floor((t-T.t)/T.per)+1,0,T.word.length);
+      $('typed').style.opacity=(t>T.show[0]&&t<T.show[1])?1:0; $('tt').textContent=T.word.slice(0,n);
+      $('caret').style.opacity=(n<T.word.length||Math.floor(t*3.2)%2===0)?1:0; }
+    const ring=$('ring'); let rOp=0;
+    for(const r of PH.rings||[]){ const v=Math.min(k(t,r.a,r.a+0.2),1-k(t,r.b-0.2,r.b,eInOut)); if(v>0){ const[x0,y0,x1,y1]=r.box,pad=14;
+      Object.assign(ring.style,{left:x0-pad+'px',top:y0-pad+'px',width:x1-x0+2*pad+'px',height:y1-y0+2*pad+'px',transform:`scale(${lerp(1.05,1,k(t,r.a,r.a+0.25))})`}); rOp=v; } }
+    ring.style.opacity=rOp;
+    const rip=$('rip'); let ro=0;
+    for(const[tt,x,y] of PH.taps||[]){ const p=(t-tt)/0.45; if(p>=0&&p<=1){ Object.assign(rip.style,{left:x+'px',top:y+'px',transform:`scale(${lerp(0.4,1.5,eOut(p))})`}); ro=(1-p)*0.95; } }
+    rip.style.opacity=ro;
+  }
+  if (EP.foot){ const[a,b]=EP.foot; $('foot').style.opacity=Math.min(k(t,a,a+0.3),1-k(t,b-0.2,b)); }
+  // captions
+  const cap=$('cap'); let cOp=0;
+  const outroT0 = EP.dur-OUT;
+  const caps = [...EP.caps, [outroT0+0.05, outroT0+1.95, '자주 쓰는 번호는\n<span class="coral">홈 화면 위젯</span>에 고정']];
+  for(const[a,b,html] of caps){ if(t>=a&&t<=b){ if(cap.dataset.h!==html){cap.innerHTML=html;cap.dataset.h=html;} const i=k(t,a,a+0.3),o=k(t,b-0.18,b,eInOut); cOp=i*(1-o); set(cap,{y:22*(1-i)-14*o,op:cOp}); } }
+  if(!cOp) cap.style.opacity=0;
+  // outro: widget
+  const T0=outroT0;
+  const ww=$('wwin'); const WS=900/1146, WH=500*WS;
+  ww.style.height=WH+'px'; const wimg=ww.querySelector('img'); wimg.style.transform=`translate(${-30*WS}px,${-262*WS}px) scale(${WS})`;
+  const wa=k(t,T0+0.1,T0+0.5,eOutBack), wo2=k(t,T0+1.8,T0+2.05,eInOut);
+  set(ww,{x:0,y:720+80*(1-clamp(wa))-30*wo2,sc:lerp(0.92,1,clamp(wa))*lerp(1,0.94,wo2),op:clamp(wa*1.3)*(1-wo2)});
+  // outro: logo end card
+  const LA=766/2053, lg=$('logo');
+  const la=k(t,T0+2.0,T0+2.4,eOutBack);
+  set(lg,{y:600+30*(1-clamp(la)),sc:lerp(0.9,1,clamp(la)),op:clamp(la*1.3)});
+  const tag=$('tag'); if(!tag.innerHTML) tag.innerHTML='필요한 순간,\n필요한 번호를 <span class="coral">더 빠르게.</span>';
+  const ta=k(t,T0+2.3,T0+2.65); set(tag,{y:600+760*LA+90+20*(1-ta),op:ta});
+  const ca=k(t,T0+2.6,T0+2.95,eOutBack); set($('cta'),{y:600+760*LA+340+20*(1-clamp(ca)),op:clamp(ca*1.3)});
+  // badge fade at end card
+  if(t>T0+1.95) $('badge').style.opacity = 1-k(t,T0+1.95,T0+2.2);
+}
+window.render=render;
+window.ready=Promise.all([...[500,600,700,800,900].map(w=>document.fonts.load(w+' 40px Pretendard','가')),document.fonts.ready,...[...document.images].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r;}))]).then(()=>new Promise(r=>setTimeout(r,200)));
+if(P.has('t')) window.ready.then(()=>render(+P.get('t')));
+</script>
+</body>
+</html>

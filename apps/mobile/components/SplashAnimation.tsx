@@ -80,14 +80,18 @@ export function SplashAnimation({ theme, active, onFinish }: Props) {
 
     const startExit = () => {
       if (cancelled) return;
+      // Full-screen opacity stays on the JS driver. The native driver has
+      // stuck this layer on screen after backgrounding, which looks like a white app.
+      run(
+        Animated.timing(overlayOpacity, {
+          toValue: 0,
+          duration: 320,
+          easing: easeOut,
+          useNativeDriver: false,
+        }),
+      );
       run(
         Animated.parallel([
-          Animated.timing(overlayOpacity, {
-            toValue: 0,
-            duration: 320,
-            easing: easeOut,
-            useNativeDriver: true,
-          }),
           Animated.timing(groupOpacity, {
             toValue: 0,
             duration: 320,
@@ -206,11 +210,13 @@ export function SplashAnimation({ theme, active, onFinish }: Props) {
         if (!cancelled) runFull();
       });
 
+    // The overlay must not sit on top of a ready app. iOS can drop the
+    // animation callback, so dismiss as soon as startup data is ready.
+    finish();
+
     return () => {
       cancelled = true;
       animations.forEach((a) => a.stop());
-      // Interrupted splash must not leave the app on a blank shell.
-      finish();
     };
   }, [
     active,

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Image,
   Modal,
@@ -41,7 +41,6 @@ import { EmergencyFinderCard } from './components/EmergencyFinderCard';
 import { ImmediateEmergency } from './components/ImmediateEmergency';
 import { NumberRow } from './components/NumberCards';
 import { NumberVisualIcon } from './components/NumberVisualIcon';
-import { SplashAnimation } from './components/SplashAnimation';
 import { Toast } from './components/Toast';
 import { WidgetGuideBanner } from './components/WidgetGuide';
 import { FirstLaunchGuide } from './components/guides/FirstLaunchGuide';
@@ -252,7 +251,7 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   /** Cold start only — never re-shown on background → foreground */
   const [showSplash, setShowSplash] = useState(true);
-  useOTAUpdates(setToastMessage, !showSplash);
+  useOTAUpdates(!showSplash);
   useAdMobInit();
   const [tab, setTab] = useState<TabId>('home');
   const [settingsView, setSettingsView] = useState<SettingsView>('main');
@@ -312,10 +311,16 @@ export default function App() {
   // Home stays fully visible under the splash overlay.
   // Animating root opacity with the native driver was sticking at 0 after
   // background → foreground on iOS (white screen).
-  const onSplashFinish = useCallback(() => {
+  const openedGuideAfterSplash = useRef(false);
+  useEffect(() => {
+    if (!nativeSplashHidden) return;
     setShowSplash(false);
+  }, [nativeSplashHidden]);
+  useEffect(() => {
+    if (showSplash || !guides.ready || openedGuideAfterSplash.current) return;
+    openedGuideAfterSplash.current = true;
     guides.afterSplash();
-  }, [guides.afterSplash]);
+  }, [showSplash, guides.ready, guides.afterSplash]);
   useEffect(() => {
     if (nativeSplashHidden) return;
     let cancelled = false;
@@ -644,7 +649,7 @@ export default function App() {
                   style={
                     showBrowse
                       ? { flex: 1 }
-                      : [StyleSheet.absoluteFill, { opacity: 0, zIndex: 0 }]
+                      : [StyleSheet.absoluteFill, { opacity: 0, zIndex: -1 }]
                   }
                   pointerEvents={showBrowse ? 'auto' : 'none'}
                   importantForAccessibility={showBrowse ? 'yes' : 'no-hide-descendants'}
@@ -682,6 +687,7 @@ export default function App() {
               {showFavoritesList ? (
                 <DraggableFlatList
                   data={filtered}
+                  extraData={listExtraData}
                   keyExtractor={(item) => item.id}
                   onDragEnd={({ data }) => reorder(data.map((entry) => entry.id))}
                   activationDistance={8}
@@ -691,6 +697,7 @@ export default function App() {
                   ListHeaderComponent={favoritesHeader}
                   ListEmptyComponent={emptyComponent}
                   renderItem={renderFavoriteItem}
+                  containerStyle={{ flex: 1 }}
                   style={{ flex: 1 }}
                 />
               ) : null}
@@ -858,13 +865,6 @@ export default function App() {
 
         {regionalCallNumber ? (
           <RegionalCallSheet number={regionalCallNumber} locale={locale} colors={themeColors} onClose={() => setRegionalCallNumber(null)} />
-        ) : null}
-        {showSplash ? (
-          <SplashAnimation
-            theme={theme}
-            active={nativeSplashHidden && themeReady && localeReady && favoritesReady && guides.ready}
-            onFinish={onSplashFinish}
-          />
         ) : null}
         {!showSplash && (guides.active === 'firstLaunch' || guides.active === 'manual') ? (
           <FirstLaunchGuide colors={themeColors} theme={theme} mode={guides.active} widgetAvailable={widgetAvailable} onClose={guides.close} />

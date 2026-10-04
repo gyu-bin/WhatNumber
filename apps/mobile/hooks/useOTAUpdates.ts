@@ -1,33 +1,23 @@
 import { useEffect, useRef } from 'react';
 import { AppState } from 'react-native';
 import * as Updates from 'expo-updates';
-import i18n from '../i18n';
 
 /** Re-check while the app stays open, without hammering the update service. */
 const POLL_MS = 90_000;
 /** First paint + splash should finish before any network update work. */
 const AFTER_READY_MS = 2_500;
-/** Let the toast paint before `reloadAsync` tears down the JS runtime. */
-const TOAST_BEFORE_RELOAD_MS = 600;
-
 /**
- * Apply a downloaded EAS Update in place.
+ * Download an EAS Update without swapping the running bundle.
  *
- * Native startup (`CheckOnLaunch`) must finish first — calling reload during
- * that race has crashed iOS release builds. After that, a new bundle is
- * fetched and `reloadAsync()` swaps it without the user killing the app.
+ * `reloadAsync()` during or just after launch has left iOS on a white screen.
+ * A fetched update is applied on the next cold start by the native updater.
  *
- * `enabled` should stay false until the cold-start splash is gone so update
- * downloads do not compete with first paint on slow networks.
+ * `enabled` should stay false until the cold-start splash is gone so the
+ * download does not compete with first paint on slow networks.
  */
-export function useOTAUpdates(
-  onUpdateReady?: (message: string) => void,
-  enabled = true,
-) {
+export function useOTAUpdates(enabled = true) {
   const busyRef = useRef(false);
   const lastCheckRef = useRef(0);
-  const onUpdateReadyRef = useRef(onUpdateReady);
-  onUpdateReadyRef.current = onUpdateReady;
   const { isStartupProcedureRunning, isUpdatePending } = Updates.useUpdates();
 
   useEffect(() => {
@@ -54,10 +44,6 @@ export function useOTAUpdates(
         } else {
           lastCheckRef.current = now;
         }
-        onUpdateReadyRef.current?.(i18n.t('ota.updating', { ns: 'ui' }));
-        await new Promise((resolve) => setTimeout(resolve, TOAST_BEFORE_RELOAD_MS));
-        if (cancelled) return;
-        await Updates.reloadAsync();
       } catch {
         // Offline or update service unavailable — keep the current bundle.
       } finally {
