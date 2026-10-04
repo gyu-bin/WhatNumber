@@ -36,7 +36,8 @@
       "Choose Widgets",
       "Under 몇번이야, add “즐겨찾기 전화”"
     ],
-    "empty": "No matching numbers"
+    "empty": "No matching numbers",
+    "urgentFallback": "There isn't a dedicated number for this. Call 112 if it's urgent, or 119 if someone needs rescue."
   },
   "situations": {
     "emergency": "Medical emergency",
@@ -62,7 +63,9 @@
     "가족/복지": "Family / Welfare",
     "고용/노동": "Jobs / Labor",
     "민원/행정": "Civic / Admin",
-    "통신/디지털": "Telecom / Digital"
+    "통신/디지털": "Telecom / Digital",
+    "안보": "Security",
+    "보건": "Health"
   },
   "categoryTiles": {
     "traffic": {
@@ -81,9 +84,13 @@
       "label": "Family / Welfare",
       "subtitle": "Children · teens · seniors · mental health"
     },
+    "health": {
+      "label": "Health",
+      "subtitle": "Welfare · disease · suicide prevention"
+    },
     "civic": {
       "label": "Daily / Civic",
-      "subtitle": "Admin · tax · public services"
+      "subtitle": "Admin · pollution · food reports"
     },
     "labor": {
       "label": "Jobs / Labor",
@@ -93,9 +100,13 @@
       "label": "Telecom / Digital",
       "subtitle": "Hacking · spam · phone service"
     },
-    "other": {
-      "label": "Other",
-      "subtitle": "Emergency · reports · overseas help"
+    "security": {
+      "label": "Security",
+      "subtitle": "Espionage · counterintel · military reports"
+    },
+    "urgent": {
+      "label": "Emergency",
+      "subtitle": "119 · 112 · victims · overseas"
     }
   },
   "categorySubtitles": {
@@ -106,7 +117,9 @@
     "가족/복지": "Help for family and neighbors",
     "고용/노동": "Guidance for working people",
     "민원/행정": "When you need public services",
-    "통신/디지털": "Phone, internet, and privacy issues"
+    "통신/디지털": "Phone, internet, and privacy issues",
+    "안보": "Espionage, terrorism, and military reports",
+    "보건": "Welfare, disease, and counseling"
   },
   "immediate": {
     "title": "Call right now",

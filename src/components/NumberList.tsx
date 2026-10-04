@@ -21,6 +21,8 @@ const CATEGORY_ORDER: Category[] = [
   '고용/노동',
   '민원/행정',
   '통신/디지털',
+  '안보',
+  '보건',
 ];
 
 function CardGrid({

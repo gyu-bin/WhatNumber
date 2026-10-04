@@ -6,7 +6,9 @@ export type Category =
   | '가족/복지'
   | '고용/노동'
   | '민원/행정'
-  | '통신/디지털';
+  | '통신/디지털'
+  | '안보'
+  | '보건';
 
 export type Situation =
   | 'emergency'
@@ -56,7 +58,7 @@ export interface OrganizationContact extends NumberItem {
 export const NUMBERS: NumberItem[] = [
   {
     "id": "e1",
-    "cat": "긴급/안전",
+    "cat": "보건",
     "icon": "🚑",
     "title": "보건복지 상담",
     "desc": "긴급복지·의료비 지원제도 상담",
@@ -92,7 +94,7 @@ export const NUMBERS: NumberItem[] = [
   },
   {
     "id": "e4",
-    "cat": "긴급/안전",
+    "cat": "보건",
     "icon": "🏥",
     "title": "질병관리청 1339 콜센터",
     "desc": "감염병·질병 상담 및 신고",
@@ -126,7 +128,7 @@ export const NUMBERS: NumberItem[] = [
   },
   {
     "id": "e7",
-    "cat": "긴급/안전",
+    "cat": "보건",
     "icon": "💚",
     "title": "자살예방 상담",
     "desc": "24시간 자살예방 전문 상담",
@@ -139,7 +141,7 @@ export const NUMBERS: NumberItem[] = [
 
   {
     "id": "e8",
-    "cat": "긴급/안전",
+    "cat": "안보",
     "icon": "🕵️",
     "title": "국가정보원 안보 신고",
     "desc": "간첩·테러·산업스파이 등 안보 제보",
@@ -151,7 +153,7 @@ export const NUMBERS: NumberItem[] = [
   },
   {
     "id": "e9",
-    "cat": "긴급/안전",
+    "cat": "안보",
     "icon": "👮",
     "title": "경찰 방첩 신고",
     "desc": "간첩·산업기술 유출·테러 신고",
@@ -163,7 +165,7 @@ export const NUMBERS: NumberItem[] = [
   },
   {
     "id": "e10",
-    "cat": "긴급/안전",
+    "cat": "안보",
     "icon": "🛡️",
     "title": "군부대 주민 신고",
     "desc": "군 관련 안보 위해 의심상황 신고",
@@ -176,7 +178,7 @@ export const NUMBERS: NumberItem[] = [
 
   {
     "id": "e14",
-    "cat": "긴급/안전",
+    "cat": "민원/행정",
     "icon": "🌫️",
     "title": "환경오염 신고",
     "desc": "환경오염행위 신고 접수",
@@ -188,7 +190,7 @@ export const NUMBERS: NumberItem[] = [
   },
   {
     "id": "e15",
-    "cat": "긴급/안전",
+    "cat": "민원/행정",
     "icon": "🧪",
     "title": "부정·불량식품 신고",
     "desc": "불량식품·표시광고 위반 신고",
@@ -201,7 +203,7 @@ export const NUMBERS: NumberItem[] = [
 
   {
     "id": "e16",
-    "cat": "긴급/안전",
+    "cat": "안보",
     "icon": "🪖",
     "title": "국방헬프콜",
     "desc": "군 생활 고충·군 관련 범죄 신고와 상담",
@@ -918,6 +920,8 @@ export const CAT_COLOR: Record<Category, string> = {
   '고용/노동': '#0D7490',
   '민원/행정': '#4A4A47',
   '통신/디지털': '#4F46E5',
+  '안보': '#1E3A5F',
+  '보건': '#0F766E',
 };
 
 export const CATEGORIES: { id: string; label: string }[] = [
@@ -930,6 +934,8 @@ export const CATEGORIES: { id: string; label: string }[] = [
   { id: '고용/노동', label: '고용·노동' },
   { id: '민원/행정', label: '민원·행정' },
   { id: '통신/디지털', label: '통신·디지털' },
+  { id: '안보', label: '안보' },
+  { id: '보건', label: '보건·상담' },
 ];
 
 export const SITUATION_ACCENT: Record<Situation, string> = {

@@ -1,4 +1,4 @@
-import type { ContactPurpose, NumberItem, OrganizationContact } from './numbers';
+import type { ContactPurpose, NumberItem, OrganizationContact, Situation } from './numbers';
 
 /**
  * 공공번호별 구어체·상황 별칭.
@@ -215,11 +215,144 @@ export function isOrganizationContact(item: NumberItem): item is OrganizationCon
 
 function stripParticle(word: string): string {
   for (const particle of PARTICLES) {
-    if (word.length > particle.length + 1 && word.endsWith(particle)) {
-      return word.slice(0, -particle.length);
-    }
+    if (!word.endsWith(particle) || word.length <= particle.length) continue;
+    const stem = word.slice(0, -particle.length);
+    // "차가" → 차. "사과"처럼 조사가 아닌 끝소리는 그대로 둡니다.
+    if (stem.length >= 2 || stem === '차' || stem === '집') return stem;
   }
   return word;
+}
+
+/** 구어 어미. 긴 것부터 잘라 "고장났어요" → 고장, "아파요" → 아파. */
+const PREDICATE_ENDINGS = [
+  '났음',
+  '났어',
+  '났다',
+  '났어요',
+  '했음',
+  '했어',
+  '했다',
+  '했어요',
+  '았음',
+  '었음',
+  '았어',
+  '었어',
+  '어요',
+  '아요',
+  '여요',
+  '네요',
+  '죠',
+  '요',
+  '음',
+  '다',
+];
+
+const DROPPED_STEMS = new Set(['났', '나', '했', '하', '있', '있어', '되', '돼', '됨', '였']);
+
+const DROPPED_WORDS = new Set([
+  '났음',
+  '났어',
+  '났다',
+  '났어요',
+  '있어요',
+  '있어',
+  '있음',
+  '했음',
+  '했어',
+  '했다',
+  '했어요',
+]);
+
+const SINGLE_CHAR_STEMS = new Set(['아파', '아프', '응급', '구급', '고장', '사고', '났', '했', '있']);
+
+function stemPredicate(word: string): string {
+  for (const ending of PREDICATE_ENDINGS) {
+    if (!word.endsWith(ending) || word.length <= ending.length) continue;
+    const stem = word.slice(0, -ending.length);
+    if (!stem) continue;
+    // 한 글자 어미는 "층간소음" 같은 명사를 자르지 않습니다.
+    if (ending.length === 1 && !SINGLE_CHAR_STEMS.has(stem) && !DROPPED_STEMS.has(stem)) continue;
+    return stem;
+  }
+  return word;
+}
+
+/**
+ * 단어가 가리키는 개념입니다. 문장 전체를 답으로 저장하지 않습니다.
+ * "차 사고 났음"과 "자동차 박았어"는 둘 다 차량 + 사고로 읽힙니다.
+ */
+type Concept =
+  | 'vehicle'
+  | 'accident'
+  | 'breakdown'
+  | 'illness'
+  | 'fire'
+  | 'crime'
+  | 'home'
+  | 'abroad'
+  | 'legal'
+  | 'loss'
+  | 'transit'
+  | 'rail';
+
+const CONCEPT_CUES: Record<Concept, string[]> = {
+  vehicle: ['자동차', '고속도로', '차량', '교통', '운전', '차'],
+  accident: ['추돌', '충돌', '뺑소니', '접촉', '사고', '박'],
+  breakdown: ['긴급출동', '견인', '렉카', '고장', '방전', '펑크'],
+  illness: ['응급실', '응급', '구급', '병원', '아픔', '아파', '아프'],
+  fire: ['화재', '불'],
+  crime: ['보이스피싱', '피싱', '범죄', '사기', '도난', '절도'],
+  home: ['주거', '집'],
+  abroad: ['해외', '외국', '여행', '출국'],
+  legal: ['변호사', '법률', '소송', '금융'],
+  loss: ['분실물', '유실물', '놓고내림', '두고내림', '분실', '유실'],
+  transit: ['대중교통', '지하철', '시내버스', '버스', '전철', '택시'],
+  rail: ['코레일', '기차', '열차', '철도', 'ktx'],
+};
+
+const SITUATION_CONCEPT: Record<Situation, Concept> = {
+  emergency: 'illness',
+  car: 'vehicle',
+  crime: 'crime',
+  home: 'home',
+  abroad: 'abroad',
+  legal: 'legal',
+};
+
+const ALL_CUES = new Set(Object.values(CONCEPT_CUES).flat());
+
+function wordCarriesCue(word: string, cue: string): boolean {
+  if (word === cue) return true;
+  if (cue.length < 2 || word.length <= cue.length || !word.includes(cue)) return false;
+  const rest = word.startsWith(cue)
+    ? word.slice(cue.length)
+    : word.endsWith(cue)
+      ? word.slice(0, -cue.length)
+      : '';
+  return rest.length > 0 && ALL_CUES.has(rest);
+}
+
+function conceptsInText(words: string[]): Set<Concept> {
+  const found = new Set<Concept>();
+  for (const word of words) {
+    for (const [concept, cues] of Object.entries(CONCEPT_CUES) as [Concept, string[]][]) {
+      if (cues.some((cue) => wordCarriesCue(word, cue))) found.add(concept);
+    }
+  }
+  return found;
+}
+
+function conceptsForItem(item: NumberItem, words: string[]): Set<Concept> {
+  const found = conceptsInText(words);
+  for (const situation of item.situation) found.add(SITUATION_CONCEPT[situation]);
+  if (isOrganizationContact(item)) {
+    if (item.purpose === 'accident' || item.purpose === 'roadside') found.add('vehicle');
+    if (item.purpose === 'accident') found.add('accident');
+    if (item.purpose === 'roadside') found.add('breakdown');
+    if (item.purpose === 'lost') found.add('loss');
+    if (item.purpose === 'fraud') found.add('crime');
+  }
+  return found;
 }
 
 function normalizeToken(raw: string): string {
@@ -233,7 +366,9 @@ function normalizeToken(raw: string): string {
   if (word.startsWith('잃어')) word = '잃어';
 
   word = stripParticle(word);
-  if (STOPWORDS.has(word) || word.length < 1) return '';
+  if (DROPPED_WORDS.has(word)) return '';
+  word = stemPredicate(word);
+  if (DROPPED_STEMS.has(word) || STOPWORDS.has(word) || word.length < 1) return '';
   return word;
 }
 
@@ -372,24 +507,17 @@ function scoreItem(item: NumberItem, query: string, tokens: string[]): number {
     }
   }
 
-  // 분실 의도 + 교통수단이 같이 있으면 대중교통/철도 분실 항목 강하게 부스트
-  const hasLostIntent = tokens.some((t) =>
-    ['분실', '분실물', '유실', '유실물', '놓고내림', '두고내림'].includes(t),
-  );
-  const hasTransit = tokens.some((t) =>
-    ['버스', '지하철', '전철', '택시', '대중교통'].includes(t),
-  );
-  const hasRail = tokens.some((t) =>
-    ['ktx', '기차', '열차', '철도', '코레일'].includes(t),
-  );
+  const queryConcepts = conceptsInText(tokens);
+  const itemConcepts = conceptsForItem(item, all);
+  let covered = 0;
+  for (const concept of queryConcepts) {
+    if (itemConcepts.has(concept)) covered += 1;
+  }
+  // 개념이 둘 이상이면 그 조합을 모두 가진 번호만 남깁니다.
+  if (queryConcepts.size >= 2 && covered < queryConcepts.size) return 0;
+  if (covered > 0) score += 32 * covered;
 
-  if (hasLostIntent && hasTransit && item.id === 'c8') score += 90;
-  if (hasLostIntent && hasRail && item.id === 'c9') score += 90;
-  if (hasLostIntent && !hasRail && hasTransit && item.id === 'c9') score += 15;
-  if (hasLostIntent && hasRail && item.id === 'c8') score += 15;
-
-  // 의미 있는 히트가 하나도 없으면 탈락 점수
-  if (hitCount === 0 && score < 40) return 0;
+  if (hitCount === 0 && covered === 0 && score < 40) return 0;
 
   return score;
 }
@@ -404,21 +532,38 @@ export function matchesSearch(item: NumberItem, query: string): boolean {
 
 /**
  * 검색 결과는 점수로 정렬합니다.
- * 서술형("버스에서 물건을 놓고 내렸다")도 동의어·의도 확장으로 매칭합니다.
+ * 카탈로그에 없는 한글 상황은 비우지 않고 112·119를 보여 줍니다.
  */
-export function searchNumbers(items: NumberItem[], query: string): NumberItem[] {
-  const q = query.trim();
-  if (!q) return items;
+const URGENT_FALLBACK_IDS = ['e3', 'e2'];
 
-  const tokens = expandQueryTokens(q);
-
+function rankedMatches(items: NumberItem[], query: string): NumberItem[] {
+  const tokens = expandQueryTokens(query);
   return items
     .map((item, originalIndex) => ({
       item,
       originalIndex,
-      score: scoreItem(item, q, tokens),
+      score: scoreItem(item, query, tokens),
     }))
     .filter((entry) => entry.score > 0)
     .sort((a, b) => b.score - a.score || a.originalIndex - b.originalIndex)
     .map(({ item }) => item);
+}
+
+export function isUrgentFallbackQuery(items: NumberItem[], query: string): boolean {
+  const q = query.trim();
+  if (!/[가-힣]/.test(q)) return false;
+  return rankedMatches(items, q).length === 0;
+}
+
+export function searchNumbers(items: NumberItem[], query: string): NumberItem[] {
+  const q = query.trim();
+  if (!q) return items;
+
+  const matched = rankedMatches(items, q);
+  if (matched.length > 0 || !/[가-힣]/.test(q)) return matched;
+
+  return URGENT_FALLBACK_IDS.flatMap((id) => {
+    const item = items.find((entry) => entry.id === id);
+    return item ? [item] : [];
+  });
 }

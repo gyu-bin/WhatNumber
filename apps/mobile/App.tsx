@@ -30,6 +30,7 @@ import {
   type NumberItem,
   type Situation,
   searchNumbers,
+  isUrgentFallbackQuery,
 } from '@whatnumber/shared';
 import { NumberRequestModal } from './components/NumberRequest';
 import { RegionalCallContent, RegionalCallSheet } from './components/RegionalCallSheet';
@@ -363,6 +364,11 @@ export default function App() {
     }
     return localizedNumbers;
   }, [query, isSearching, activeSituation, showFavorites, favorites, localizedNumbers]);
+
+  const searchFallback = useMemo(
+    () => isSearching && isUrgentFallbackQuery(localizedNumbers, query),
+    [isSearching, localizedNumbers, query],
+  );
 
   const groupByCategory = !isSearching && !activeSituation && !showFavorites;
   const isBrowseHome = groupByCategory;
@@ -711,6 +717,13 @@ export default function App() {
                   keyboardShouldPersistTaps="handled"
                   keyboardDismissMode="on-drag"
                   contentContainerStyle={styles.listContent}
+                  ListHeaderComponent={
+                    searchFallback ? (
+                      <View style={styles.tipBanner}>
+                        <Text style={styles.tipBannerText}>{t('home.urgentFallback')}</Text>
+                      </View>
+                    ) : null
+                  }
                   ListEmptyComponent={emptyComponent}
                   style={{ flex: 1 }}
                   renderItem={({ item, index, section }) => (

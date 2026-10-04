@@ -14,6 +14,8 @@ const CAT_IONICON: Record<Category, IconName> = {
   '고용/노동': 'construct-outline',
   '민원/행정': 'document-text-outline',
   '통신/디지털': 'phone-portrait-outline',
+  '안보': 'shield-outline',
+  '보건': 'medkit-outline',
 };
 
 /** 로고가 없을 때만 쓰는 Ionicons */

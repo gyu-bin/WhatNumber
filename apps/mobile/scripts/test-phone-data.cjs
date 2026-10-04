@@ -65,9 +65,22 @@ test('specific searches stay on the contact that actually owns the word', () => 
   assert.deepEqual(ids('112'), ['e3', 'c3']);
   assert.deepEqual(ids('129'), ['e1']);
   assert.ok(ids('120').includes('g2'));
-  assert.equal(ids('해경').length, 0);
+  assert.deepEqual(ids('해경'), ['e3', 'e2']);
   assert.ok(ids('사기').includes('l4'));
   assert.equal(ids('버스에서 물건을 놓고 내렸다')[0], 'c8');
+  const crash = ids('차 사고 났음');
+  const paraphrased = ids('자동차 박았어');
+  for (const id of ['c3', 'c4', 'org-ins-samsung-auto']) {
+    assert.ok(crash.includes(id), id);
+    assert.ok(paraphrased.includes(id), id);
+  }
+  assert.ok(!crash.includes('h2') && !crash.includes('h5'));
+  assert.ok(ids('차가 고장났어요').includes('c1'));
+  assert.ok(!ids('차가 고장났어요').includes('h5'));
+  assert.ok(ids('갑자기 아파요').includes('e2'));
+  assert.ok(ids('차사고').includes('c3'));
+  assert.deepEqual(ids('납치당함'), ['e3', 'e2']);
+  assert.deepEqual(ids('맛집'), ['e3', 'e2']);
 });
 test('all categories, scopes and details remain usable', () => {
   for (const category of data.CATEGORIES.filter((c) => c.id !== 'all')) assert(data.ALL_NUMBERS.some((n) => n.cat === category.id), category.id);

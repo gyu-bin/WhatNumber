@@ -16,7 +16,9 @@ export type CategoryTileId =
   | 'civic'
   | 'labor'
   | 'digital'
-  | 'other';
+  | 'security'
+  | 'health'
+  | 'urgent';
 
 /** Home tile id → existing Category (no new DB categories). */
 export const HOME_CATEGORY_TILES: {
@@ -29,10 +31,12 @@ export const HOME_CATEGORY_TILES: {
   { id: 'finance', category: '법률/금융', icon: 'card', accent: '#0D9488' },
   { id: 'housing', category: '주거/생활', icon: 'home', accent: '#E85D4C' },
   { id: 'family', category: '가족/복지', icon: 'people', accent: '#F59E0B' },
+  { id: 'health', category: '보건', icon: 'medkit', accent: '#0F766E' },
   { id: 'civic', category: '민원/행정', icon: 'document-text', accent: '#8B5CF6' },
   { id: 'labor', category: '고용/노동', icon: 'briefcase', accent: '#A16207' },
   { id: 'digital', category: '통신/디지털', icon: 'wifi', accent: '#2563EB' },
-  { id: 'other', category: '긴급/안전', icon: 'ellipsis-horizontal', accent: '#A78BFA' },
+  { id: 'security', category: '안보', icon: 'shield', accent: '#1E3A5F' },
+  { id: 'urgent', category: '긴급/안전', icon: 'alert', accent: '#D94F3D' },
 ];
 
 export function CategoryBrowse({

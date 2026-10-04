@@ -103,6 +103,8 @@
     "고용/노동": "Jobs · Labor",
     "민원/행정": "Civic · Admin",
     "통신/디지털": "Telecom · Digital",
+    "안보": "Security",
+    "보건": "Health",
     "filterA11y": "Categories",
     "favoritesA11y": "Favorites {{count}}"
   },
