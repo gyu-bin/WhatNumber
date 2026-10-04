@@ -32,6 +32,7 @@ import {
   searchNumbers,
   isUrgentFallbackQuery,
 } from '@whatnumber/shared';
+import { SplashAnimation } from './components/SplashAnimation';
 import { NumberRequestModal } from './components/NumberRequest';
 import { RegionalCallContent, RegionalCallSheet } from './components/RegionalCallSheet';
 import { callPhoneNumber, registerRegionalCallHandler } from './utils/phoneCall';
@@ -252,7 +253,7 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   /** Cold start only — never re-shown on background → foreground */
   const [showSplash, setShowSplash] = useState(true);
-  useOTAUpdates(!showSplash);
+  const ota = useOTAUpdates();
   useAdMobInit();
   const [tab, setTab] = useState<TabId>('home');
   const [settingsView, setSettingsView] = useState<SettingsView>('main');
@@ -314,18 +315,18 @@ export default function App() {
   // background → foreground on iOS (white screen).
   const openedGuideAfterSplash = useRef(false);
   useEffect(() => {
-    if (!nativeSplashHidden) return;
+    if (!nativeSplashHidden || ota !== 'clear') return;
     setShowSplash(false);
-  }, [nativeSplashHidden]);
+  }, [nativeSplashHidden, ota]);
   useEffect(() => {
     if (showSplash || !guides.ready || openedGuideAfterSplash.current) return;
     openedGuideAfterSplash.current = true;
     guides.afterSplash();
   }, [showSplash, guides.ready, guides.afterSplash]);
   useEffect(() => {
-    if (nativeSplashHidden) return;
+    if (ota === 'checking' || nativeSplashHidden) return;
     let cancelled = false;
-    // Expo Go는 native splash 대신 앱 아이콘을 보여줌 → 최대한 빨리 숨기고 커스텀 스플래시로 덮음
+    // 업데이트 확인이 끝나는 동안은 시스템 스플래시를 유지한다.
     try {
       SplashScreen.setOptions({ duration: 0, fade: false });
     } catch {
@@ -342,7 +343,7 @@ export default function App() {
       cancelled = true;
       cancelAnimationFrame(id);
     };
-  }, [nativeSplashHidden]);
+  }, [nativeSplashHidden, ota]);
 
   const isSearching = query.trim().length > 0;
   const visibleFavoritesCount = useMemo(
@@ -890,6 +891,9 @@ export default function App() {
         ) : null}
         {!showSplash && guides.active === 'emergency' ? (
           <EmergencyLocationGuide colors={themeColors} onClose={guides.close} onContinue={guides.continueEmergency} />
+        ) : null}
+        {ota === 'updating' ? (
+          <SplashAnimation theme={theme} active persist onFinish={() => undefined} />
         ) : null}
       </View>
     </SafeAreaProvider>

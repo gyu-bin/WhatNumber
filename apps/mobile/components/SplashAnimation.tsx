@@ -18,6 +18,8 @@ type Props = {
   theme: Theme;
   active: boolean;
   onFinish: () => void;
+  /** Stay on the logo after the intro. Used while an update download finishes. */
+  persist?: boolean;
 };
 
 /**
@@ -25,7 +27,7 @@ type Props = {
  * Uses separate Animated values (native-driver safe) — avoids a single
  * progress tree that can crash some release builds on reload.
  */
-export function SplashAnimation({ theme, active, onFinish }: Props) {
+export function SplashAnimation({ theme, active, onFinish, persist = false }: Props) {
   const colors = getThemeColors(theme);
   const bg = theme === 'dark' ? colors.bg : '#FCFBFA';
   const coral = colors.accent;
@@ -177,9 +179,10 @@ export function SplashAnimation({ theme, active, onFinish }: Props) {
       animations.push(expandAndLogo);
       expandAndLogo.start(({ finished: animFinished }) => {
         if (cancelled || !animFinished) {
-          finish();
+          if (!persist) finish();
           return;
         }
+        if (persist) return;
         startExit();
         setTimeout(finish, 340);
       });
@@ -194,9 +197,10 @@ export function SplashAnimation({ theme, active, onFinish }: Props) {
       animations.push(wait);
       wait.start(({ finished: animFinished }) => {
         if (cancelled || !animFinished) {
-          finish();
+          if (!persist) finish();
           return;
         }
+        if (persist) return;
         startExit();
         setTimeout(finish, 340);
       });
@@ -210,9 +214,9 @@ export function SplashAnimation({ theme, active, onFinish }: Props) {
         if (!cancelled) runFull();
       });
 
-    // The overlay must not sit on top of a ready app. iOS can drop the
-    // animation callback, so dismiss as soon as startup data is ready.
-    finish();
+    // A normal intro must not sit on top of a ready app. The update splash
+    // stays up until the new bundle reloads.
+    if (!persist) finish();
 
     return () => {
       cancelled = true;
@@ -229,6 +233,7 @@ export function SplashAnimation({ theme, active, onFinish }: Props) {
     overlayOpacity,
     tagOpacity,
     tagTY,
+    persist,
   ]);
 
   return (

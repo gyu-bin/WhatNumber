@@ -1,71 +1,105 @@
-import { useEffect, useRef } from 'react';
-import { AppState } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
 import * as Updates from 'expo-updates';
 
-/** Re-check while the app stays open, without hammering the update service. */
-const POLL_MS = 90_000;
-/** First paint + splash should finish before any network update work. */
-const AFTER_READY_MS = 2_500;
+export type OtaGate = 'checking' | 'clear' | 'updating';
+
+/** Don't hold the first splash if the update check never answers. */
+const CHECK_BUDGET_MS = 4_000;
+/** Branded splash length, so a fast download still plays it once. */
+const SPLASH_PLAY_MS = 1_800;
+const DOWNLOAD_BUDGET_MS = 20_000;
+
+const RELOAD_SCREEN = {
+  backgroundColor: '#FCFBFA',
+  fade: false,
+  spinner: { enabled: false, color: '#1C1917', size: 'small' as const },
+};
+
+function rejectAfter(ms: number): Promise<never> {
+  const timeout = new Promise<never>((_, reject) => {
+    setTimeout(() => reject(new Error('timeout')), ms);
+  });
+  // The loser of Promise.race still rejects. This keeps that from surfacing.
+  timeout.catch(() => undefined);
+  return timeout;
+}
+
 /**
- * Download an EAS Update without swapping the running bundle.
- *
- * `reloadAsync()` during or just after launch has left iOS on a white screen.
- * A fetched update is applied on the next cold start by the native updater.
- *
- * `enabled` should stay false until the cold-start splash is gone so the
- * download does not compete with first paint on slow networks.
+ * Check for an EAS Update while the native splash is still up.
+ * No update: return `clear` so the app opens.
+ * Update: return `updating` for a second splash, then reload into it.
  */
-export function useOTAUpdates(enabled = true) {
-  const busyRef = useRef(false);
-  const lastCheckRef = useRef(0);
+export function useOTAUpdates(): OtaGate {
+  const [phase, setPhase] = useState<OtaGate>(() =>
+    __DEV__ || !Updates.isEnabled ? 'clear' : 'checking',
+  );
   const { isStartupProcedureRunning, isUpdatePending } = Updates.useUpdates();
+  const pendingRef = useRef(isUpdatePending);
+  pendingRef.current = isUpdatePending;
+  const gaveUp = useRef(false);
 
   useEffect(() => {
-    if (!enabled || __DEV__ || !Updates.isEnabled || isStartupProcedureRunning) return;
+    if (phase !== 'checking') return;
+    const cap = setTimeout(() => {
+      gaveUp.current = true;
+      setPhase('clear');
+    }, CHECK_BUDGET_MS);
+    return () => clearTimeout(cap);
+  }, [phase]);
+
+  useEffect(() => {
+    if (__DEV__ || !Updates.isEnabled) return;
+    if (isStartupProcedureRunning || gaveUp.current) return;
 
     let cancelled = false;
 
-    const apply = async (force = false) => {
-      if (cancelled || busyRef.current) return;
-      if (AppState.currentState !== 'active') return;
-
-      const now = Date.now();
-      // Pending updates should apply promptly; otherwise throttle checks.
-      if (!force && !isUpdatePending && now - lastCheckRef.current < POLL_MS) return;
-
-      busyRef.current = true;
+    const run = async () => {
       try {
-        if (!isUpdatePending) {
-          lastCheckRef.current = now;
-          const check = await Updates.checkForUpdateAsync();
-          if (cancelled || !check.isAvailable) return;
-          const fetched = await Updates.fetchUpdateAsync();
-          if (cancelled || !fetched.isNew) return;
-        } else {
-          lastCheckRef.current = now;
+        const pending = pendingRef.current;
+        if (!pending) {
+          const check = await Promise.race([
+            Updates.checkForUpdateAsync(),
+            rejectAfter(CHECK_BUDGET_MS),
+          ]);
+          if (cancelled || gaveUp.current) return;
+          if (!check.isAvailable) {
+            setPhase('clear');
+            return;
+          }
         }
+
+        if (cancelled || gaveUp.current) return;
+        const shownAt = Date.now();
+        setPhase('updating');
+
+        if (!pending) {
+          const fetched = await Promise.race([
+            Updates.fetchUpdateAsync(),
+            rejectAfter(DOWNLOAD_BUDGET_MS),
+          ]);
+          if (cancelled || !fetched.isNew) {
+            setPhase('clear');
+            return;
+          }
+        }
+
+        const remain = SPLASH_PLAY_MS - (Date.now() - shownAt);
+        if (remain > 0) {
+          await new Promise((resolve) => setTimeout(resolve, remain));
+        }
+        if (cancelled) return;
+        await Updates.reloadAsync({ reloadScreenOptions: RELOAD_SCREEN });
       } catch {
-        // Offline or update service unavailable — keep the current bundle.
-      } finally {
-        busyRef.current = false;
+        // Offline or the check timed out. Open the bundle already on screen.
+        if (!cancelled) setPhase('clear');
       }
     };
 
-    const first = setTimeout(() => {
-      void apply(true);
-    }, AFTER_READY_MS);
-    const interval = setInterval(() => {
-      void apply(false);
-    }, POLL_MS);
-    const sub = AppState.addEventListener('change', (state) => {
-      if (state === 'active') void apply(false);
-    });
-
+    void run();
     return () => {
       cancelled = true;
-      clearTimeout(first);
-      clearInterval(interval);
-      sub.remove();
     };
-  }, [enabled, isStartupProcedureRunning, isUpdatePending]);
+  }, [isStartupProcedureRunning]);
+
+  return phase;
 }
