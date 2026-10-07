@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  AppState,
   Image,
   Modal,
   Platform,
@@ -324,9 +325,10 @@ export default function App() {
     guides.afterSplash();
   }, [showSplash, guides.ready, guides.afterSplash]);
   useEffect(() => {
-    if (ota === 'checking' || nativeSplashHidden) return;
+    if (nativeSplashHidden) return;
     let cancelled = false;
-    // 업데이트 확인이 끝나는 동안은 시스템 스플래시를 유지한다.
+    // 시스템 스플래시를 확인이 끝날 때까지 붙잡으면 iOS가 그 흰 층을 못 지울 때가 있다.
+    // 첫 프레임에 걷고, 그 자리는 아래 리액트 덮개가 이어서 막는다.
     try {
       SplashScreen.setOptions({ duration: 0, fade: false });
     } catch {
@@ -343,7 +345,14 @@ export default function App() {
       cancelled = true;
       cancelAnimationFrame(id);
     };
-  }, [nativeSplashHidden, ota]);
+  }, [nativeSplashHidden]);
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state !== 'active') return;
+      SplashScreen.hideAsync().catch(() => undefined);
+    });
+    return () => sub.remove();
+  }, []);
 
   const isSearching = query.trim().length > 0;
   const visibleFavoritesCount = useMemo(
@@ -891,6 +900,20 @@ export default function App() {
         ) : null}
         {!showSplash && guides.active === 'emergency' ? (
           <EmergencyLocationGuide colors={themeColors} onClose={guides.close} onContinue={guides.continueEmergency} />
+        ) : null}
+        {showSplash && ota !== 'updating' ? (
+          <View
+            pointerEvents="auto"
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              zIndex: 100,
+              backgroundColor: theme === 'dark' ? SPLASH_BG_DARK : SPLASH_BG_LIGHT,
+            }}
+          />
         ) : null}
         {ota === 'updating' ? (
           <SplashAnimation theme={theme} active persist onFinish={() => undefined} />
