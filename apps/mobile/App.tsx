@@ -324,35 +324,30 @@ export default function App() {
     openedGuideAfterSplash.current = true;
     guides.afterSplash();
   }, [showSplash, guides.ready, guides.afterSplash]);
+  const hideNativeSplash = useCallback(() => {
+    SplashScreen.hideAsync()
+      .catch(() => undefined)
+      .finally(() => setNativeSplashHidden(true));
+  }, []);
   useEffect(() => {
-    if (nativeSplashHidden) return;
-    let cancelled = false;
-    // 시스템 스플래시를 확인이 끝날 때까지 붙잡으면 iOS가 그 흰 층을 못 지울 때가 있다.
-    // 첫 프레임에 걷고, 그 자리는 아래 리액트 덮개가 이어서 막는다.
     try {
       SplashScreen.setOptions({ duration: 0, fade: false });
     } catch {
       /* older runtime */
     }
-    const id = requestAnimationFrame(() => {
-      SplashScreen.hideAsync()
-        .catch(() => undefined)
-        .finally(() => {
-          if (!cancelled) setNativeSplashHidden(true);
-        });
+    // iOS hide()는 스플래시 뷰가 생기기 전에 호출되면 그냥 무시한다.
+    // 첫 프레임 한 번만 지우면, 사용자를 끌어올려 앱이 다시 활성화될 때까지 흰 층이 남는다.
+    const timers = [0, 50, 150, 300, 600, 1200, 2000].map((ms) =>
+      setTimeout(hideNativeSplash, ms),
+    );
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') hideNativeSplash();
     });
     return () => {
-      cancelled = true;
-      cancelAnimationFrame(id);
+      timers.forEach(clearTimeout);
+      sub.remove();
     };
-  }, [nativeSplashHidden]);
-  useEffect(() => {
-    const sub = AppState.addEventListener('change', (state) => {
-      if (state !== 'active') return;
-      SplashScreen.hideAsync().catch(() => undefined);
-    });
-    return () => sub.remove();
-  }, []);
+  }, [hideNativeSplash]);
 
   const isSearching = query.trim().length > 0;
   const visibleFavoritesCount = useMemo(
@@ -636,6 +631,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <View
+          onLayout={hideNativeSplash}
           style={{
             flex: 1,
             backgroundColor: theme === 'dark' ? SPLASH_BG_DARK : SPLASH_BG_LIGHT,
@@ -648,7 +644,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
     <SafeAreaProvider>
-      <View style={{ flex: 1, backgroundColor: themeColors.bg }}>
+      <View onLayout={hideNativeSplash} style={{ flex: 1, backgroundColor: themeColors.bg }}>
         <View
           style={{ flex: 1 }}
           pointerEvents={showSplash || guides.transitioning || guides.active !== null ? 'none' : 'auto'}
