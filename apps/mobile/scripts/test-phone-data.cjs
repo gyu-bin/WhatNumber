@@ -21,8 +21,8 @@ function mockLoad(file, mocks) {
   return module.exports;
 }
 test('static data and details have no errors', () => assert.deepEqual(validate().errors, []));
-test('95 visible contacts, 74 public and 21 organizations', () => {
-  assert.equal(data.ALL_NUMBERS.length, 95); assert.equal(data.NUMBERS.length, 74); assert.equal(data.ORGANIZATION_CONTACTS.length, 21);
+test('136 visible contacts, 76 public and 60 organizations', () => {
+  assert.equal(data.ALL_NUMBERS.length, 136); assert.equal(data.NUMBERS.length, 76); assert.equal(data.ORGANIZATION_CONTACTS.length, 60);
 });
 test('every correction matches the implementation', () => {
   for (const [id, change] of Object.entries({ ...manifest.public, ...manifest.organizations })) {

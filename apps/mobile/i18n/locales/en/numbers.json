@@ -322,6 +322,16 @@
     "title": "Jeju Call Center",
     "desc": "Jeju daily life and administration"
   },
+  "g22": {
+    "title": "Chungcheongnam-do 120 Call Center",
+    "desc": "Chungnam provincial and daily life inquiries",
+    "tip": "Inside the province dial 120. From elsewhere or a mobile phone, dial 041-120. Weekdays 08:00–20:00."
+  },
+  "g23": {
+    "title": "Gyeongsangbuk-do Happiness Call Center",
+    "desc": "Gyeongbuk provincial and daily life inquiries",
+    "tip": "Weekdays 09:00–18:00, closed on holidays. Calls are charged."
+  },
   "g3": {
     "title": "Gov24 help",
     "desc": "Online services and certificate issuance"
@@ -434,5 +444,200 @@
     "title": "Woori Bank — loss & financial fraud",
     "desc": "Lost items and financial fraud reports",
     "tip": "IVR #-1: voice phishing; #-2-3: passbook or seal loss; #-2-5: security card or OTP loss."
+  },
+  "org-ins-sf-claim": {
+    "title": "Samsung Fire — claims",
+    "desc": "Non-auto insurance claims",
+    "tip": "IVR 5 is for non-auto claims, weekdays 09:00–18:00."
+  },
+  "org-ins-hi-claim": {
+    "title": "Hyundai Marine — claims",
+    "desc": "Illness and injury claims",
+    "tip": "IVR 3 is for illness and injury claims."
+  },
+  "org-ins-db-claim": {
+    "title": "DB Insurance — claims",
+    "desc": "Accident and claims center",
+    "tip": "Use this center for accident reports and claim guidance."
+  },
+  "org-ins-kb-claim": {
+    "title": "KB Insurance — claims",
+    "desc": "Policy, accidents, and claims",
+    "tip": "The main center handles policies, accident reports, and claims."
+  },
+  "org-ins-carrot": {
+    "title": "Carrot — accident & claims",
+    "desc": "Hanwha Carrot customer center",
+    "tip": "Auto accident reports are 24 hours. Other help is weekdays 09:00–18:00."
+  },
+  "org-ins-nhfire": {
+    "title": "NH Fire — claims",
+    "desc": "Accident reports and coverage",
+    "tip": "IVR 4 is for accident reports and coverage. Counselors answer weekdays 09:00–18:00."
+  },
+  "org-ins-nhfire-group": {
+    "title": "NH Fire — group injury",
+    "desc": "Group accident insurance",
+    "tip": "Use this number for group injury policies."
+  },
+  "org-ins-shinhanez": {
+    "title": "Shinhan EZ — claims",
+    "desc": "Claims by phone",
+    "tip": "A counselor can take a claim on this line."
+  },
+  "org-ins-kakaopay": {
+    "title": "Kakao Pay Insurance — claims",
+    "desc": "Claim help",
+    "tip": "Phone help and claims are weekdays 09:00–18:00."
+  },
+  "org-ins-samsunglife-claim": {
+    "title": "Samsung Life — accident claims",
+    "desc": "Dedicated accident-claim line",
+    "tip": "Dedicated accident-claim line. The main center is 1588-3114, weekdays 09:00–18:00."
+  },
+  "org-ins-samsunglife": {
+    "title": "Samsung Life — claims",
+    "desc": "Samsung Life customer center",
+    "tip": "Main call center, weekdays 09:00–18:00. Accident claims: 1577-4118."
+  },
+  "org-ins-hanwhalife": {
+    "title": "Hanwha Life — claims",
+    "desc": "Hanwha Life customer center",
+    "tip": "Counselors answer weekdays 09:00–18:00. The menu includes surgery, hospital, outpatient, and medical claims."
+  },
+  "org-ins-kyobo-claim": {
+    "title": "Kyobo Life — accident claims",
+    "desc": "Accident-claim center",
+    "tip": "Accident-claim center. On the main line 1588-1001, press 2 for claims."
+  },
+  "org-ins-kyobo": {
+    "title": "Kyobo Life — claims",
+    "desc": "Kyobo Life customer center",
+    "tip": "IVR 2 is for claims. The accident-claim line is 1588-1810."
+  },
+  "org-ins-shinhanlife": {
+    "title": "Shinhan Life — claims",
+    "desc": "Shinhan Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-miraeasset": {
+    "title": "Mirae Asset Life — claims",
+    "desc": "Mirae Asset Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-dongyang": {
+    "title": "Dongyang Life — claims",
+    "desc": "Dongyang Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-nhlife-claim": {
+    "title": "NH Life — accident claims",
+    "desc": "Accident-claim counseling",
+    "tip": "Accident-claim line. General help is 1544-4000, weekdays 09:00–18:00."
+  },
+  "org-ins-nhlife": {
+    "title": "NH Life — claims",
+    "desc": "NH Life customer center",
+    "tip": "General line. Accident claims: 1833-4100. Counselors answer weekdays 09:00–18:00."
+  },
+  "org-ins-metlife": {
+    "title": "MetLife — claims",
+    "desc": "MetLife customer center",
+    "tip": "The call center is open weekdays 09:00–18:00."
+  },
+  "org-ins-kblife": {
+    "title": "KB Life — claims",
+    "desc": "KB Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-lina": {
+    "title": "Lina Life — claims",
+    "desc": "Lina Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-aia": {
+    "title": "AIA Life — claims",
+    "desc": "AIA Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-heungkuklife": {
+    "title": "Heungkuk Life — claims",
+    "desc": "Heungkuk Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-dblife": {
+    "title": "DB Life — claims",
+    "desc": "DB Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-kdblife": {
+    "title": "KDB Life — claims",
+    "desc": "KDB Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-fubon": {
+    "title": "Fubon Hyundai Life — claims",
+    "desc": "Fubon Hyundai Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-hanalife": {
+    "title": "Hana Life — claims",
+    "desc": "Hana Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-abl": {
+    "title": "ABL Life — claims",
+    "desc": "ABL Life customer center",
+    "tip": "Hospital and surgery claims: 1588-4404, weekdays 09:00–18:00."
+  },
+  "org-ins-chubb": {
+    "title": "Chubb Life — claims",
+    "desc": "Chubb Life customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-lifeplanet": {
+    "title": "Kyobo Lifeplanet — claims",
+    "desc": "Kyobo Lifeplanet customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-cardif": {
+    "title": "BNP Paribas Cardif — claims",
+    "desc": "BNP Paribas Cardif customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-ibk": {
+    "title": "IBK Pension — claims",
+    "desc": "IBK Pension customer center",
+    "tip": "Call this center about claims and your policy."
+  },
+  "org-ins-dgblife": {
+    "title": "iM Life — claims",
+    "desc": "Formerly DGB Life",
+    "tip": "Weekdays 09:00–18:00. The former name is DGB Life."
+  },
+  "org-ins-epost": {
+    "title": "Korea Post Insurance — claims",
+    "desc": "Post insurance customer center",
+    "tip": "#2 is accident claims. Menu 3 is surgery, hospital, and medical claims. Weekdays 09:00–18:00, closed on bank holidays."
+  },
+  "org-ins-hana-claim": {
+    "title": "Hana Insurance — claims",
+    "desc": "Driver, illness, and injury claims",
+    "tip": "IVR 6 is for driver, illness, and group injury claims. Other help is weekdays 09:00–18:00."
+  },
+  "org-ins-linanonlife": {
+    "title": "Lina General — claims",
+    "desc": "Lina General customer center",
+    "tip": "IVR 1 explains claims. 7-1 connects a claims counselor. Weekdays 09:00–18:00."
+  },
+  "org-ins-aig": {
+    "title": "AIG — claims",
+    "desc": "Policy and claims",
+    "tip": "Policy and claims help, weekdays 09:00–18:00."
+  },
+  "org-ins-abl-claim": {
+    "title": "ABL Life — accident claims",
+    "desc": "Hospital and surgery claims",
+    "tip": "Hospital and surgery claims, weekdays 09:00–18:00. The main line is 1588-6500."
   }
 }
